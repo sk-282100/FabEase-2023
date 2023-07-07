@@ -89,7 +89,7 @@ namespace FanEase.Repository.Repositories
                 videos = connection.Query<Video>(query).ToList();
                 
             }
-
+             
             return videos;
         }
 
