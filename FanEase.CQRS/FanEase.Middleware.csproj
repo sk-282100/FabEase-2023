@@ -19,7 +19,6 @@
     <Folder Include="Data\Handler\ForCreatorDashBoard\" />
     <Folder Include="Data\Handler\ForPlayer\" />
     <Folder Include="Data\Handler\ForTeam\" />
-    <Folder Include="Data\Handler\ForTemplateDetails\" />
     <Folder Include="Data\Handler\ForTemplate\" />
     <Folder Include="Data\Handler\ForUser\" />
     <Folder Include="Data\Queries\ForAdvertisement\" />

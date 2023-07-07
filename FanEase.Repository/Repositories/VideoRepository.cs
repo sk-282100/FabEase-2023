@@ -2,6 +2,7 @@
 using FanEase.Entity.Models;
 using FanEase.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace FanEase.Repository.Repositories
 {
@@ -10,18 +11,10 @@ namespace FanEase.Repository.Repositories
         string connectionString = "Data Source=DESKTOP-4C8CQ3J\\SQLEXPRESS;Database=FanEase;Integrated Security=True;Trust Server Certificate=True;";
         public async Task<bool> AddVideo(Video video)
         {
-            string query = $"INSERT INTO Videos (videoImage, videoThumbnil, GoLive_DateTime, title, " +
-                $"description, videoType, videoPlayer, videoURL, videofile, duration, isPublished, " +
-                $"isActive, views, likes, dislikes, skipped, templateId, userId, campaignId) " +
-                $"VALUES (@VideoImage,@VideoThumbnil,@GoLiveDateTime,@Title,@Description," +
-                $"@VideoType,@VideoPlayer,@VideoURL,@VideoFile,@Duration,@IsPublished,@IsActive,@Views,@Likes," +
-                $"@Dislikes,@Skipped,@TemplateId,@UserId,@CampaignId)";
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-
-                var result = connection.Execute(query,video);
+                var result = connection.Execute("AddVideoProcedure", video,commandType:CommandType.StoredProcedure);
 
                 if (result > 0)
                     return true;
@@ -32,18 +25,17 @@ namespace FanEase.Repository.Repositories
 
         public async Task<bool> DeleteVideo(int id)
         {
-            string query1 = $"select * from Videos where videoId={id}";
-            string query2 = $"delete from Videos where videoId={id}";
+            
             Video video = new Video();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                video = connection.Query<Video>(query1).FirstOrDefault();
+                video = connection.Query<Video>("GetVideoByIdProcedure", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault(); 
                 if(video!=null)
                 {
-                    var result=connection.Execute(query2);
+                    var result = connection.Execute("DeleteVideoProcedure", new {id}, commandType: CommandType.StoredProcedure);
                     if (result > 0)
                         return true;
                 }
@@ -55,19 +47,17 @@ namespace FanEase.Repository.Repositories
 
         public async Task<bool> EditVideo(Video video)
         {
-            string query = $"UPDATE Videos SET videoImage = @VideoImage, videoThumbnil = @VideoThumbnil, " +
-                $"GoLive_DateTime = @GoLiveDateTime, " +
-                $"title = @Title, description = @Description, videoType = @videoType," +
-                $" videoPlayer = @VideoPlayer, videoURL = @VideoURL, videoFile = @VideoFile, " +
-                $"duration = @Duration, isPublished = @IsPublished, " +
-                $"isActive = @IsActive, views = @Views, likes = @Likes, " +
-                $"Dislikes = @dislikes, skipped = @Skipped, templateId = @TemplateId, " +
-                $"userId = @UserId, campaignId = @CampaignId WHERE videoId = @VideoId";
+            var parameters = new {
+                VideoImage=video.VideoImage,
+                VideoThumbnil=video.VideoThumbnil,GoLiveDateTime = video.GoLiveDateTime,Title = video.Title,
+            Description = video.Description,VideoType = video.VideoType,VideoPlayer = video.VideoPlayer,VideoURL = video.VideoURL,VideoFile = video.VideoFile,Duration = video.Duration,
+            IsPublished = video.IsPublished,IsActive = video.IsActive,Views = video.Views,Likes = video.Likes,Dislikes = video.Dislikes,Skipped = video.Skipped,TemplateId = video.TemplateId,
+            UserId = video.UserId,CampaignId = video.CampaignId,VideoId = video.VideoId};
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-               var result = connection.Execute(query);
+               var result = connection.Execute("EditVideoProcedure", parameters, commandType: CommandType.StoredProcedure);
                 if (result > 0)
                     return true;
                 return false;
@@ -80,14 +70,10 @@ namespace FanEase.Repository.Repositories
         {
             List<Video> videos = new List<Video>();
 
-            string query = "select * from Videos";
-
             using(SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-
-                videos = connection.Query<Video>(query).ToList();
-                
+                videos = connection.Query<Video>("GetAllVideosProcedure",commandType:CommandType.StoredProcedure).ToList();
             }
 
             return videos;
@@ -97,13 +83,11 @@ namespace FanEase.Repository.Repositories
         {
             Video video = new Video();
 
-            string query = $"select * from Videos where videoId={id}";
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                video = connection.Query<Video>(query).FirstOrDefault();
+                video = connection.Query<Video>("GetVideoByIdProcedure", new {id},commandType:CommandType.StoredProcedure).FirstOrDefault();
 
             }
 

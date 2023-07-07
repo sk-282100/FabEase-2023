@@ -18,6 +18,8 @@ namespace FanEase.Repository
         {
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<IVideoService, VideoService>();
+            services.AddScoped<ITemplateDetailsRepository, TemplateDetailsRepository>();
+            services.AddScoped<ITemplateDetailsService, TemplateDetailsService>();
             return services;
         }
     }

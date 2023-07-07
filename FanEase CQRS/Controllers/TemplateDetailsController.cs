@@ -54,5 +54,17 @@ namespace FanEase_CQRS.Controllers
             }
             return BadRequest();
         }
+
+        [HttpDelete("id")]
+        public async Task<IActionResult> DeleteTempletDetails(int id)
+        {
+            bool status = await _mediator.Send(new DeleteTemplateDetailsCommand(id));
+
+            if (status)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
     }
 }

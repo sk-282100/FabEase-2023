@@ -165,3 +165,5 @@ C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanE
 C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase CQRS\obj\Debug\net6.0\FanEase.API.genruntimeconfig.cache
 C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase CQRS\obj\Debug\net6.0\ref\FanEase.API.dll
 C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase CQRS\bin\Debug\net6.0\MediatR.Contracts.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase CQRS\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase CQRS\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
