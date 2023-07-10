@@ -1,4 +1,5 @@
 ﻿
+using ExceptionHandling;
 using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Repository.Interfaces;
 using MediatR;
@@ -10,18 +11,19 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForVideo
 {
-    public class EditVideoHandler : IRequestHandler<EditVideoCommand,bool>
+    public class EditVideoHandler : IRequestHandler<EditVideoCommand,ResponseModel<bool>>
     {
-        readonly IVideoService _videoService;
+        readonly IVideoRepository _videoRepository;
 
-        public EditVideoHandler(IVideoService videoService)
+        public EditVideoHandler(IVideoRepository videoRepository)
         {
-            _videoService = videoService;
+            _videoRepository = videoRepository;
         }
 
-        public async Task<bool> Handle(EditVideoCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<bool>> Handle(EditVideoCommand request, CancellationToken cancellationToken)
         {
-            return await _videoService.EditVideo(request.Video);
+            bool status =  await _videoRepository.EditVideo(request.Video);
+            return new ResponseModel<bool> { data = status, message = "video Added" };
         }
     }
 }

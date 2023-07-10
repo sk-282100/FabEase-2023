@@ -1,4 +1,5 @@
-﻿using FanEase.Middleware.Data.Commands.ForTemplateDetails;
+﻿using ExceptionHandling;
+using FanEase.Middleware.Data.Commands.ForTemplateDetails;
 using FanEase.Repository.Interfaces;
 using MediatR;
 using System;
@@ -9,18 +10,19 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForTemplateDetails
 {
-    public class DeleteTemplateDetailsHandler : IRequestHandler<DeleteTemplateDetailsCommand, bool>
+    public class DeleteTemplateDetailsHandler : IRequestHandler<DeleteTemplateDetailsCommand, ResponseModel<bool>>
     {
-        readonly ITemplateDetailsService _templateDetailsService;
+        readonly ITemplateDetailsRepository _templateDetailsRepository;
 
-        public DeleteTemplateDetailsHandler(ITemplateDetailsService templateDetailsService)
+        public DeleteTemplateDetailsHandler(ITemplateDetailsRepository templateDetailsRepository)
         {
-            _templateDetailsService = templateDetailsService;
+            _templateDetailsRepository = templateDetailsRepository;
         }
 
-        public async Task<bool> Handle(DeleteTemplateDetailsCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<bool>> Handle(DeleteTemplateDetailsCommand request, CancellationToken cancellationToken)
         {
-            return await _templateDetailsService.DeleteTemplateDetails(request.Id);
+            bool staus =  await _templateDetailsRepository.DeleteTemplateDetails(request.Id);
+            return new ResponseModel<bool> { data = staus, message = "TemplateDetails Deleted" };
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FanEase.Entity.Models;
+﻿using ExceptionHandling;
+using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Queries.ForTemplateDetails;
 using FanEase.Repository.Interfaces;
 using MediatR;
@@ -10,17 +11,18 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForTemplateDetails
 {
-    public class GetAllTemplateDetailsHandler : IRequestHandler<GetAllTemplateDetailsQuery,List<TemplateDetail>>
+    public class GetAllTemplateDetailsHandler : IRequestHandler<GetAllTemplateDetailsQuery,ResponseModel<List<TemplateDetail>>>
     {
-        readonly ITemplateDetailsService _templateDetailsService;
-        public GetAllTemplateDetailsHandler(ITemplateDetailsService templateDetailsService)
+        readonly ITemplateDetailsRepository _templateDetailsRepository;
+        public GetAllTemplateDetailsHandler(ITemplateDetailsRepository templateDetailsRepository)
         {
-             _templateDetailsService = templateDetailsService;
+             _templateDetailsRepository = templateDetailsRepository;
         }
 
-        public async Task<List<TemplateDetail>> Handle(GetAllTemplateDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<List<TemplateDetail>>> Handle(GetAllTemplateDetailsQuery request, CancellationToken cancellationToken)
         {
-            return await _templateDetailsService.GetAllTempletDetails();
+            List<TemplateDetail> templetdetails =  await _templateDetailsRepository.GetAllTempletDetails();
+            return new ResponseModel<List<TemplateDetail>>() { data= templetdetails, message="data received" };
         }
     }
 }

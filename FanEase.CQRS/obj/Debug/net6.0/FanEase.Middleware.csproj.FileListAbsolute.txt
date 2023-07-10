@@ -29,3 +29,5 @@ C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanE
 C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\refint\FanEase.Middleware.dll
 C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.pdb
 C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\ref\FanEase.Middleware.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.ExceptionHandling.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.ExceptionHandling.pdb

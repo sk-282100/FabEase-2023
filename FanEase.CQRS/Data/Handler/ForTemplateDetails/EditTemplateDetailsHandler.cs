@@ -1,4 +1,5 @@
-﻿using FanEase.Middleware.Data.Commands.ForTemplateDetails;
+﻿using ExceptionHandling;
+using FanEase.Middleware.Data.Commands.ForTemplateDetails;
 using FanEase.Repository.Interfaces;
 using MediatR;
 using MediatR.Pipeline;
@@ -10,18 +11,19 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForTemplateDetails
 {
-    public class EditTemplateDetailsHandler : IRequestHandler<EditTemplateDetailsCommand,bool>
+    public class EditTemplateDetailsHandler : IRequestHandler<EditTemplateDetailsCommand,ResponseModel<bool>>
     {
-        readonly ITemplateDetailsService _templateDetailsService;
+        readonly ITemplateDetailsRepository _templateDetailsRepository;
 
-        public EditTemplateDetailsHandler(ITemplateDetailsService templateDetailsService)
+        public EditTemplateDetailsHandler(ITemplateDetailsRepository templateDetailsRepository)
         {
-            _templateDetailsService = templateDetailsService;
+            _templateDetailsRepository = templateDetailsRepository;
         }
 
-        public async Task<bool> Handle(EditTemplateDetailsCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<bool>> Handle(EditTemplateDetailsCommand request, CancellationToken cancellationToken)
         {
-            return await _templateDetailsService.EditTemplateDetails(request.TemplateDetail);
+            bool status =  await _templateDetailsRepository.EditTemplateDetails(request.TemplateDetail);
+            return new ResponseModel<bool> { data=status, message="TemplateDetails Updated" };
         }
     }
 }

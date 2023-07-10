@@ -1,7 +1,10 @@
 ﻿
+using ExceptionHandling;
 using FanEase.Entity.Models;
+
 using FanEase.Middleware.Data.Queries.ForVideo;
 using FanEase.Repository.Interfaces;
+
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,19 +12,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace FanEase.Middleware.Data.Handler.ForVideo
 {
-    public class GetAllVideosHandler : IRequestHandler<GetAllVideosQuery, List<Video>>
+    public class GetAllVideosHandler : IRequestHandler<GetAllVideosQuery, ResponseModel<List<Video>>>
     {
-        readonly IVideoService _videoService;
+        readonly IVideoRepository _videoRepository;
 
-        public GetAllVideosHandler(IVideoService videoService)
+        public GetAllVideosHandler(IVideoRepository videoRepository)
         {
-            _videoService = videoService;
+            _videoRepository = videoRepository;
         }
-        public async Task<List<Video>> Handle(GetAllVideosQuery request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<List<Video>>> Handle(GetAllVideosQuery request, CancellationToken cancellationToken)
         {
-            return await _videoService.GetAllVideos();
+            List<Video> videos = await _videoRepository.GetAllVideos();
+            return new ResponseModel<List<Video>>() { data=videos, message="data received"};
         }
     }
 }

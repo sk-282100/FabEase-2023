@@ -2,13 +2,21 @@
 using FanEase.Entity.Models;
 using FanEase.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System.Data;
 
 namespace FanEase.Repository.Repositories
 {
     public class VideoRepository : IVideoRepository
     {
-        string connectionString = "Data Source=DESKTOP-4C8CQ3J\\SQLEXPRESS;Database=FanEase;Integrated Security=True;Trust Server Certificate=True;";
+
+        readonly IConfiguration _configuration;
+        string connectionString;
+        public VideoRepository(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            connectionString = _configuration.GetConnectionString("Key");
+        }
         public async Task<bool> AddVideo(Video video)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -63,7 +71,6 @@ namespace FanEase.Repository.Repositories
                 return false;
             }
             
-
         }
 
         public async Task<List<Video>> GetAllVideos()

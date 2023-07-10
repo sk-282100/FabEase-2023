@@ -1,4 +1,5 @@
 ﻿
+using ExceptionHandling;
 using FanEase.Entity.Models;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Queries.ForTemplateDetails
 {
-    public class GetTemplateDetailsByIdQuery : IRequest<TemplateDetail>
+    public class GetTemplateDetailsByIdQuery : IRequest<ResponseModel<TemplateDetail>>
     {
         public int Id { get; set; }
 

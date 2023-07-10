@@ -13,31 +13,31 @@ namespace FanEase.Repository.Services
         {
             _videoRepository = videoRepository;
         }
-        public Task<bool> AddVideo(Video video)
+        public async Task<bool> AddVideo(Video video)
         {
         
-            return _videoRepository.AddVideo(video);  
+            return await _videoRepository.AddVideo(video);  
             
         }
 
-        public Task<bool> DeleteVideo(int id)
+        public async Task<bool> DeleteVideo(int id)
         {
-            return _videoRepository.DeleteVideo(id);
+            return await _videoRepository.DeleteVideo(id);
         }
 
-        public Task<bool> EditVideo(Video video)
+        public async Task<bool> EditVideo(Video video)
         {
-           return _videoRepository.EditVideo(video);
+           return await _videoRepository.EditVideo(video);
         }
 
-        public Task<List<Video>> GetAllVideos()
+        public async Task<List<Video>> GetAllVideos()
         {
-            return _videoRepository.GetAllVideos();
+            return await _videoRepository.GetAllVideos();
         }
 
-        public Task<Video> GetVideoById(int id)
+        public async Task<Video> GetVideoById(int id)
         {
-            return _videoRepository.GetVideoById(id);
+            return await _videoRepository.GetVideoById(id);
         }
     }
 }

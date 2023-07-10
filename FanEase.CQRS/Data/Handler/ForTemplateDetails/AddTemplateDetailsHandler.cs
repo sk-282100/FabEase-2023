@@ -1,4 +1,5 @@
-﻿using FanEase.Middleware.Data.Commands.ForTemplateDetails;
+﻿using ExceptionHandling;
+using FanEase.Middleware.Data.Commands.ForTemplateDetails;
 using FanEase.Repository.Interfaces;
 using MediatR;
 using System;
@@ -9,17 +10,18 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForTemplateDetails
 {
-    public class AddTemplateDetailsHandler : IRequestHandler<AddTemplateDetailsCommand, bool>
+    public class AddTemplateDetailsHandler : IRequestHandler<AddTemplateDetailsCommand, ResponseModel<bool>>
     {
-        readonly ITemplateDetailsService _templateDetailsService;
+        readonly ITemplateDetailsRepository _templateDetailsRepository;
 
-        public AddTemplateDetailsHandler(ITemplateDetailsService templateDetailsService)
+        public AddTemplateDetailsHandler(ITemplateDetailsRepository templateDetailsRepository)
         {
-            _templateDetailsService = templateDetailsService;
+            _templateDetailsRepository = templateDetailsRepository;
         }
-        public async Task<bool> Handle(AddTemplateDetailsCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<bool>> Handle(AddTemplateDetailsCommand request, CancellationToken cancellationToken)
         {
-            return await _templateDetailsService.AddTemplateDetails(request.TemplateDetail);
+            bool status =  await _templateDetailsRepository.AddTemplateDetails(request.TemplateDetail);
+            return new ResponseModel<bool>() { data = status, message = "TemplateDetails Added" };
         }
     }
 }

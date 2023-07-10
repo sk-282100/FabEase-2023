@@ -2,14 +2,13 @@
 using MediatR;
 using FanEase.Repository;
 using FanEase.Middleware;
-
-
+using FanEase.ExceptionHandling.Aspect_Oriented_Programming;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.RespectBrowserAcceptHeader = true) ;
 builder.Services.AddMediatR(typeof(Program).Assembly);
 builder.Services.RegisterRepositoryLayer();
 builder.Services.RegisterMiddlewareLayer();
@@ -28,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware(typeof(GlobalErrorHandlingMiddleware));
 
 app.UseHttpsRedirection();
 

@@ -11,16 +11,18 @@ namespace FanEase.Repository.Repositories
     public class TemplateDetailsRepository : ITemplateDetailsRepository
     {
         readonly IConfiguration _configuration;
+        string connectionString;
 
         public TemplateDetailsRepository(IConfiguration configuration)
         {
             _configuration = configuration;
+            connectionString = _configuration.GetConnectionString("Key");
         }
 
         
         public async Task<bool> AddTemplateDetails(TemplateDetail templateDetail)
         {
-            string connectionString = _configuration.GetConnectionString("Key");
+            
             using(SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -33,7 +35,7 @@ namespace FanEase.Repository.Repositories
 
         public async Task<bool> DeleteTemplateDetails(int id)
         {
-            string connectionString = _configuration.GetConnectionString("Key");
+            
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -51,7 +53,7 @@ namespace FanEase.Repository.Repositories
 
         public async Task<bool> EditTemplateDetails(TemplateDetail templateDetail)
         {
-            string connectionString = _configuration.GetConnectionString("Key");
+            
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -79,7 +81,7 @@ namespace FanEase.Repository.Repositories
 
         public async Task<TemplateDetail> GetTemplateDetailsById(int id)
         {
-            string connectionString = _configuration.GetConnectionString("Key");
+            
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

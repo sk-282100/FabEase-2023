@@ -1,4 +1,5 @@
 ﻿
+using ExceptionHandling;
 using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Repository.Interfaces;
 using MediatR;
@@ -10,18 +11,19 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForVideo
 {
-    public class DeleteVideoHandler : IRequestHandler<DeleteVideoCommand,bool>
+    public class DeleteVideoHandler : IRequestHandler<DeleteVideoCommand,ResponseModel<bool>>
     {
-        readonly IVideoService _videoService;
+        readonly IVideoRepository _videoRepository;
 
-        public DeleteVideoHandler(IVideoService videoService)
+        public DeleteVideoHandler(IVideoRepository videoRepository)
         {
-            _videoService = videoService;
+            _videoRepository = videoRepository;
         }
 
-        public async Task<bool> Handle(DeleteVideoCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<bool>> Handle(DeleteVideoCommand request, CancellationToken cancellationToken)
         {
-            return await _videoService.DeleteVideo(request.Id);
+            bool status =  await _videoRepository.DeleteVideo(request.Id);
+            return new ResponseModel<bool> { data = status, message = "video deleted" };
         }
     }
 }
