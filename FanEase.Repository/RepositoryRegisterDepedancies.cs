@@ -17,7 +17,11 @@ namespace FanEase.Repository
         public static IServiceCollection RegisterRepositoryLayer(this IServiceCollection services)
         {
             services.AddScoped<IVideoRepository, VideoRepository>();
-            services.AddScoped<IVideoService, VideoService>();
+            //services.AddScoped<IVideoService, VideoService>();
+            services.AddScoped<ITemplateDetailsRepository, TemplateDetailsRepository>();
+            //services.AddScoped<ITemplateDetailsService, TemplateDetailsService>();
+            services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
+            //services.AddScoped<IAdvertisementService, AdvertisementServicecs>();
             return services;
         }
     }

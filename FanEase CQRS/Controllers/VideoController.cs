@@ -1,5 +1,7 @@
 ﻿
+using ExceptionHandling;
 using FanEase.Entity.Models;
+using FanEase.Middleware;
 using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Middleware.Data.Queries.ForVideo;
 using MediatR;
@@ -23,7 +25,8 @@ namespace FanEase_CQRS.Controllers
         public async Task<IActionResult> GetAllVideos()
         {
 
-            List<Video> videos = await _meadiator.Send(new GetAllVideosQuery());
+            ResponseModel<List<Video>> videos = await _meadiator.Send(new GetAllVideosQuery());
+            
             return Ok(videos);
 
         }
@@ -31,7 +34,7 @@ namespace FanEase_CQRS.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVideoById(int id) 
         {
-            Video video = await _meadiator.Send(new GetVideoByIdQuery(id));
+            ResponseModel<Video> video = await _meadiator.Send(new GetVideoByIdQuery(id));
             if(video != null) 
             return Ok(video);
             return NotFound();
@@ -40,8 +43,8 @@ namespace FanEase_CQRS.Controllers
         [HttpPost]
         public async Task<IActionResult> AddVideo(Video video)
         {
-            bool status = await _meadiator.Send(new AddVideoCommand(video));
-            if (status)
+            ResponseModel<bool> status = await _meadiator.Send(new AddVideoCommand(video));
+            if (status.data)
             {
                 return Created("api/Created", status);
             }
@@ -51,8 +54,8 @@ namespace FanEase_CQRS.Controllers
         [HttpPut]
         public async Task<IActionResult> EditVideo(Video video)
         {
-            bool status = await _meadiator.Send(new EditVideoCommand(video));
-            if(status)
+            ResponseModel<bool> status = await _meadiator.Send(new EditVideoCommand(video));
+            if(status.data)
             {
                 return Ok(video);
             }
@@ -63,8 +66,8 @@ namespace FanEase_CQRS.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVideo(int id)
         {
-            bool status = await _meadiator.Send(new DeleteVideoCommand(id));
-            if (status)
+            ResponseModel<bool> status = await _meadiator.Send(new DeleteVideoCommand(id));
+            if (status.data)
             {
                 return Ok();
             }

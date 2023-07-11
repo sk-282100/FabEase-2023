@@ -10,7 +10,7 @@ namespace FanEase.Entity.Models
 {
     public class TemplateDetail
     {
-        public int TemplateDetailId { get; set; }
+        public int TemplateDetailsId { get; set; }
 
         public string ThumbnilImage { get; set; }
 

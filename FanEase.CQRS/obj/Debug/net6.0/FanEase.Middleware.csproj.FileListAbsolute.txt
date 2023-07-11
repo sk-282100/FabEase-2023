@@ -1,0 +1,33 @@
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\bin\Debug\net6.0\FanEase.Middleware.deps.json
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\bin\Debug\net6.0\FanEase.Middleware.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\bin\Debug\net6.0\FanEase.Middleware.pdb
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.AssemblyInfo.cs
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\obj\Debug\net6.0\refint\FanEase.Middleware.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.pdb
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase CQRS\FanEase.CQRS\obj\Debug\net6.0\ref\FanEase.Middleware.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.Middleware.deps.json
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.Middleware.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.Middleware.pdb
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.Entity.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.HelperClasses.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.Repository.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.Entity.pdb
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.HelperClasses.pdb
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.Repository.pdb
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.AssemblyInfo.cs
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.csproj.CopyComplete
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\refint\FanEase.Middleware.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\FanEase.Middleware.pdb
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\obj\Debug\net6.0\ref\FanEase.Middleware.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.ExceptionHandling.dll
+C:\Users\User\Desktop\BoilerPlate Adoption RoadMap\RoadMap Projects\FanEase\FanEase.CQRS\bin\Debug\net6.0\FanEase.ExceptionHandling.pdb

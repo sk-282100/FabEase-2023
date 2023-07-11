@@ -1,4 +1,5 @@
 ﻿
+using ExceptionHandling;
 using FanEase.Entity.Models;
 using MediatR;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace FanEase.Middleware.Data.Commands.ForVideo
 {
 
-    public class AddVideoCommand : IRequest<bool>
+    public class AddVideoCommand : IRequest<ResponseModel<bool>>
     {
         public AddVideoCommand(Video video)
         {

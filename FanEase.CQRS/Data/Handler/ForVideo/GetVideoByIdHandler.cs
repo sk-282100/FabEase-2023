@@ -1,4 +1,5 @@
 ﻿
+using ExceptionHandling;
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Queries.ForVideo;
 using FanEase.Repository.Interfaces;
@@ -11,17 +12,18 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForVideo
 {
-    public class GetVideoByIdHandler : IRequestHandler<GetVideoByIdQuery, Video>
+    public class GetVideoByIdHandler : IRequestHandler<GetVideoByIdQuery, ResponseModel<Video>>
     {
-        readonly IVideoService _videoService;
+        readonly IVideoRepository _videoRepository;
 
-        public GetVideoByIdHandler(IVideoService videoService)
+        public GetVideoByIdHandler(IVideoRepository videoRepository)
         {
-            _videoService = videoService;
+            _videoRepository = videoRepository;
         }
-        public async Task<Video> Handle(GetVideoByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<Video>> Handle(GetVideoByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _videoService.GetVideoById(request.Id);
+           Video video = await _videoRepository.GetVideoById(request.Id);
+            return new ResponseModel<Video> { data=video, message="data received" };
         }
     }
 }

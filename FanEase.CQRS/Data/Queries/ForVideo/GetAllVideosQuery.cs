@@ -1,5 +1,8 @@
 ﻿
+using ExceptionHandling;
 using FanEase.Entity.Models;
+
+
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Queries.ForVideo
 {
-    public class GetAllVideosQuery : IRequest<List<Video>>
+    public class GetAllVideosQuery : IRequest<ResponseModel<List<Video>>>
     {
 
     }

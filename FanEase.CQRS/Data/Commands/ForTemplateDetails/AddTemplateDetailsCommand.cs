@@ -1,4 +1,6 @@
 ﻿
+using Azure;
+using ExceptionHandling;
 using FanEase.Entity.Models;
 using FanEase.HelperClasses.Constants;
 using MediatR;
@@ -10,22 +12,13 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Commands.ForTemplateDetails
 {
-    public class AddTemplateDetailsCommand : IRequest<bool>
+    public class AddTemplateDetailsCommand : IRequest<ResponseModel<bool>>
     {
         public AddTemplateDetailsCommand(TemplateDetail templateDetail)
         {
-            TemplateDetailId = templateDetail.TemplateDetailId;
-            ThumbnilImage = templateDetail.ThumbnilImage;
-            TemplateTitle = templateDetail.TemplateTitle;
-            TemplateType = templateDetail.TemplateType;
+            TemplateDetail = templateDetail;
         }
 
-        public int TemplateDetailId { get; set; }
-
-        public string ThumbnilImage { get; set; }
-
-        public string TemplateTitle { get; set; }
-
-        public string TemplateType { get; set; }
+        public TemplateDetail TemplateDetail { get; set; }
     }
 }

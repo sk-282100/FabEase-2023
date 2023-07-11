@@ -1,4 +1,5 @@
 ﻿
+using ExceptionHandling;
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Commands.ForTemplateDetails;
 using FanEase.Middleware.Data.Queries.ForTemplateDetails;
@@ -21,22 +22,22 @@ namespace FanEase_CQRS.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllTemplateDetails()
         {
-            List<TemplateDetail> templateDetails = await _mediator.Send(new GetAllTemplateDetailsQuery());
+            ResponseModel<List<TemplateDetail>> templateDetails = await _mediator.Send(new GetAllTemplateDetailsQuery());
             return Ok(templateDetails);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTemplateDetailsById(int id)
         {
-            TemplateDetail templateDetail = await _mediator.Send(new GetTemplateDetailsByIdQuery(id));
+            ResponseModel<TemplateDetail> templateDetail = await _mediator.Send(new GetTemplateDetailsByIdQuery(id));
             return Ok(templateDetail);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddTemplateDetails(TemplateDetail templateDetail)
         {
-            bool status = await _mediator.Send(new AddTemplateDetailsCommand(templateDetail));
-            if(status)
+            ResponseModel<bool> status = await _mediator.Send(new AddTemplateDetailsCommand(templateDetail));
+            if(status.data)
             {
                 return Ok();
             }
@@ -46,13 +47,25 @@ namespace FanEase_CQRS.Controllers
         [HttpPut]
         public async Task<IActionResult> EditTemplateDetails(TemplateDetail templateDetail)
         {
-            bool status = await _mediator.Send(new EditTemplateDetailsCommand(templateDetail));
+            ResponseModel<bool> status = await _mediator.Send(new EditTemplateDetailsCommand(templateDetail));
 
-            if (status)
+            if (status.data)
             {
                 return Ok();
             }
             return BadRequest();
+        }
+
+        [HttpDelete("id")]
+        public async Task<IActionResult> DeleteTempletDetails(int id)
+        {
+            ResponseModel<bool> status = await _mediator.Send(new DeleteTemplateDetailsCommand(id));
+
+            if (status.data)
+            {
+                return Ok();
+            }
+            return NotFound();
         }
     }
 }

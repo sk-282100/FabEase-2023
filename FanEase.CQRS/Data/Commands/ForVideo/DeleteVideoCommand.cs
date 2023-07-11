@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using ExceptionHandling;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Commands.ForVideo
 {
-    public class DeleteVideoCommand : IRequest<bool>
+    public class DeleteVideoCommand : IRequest<ResponseModel<bool>>
     {
         public int Id { get; set; }
 
