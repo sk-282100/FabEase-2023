@@ -24,7 +24,7 @@ namespace FanEase.ExceptionHandling.Aspect_Oriented_Programming
             _logger = logger;
         }
         public async Task Invoke(HttpContext context)
-        {
+        { 
             try
             {
                 await _next(context);
