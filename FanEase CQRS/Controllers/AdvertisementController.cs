@@ -23,7 +23,7 @@ namespace FanEase_CQRS.Controllers
         {
             
             ResponseModel<List<Advertisement>> advertisements = await _meadiator.Send(new GetAllAdvertisementsQuery());
-            if (advertisements == null)
+            if (advertisements.data.Count == 0)
             {
                 throw new NullReferenceException("nothing in the list");
             }

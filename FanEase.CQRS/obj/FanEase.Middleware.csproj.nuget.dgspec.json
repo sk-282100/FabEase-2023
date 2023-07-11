@@ -185,6 +185,10 @@
               "target": "Package",
               "version": "[2.2.0, )"
             },
+            "Microsoft.AspNetCore.Mvc.RazorPages": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "log4net": {
               "target": "Package",
               "version": "[2.0.15, )"
