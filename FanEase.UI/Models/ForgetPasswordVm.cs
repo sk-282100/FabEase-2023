@@ -5,7 +5,9 @@ namespace FanEase.UI.Models
     public class ForgetPasswordVm
     {
         [Required]
-        [DataType: DataType.Email]
-        public string EmailId { get; set; }
+        [DataType: DataType.PhoneNumber]
+        [MaxLength(10),MinLength(10)]
+        
+        public string PhoneNumber { get; set; }
     }
 }

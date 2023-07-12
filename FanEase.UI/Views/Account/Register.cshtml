@@ -5,65 +5,108 @@
     Layout = "_layout";
 }
 
-<h1>Register</h1>
+ <head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<h4>RegisterVm</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProfilePhoto" class="control-label"></label>
-                <input asp-for="ProfilePhoto" class="form-control" />
-                <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
+		<!-- Link Of CSS --> 
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+		<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="assets/css/animate.min.css">
+		<link rel="stylesheet" href="assets/css/remixicon.css">
+		<link rel="stylesheet" href="assets/css/boxicons.min.css">
+		<link rel="stylesheet" href="assets/css/iconsax.css">
+		<link rel="stylesheet" href="assets/css/metismenu.min.css">
+		<link rel="stylesheet" href="assets/css/simplebar.min.css">
+		<link rel="stylesheet" href="assets/css/calendar.css">
+        <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
+		<link rel="stylesheet" href="assets/css/jbox.all.min.css">
+		<link rel="stylesheet" href="assets/css/editor.css">
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/css/loaders.css">
+		<link rel="stylesheet" href="assets/css/header.css">
+		<link rel="stylesheet" href="assets/css/sidebar-menu.css">
+		<link rel="stylesheet" href="assets/css/footer.css">
+		<link rel="stylesheet" href="assets/css/style.css">
+		<link rel="stylesheet" href="assets/css/responsive.css">
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="assets/images/favicon.svg">
+		<!-- Title -->
+		<title>FanEase - Register</title>
+    </head>
+
+<!-- Start Account Area -->
+<div class="account-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="account-content">
+                    <div class="account-header">
+                        <a href="index.html">
+                            <img src="assets\images\FanEase\Logo-Index.png" height="50px" width="50px" alt="main-logo">
+                        </a>
+                        <h3>Registration</h3>
+                    </div>
+
+                    <form class="account-wrap">
+                        <div class="form-group mb-24 icon">
+                            <input type="text" class="form-control" placeholder="Email">
+                            <img src="assets/images/icon/user-square.svg" alt="user-square">
+                        </div>
+                        <div class="form-group mb-24 icon">
+                            <input type="email" class="form-control" placeholder="Email">
+                            <img src="assets/images/icon/sms.svg" alt="sms">
+                        </div>
+                        <div class="form-group mb-24 icon">
+                            <input type="password" class="form-control" placeholder="Password">
+                            <img src="assets/images/icon/key.svg" alt="key">
+                        </div>
+                        <div class="form-group mb-24">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    I agree <a href="terms.html">Terms & Policy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-24">
+                            <button type="submit" class="default-btn">Registration</button>
+                        </div>
+                        <div class="form-group mb-24">
+                            <p class="account">Already Have An Account? <a href="Login">Log In</a></p>
+                        </div>
+                    </form>
+
+                    <ul class="account-social-link">
+                        <li>
+                            <a href="https://www.google.com/" target="_blank">
+                                <i class='bx bxl-google'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <i class='bx bxl-facebook'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.twitter.com/" target="_blank">
+                                <i class='bx bxl-twitter'></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactNo" class="control-label"></label>
-                <input asp-for="ContactNo" class="form-control" />
-                <span asp-validation-for="ContactNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+<!-- End Account Area -->
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+
+
+
+
+

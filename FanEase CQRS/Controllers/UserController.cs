@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ExceptionHandling;
+using FanEase.Entity.Models;
+using FanEase.Middleware.Data.Commands.ForUser;
+using FanEase.Middleware.Data.Queries.ForUser;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FanEase_CQRS.Controllers
@@ -7,5 +12,66 @@ namespace FanEase_CQRS.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        readonly IMediator _meadiator;
+
+        public UserController(IMediator meadiator)
+        {
+            _meadiator = meadiator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+
+            ResponseModel<List<User>> users = await _meadiator.Send(new GetAllUsersQuery());
+            return Ok(users);
+
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            ResponseModel<User> user = await _meadiator.Send(new GetUserByIdQuery(id));
+            if (user != null)
+                return Ok(user);
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddUser(User user)
+        {
+            ResponseModel<bool> status = await _meadiator.Send(new AddUserCommand(user));
+            if (status.data)
+            {
+                return Created("api/Created", status);
+            }
+            return BadRequest();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditUser(User user)
+        {
+           ResponseModel<bool> status = await _meadiator.Send(new EditUserCommand(user));
+            if (status.data)
+            {
+                return Ok(user);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            ResponseModel<bool> status = await _meadiator.Send(new DeleteUserCommand(id));
+            if (status.data)
+            {
+                return Ok();
+            }
+
+            return NotFound();
+
+        }
+
     }
 }

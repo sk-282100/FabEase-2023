@@ -4,6 +4,7 @@ namespace FanEase.UI.Controllers
 {
     public class AccountController : Controller
     {
+       
         public IActionResult Login()
         {
             return View();
@@ -14,13 +15,28 @@ namespace FanEase.UI.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult ForgetPassword() 
+        {
+            
+        }
+
+
+
         [Route("VerifyOTP")]
         public IActionResult VerifyOTP()
         {
             return View();
         }
 
+        [Route("Register")]
         public IActionResult Register()
+        {
+            return View();
+        }
+
+        [Route("ResetPassword")]
+        public IActionResult ResetPassword() 
         {
             return View();
         }

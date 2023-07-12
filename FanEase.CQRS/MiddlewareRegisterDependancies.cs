@@ -2,11 +2,14 @@
 using ExceptionHandling;
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Commands.ForTemplateDetails;
+using FanEase.Middleware.Data.Commands.ForUser;
 using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Middleware.Data.Handler.ForAdvertisement;
 using FanEase.Middleware.Data.Handler.ForTemplateDetails;
+using FanEase.Middleware.Data.Handler.ForUser;
 using FanEase.Middleware.Data.Handler.ForVideo;
 using FanEase.Middleware.Data.Queries.ForTemplateDetails;
+using FanEase.Middleware.Data.Queries.ForUser;
 using FanEase.Middleware.Data.Queries.ForVideo;
 using FanEase_CQRS.Controllers;
 using MediatR;
@@ -16,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace FanEase.Middleware
 {
@@ -40,6 +44,13 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetAdvertisementsByUserQuery, ResponseModel<List<Advertisement>>>, GetAdvertisementsByUserHandler>();
             services.AddScoped<IRequestHandler<EditAdvertisementCommand, ResponseModel<bool>>, EditAdvertisementHandler>();
             services.AddScoped<IRequestHandler<DeleteAdvertisementCommand, ResponseModel<bool>>, DeleteAdvertisementHandler>();
+
+            //For User
+            services.AddScoped <IRequestHandler<GetAllUsersQuery, ResponseModel<List<User>>>, GetAllUsersHandler>();
+            services.AddScoped<IRequestHandler<GetUserByIdQuery, ResponseModel<User>>, GetUserByIdHandler>();
+            services.AddScoped<IRequestHandler<AddUserCommand, ResponseModel<bool>>, AddUserHandler>();
+            services.AddScoped<IRequestHandler<EditUserCommand, ResponseModel<bool>>, EditUserHandler>();
+            services.AddScoped<IRequestHandler<DeleteUserCommand, ResponseModel< bool>>, DeleteUserHandler>();
             return services;
         }
     }
