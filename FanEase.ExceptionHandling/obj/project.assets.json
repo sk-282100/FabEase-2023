@@ -7902,22 +7902,23 @@
   },
   "packageFolders": {
     "C:\\Users\\User\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\Neo\\TL Training\\FanEasae 2023\\FabEase-2023\\FanEase.ExceptionHandling\\FanEase.ExceptionHandling.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\FanEase-Project-Git\\FabEase-2023\\FanEase.ExceptionHandling\\FanEase.ExceptionHandling.csproj",
       "projectName": "FanEase.ExceptionHandling",
-      "projectPath": "D:\\Projects\\Neo\\TL Training\\FanEasae 2023\\FabEase-2023\\FanEase.ExceptionHandling\\FanEase.ExceptionHandling.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\FanEase-Project-Git\\FabEase-2023\\FanEase.ExceptionHandling\\FanEase.ExceptionHandling.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\Neo\\TL Training\\FanEasae 2023\\FabEase-2023\\FanEase.ExceptionHandling\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\FanEase-Project-Git\\FabEase-2023\\FanEase.ExceptionHandling\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7925,8 +7926,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.devexpress.com/3iBiihdRyg39797kuly9xfj5tByxAoGIk1l1jetQ3Txc5idPMA/api": {}
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
@@ -7977,7 +7978,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.410\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   },
