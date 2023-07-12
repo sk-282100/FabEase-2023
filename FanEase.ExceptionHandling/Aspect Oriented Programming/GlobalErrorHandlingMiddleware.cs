@@ -14,26 +14,28 @@ using System.Web.Http.Results;
 
 namespace FanEase.ExceptionHandling.Aspect_Oriented_Programming
 {
-    public class GlobalErrorHandlingMiddleware : PageModel
+    public class GlobalErrorHandlingMiddleware 
     {
         private readonly RequestDelegate _next;
-        readonly ILogger<GlobalErrorHandlingMiddleware> _logger;
-        public GlobalErrorHandlingMiddleware(RequestDelegate next, ILogger<GlobalErrorHandlingMiddleware> logger)
+        readonly  ILogger<SampleModel> _logger;
+        
+        public GlobalErrorHandlingMiddleware(RequestDelegate next, ILogger<SampleModel> logger)
         {
             _next = next;
             _logger = logger;
+            
         }
         public async Task Invoke(HttpContext context)
-        { 
+        {  
             try
             {
                 await _next(context);
-                _logger.LogWarning("test");
+                
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
                 await HandleExceptionAsync(context, ex);
+                var sample = new SampleModel(_logger);
             }
         }
 
