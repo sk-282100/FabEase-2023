@@ -22,6 +22,12 @@ namespace FanEase.Repository
             //services.AddScoped<ITemplateDetailsService, TemplateDetailsService>();
             services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
             //services.AddScoped<IAdvertisementService, AdvertisementServicecs>();
+            services.AddScoped<ICampaignRepository, CampaignRepository>();
+          // services.AddScoped<ICampaignService, CampaignService>();
+            services.AddScoped<ICampaignAdvertisementRepository, CampaignAdvertisementRepository>();
+          //  services.AddScoped<ICampaignAdvertisementService, CampaignAdvertisementService>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+           // services.AddScoped<IPlayerService, PlayerService>();
             return services;
         }
     }

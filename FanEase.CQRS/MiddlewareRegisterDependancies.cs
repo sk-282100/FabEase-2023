@@ -1,11 +1,20 @@
 ﻿
 using ExceptionHandling;
 using FanEase.Entity.Models;
+using FanEase.Middleware.Data.Commands.ForCampaign;
+using FanEase.Middleware.Data.Commands.ForCampaignAdvertisement;
+using FanEase.Middleware.Data.Commands.ForPlayer;
 using FanEase.Middleware.Data.Commands.ForTemplateDetails;
 using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Middleware.Data.Handler.ForAdvertisement;
+using FanEase.Middleware.Data.Handler.ForCampaign;
+using FanEase.Middleware.Data.Handler.ForCampaignAdvertisement;
+using FanEase.Middleware.Data.Handler.ForPlayer;
 using FanEase.Middleware.Data.Handler.ForTemplateDetails;
 using FanEase.Middleware.Data.Handler.ForVideo;
+using FanEase.Middleware.Data.Queries.ForCampaign;
+using FanEase.Middleware.Data.Queries.ForCampaignAdvertisement;
+using FanEase.Middleware.Data.Queries.ForPlayer;
 using FanEase.Middleware.Data.Queries.ForTemplateDetails;
 using FanEase.Middleware.Data.Queries.ForVideo;
 using FanEase_CQRS.Controllers;
@@ -40,6 +49,24 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetAdvertisementsByUserQuery, ResponseModel<List<Advertisement>>>, GetAdvertisementsByUserHandler>();
             services.AddScoped<IRequestHandler<EditAdvertisementCommand, ResponseModel<bool>>, EditAdvertisementHandler>();
             services.AddScoped<IRequestHandler<DeleteAdvertisementCommand, ResponseModel<bool>>, DeleteAdvertisementHandler>();
+            services.AddScoped<IRequestHandler<CampaignCreateCommand, Response>, CampaignCreateCommandHandler>();
+            services.AddScoped<IRequestHandler<CampaignDeleteCommand, Response>, CampaignDeleteCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateCampaignCommand, Response>, UpdateCampaignCommandHandler>();
+            services.AddScoped<IRequestHandler<GetAllCampaignsQuery, Response>, GetAllCampaignsQueryHandler>();
+            services.AddScoped<IRequestHandler<GetAllCampaignIdQuery, Response>, GetAllCampaignIdQueryHandler>();
+            services.AddScoped<IRequestHandler<CampaignAdvertisementCreateCommand, Response>, CampaignAdvertisementCreateCommandHandler>();
+            services.AddScoped<IRequestHandler<CampaignAdvertisementDeleteCommand, Response>, CampaignAdvertisementDeleteCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateCampaignAdvertisementCommand, Response>, UpdateCampaignAdvertisementCommandHandler>();
+            services.AddScoped<IRequestHandler<GetAllCampaignAdvertisementsQuery, Response>, GetAllCampaignAdvertisementsQueryHandler>();
+            services.AddScoped<IRequestHandler<GetAllCampaignAdvertisementIdQuery, Response>, GetAllCampaignAdvertisementIdQueryHandler>();
+            services.AddScoped<IRequestHandler<PlayerCreateCommand, Response>, PlayerCreateCommandHandler>();
+            services.AddScoped<IRequestHandler<PlayerDeleteCommand, Response>, PlayerDeleteCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdatePlayerCommand, Response>, UpdatePlayerCommandHandler>();
+            services.AddScoped<IRequestHandler<GetAllPlayersQuery, Response>, GetAllPlayersQueryHandler>();
+            services.AddScoped<IRequestHandler<GetAllPlayerIdQuery, Response>, GetAllPlayerIdQueryHandler>();
+
+
+
             return services;
         }
     }
