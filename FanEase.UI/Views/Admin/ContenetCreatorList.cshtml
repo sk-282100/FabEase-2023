@@ -4,13 +4,23 @@
     ViewData["Title"] = "ContenetCreatorList";
     Layout = "AdminLayout";
 }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body class="body-bg-f8faff">
 
-<h1>ContenetCreatorList</h1>
+    <div class="contact-list-area">
+        <div class="container-fluid">
+            <div class="table-responsive" data-simplebar>
+                <div class="others-title">
+                    <h3>Creator List</h3>
+                </div>
 
 <p>
-    <a asp-action="AddCreator">Create New</a>
+                    <a asp-action="AddCreator"><input type="button" value="Add Creator" class="btn btn-primary"></a>
 </p>
-<table class="table">
+                <table class="table class=" table align-middle mb-0"">
     <thead>
         <tr>
             <th>
@@ -35,7 +45,8 @@
                 @Html.DisplayNameFor(model => model.CreationDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.isActive)
+                
+                Status
             </th>
             <th></th>
         </tr>
@@ -76,3 +87,34 @@
 }
     </tbody>
 </table>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+            </div>
+        </div>
+</div>
+    <!-- Start Go Top Area -->
+    <div class="go-top">
+        <i class="ri-arrow-up-s-fill"></i>
+        <i class="ri-arrow-up-s-fill"></i>
+    </div>
+    <!-- End Go Top Area -->
+    <!-- Jquery Min JS -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/metismenu.min.js"></script>
+    <script src="assets/js/simplebar.min.js"></script>
+    <script src="assets/js/geticons.js"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
+    <script src="assets/js/jbox.all.min.js"></script>
+    <script src="assets/js/editor.js"></script>
+    <script src="assets/js/form-validator.min.js"></script>
+    <script src="assets/js/contact-form-script.js"></script>
+    <script src="assets/js/ajaxchimp.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+</body>

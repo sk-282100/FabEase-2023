@@ -1,102 +1,227 @@
-﻿@model FanEase.UI.Models.Creator.CreatorVM
+﻿@model FanEase.UI.Models.Creator.CreatorDetailsVM
 
 @{
     ViewData["Title"] = "CreatorDetails";
+    int likes=0;
 }
 
-<h1>CreatorDetails</h1>
 
-<div>
-    <h4>CreatorVM</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProfilePhoto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProfilePhoto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VideoCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VideoCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Country)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Country)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactNo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContactNo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.isActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.isActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-    </dl>
+
+<body>
+    <div class="all-section-area">
+<!-- Start Main Content Area -->
+<main class="main-content-wrap">
+    <!-- Start Page Title Area -->
+    <div class="page-title-area">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-sm-6">
+                    <div class="page-title">
+                        <h3>Profile</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+    <!-- Start Profile Area -->
+    <div class="profile-area">
+        <div class="container-fluid">
+            <div class="card-box-style">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="profile-info d-flex align-items-center">
+                            <img class="w-25 rounded-4" src="assets/images/profile-img.jpg" alt="profile-img">
+                            <div class="profile-name ms-4">
+                                <h4><span>@Model.Creator.FirstName</span> <span>@Model.Creator.LastName</span></h4>
+                                <span>Member Since: @Model.Creator.CreationDate</span>
+                                <div class="follow-email">
+                                    <button class="btn btn-primary">
+                                        Follow
+                                    </button>
+                                    <a href="mailto:{@Model.Creator.Email}" class="btn btn-secondary">
+                                        E-mail
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="profile-activity">
+                                    <i class='bx bx-repost'></i>
+                                    <h3>Videos Uploaded</h3>
+                                    <h2>@Model.Creator.VideoCount</h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="profile-activity">
+                                    <i class='bx bx-user'></i>
+                                    @foreach (var videos in @Model.Videos)
+                                    {
+                                        likes = likes + videos.Likes;
+                                    }
+                                    <h3>Likes</h3>
+                                    <h2>@likes</.></h2>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="profile-activity">
+                                    <i class='bx bx-wifi'></i>
+                                    <h3>Advertises</h3>
+                                    <h2>@Model.Advertisements.Count()</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-end edit-massage">
+
+                            <a href=@Html.ActionLink("Edit", "EditUser", new {  id = Model.Creator.UserId }) class="btn btn-primary">
+                                Edit Profile
+                            </a>
+                            <a href=@Html.ActionLink("Edit", "DeleteUser", new { id = Model.Creator.UserId }) class="btn btn-primary">
+                                Delete Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-details card-box-style">
+                <ul class="list-inline profile-menu">
+                    <li>
+                        <a href="@Html.ActionLink("Edit", "UserDetails", new { id = Model.Creator.UserId })" class="active">Profile</a>
+                    </li>
+                    <li>
+                        <a href="friends.html">Friends</a>
+                    </li>
+                    <li>
+                        <a href="followers.html">Followers</a>
+                    </li>
+                </ul>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>Personal Information</h3>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="personal-info">
+                            <ul class="list-inline">
+                                <li>
+                                    <span>Full Name :</span>
+                                    @Model.Creator.FirstName @Model.Creator.LastName
+                                </li>
+                                <li>
+                                    <span>Country :</span>
+                                    @Model.Creator.Country
+                                </li>
+                                <li>
+                                    <span>Address :</span>
+                                    @Model.Creator.Address
+                                </li>
+                                <li>
+                                    <span>City :</span>
+                                    @Model.Creator.City
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="personal-info">
+                            <ul class="list-inline">
+                                <li>
+                                    <span>Website :</span>
+                                    <a href="#" target="_blank">envytheme.com</a>
+                                </li>
+                                <li>
+                                    <span>Email :</span>
+                                    <a href="mailto:{@Model.Creator.Email">@Model.Creator.Email</a>
+                                </li>
+                                <li>
+                                    <span>Phone :</span>
+                                    <a href="tel:{@Model.Creator.ContactNo}">: @Model.Creator.ContactNo</a>
+                                </li>
+                        
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="biography">
+                    <h3>Biography</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At, fugiat harum ab recusandae eligendi cumque ipsa, ullam reiciendis natus nemo aspernatur provident officiis repudiandae aliquam quae quos modi eos temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium vero numquam inventore. Fugit, animi quaerat! Vero cupiditate, libero itaque atque voluptatibus quos magnam, veritatis, suscipit aut obcaecati est quibusdam voluptas!</p>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit impedit a ducimus. Temporibus cumque modi nulla dolor est fugiat sequi exercitationem corrupti deleniti, consectetur saepe? Reiciendis ullam a totam iste!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Profile Area -->
+
+    <div class="flex-grow-1"></div>
+
+    <!-- Start Footer Area -->
+    <div class="footer-area">
+        <div class="container-fluid">
+            <div class="footer-content">
+                <p>© Joxi is Proudly Owned by <a href="https://envytheme.com/" target="_blank">EnvyTheme</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Area -->
+</main>
+<!-- End Main Content Area -->
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+<!-- End All Section Area -->
+<!-- Start Template Sidebar Area -->
+<div class="template-sidebar-area">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight">
+        <div class="offcanvas-header">
+            <a href="index.html">
+                <img src="assets/images/main-logo.svg" alt="main-logo">
+            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul>
+                <li>
+                    <a class="default-btn btn active" target="_blank" href="#">
+                        Buy Now
+                    </a>
+                </li>
+                <li>
+                    <a class="default-btn btn" target="_blank" href="https://themeforest.net/user/envytheme/portfolio">
+                        Our Portfolio
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
+<!-- End Template Sidebar Area -->
+<!-- Start Go Top Area -->
+<div class="go-top">
+    <i class="ri-arrow-up-s-fill"></i>
+    <i class="ri-arrow-up-s-fill"></i>
+</div>
+<!-- End Go Top Area -->
+<!-- Jquery Min JS -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/metismenu.min.js"></script>
+<script src="assets/js/simplebar.min.js"></script>
+<script src="assets/js/geticons.js"></script>
+<script src="assets/js/sweetalert2.all.min.js"></script>
+<script src="assets/js/jbox.all.min.js"></script>
+<script src="assets/js/editor.js"></script>
+<script src="assets/js/form-validator.min.js"></script>
+<script src="assets/js/contact-form-script.js"></script>
+<script src="assets/js/ajaxchimp.min.js"></script>
+<script src="assets/js/custom.js"></script>
+</body>

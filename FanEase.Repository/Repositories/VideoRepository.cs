@@ -3,6 +3,7 @@ using FanEase.Entity.Models;
 using FanEase.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Identity.Client;
 using System.Data;
 
 namespace FanEase.Repository.Repositories
@@ -99,6 +100,19 @@ namespace FanEase.Repository.Repositories
             }
 
             return video;
+
+            
+        }
+
+        public async Task<List<Video>> GetVideoByCreatorId(string CreatorId)
+        {
+            List<Video> videos = new List<Video>();
+            using(SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                videos = connection.Query<Video>("GetVideosByCreatorIdSP", new {CreatorId}, commandType:CommandType.StoredProcedure).ToList();
+                return videos;
+            }
         }
     }
 }

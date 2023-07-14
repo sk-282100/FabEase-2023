@@ -41,16 +41,17 @@ namespace FanEase_CQRS.Controllers
             return NotFound();
         }
 
-       /*
-        [HttpGet("{UserId}")]
+       
+        [HttpGet]
+        [Route("user/{UserId}")]
         public async Task<IActionResult> GetAdvertisementsByUser(string userId)
         {
-            List<Advertisement> advertisements = await _meadiator.Send(new GetAdvertisementsByUserQuery(userId));
+            ResponseModel<List<Advertisement>> advertisements = await _meadiator.Send(new GetAdvertisementsByUserQuery(userId));
             if (advertisements != null)
                 return Ok(advertisements);
             return NotFound();
         }
-       */
+       
 
         [HttpPost]
         public async Task<IActionResult> AddAdvertisement(Advertisement advertisement)

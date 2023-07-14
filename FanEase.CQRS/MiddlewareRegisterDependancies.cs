@@ -40,6 +40,7 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetAdvertisementsByUserQuery, ResponseModel<List<Advertisement>>>, GetAdvertisementsByUserHandler>();
             services.AddScoped<IRequestHandler<EditAdvertisementCommand, ResponseModel<bool>>, EditAdvertisementHandler>();
             services.AddScoped<IRequestHandler<DeleteAdvertisementCommand, ResponseModel<bool>>, DeleteAdvertisementHandler>();
+            services.AddScoped<IRequestHandler<GetVideoByCreatorIdQuery, ResponseModel<List<Video>>>, GetVideoByCreatorIdQueryHandler>();
             return services;
         }
     }

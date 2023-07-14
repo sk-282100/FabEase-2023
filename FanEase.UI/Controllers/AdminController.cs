@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FanEase.Entity.Models;
 using FanEase.UI.Models.Creator;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace FanEase.UI.Controllers
 {
@@ -31,14 +33,20 @@ namespace FanEase.UI.Controllers
                 {
                     string data = await response.Content.ReadAsStringAsync();
                     creator = JsonConvert.DeserializeObject<CreatorVM>(data);
+                
                 }
-
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/UserRoles/AddCreator/{creatorId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    
+                }
+              if(creator!=null)
                credentails = new CredentialVM()
                 {
                     Email = creator.Email,
                     ContactNo = creator.ContactNo,
                     UserName = creator.UserName,
-                    Password = creator.Password
+                    Password = creator.FirstName+"@123"
 
                 };
             }
@@ -46,13 +54,27 @@ namespace FanEase.UI.Controllers
             return RedirectToAction("SendCredentials",credentails);
         }
 
-        [HttpGet]
-        public IActionResult SendCredentials(CredentialVM credentails) 
+        [HttpPost]
+        public async Task<IActionResult> SendCredentials(CredentialVM credentials)
         {
-            return View(credentails);
+            using (var httpclient = new HttpClient())
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(new { @USERNAME = credentials.Email, @NEWPASSWORD = credentials.Password }), Encoding.UTF8, "application/json");
+                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/User/SetCreatorPassword", content))
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    
+                }
+                content = new StringContent(JsonConvert.SerializeObject(credentials));
+                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/User/SendCredentials", content))
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("ContenetCreatorList");
+                }
+            }
         }
+       
 
-        
         [HttpGet]
         public async Task<IActionResult> ContenetCreatorList()
         {
@@ -75,6 +97,8 @@ namespace FanEase.UI.Controllers
         public async Task<IActionResult> CreatorDetails(string creatorId)
         {
             CreatorVM creator = new CreatorVM();
+            List<Advertisement> advertisements = new List<Advertisement>();
+            List<Video> videos = new List<Video>();
             
             using (var httpclient = new HttpClient())
             {
@@ -82,9 +106,29 @@ namespace FanEase.UI.Controllers
                 {
                     string data = await response.Content.ReadAsStringAsync();
                     creator = JsonConvert.DeserializeObject<CreatorVM>(data);
+
                 }
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/user/{creatorId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    advertisements = JsonConvert.DeserializeObject<List<Advertisement>>(data);
+                }
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/videos/user/{creatorId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    videos = JsonConvert.DeserializeObject<List<Video>>(data);
+                }
+
             }
-            return View(creator);
+
+            return View(new CreatorDetailsVM()
+            {
+                Creator = creator,
+                Videos = videos,
+                Advertisements = advertisements
+            });
+            
+            //return View(creator);
         }
 
         

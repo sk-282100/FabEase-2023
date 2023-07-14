@@ -1,7 +1,6 @@
 ﻿
 using ExceptionHandling;
 using FanEase.Entity.Models;
-using FanEase.Middleware;
 using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Middleware.Data.Queries.ForVideo;
 using MediatR;
@@ -75,6 +74,15 @@ namespace FanEase_CQRS.Controllers
             return NotFound();
 
         }
-           
+
+        [HttpGet]
+        [Route("Creator/{id}")]
+        public async Task<IActionResult> GetVideoByCreatorId(string id)
+        {
+            ResponseModel<List<Video>> response = await _meadiator.Send(new GetVideoByCreatorIdQuery(id));
+            if (response.data != null)
+                return Ok(response);
+            return NotFound();
+        }
     }
 }

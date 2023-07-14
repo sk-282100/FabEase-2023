@@ -37,6 +37,8 @@
 </head>
 <body class="body-bg-f8faff">
 
+    
+
     <!-- Start All Section Area -->
     <div class="all-section-area">
         <!-- Start Header Area -->
@@ -384,8 +386,6 @@
         <main class="main-content-wrap">
             @RenderBody()
 
-            <!-- End Footer Area -->
-
 
 
         </main>
@@ -400,5 +400,6 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @await RenderSectionAsync("Scripts", required: false)
+        </div>
 </body>
 </html>
