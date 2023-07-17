@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Commands\ForCampaign\" />
+    <Folder Include="Data\Commands\ForCreatorDashBoard\" />
+    <Folder Include="Data\Commands\ForPlayer\" />
+    <Folder Include="Data\Commands\ForTeam\" />
+    <Folder Include="Data\Commands\ForTemplate\" />
+    <Folder Include="Data\Commands\ForUser\" />
+    <Folder Include="Data\Handler\ForCampaign\" />
+    <Folder Include="Data\Handler\ForCreatorDashBoard\" />
+    <Folder Include="Data\Handler\ForPlayer\" />
+    <Folder Include="Data\Handler\ForTeam\" />
+    <Folder Include="Data\Handler\ForTemplate\" />
+    <Folder Include="Data\Handler\ForUser\" />
+    <Folder Include="Data\Queries\ForCampaign\" />
+    <Folder Include="Data\Queries\ForCreatorDashBoard\" />
+    <Folder Include="Data\Queries\ForPlayer\" />
+    <Folder Include="Data\Queries\ForTeam\" />
+    <Folder Include="Data\Queries\ForTemplate\" />
+    <Folder Include="Data\Queries\ForUser\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FanEase.Entity\FanEase.Entity.csproj" />
+    <ProjectReference Include="..\FanEase.ExceptionHandling\FanEase.ExceptionHandling.csproj" />
+    <ProjectReference Include="..\FanEase.HelperClasses\FanEase.HelperClasses.csproj" />
+    <ProjectReference Include="..\FanEase.Repository\FanEase.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
