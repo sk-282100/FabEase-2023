@@ -1,16 +1,21 @@
 ﻿
 using ExceptionHandling;
 using FanEase.Entity.Models;
+using FanEase.Middleware.Data.Commands.ForTemplate;
 using FanEase.Middleware.Data.Commands.ForTemplateDetails;
 using FanEase.Middleware.Data.Commands.ForUser;
 using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Middleware.Data.Handler.ForAdvertisement;
+using FanEase.Middleware.Data.Handler.ForTemplate;
 using FanEase.Middleware.Data.Handler.ForTemplateDetails;
 using FanEase.Middleware.Data.Handler.ForUser;
 using FanEase.Middleware.Data.Handler.ForVideo;
+using FanEase.Middleware.Data.Queries.ForTemplate;
 using FanEase.Middleware.Data.Queries.ForTemplateDetails;
 using FanEase.Middleware.Data.Queries.ForUser;
 using FanEase.Middleware.Data.Queries.ForVideo;
+using FanEase.Repository.Interfaces;
+using FanEase.Repository.Repositories;
 using FanEase_CQRS.Controllers;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,7 +48,12 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetAdvertisementsByUserQuery, ResponseModel<List<Advertisement>>>, GetAdvertisementsByUserHandler>();
             services.AddScoped<IRequestHandler<EditAdvertisementCommand, ResponseModel<bool>>, EditAdvertisementHandler>();
             services.AddScoped<IRequestHandler<DeleteAdvertisementCommand, ResponseModel<bool>>, DeleteAdvertisementHandler>();
-
+            //For Template
+            services.AddScoped<IRequestHandler<GetTemplateListQuery, ResponseModel<List<Templates>>>, GetTemplateListHandler>();
+            services.AddScoped<IRequestHandler<GetTemplateListByIdQuery, ResponseModel<Templates>>, GetAllTemplateHandler>();
+            services.AddScoped<IRequestHandler<CreateTemplateCommand, ResponseModel<bool>>, CreateTemplateHandler>();
+            services.AddScoped<IRequestHandler<UpdateTemplateCommand, ResponseModel<bool>>, UpdateTemplateHandler>();
+            services.AddScoped<IRequestHandler<DeleteTemplateCommand, ResponseModel<bool>>, DeleteTemplateHandler>();
             //For User
             services.AddScoped<IRequestHandler<GetAllUsersQuery, ResponseModel<List<User>>>, GetAllUsersHandler>();
             services.AddScoped<IRequestHandler<GetUserByIdQuery, ResponseModel<User>>, GetUserByIdHandler>();
@@ -55,7 +65,6 @@ namespace FanEase.Middleware
 
             //For Account
             services.AddScoped<IRequestHandler<ResetPasswordCommand, ResponseModel<bool>>, ResetPasswordHandler>();
-
             return services;
         }
     }
