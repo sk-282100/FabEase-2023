@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FanEase.Entity\FanEase.Entity.csproj" />
+    <ProjectReference Include="..\FanEase.ExceptionHandling\FanEase.ExceptionHandling.csproj" />
     <ProjectReference Include="..\FanEase.HelperClasses\FanEase.HelperClasses.csproj" />
   </ItemGroup>
 
