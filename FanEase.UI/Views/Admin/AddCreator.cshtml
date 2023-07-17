@@ -1,0 +1,64 @@
+﻿@model FanEase.UI.Models.Creator.AddCreatorVM
+
+@{
+    ViewData["Title"] = "AddCreator";
+    Layout = "AdminLayout";
+}
+<body class="body-bg-f8faff">
+
+    <main class="main-content-wrap">
+        <div class="container">
+        <div class="page-title-area">
+            
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="page-title">
+                            <h3>Add Creator</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="profile-area">
+                    <div class="container">
+                        <div class="card-box-style">
+                            <div class="row align-items-center">
+        <form asp-action="AddCreator" class="account-wrap">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-24 icon">
+                                <div class="form-group mb-24 icon">
+                <label asp-for="UserId" class="control-label">
+                    <input asp-for="UserId" type="text" class="form-control" placeholder="UserId">
+                   <img src="assets/images/icon/user-square.svg" alt="user-square">
+                </label>
+                </div>
+                
+                   
+                <div>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                
+                <div>
+                             
+                <input type="submit" value="Add Creator" class="btn btn-primary" />
+                
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="ContenetCreatorList">Back to List</a>
+</div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+    </div>
+    </main>
+
+</body>
