@@ -15,7 +15,7 @@ using System.Web.Http.Results;
 namespace FanEase.ExceptionHandling.Aspect_Oriented_Programming
 {
     public class GlobalErrorHandlingMiddleware : PageModel
-    {
+    { 
         private readonly RequestDelegate _next;
         readonly ILogger<GlobalErrorHandlingMiddleware> _logger;
         public GlobalErrorHandlingMiddleware(RequestDelegate next, ILogger<GlobalErrorHandlingMiddleware> logger)
