@@ -6,6 +6,7 @@ using FanEase.ExceptionHandling.Aspect_Oriented_Programming;
 
 using Microsoft.Extensions.Logging.Configuration;
 using Microsoft.Extensions.Options;
+using FanEase_CQRS;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Host.ConfigureLogging(options => { options.AddLog4Net("log4net.config"); });
+builder.Services.JwtService(builder.Configuration);
 
 var app = builder.Build();
 
