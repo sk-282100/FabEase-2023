@@ -20,11 +20,7 @@ builder.Services.RegisterMiddlewareLayer();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-builder.Logging.AddLog4Net("log4net.config");
-
-
-
+builder.Host.ConfigureLogging(options => { options.AddLog4Net("log4net.config"); });
 
 var app = builder.Build();
 
