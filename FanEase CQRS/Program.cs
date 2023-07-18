@@ -16,7 +16,6 @@ builder.Services.AddControllers(options => options.RespectBrowserAcceptHeader = 
 builder.Services.AddMediatR(typeof(Program).Assembly);
 builder.Services.RegisterRepositoryLayer();
 builder.Services.RegisterMiddlewareLayer();
-builder.Services.AddSession();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
