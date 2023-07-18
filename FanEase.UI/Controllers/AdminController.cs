@@ -26,7 +26,7 @@ namespace FanEase.UI.Controllers
         public async Task<IActionResult> AddCreator(AddCreatorVM creatorId) 
         {
             CreatorVM creator = new CreatorVM();
-            CredentialVM credentails = new CredentialVM();
+            Models.Creator.CredentialVM credentails = new Models.Creator.CredentialVM();
             using (var httpclient = new HttpClient())
             {
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/{creatorId}"))
@@ -41,7 +41,7 @@ namespace FanEase.UI.Controllers
                     
                 }
               if(creator!=null)
-               credentails = new CredentialVM()
+               credentails = new Models.Creator.CredentialVM()
                 {
                     Email = creator.Email,
                     ContactNo = creator.ContactNo,
@@ -55,7 +55,7 @@ namespace FanEase.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendCredentials(CredentialVM credentials)
+        public async Task<IActionResult> SendCredentials(Models.Creator.CredentialVM credentials)
         {
             using (var httpclient = new HttpClient())
             {
