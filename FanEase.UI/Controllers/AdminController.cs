@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using FanEase.Entity.Models;
+using FanEase.UI.Models;
 using FanEase.UI.Models.Creator;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace FanEase.UI.Controllers
@@ -26,36 +29,40 @@ namespace FanEase.UI.Controllers
         public async Task<IActionResult> AddCreator(AddCreatorVM creatorId) 
         {
             CreatorVM creator = new CreatorVM();
-            CredentialVM credentails = new CredentialVM();
+            Models.Creator.CredentialVM credentails = new Models.Creator.CredentialVM();
             using (var httpclient = new HttpClient())
             {
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/{creatorId}"))
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/{creatorId.UserId}"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
-                    creator = JsonConvert.DeserializeObject<CreatorVM>(data);
+                    creator = JsonConvert.DeserializeObject<ResponseModel<CreatorVM>>(data).data;
                 
                 }
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/UserRoles/AddCreator/{creatorId}"))
+               
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/AddCreator/{creatorId.UserId}"))
                 {
-                    string data = await response.Content.ReadAsStringAsync();
-                    
+                    string data = response.Content.ReadAsStringAsync().Result;
+
                 }
               if(creator!=null)
-               credentails = new CredentialVM()
+               credentails = new Models.Creator.CredentialVM()
                 {
                     Email = creator.Email,
                     ContactNo = creator.ContactNo,
                     UserName = creator.UserName,
                     Password = creator.FirstName+"@123"
 
-                };
-            }
+                    };
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(new Models.Creator.LoginDto { Email = credentails.Email,Password = credentails.Password }), Encoding.UTF8, "application/json");
+                    using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Account/SetCreatorPassword", content))
+                    {
+                        string data = response.Content.ReadAsStringAsync().Result;
 
             return RedirectToAction("SendCredentials",credentails);
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendCredentials(CredentialVM credentials)
+        public async Task<IActionResult> SendCredentials(Models.Creator.CredentialVM credentials)
         {
             using (var httpclient = new HttpClient())
             {
@@ -72,51 +79,57 @@ namespace FanEase.UI.Controllers
                     return RedirectToAction("ContenetCreatorList");
                 }
             }
+
+            return RedirectToAction("AddCreator");
         }
-       
+
+      
 
         [HttpGet]
         public async Task<IActionResult> ContenetCreatorList()
         {
-            List<CreatorVM> creatorList = new List<CreatorVM>();
+            ResponseModel<List<CreatorVM>> responseModel = new ResponseModel<List<CreatorVM>>();
 
             using (var httpclient = new HttpClient())
             {
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User"))
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/creatorlist"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
-                    creatorList = JsonConvert.DeserializeObject<List<CreatorVM>>(data);
+                    responseModel = JsonConvert.DeserializeObject<ResponseModel<List<CreatorVM>>>(data);
                 }
 
             }
-            List<CreatorListVM> CreatorVMList = _mapper.Map<List<CreatorListVM>>(creatorList);
+            List<CreatorListVM> CreatorVMList = _mapper.Map<List<CreatorListVM>>(responseModel.data);
             return View(CreatorVMList);
         }
 
-        [HttpPut]
+        [HttpGet]
+        [Route("{creatorId}")]
         public async Task<IActionResult> CreatorDetails(string creatorId)
         {
-            CreatorVM creator = new CreatorVM();
-            List<Advertisement> advertisements = new List<Advertisement>();
-            List<Video> videos = new List<Video>();
-            
+            CreatorVM creator;
+            List<Advertisement> advertisements;
+            List<Video> videos;
+
             using (var httpclient = new HttpClient())
             {
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/{creatorId}"))
                 {
-                    string data = await response.Content.ReadAsStringAsync();
-                    creator = JsonConvert.DeserializeObject<CreatorVM>(data);
+                        string data = await response.Content.ReadAsStringAsync();
+                    creator = JsonConvert.DeserializeObject<ResponseModel<CreatorVM>>(data).data;
 
                 }
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/user/{creatorId}"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
                     advertisements = JsonConvert.DeserializeObject<List<Advertisement>>(data);
+                    
                 }
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/videos/user/{creatorId}"))
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Video/user/{creatorId}"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
                     videos = JsonConvert.DeserializeObject<List<Video>>(data);
+                    
                 }
 
             }

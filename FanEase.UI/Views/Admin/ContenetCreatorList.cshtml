@@ -54,8 +54,10 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+             <td>
+            <a asp-action="CreatorDetails" asp-controller="Admin" asp-for-route="item.UserId">
                 @Html.DisplayFor(modelItem => item.UserId)
+             </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
@@ -79,9 +81,11 @@
                 @Html.DisplayFor(modelItem => item.isActive)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "CreatorDetails", new { creatorId=item.UserId  }) |
+
+                @Html.ActionLink("Edit", "EditUser", new { id=item.UserId  }) |
+
+                @Html.ActionLink("Delete", "DeleteUser", new { id=item.UserId  })
             </td>
         </tr>
 }

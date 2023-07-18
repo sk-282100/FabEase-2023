@@ -1,5 +1,6 @@
 ﻿
 
+using ExceptionHandling;
 using FanEase.Entity.Models;
 
 namespace FanEase.Repository.Interfaces
@@ -11,5 +12,7 @@ namespace FanEase.Repository.Interfaces
         Task<bool> EditVideo(Video video);
         Task<List<Video>> GetAllVideos();
         Task<Video> GetVideoById(int id);
+
+        Task<List<Video>> GetVideosByUserId(string userId);
     }
 }

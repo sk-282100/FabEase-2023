@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using ExceptionHandling;
 using FanEase.Entity.Models;
 using FanEase.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
@@ -99,6 +100,21 @@ namespace FanEase.Repository.Repositories
             }
 
             return video;
+        }
+
+        public async Task<List<Video>> GetVideosByUserId(string userId)
+        {
+            List<Video> videos = new List<Video>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                videos = connection.Query<Video>("GetVideosByUserIdSP", new { userId }, commandType: CommandType.StoredProcedure).ToList();
+
+            }
+
+            return videos;
         }
     }
 }
