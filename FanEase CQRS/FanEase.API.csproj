@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FanEase.CQRS\FanEase.Middleware.csproj" />
     <ProjectReference Include="..\FanEase.Entity\FanEase.Entity.csproj" />
+    <ProjectReference Include="..\FanEase.ExceptionHandling\FanEase.ExceptionHandling.csproj" />
   </ItemGroup>
 
   <ItemGroup>
