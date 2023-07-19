@@ -103,7 +103,16 @@ namespace FanEase_CQRS.Controllers
             return BadRequest();
         }
 
-       
+        [HttpGet]
+        [Route("RemoveCreator/{creatorId}")]
+        public async Task<ActionResult> RemoveCreator(string creatorId)
+        {
+            bool result = await _meadiator.Send(new RemoveCreatorCommand(creatorId));
+            if(result)
+                return Ok(result);
+            return BadRequest(result);
+        }
 
+       
     }
 }

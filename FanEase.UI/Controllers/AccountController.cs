@@ -1,7 +1,12 @@
-﻿using FanEase.UI.Models;
+﻿using FanEase.Entity.Models;
+using FanEase.UI.Models;
+using FanEase.UI.Models.Creator;
 using FanEase.UI.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace FanEase.UI.Controllers
 {
@@ -18,16 +23,44 @@ namespace FanEase.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(LoginVm login)
         {
-            LoginVm lgn = new LoginVm();
+            
             using (var httpclient = new HttpClient())
             {
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Account"))
-                {
+                var content = new StringContent(JsonConvert.SerializeObject(login), Encoding.UTF8, "application/json");
 
-                    string data = response.Content.ReadAsStringAsync().Result;
-                    lgn = JsonConvert.DeserializeObject<LoginVm>(data);
+                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Account/Login",content))
+                {
+                    string roles="";
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Handle successful login, e.g., store authentication token
+                        string result = await response.Content.ReadAsStringAsync();
+                        string token = JsonConvert.DeserializeObject<ResponseModel<AuthResponse>>(result).data.Token;
+                        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+                        JwtSecurityToken jwtToken = tokenHandler.ReadJwtToken(token);
+                        string? username1 = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+                        string? email = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+                        string? UserId = jwtToken.Claims.FirstOrDefault(c => c.Type == "uid")?.Value;
+                        roles = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+                        // Store the token in a secure location, such as a cookie or session
+                        HttpContext.Session.SetString("name", username1);
+                        HttpContext.Session.SetString("UserId", UserId);
+                        HttpContext.Session.SetString("role", roles);
+
+                    }
+
+                    if (roles == "Admin")
+                    {
+                        return RedirectToAction("ContenetCreatorList", "Admin");
+                    }
+                    else if (roles == "Creator")
+                    {
+                        return RedirectToAction("ContenetCreatorList", "Admin");
+                    }
+                    return RedirectToAction("Login");
+
                 }
-                return RedirectToAction("VerifyOTP");
+                
             }
 
 

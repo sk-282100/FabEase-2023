@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 
 namespace FanEase.UI.Controllers
@@ -235,8 +236,59 @@ namespace FanEase.UI.Controllers
             //return View(creator);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> RemoveCreator(string creatorId)
+        {
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/RemoveCreator/{creatorId}"))
+                {
 
+                    string data = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<bool>(data);
 
+                    return RedirectToAction("ContenetCreatorList");
+                }
+            }
+        }
+
+        [HttpGet]
+        [Route("EditCreator/creatorId")]
+        public async Task<IActionResult> EditCreator(string creatorId)
+        {
+            CreatorVM creator;
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/{creatorId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    creator = JsonConvert.DeserializeObject<ResponseModel<CreatorVM>>(data).data;
+
+                }
+                return View(creator);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCreator(CreatorVM creator)
+        {
+            
+            using (var httpclient = new HttpClient())
+            {
+                var content= new StringContent(JsonConvert.SerializeObject(creator), Encoding.UTF8, "application/json");
+                using (var response = await httpclient.PutAsync($"https://localhost:7208/api/User",content))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data).data;
+
+                    if (result)
+                        return RedirectToAction("CreatorDetails", creator.UserId);
+                    return RedirectToAction("EditCreator", creator.UserId);
+
+                }
+                
+            }
+        }
 
 
 

@@ -6,7 +6,7 @@ namespace FanEase.UI.Models.User
     {
         [Required]
         [DataType:DataType.Email]
-        public string EmailId { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType: DataType.Password]
