@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
-
+@{
+    string Username = "UserName";
+}
 <html>
 <head>
 
@@ -165,8 +167,8 @@
                             <div class="header-right-option dropdown profile-nav-item pt-0 pb-0">
                                 <a class="dropdown-item dropdown-toggle avatar d-flex align-items-center" href="#" id="navbarDropdown-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="../assets/images/avatar.png" alt="avatar">
-                                    <div class="d-none d-lg-block d-md-block">
-                                        <h3>John Smilga</h3>
+                                    <div class="d-none d-lg-block d-md-block"> 
+                                        <h3>@Username</h3>
                                         <span>Super Admin</span>
                                     </div>
                                 </a>
@@ -193,25 +195,11 @@
                                                     <span>Profile</span>
                                                 </a>
                                             </li>
-
-                                            <li class="nav-item">
-                                                <a href="inbox.html" class="nav-link">
-                                                    <i class="ri-mail-send-line"></i>
-                                                    <span>My Inbox</span>
-                                                </a>
-                                            </li>
-
+                                                                                      
                                             <li class="nav-item">
                                                 <a href="edit-profile.html" class="nav-link">
                                                     <i class="ri-edit-box-line"></i>
                                                     <span>Edit Profile</span>
-                                                </a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="edit-profile.html" class="nav-link">
-                                                    <i class="ri-settings-5-line"></i>
-                                                    <span>Settings</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -254,10 +242,10 @@
                             <a href="website-analytics.html" class="active">DashBoard</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="hr-management.html">HR Management</a>
+                            <a href="hr-management.html">Viewer Mode</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="tutor-lms.html">Tutor LMS</a>
+                            <a href="tutor-lms.html">Creator Mode</a>
                         </li>
 
                     </ul>
@@ -270,7 +258,7 @@
 
                     <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
                         <li class="list-group-item">
-                            <a asp-action="AddCreator" asp-controller="Admin">Add Creator</a>
+                            <a asp-action="AddCreator" asp-controller="Admin">Add Creator from Users</a>
                         </li>
                         <li class="list-group-item">
                             <a asp-action="ContenetCreatorList" asp-controller="Admin">Creator List</a>

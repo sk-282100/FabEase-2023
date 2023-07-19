@@ -4,6 +4,9 @@
     Layout = "AdminLayout";
     ViewData["Title"] = "CreatorDetails";
     int likes = 0;
+    string path = "";
+    if (Model.Creator.ProfilePhoto!=null)
+    path = "../"+Model.Creator.ProfilePhoto.Replace("\\", "/").Replace("..", ".");
 }
 
 
@@ -17,7 +20,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6 col-sm-6">
                             <div class="page-title">
-                                <h3>Profile</h3>
+                                <h3>Creator Profile</h3>
                             </div>
                         </div>
 
@@ -32,9 +35,9 @@
                         <div class="row align-items-center">
                             <div class="col-lg-6">
                                 <div class="profile-info d-flex align-items-center">
-                                    <img class="w-25 rounded-4" src="assets/images/profile-img.jpg" alt="profile-img">
+                                    <img class="w-25 rounded-4" src=@path alt="profile-img">
                                     <div class="profile-name ms-4">
-                                        <h4><span>@Model.Creator.FirstName</span> <span>@Model.Creator.LastName</span></h4>
+                                        <h4><p>@Model.Creator.FirstName @Model.Creator.LastName</></h4>
                                         <span>Member Since: @Model.Creator.CreationDate</span>
                                         <div class="follow-email">
                                             <button class="btn btn-primary">
@@ -54,22 +57,19 @@
                                         <div class="profile-activity">
                                             <i class='bx bx-repost'></i>
                                             <h3>Videos Uploaded</h3>
-                                            
                                             <h2>@Model.Videos.Count.ToString()</h2>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="profile-activity">
                                             <i class='bx bx-user'></i>
-                                            @if (Model.Videos.Count != 0)
+
+                                            @foreach (var videos in @Model.Videos)
                                             {
-                                                @foreach (var videos in @Model.Videos)
-                                                {
-                                                    likes = likes + videos.Likes;
-                                                }
+                                                likes = likes + videos.Likes;
                                             }
                                             <h3>Likes</h3>
-                                            <h2>@likes</.></h2>
+                                            <h2>@likes</h2>
 
                                         </div>
                                     </div>
@@ -84,12 +84,9 @@
 
                                 <div class="text-end edit-massage">
 
-                                    <a href=@Html.ActionLink("Edit", "EditUser", new { id = Model.Creator.UserId }) class="btn btn-primary">
-                                        Edit Profile
-                                    </a>
-                                    <a href=@Html.ActionLink("Edit", "DeleteUser", new { id = Model.Creator.UserId }) class="btn btn-primary">
-                                        Delete Profile
-                                    </a>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditUser","User",new{userId=Model.Creator.UserId})'">Edit Creator</button>
+                                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteUser","User",new{userId=Model.Creator.UserId})'">Delete Creator</button>
+                                        
                                 </div>
                             </div>
                         </div>
@@ -97,9 +94,6 @@
 
                     <div class="profile-details card-box-style">
                         <ul class="list-inline profile-menu">
-                            <li>
-                                <a href="@Html.ActionLink("Edit", "UserDetails", new { id = Model.Creator.UserId })" class="active">Profile</a>
-                            </li>
                             <li>
                                 <a href="friends.html">Friends</a>
                             </li>
@@ -157,11 +151,6 @@
                             </div>
                         </div>
 
-                        <div class="biography">
-                            <h3>Biography</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At, fugiat harum ab recusandae eligendi cumque ipsa, ullam reiciendis natus nemo aspernatur provident officiis repudiandae aliquam quae quos modi eos temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium vero numquam inventore. Fugit, animi quaerat! Vero cupiditate, libero itaque atque voluptatibus quos magnam, veritatis, suscipit aut obcaecati est quibusdam voluptas!</p>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit impedit a ducimus. Temporibus cumque modi nulla dolor est fugiat sequi exercitationem corrupti deleniti, consectetur saepe? Reiciendis ullam a totam iste!</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -172,31 +161,7 @@
         <!-- End Main Content Area -->
     </div>
     <!-- End All Section Area -->
-    <!-- Start Template Sidebar Area -->
-    <div class="template-sidebar-area">
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight">
-            <div class="offcanvas-header">
-                <a href="index.html">
-                    <img src="assets/images/main-logo.svg" alt="main-logo">
-                </a>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul>
-                    <li>
-                        <a class="default-btn btn active" target="_blank" href="#">
-                            Buy Now
-                        </a>
-                    </li>
-                    <li>
-                        <a class="default-btn btn" target="_blank" href="https://themeforest.net/user/envytheme/portfolio">
-                            Our Portfolio
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+
     <!-- End Template Sidebar Area -->
     <!-- Start Go Top Area -->
     <div class="go-top">
@@ -217,6 +182,6 @@
     <script src="assets/js/form-validator.min.js"></script>
     <script src="assets/js/contact-form-script.js"></script>
     <script src="assets/js/ajaxchimp.min.js"></script>
-    <script src="assets/js/custom.js"></script>
+    @*<script src="assets/js/custom.js"></script>*@
 </body>
 

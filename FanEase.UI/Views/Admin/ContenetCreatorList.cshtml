@@ -9,17 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body class="body-bg-f8faff">
-
+    
     <div class="contact-list-area">
         <div class="container-fluid">
             <div class="table-responsive" data-simplebar>
                 <div class="others-title">
-                    <h3>Creator List</h3>
+                    <p align="right">
+                        <a asp-action="AddCreatorForm" ><input type="button" value="Add Creator" class="btn btn-primary" /> </a>
+                    </p>
+                    <h3>
+                        Creator List 
+                    </h3>
                 </div>
 
-<p>
-                    <a asp-action="AddCreator"><input type="button" value="Add Creator" class="btn btn-primary"></a>
-</p>
+                  
                 <table class="table class=" table align-middle mb-0"">
     <thead>
         <tr>
@@ -55,9 +58,9 @@
 @foreach (var item in Model) {
         <tr>
              <td>
-            <a asp-action="CreatorDetails" asp-controller="Admin" asp-for-route="item.UserId">
+            
                 @Html.DisplayFor(modelItem => item.UserId)
-             </a>
+            
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
@@ -81,11 +84,11 @@
                 @Html.DisplayFor(modelItem => item.isActive)
             </td>
             <td>
-                @Html.ActionLink("Details", "CreatorDetails", new { creatorId=item.UserId  }) |
-
-                @Html.ActionLink("Edit", "EditUser", new { id=item.UserId  }) |
-
-                @Html.ActionLink("Delete", "DeleteUser", new { id=item.UserId  })
+                 <div class="btn-group" role="group" aria-label="Basic example">
+                     <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("CreatorDetails","Admin",new{creatorId=item.UserId})'">Details</button>
+                     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditUser","User",new{userId=item.UserId})'">Edit</button>
+                     <button type="button" class="btn btn-danger"  onclick="location.href='@Url.Action("DeleteUser","User",new{userId=item.UserId})'">Delete</button>
+                 </div>
             </td>
         </tr>
 }
