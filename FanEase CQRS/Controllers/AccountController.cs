@@ -116,7 +116,35 @@ namespace FanEase_CQRS.Controllers
             return BadRequest();
         }
 
+        [HttpPost]
+        [Route("SetCreatorPassword")]
+        public async Task<ActionResult> SetCreatorPassword(LoginDto login)
+        {
+            ResponseModel<bool> status = await _mediator.Send(new SetCreatorPasswordCommand(login.Email, login.Password));
+            if (status.data)
+            {
+                status.message = "Password Reset Successfully ";
+                return Ok(status);
+            }
 
-       
+            return BadRequest();
+        }
+
+        [HttpPost]
+        [Route("SendCredentials")]
+        public async Task<ActionResult> SendCredentials(CredentialVM credentials)
+        {
+            bool status = SendRegisterationLink.SendCredentials(credentials);
+            if (status)
+            {
+                return Ok(new ResponseModel<bool>
+                {
+                    data = status
+                });
+            }
+
+            return BadRequest();
+        }
+
     }
 }

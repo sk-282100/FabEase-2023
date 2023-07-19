@@ -75,6 +75,16 @@ namespace FanEase_CQRS.Controllers
             return NotFound();
 
         }
-           
+
+        [HttpGet]
+        [Route("user/{userId}")]
+        public async Task<IActionResult> GetVideosByUserId(string userId)
+        {
+            ResponseModel<List<Video>> result = await _meadiator.Send(new GetVideosByUserIdQuery(userId));
+            if (result.data.Count != 0)
+                return Ok(result.data);
+            return NotFound();
+        }
+
     }
 }

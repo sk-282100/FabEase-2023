@@ -105,7 +105,7 @@ namespace FanEase.Repository.Repositories
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                User user = connection.Query<User>("GetUserById", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                User user = connection.Query<User>("GetUserById", new { @USERID=id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                 return user;
             }
@@ -210,6 +210,36 @@ namespace FanEase.Repository.Repositories
                 User user = connection.Query<User>("GetUserByUserName", new { userName }, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                 return user;
+            }
+        }
+
+        public async Task<List<User>> GetAllCreators()
+        {
+            List<User> users = new List<User>();
+
+            string connectionString = _configuration.GetConnectionString("Key");
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                users = connection.Query<User>("ContenetCreatorListSP", commandType: CommandType.StoredProcedure).ToList();
+            }
+
+            return users;
+        }
+
+        public async Task<bool> AddCreator(string creatorId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute("AddCreatorSP", new { @UserId = creatorId}, commandType: CommandType.StoredProcedure);
+                if (result > 0)
+                    return true;
+
+                return false;
+
             }
         }
     }

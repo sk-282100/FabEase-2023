@@ -45,6 +45,7 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<AddVideoCommand, ResponseModel<bool>>, AddVideoHandler>();
             services.AddScoped<IRequestHandler<EditVideoCommand, ResponseModel<bool>>, EditVideoHandler>();
             services.AddScoped<IRequestHandler<DeleteVideoCommand, ResponseModel<bool>>, DeleteVideoHandler>();
+            services.AddScoped<IRequestHandler<GetVideosByUserIdQuery,ResponseModel<List<Video>>>,GetVideosByUserIdQueryHandler> ();
             services.AddScoped<IRequestHandler<GetAllTemplateDetailsQuery, ResponseModel<List<TemplateDetail>>>, GetAllTemplateDetailsHandler>();
             services.AddScoped<IRequestHandler<GetTemplateDetailsByIdQuery, ResponseModel<TemplateDetail>>, GetTemplateDetailsByIdHandler>();
             services.AddScoped<IRequestHandler<AddTemplateDetailsCommand, ResponseModel<bool>>, AddTemplateDetailsHandler>();
@@ -71,6 +72,21 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<UpdatePlayerCommand, ResponseModel<bool>>, UpdatePlayerCommandHandler>();
             services.AddScoped<IRequestHandler<GetAllPlayersQuery, ResponseModel<List<players>>>, GetAllPlayersQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllPlayerIdQuery, ResponseModel<players>>, GetAllPlayerIdQueryHandler>();
+
+            //For User
+            services.AddScoped<IRequestHandler<GetAllUsersQuery, ResponseModel<List<User>>>, GetAllUsersHandler>();
+            services.AddScoped<IRequestHandler<GetUserByIdQuery, ResponseModel<User>>, GetUserByIdHandler>();
+            services.AddScoped<IRequestHandler<AddUserCommand, ResponseModel<bool>>, AddUserHandler>();
+            services.AddScoped<IRequestHandler<EditUserCommand, ResponseModel<bool>>, EditUserHandler>();
+            services.AddScoped<IRequestHandler<DeleteUserCommand, ResponseModel<bool>>, DeleteUserHandler>();
+            services.AddScoped<IRequestHandler<LoginCommand, ResponseModel<AuthResponse>>, LoginHandler>();
+            services.AddScoped<IRequestHandler<GetUserByUserNameQuery, ResponseModel<User>>, GetUserByUserNameQueryHandler>();
+            services.AddScoped<IRequestHandler<GetAllCreatorsQuery, ResponseModel<List<User>>>, GetAllCreatorsQueryHandler>();
+            services.AddScoped<IRequestHandler<AddCreatorCommand, ResponseModel<bool>>, AddCreatorCommandHandler>();
+            //For Account
+            services.AddScoped<IRequestHandler<ResetPasswordCommand, ResponseModel<bool>>, ResetPasswordHandler>();
+            services.AddScoped<IRequestHandler<SetCreatorPasswordCommand,ResponseModel<bool>>,SetCreatorPasswordCommandHandler>();
+
             return services;
         }
     }

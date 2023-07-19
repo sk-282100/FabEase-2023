@@ -83,5 +83,27 @@ namespace FanEase_CQRS.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        [Route("/creatorlist")]
+        public async Task<ActionResult> GetCreatorList()
+        {
+            ResponseModel<List<User>> users = await _meadiator.Send(new GetAllCreatorsQuery());
+            return Ok(users);
+        }
+
+        [HttpGet]
+        [Route("AddCreator/{creatorId}")]
+        public async Task<ActionResult> AddCreator(string creatorId)
+        {
+            ResponseModel<bool> result = await _meadiator.Send(new AddCreatorCommand(creatorId));
+            if(result.data)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+
+       
+
     }
 }

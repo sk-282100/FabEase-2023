@@ -5,9 +5,11 @@ namespace FanEase.Repository.Interfaces
 {
     public interface IUserRepository
     {
+        Task<bool> AddCreator(string creatorId);
         Task<bool> AddUser(User user);
         Task<bool> DeleteUser(string id);
         Task<bool> EditUser(User user);
+        Task<List<User>> GetAllCreators();
         Task<List<User>> GetAllUsers();
         Task<User> GetUserById(string id);
         Task<User> GetUserByUserName(string userName);

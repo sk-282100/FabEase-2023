@@ -9,7 +9,7 @@
         public int VideoCount { get; set; }
         public string Email { get; set; }
 
-        public int ContactNo { get; set; }
+        public string ContactNo { get; set; }
 
         public DateTime CreationDate { get; set; }
 
