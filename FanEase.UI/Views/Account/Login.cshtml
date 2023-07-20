@@ -12,29 +12,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Link Of CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/remixicon.css">
-    <link rel="stylesheet" href="assets/css/boxicons.min.css">
-    <link rel="stylesheet" href="assets/css/iconsax.css">
-    <link rel="stylesheet" href="assets/css/metismenu.min.css">
-    <link rel="stylesheet" href="assets/css/simplebar.min.css">
-    <link rel="stylesheet" href="assets/css/calendar.css">
-    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
-    <link rel="stylesheet" href="assets/css/jbox.all.min.css">
-    <link rel="stylesheet" href="assets/css/editor.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/loaders.css">
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="assets/css/sidebar-menu.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/remixicon.css">
+    <link rel="stylesheet" href="../assets/css/boxicons.min.css">
+    <link rel="stylesheet" href="../assets/css/iconsax.css">
+    <link rel="stylesheet" href="../assets/css/metismenu.min.css">
+    <link rel="stylesheet" href="../assets/css/simplebar.min.css">
+    <link rel="stylesheet" href="../assets/css/calendar.css">
+    <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../assets/css/jbox.all.min.css">
+    <link rel="stylesheet" href="../assets/css/editor.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/loaders.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.svg">
+    <link rel="icon" type="image/png" href="../assets/images/favicon.svg">
     <!-- Title -->
     <title>FanEase -Login</title>
 </header>
@@ -46,24 +46,24 @@
                 <div class="account-content">
                     <div class="account-header">
                         <a href="index.html">
-                            <img src="assets\images\FanEase\Logo-Index.png" height="50px" width="50px" alt="main-logo">
+                            <img src="../assets\images\FanEase\Logo-Index.png" height="50px" width="50px" alt="main-logo">
                             <!--<div>FanEase</div> -->
                         </a>
                         <h3>Login</h3>
                     </div>
-
+                    <span class="text-danger">@ViewBag.NotAllowed</span>
                     <form class="account-wrap" asp-action="Login">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group mb-24 icon">
                             
                             <input type="email" asp-for=Email class="form-control" placeholder="Email">
-                            <img src="assets/images/icon/sms.svg" alt="sms">
+                            <img src="../assets/images/icon/sms.svg" alt="sms">
                            
                         </div>
                         <div class="form-group mb-24 icon">
                             
                             <input type="password" asp-for="Password" class="form-control" placeholder="Password">
-                            <img src="assets/images/icon/key.svg" alt="key">
+                            <img src="../assets/images/icon/key.svg" alt="key">
                         </div>
                         
                         <div class="form-group mb-24">

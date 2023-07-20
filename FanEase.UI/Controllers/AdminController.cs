@@ -22,6 +22,13 @@ namespace FanEase.UI.Controllers
         {
             _mapper = mapper;
         }
+
+        [HttpGet]
+        public IActionResult AdminDashboard()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult AddCreatorForm()
         {
@@ -32,63 +39,70 @@ namespace FanEase.UI.Controllers
         public async Task<IActionResult> AddCreatorForm(AddCreatorFormDTO creator)
         {
             string imagePath = await SaveImageAsync(creator.ProfilePhoto);
-            User user = new User()
+            if (imagePath.Contains(".jpg") || imagePath.Contains(".jpeg") || imagePath.Contains(".png"))
             {
-                ProfilePhoto = imagePath,
-                FirstName = creator.FirstName,
-                LastName = creator.LastName,
-                VideoCount=0,
-                Address=creator.Address,
-                Country=creator.Country,
-                City=creator.City,
-                Email=creator.Email,
-                ContactNo=creator.ContactNo,
-                isActive=true,
-                CreationDate=DateTime.Now,
-                UserName=creator.Email,
-                Password=creator.FirstName+"@123"
-
-            };
-            using (var httpclient = new HttpClient())
-            {
-                StringContent PostUser = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/User",PostUser))
+                User user = new User()
                 {
-                    
-                    string data = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
-                    if (result.Succeed)
+                    ProfilePhoto = imagePath,
+                    FirstName = creator.FirstName,
+                    LastName = creator.LastName,
+                    VideoCount = 0,
+                    Address = creator.Address,
+                    Country = creator.Country,
+                    City = creator.City,
+                    Email = creator.Email,
+                    ContactNo = creator.ContactNo,
+                    isActive = true,
+                    CreationDate = DateTime.Now,
+                    UserName = creator.Email,
+                    Password = creator.FirstName + "@123"
+
+                };
+
+                using (var httpclient = new HttpClient())
+                {
+                    StringContent PostUser = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                    using (var response = await httpclient.PostAsync($"https://localhost:7208/api/User", PostUser))
                     {
-                        string userid = creator.FirstName.Substring(0,1) + creator.LastName.Substring(0,1) + creator.ContactNo.Substring(creator.ContactNo.Length - 4);
-                        using (var response1 = await httpclient.GetAsync($"https://localhost:7208/api/User/AddCreator/{userid}"))
-                        {
-                            string data1 = response.Content.ReadAsStringAsync().Result;
 
+                        string data = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+                        if (result.Succeed)
+                        {
+                            string userid = creator.FirstName.Substring(0, 1) + creator.LastName.Substring(0, 1) + creator.ContactNo.Substring(creator.ContactNo.Length - 4);
+                            using (var response1 = await httpclient.GetAsync($"https://localhost:7208/api/User/AddCreator/{userid}"))
+                            {
+                                string data1 = response.Content.ReadAsStringAsync().Result;
+
+                            }
+                            Entity.Models.CredentialVM credentails = new Entity.Models.CredentialVM();
+                            credentails = new Entity.Models.CredentialVM()
+                            {
+                                Email = user.Email,
+                                ContactNo = user.ContactNo,
+                                UserName = user.UserName,
+                                Password = user.Password
+
+                            };
+                            StringContent Credcontent = new StringContent(JsonConvert.SerializeObject(credentails), Encoding.UTF8, "application/json");
+                            using (var resp = await httpclient.PostAsync($"https://localhost:7208/api/Account/SendCredentials", Credcontent))
+                            {
+                                string data1 = response.Content.ReadAsStringAsync().Result;
+
+                            }
+                            return RedirectToAction("ContenetCreatorList");
                         }
-                        Entity.Models.CredentialVM credentails = new Entity.Models.CredentialVM();
-                        credentails = new Entity.Models.CredentialVM()
-                        {
-                            Email = user.Email,
-                            ContactNo = user.ContactNo,
-                            UserName = user.UserName,
-                            Password = user.Password
 
-                        };
-                        StringContent Credcontent = new StringContent(JsonConvert.SerializeObject(credentails), Encoding.UTF8, "application/json");
-                        using (var resp = await httpclient.PostAsync($"https://localhost:7208/api/Account/SendCredentials", Credcontent))
-                        {
-                            string data1 = response.Content.ReadAsStringAsync().Result;
 
-                        }
-                        return RedirectToAction("ContenetCreatorList");
+
+
                     }
 
-                  return  RedirectToAction("AddCreatorForm");
-
                 }
-                
+               
             }
-            
+            ViewBag.OnlyImage = "! only files with .jpg, .jpeg & .png are allowed";
+            return View();
         }
 
         private async Task<string> SaveImageAsync(IFormFile image)

@@ -2030,8 +2030,10 @@ Top Performers Content Style
 Page Title Style
 =====================================================*/
 .page-title-area {
-	padding-top: 6px;
-    padding-bottom: 38px;
+	margin-top: 6px;
+	
+	padding-bottom: 38px;
+
 	.page-title {
 		h3 {
 			font-size: 24px;
@@ -2039,12 +2041,14 @@ Page Title Style
 			font-weight: 600;
 		}
 	}
+
 	.page-title-list {
 		padding: 0;
 		margin: 0;
 		list-style-type: none;
 		text-align: right;
 		line-height: 1;
+
 		li {
 			display: inline-block;
 			position: relative;
@@ -2053,13 +2057,16 @@ Page Title Style
 			font-size: 12px;
 			letter-spacing: -0.24px;
 			color: #292D32;
+
 			&:last-child {
 				margin-right: 0;
 				padding-right: 0;
+
 				&::before {
 					display: none;
 				}
 			}
+
 			&::before {
 				content: "";
 				position: absolute;

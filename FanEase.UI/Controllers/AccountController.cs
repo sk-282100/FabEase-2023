@@ -12,11 +12,15 @@ namespace FanEase.UI.Controllers
 {
     public class AccountController : Controller
     {
+
+        
+
         // [Route("Login")]
         [HttpGet]
         
         public IActionResult Login()
         {
+            HttpContext.Session.Clear();
             return View();
         }
 
@@ -57,9 +61,9 @@ namespace FanEase.UI.Controllers
                         if (roles == "Admin")
                         {
                             if (login.Password != Password)
-                                return RedirectToAction("ContenetCreatorList", "Admin");
+                                return RedirectToAction("AdminDashboard", "Admin");
                             else
-                                return RedirectToAction("ResetPassword", "Account");
+                                return RedirectToAction("SetPassword", "Account");
                         }
                         else if (roles == "Creator")
                         {
@@ -72,7 +76,8 @@ namespace FanEase.UI.Controllers
                     }
                     catch
                     {
-                        return RedirectToAction("Login");
+                        ViewBag.NotAllowed = "Invalid UserName or Password";
+                        return View();
                     }
 
                 }
@@ -140,7 +145,8 @@ namespace FanEase.UI.Controllers
                 if (otp != 0)
                     return RedirectToAction("SetPassword");
 
-                return RedirectToAction("VerifyOTP");
+                ViewBag.ErrorMessage = "! OTP Not Matched";
+                return View();
             }
 
 
@@ -212,6 +218,8 @@ namespace FanEase.UI.Controllers
         {
             return View();
         }
+
+
 
 
 

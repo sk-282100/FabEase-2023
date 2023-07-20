@@ -50,7 +50,7 @@
         <div class="header-area">
             <div class="container-fluid">
                 <div class="header-content-wrapper">
-                    <div class="header-content d-flex justify-content-between align-items-center">
+                    <div class="header-content d-flex justify-content-between align-items-top">
                         <div class="header-left-content d-flex">
                             <div class="responsive-burger-menu d-block d-lg-none">
                                 <span class="top-bar"></span>
@@ -90,82 +90,7 @@
 
                         <div class="header-right-content d-flex align-items-center">
 
-                            <div class="header-right-option notification-option dropdown">
-                                <div class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="notification-btn">
-                                        <img src="../assets/images/icon/notification.svg" alt="notification">
-                                        <span class="badge">4</span>
-                                    </div>
-                                </div>
-
-                                <div class="dropdown-menu">
-                                    <div class="dropdown-header d-flex justify-content-between align-items-center bg-linear">
-                                        <span class="title d-inline-block">6 New Notifications</span>
-                                        <span class="mark-all-btn d-inline-block">Mark all as read</span>
-                                    </div>
-
-                                    <div class="dropdown-wrap" data-simplebar>
-                                        <a href="inbox.html" class="dropdown-item d-flex align-items-center">
-                                            <div class="icon">
-                                                <i class='bx bx-message-rounded-dots'></i>
-                                            </div>
-
-                                            <div class="content">
-                                                <span class="d-block">Just sent a new message!</span>
-                                                <p class="sub-text mb-0">2 sec ago</p>
-                                            </div>
-                                        </a>
-
-                                        <a href="inbox.html" class="dropdown-item d-flex align-items-center">
-                                            <div class="icon">
-                                                <i class='bx bx-user'></i>
-                                            </div>
-
-                                            <div class="content">
-                                                <span class="d-block">New customer registered</span>
-                                                <p class="sub-text mb-0">5 sec ago</p>
-                                            </div>
-                                        </a>
-
-                                        <a href="inbox.html" class="dropdown-item d-flex align-items-center">
-                                            <div class="icon">
-                                                <i class='bx bx-layer'></i>
-                                            </div>
-
-                                            <div class="content">
-                                                <span class="d-block">Apps are ready for update</span>
-                                                <p class="sub-text mb-0">3 min ago</p>
-                                            </div>
-                                        </a>
-
-                                        <a href="inbox.html" class="dropdown-item d-flex align-items-center">
-                                            <div class="icon">
-                                                <i class='bx bx-hourglass'></i>
-                                            </div>
-
-                                            <div class="content">
-                                                <span class="d-block">Your item is shipped</span>
-                                                <p class="sub-text mb-0">7 min ago</p>
-                                            </div>
-                                        </a>
-
-                                        <a href="inbox.html" class="dropdown-item d-flex align-items-center">
-                                            <div class="icon">
-                                                <i class='bx bx-comment-dots'></i>
-                                            </div>
-
-                                            <div class="content">
-                                                <span class="d-block">Steven commented on your post</span>
-                                                <p class="sub-text mb-0">1 sec ago</p>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="dropdown-footer">
-                                        <a href="inbox.html" class="dropdown-item">View All</a>
-                                    </div>
-                                </div>
-                            </div>
+                           
 
                             <div class="header-right-option dropdown profile-nav-item pt-0 pb-0">
                                 <a class="dropdown-item dropdown-toggle avatar d-flex align-items-center" href="#" id="navbarDropdown-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -193,14 +118,14 @@
                                     <div class="dropdown-wrap">
                                         <ul class="profile-nav p-0 pt-3">
                                             <li class="nav-item">
-                                                <a href="profile.html" class="nav-link">
+                                                <a asp-action="AdminDashBoard" asp-controller="Admin" class="nav-link">
                                                     <i class="ri-user-line"></i>
                                                     <span>Profile</span>
                                                 </a>
                                             </li>
                                                                                       
                                             <li class="nav-item">
-                                                <a href="edit-profile.html" class="nav-link">
+                                                <a asp-action="AdminDashBoard" asp-controller="Admin" class="nav-link">
                                                     <i class="ri-edit-box-line"></i>
                                                     <span>Edit Profile</span>
                                                 </a>
@@ -222,9 +147,7 @@
                             </div>
 
                             <div class="header-right-option template-option">
-                                <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                    <img src="../assets/images/icon/setting.svg" alt="setting">
-                                </a>
+                               
                             </div>
                         </div>
                     </div>
@@ -233,76 +156,180 @@
         </div>
         <!-- End Header Area -->
         <!-- Start Sidebar Menu Area -->
-        <nav class="sidebar-menu">
-            <ul class="list-group flex-column d-inline-block first-menu" data-simplebar>
-                <li class="list-group-item main-grid active">
-                    <a href="#" class="icon">
-                        <img src="../assets/images/icon/element.svg" alt="element">
-                    </a>
+        @if (role == "Admin")
+        {
+            <nav class="sidebar-menu">
+                <ul class="list-group flex-column d-inline-block first-menu" data-simplebar>
+                    <li class="list-group-item main-grid active">
+                        <a href="#" class="icon">
+                            <img src="../assets/images/icon/element.svg" alt="element">
+                        </a>
 
-                    <ul class="list-group flex-column d-inline-block submenu">
-                        <li class="list-group-item">
-                            <a href="website-analytics.html" class="active">DashBoard</a>
+                        <ul class="list-group flex-column d-inline-block submenu">
+                            <li class="list-group-item">
+                                <a href="website-analytics.html" class="active">DashBoard</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="hr-management.html">Viewer Mode</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="tutor-lms.html">Creator Mode</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="list-group-item main-grid">
+                        <a href="#" class="icon">
+                            <img src="../assets/images/icon/user-octagon.svg" alt="user-octagon">
+                        </a>
+
+                        <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                            <li class="list-group-item">
+                                <a asp-action="AddCreator" asp-controller="Admin">Add Creator from Users</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a asp-action="ContenetCreatorList" asp-controller="Admin">Creator List</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a asp-action="AllVideos" asp-controller="Video">Video List</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a asp-action="AllAdvertisements" asp-controller="Advertisement">Advertisement List</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="screen-lock.html">Screen Lock</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End Sidebar Menu Area -->
+        }
+           @if(role=="Creator") {
+
+                <!-- Start Sidebar Menu Area -->
+                <nav class="sidebar-menu">
+                    <ul class="list-group flex-column d-inline-block first-menu" data-simplebar>
+
+                        <li class="list-group-item main-grid">
+                            <a href="#" class="icon">
+                                <img src="../assets/images/icon/diagram.svg" alt="dashboard">
+                            </a>
+
+                            <ul class="list-group flex-column d-inline-block submenu">
+                                <li class="list-group-item"><h5>Dash Board</h5></li>
+                                <li class="list-group-item">
+                                    <a href="#" class="active">@Name DashBoard</a>
+                                </li>
+
+
+                            </ul>
                         </li>
-                        <li class="list-group-item">
-                            <a href="hr-management.html">Viewer Mode</a>
+
+
+
+                        <li class="list-group-item main-grid">
+                            <a href="#" class="icon">
+                                <img src="../assets/images/icon/video.svg" alt="video">
+                            </a>
+
+                            <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                                <li class="list-group-item"><h5>Videos</h5></li>
+                                <li class="list-group-item">
+                                    <a href="#">All Videos</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">Find Video</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">Edit Video</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">Delete Video</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">Top 5 Videos</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="list-group-item">
-                            <a href="tutor-lms.html">Creator Mode</a>
+
+
+                        <li class="list-group-item main-grid">
+                            <a href="#" class="icon">
+                                <img src="../assets/images/icon/advanced.svg" alt="Campaigens">
+                            </a>
+
+                            <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                                <li class="list-group-item"><h5>Campaigns</h5></li>
+                                <li class="list-group-item">
+                                    <a href="#">Add Campaign</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">Edit Campaign</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">Remove Campaign</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">Top Campaign</a>
+                                </li>
+
+                            </ul>
                         </li>
+
+                        <li class="list-group-item main-grid">
+                            <a href="#" class="icon">
+                                <img src="../assets/images/icon/folder-2.svg" alt="media">
+                            </a>
+
+                            <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                                <li class="list-group-item"><h5>Media</h5></li>
+                                <li class="list-group-item">
+                                    <a href="#">Add Media</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">View All</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="list-group-item main-grid">
+                            <a href="#" class="icon">
+                                <img src="../assets/images/icon/element.svg" alt="templets">
+                            </a>
+
+                            <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                                <li class="list-group-item"><h5>Templates</h5></li>
+                                <li class="list-group-item">
+                                    <a href="#">All Templates</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">Add Template</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
 
                     </ul>
-                </li>
+                </nav>
+                <!-- End Sidebar Menu Area -->
 
-                <li class="list-group-item main-grid">
-                    <a href="#" class="icon">
-                        <img src="../assets/images/icon/user-octagon.svg" alt="user-octagon">
-                    </a>
-
-                    <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
-                        <li class="list-group-item">
-                            <a asp-action="AddCreator" asp-controller="Admin">Add Creator from Users</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a asp-action="ContenetCreatorList" asp-controller="Admin">Creator List</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a asp-action="AllVideos" asp-controller="Video">Video List</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a asp-action="AllAdvertisements" asp-controller="Advertisement">Advertisement List</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="screen-lock.html">Screen Lock</a>
-                        </li>
-                    </ul>
-                </li>
-
-       
-
-
-
-            </ul>
-        </nav>
-        <!-- End Sidebar Menu Area -->
-        <!-- Start Footer Area -->
+            }
+            <!-- Start Footer Area -->
         <main class="main-content-wrap">
             @RenderBody()
 
 
 
         </main>
-        <div class="footer-area">
-            <div class="container-fluid">
-                <div class="footer-content">
-                    <p>© FanEase is Proudly Owned by <a href="https://fanease.com/privacy" target="_blank">FanEase</a></p>
-                </div>
-            </div>
-        </div>
+       
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @await RenderSectionAsync("Scripts", required: false)
-        </div>
+    </div>
 </body>
 </html>

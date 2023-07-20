@@ -31,8 +31,8 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
-<body class="body-bg-f8faff">
-    <main class="main-content-wrap">
+
+   
         <div class="page-title-area">
             <div class="container-fluid">
                 <div class="row align-items-center">
@@ -41,125 +41,121 @@
                             <h3>Add Creator</h3>
                         </div>
                     </div>
-
-                    <div class="col-lg-6 col-sm-6">
-                        <ul class="page-title-list">
-                            <li>Pages</li>
-                            <li>Add Creator</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
 
-  <div class="profile-area">
-      <div class="container-fluid">
-            <div class="row">
-                 <div class="col-lg-8">
-                    <div class="edit-profile-content card-box-style">
+        <div class="profile-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="edit-profile-content card-box-style">
                             <h3>Creator Registration Form</h3>
-      <form asp-action="AddCreatorForm" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="row">
-           <div class="col-lg-6">
-            <div class="form-group">
-                <label asp-for="ProfilePhoto" class="control-label"></label>
-                <input asp-for="ProfilePhoto" type="file" class="form-control" />
-                <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
-            </div>
-            </div>
-            </div>
-           <div class="row">
-             <div class="col-lg-6">
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            </div>
-           
-            
-            <div class="col-lg-6">
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            </div>
-                                <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label asp-for="Email" class="control-label"></label>
-                                    <input asp-for="Email" type="email" class="form-control" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                                </div>
-                                <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label asp-for="ContactNo" class="control-label"></label>
-                                    <input asp-for="ContactNo" class="form-control" />
-                                    <span asp-validation-for="ContactNo" class="text-danger"></span>
-                                </div>
-                                </div>
-           
-            
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
+                            <form asp-action="AddCreatorForm" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                    <label asp-for="ProfilePhoto" class="control-label"></label><span class="text">*</span>
+                                            <input asp-for="ProfilePhoto" type="file" class="form-control" />
+                                    <span class="text-danger">@ViewBag.OnlyImage</span>
+                                            <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
 
-          
-              <div class="col-lg-6">
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            </div>
-            
-            
-              <div class="col-lg-6">
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-           
-            </div>
-            </div>
-
-            
-                                   
-                                       
-
-                                    
-                                        <div class="form-group" align="right">
-                                    <input type="submit" value="Submit" class="btn btn-success"  />
-                                       
-            </div>
-                                <div class="form-group" align="right">
-                                    <input type="reset" value="Reset" class="btn btn-danger" />
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                    <label asp-for="FirstName" class="control-label"></label><span class="text">*</span>
+                                            <input asp-for="FirstName" class="form-control" />
+                                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                    <label asp-for="LastName" class="control-label"></label><span class="text">*</span>
+                                            <input asp-for="LastName" class="form-control" />
+                                            <span asp-validation-for="LastName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                    <label asp-for="Email" class="control-label"></label><span class="text">*</span>
+                                            <input asp-for="Email" type="email" class="form-control" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                    <label asp-for="ContactNo" class="control-label"></label><span class="text">*</span>
+                                            <input asp-for="ContactNo" class="form-control" />
+                                            <span asp-validation-for="ContactNo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                <label asp-for="Address" class="control-label"></label><span class="text">*</span>
+                                        <input asp-for="Address" class="form-control" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                    <label asp-for="City" class="control-label"></label><span class="text">*</span>
+                                            <input asp-for="City" class="form-control" />
+                                            <span asp-validation-for="City" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                    <label asp-for="Country" class="control-label"></label><span class="text">*</span>
+                                            <input asp-for="Country" class="form-control" />
+                                            <span asp-validation-for="Country" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+
+                        <div class="text-end edit-massage">
+                           
+                               
+                             <input type="reset" value="Reset" class="btn btn-danger" />
+                            <input type="submit" value="Submit" class="btn btn-success" />
+                             
+                               
+                          </div>
 
 
 
 
 
                                 <a asp-action="ContenetCreatorList">Back to List</a>
-                               
-                                
-        </form>
-    </div>
-</div>
-</div>
-</div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-            
+            @section Scripts {
+                @{
+                    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                }
+            }
+
         </div>
-    </main>
-</body>
+  
+
