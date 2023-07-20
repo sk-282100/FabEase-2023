@@ -6,6 +6,6 @@ namespace FanEase.UI.Models.User
     {
         [Required]
         [MinLength(6)]
-        public int OTP { get; set; }
+        public string OTP { get; set; }
     }
 }

@@ -11,7 +11,6 @@
 	  <Folder Include="Data\Commands\ForCampaign\" />
 	  <Folder Include="Data\Commands\ForPlayer\" />
     <Folder Include="Data\Commands\ForTeam\" />
-    <Folder Include="Data\Commands\ForUser\" />
     <Folder Include="Data\Handler\ForCreatorDashBoard\" />
     <Folder Include="Data\Handler\ForTeam\" />
     <Folder Include="Data\Handler\ForTemplate\" />

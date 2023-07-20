@@ -14,7 +14,7 @@ namespace FanEase.Middleware.Data.Commands.ForUser
         public string UserName { get; set; }
 
 
-        public SetPasswordCommand(string password, string userName)
+        public SetPasswordCommand(string userName, string password)
         {
             Password = password;
             UserName = userName;

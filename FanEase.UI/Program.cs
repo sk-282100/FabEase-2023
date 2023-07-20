@@ -1,7 +1,8 @@
 using FanEase.UI.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MapperConfig));
@@ -22,9 +23,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Admin}/{action=AddCreator}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

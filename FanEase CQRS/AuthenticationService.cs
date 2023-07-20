@@ -1,6 +1,7 @@
 ﻿using FanEase.Entity.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace FanEase_CQRS
@@ -15,6 +16,7 @@ namespace FanEase_CQRS
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                
             })
                 .AddJwtBearer(o =>
                 {

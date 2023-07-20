@@ -116,7 +116,7 @@ namespace FanEase.Repository.Repositories
         {
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("Key")))
             {
-                _user = connection.Query<User>("GetUserByUserName", new { @USERNAME = loginDto.Email }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                _user = connection.Query<User>("GetUserByUserName", new { @UsertName = loginDto.Email }, commandType: CommandType.StoredProcedure).FirstOrDefault();
                 bool isValidate = (loginDto.Password == _user.Password);
                 if (_user == null || isValidate == false)
                 {
@@ -135,21 +135,28 @@ namespace FanEase.Repository.Repositories
 
         private async Task<string> GenerateToken()
         {
+            List<string> roles;
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSetting:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                //var roles = connection.Query<string>("GetUserRoleSP", new {_user.UserId},commandType: CommandType.StoredProcedure);
+                 roles = connection.Query<string>("GetUserRoleSP", new {@UserId=_user.UserId},commandType: CommandType.StoredProcedure).ToList();
             }
-
+            var roleclaim = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub,_user.Email),
                  new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                 new Claim(JwtRegisteredClaimNames.Email,_user.Email),
-                 new Claim("uid",_user.UserId)
+                 //new Claim(JwtRegisteredClaimNames.Email,_user.Email),
+                 new Claim("uid",_user.UserId),
+                 new Claim(ClaimTypes.Email,_user.Email),
+                 new Claim(ClaimTypes.Name,_user.FirstName+" "+_user.LastName),
+                 new Claim("firstName",_user.FirstName)
+                 
 
-            };
+            }.Union(roleclaim);
+
+            
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["JwtSetting:Issuer"],
@@ -235,6 +242,21 @@ namespace FanEase.Repository.Repositories
                 connection.Open();
 
                 var result = connection.Execute("AddCreatorSP", new { @UserId = creatorId}, commandType: CommandType.StoredProcedure);
+                if (result > 0)
+                    return true;
+
+                return false;
+
+            }
+        }
+
+        public async Task<bool> RemoveCreator(string creatorId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute("RemoveCreatorSP", new { @UserId = creatorId }, commandType: CommandType.StoredProcedure);
                 if (result > 0)
                     return true;
 

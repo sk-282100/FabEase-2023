@@ -1,14 +1,46 @@
 ﻿@model FanEase.UI.Models.Creator.CreatorDetailsVM
-
+@inject IHttpContextAccessor HttpContextAccessor;
 @{
     Layout = "AdminLayout";
     ViewData["Title"] = "CreatorDetails";
     int likes = 0;
     string path = "";
-    if (Model.Creator.ProfilePhoto!=null)
-    path = "../"+Model.Creator.ProfilePhoto.Replace("\\", "/").Replace("..", ".");
+   
+    
+        if (Model.Creator.ProfilePhoto != null)
+            path = "../" + Model.Creator.ProfilePhoto.Replace("\\", "/").Replace("..", ".");
+        string roles = HttpContextAccessor.HttpContext.Session.GetString("role");
+        if (roles == "Admin")
+            Layout = "AdminLayout";
+        else
+            Layout = "FanEaseLayout";
+    
+    
 }
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 
+    <script>
+        function confirmRemove(userId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Creator will be removed Permanently!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, remove it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If the user confirms the removal, redirect to the appropriate action
+                    window.location.href = '@Url.Action("RemoveCreator","Admin")?creatorId=' + userId;
+                    window.location.href = '@Url.Action("ContenetCreatorList","Admin");
+                }
+            });
+        }
+    </script>
+</head>
 
 <body>
     <div class="all-section-area">
@@ -40,9 +72,6 @@
                                         <h4><p>@Model.Creator.FirstName @Model.Creator.LastName</></h4>
                                         <span>Member Since: @Model.Creator.CreationDate</span>
                                         <div class="follow-email">
-                                            <button class="btn btn-primary">
-                                                Follow
-                                            </button>
                                             <a href="mailto:{@Model.Creator.Email}" class="btn btn-secondary">
                                                 E-mail
                                             </a>
@@ -55,15 +84,18 @@
                                 <div class="row justify-content-center">
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="profile-activity">
-                                            <i class='bx bx-repost'></i>
+                                            <a href="@Url.Action("GetVideosByUserId","Video",new{userId=Model.Creator.UserId})">
+                                                <i class='bx bx-video'></i>
+                                            </a>
                                             <h3>Videos Uploaded</h3>
                                             <h2>@Model.Videos.Count.ToString()</h2>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="profile-activity">
-                                            <i class='bx bx-user'></i>
-
+                                            
+                                            <i class='bx bx-like'></i>
+                                            
                                             @foreach (var videos in @Model.Videos)
                                             {
                                                 likes = likes + videos.Likes;
@@ -75,7 +107,9 @@
                                     </div>
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="profile-activity">
-                                            <i class='bx bx-wifi'></i>
+                                            <a href="@Url.Action("GetAdvertisementsByUserId","Advertisement",new{userId=Model.Creator.UserId})">
+                                            <i class='bx bx-file'></i>
+                                            </a>
                                             <h3>Advertises</h3>
                                             <h2>@Model.Advertisements.Count()</h2>
                                         </div>
@@ -85,7 +119,7 @@
                                 <div class="text-end edit-massage">
 
                                     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditUser","User",new{userId=Model.Creator.UserId})'">Edit Creator</button>
-                                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteUser","User",new{userId=Model.Creator.UserId})'">Delete Creator</button>
+                                    <button type="button" class="btn btn-danger" onclick="confirmRemove('@Model.Creator.UserId')">Delete Creator</button>
                                         
                                 </div>
                             </div>
@@ -95,10 +129,10 @@
                     <div class="profile-details card-box-style">
                         <ul class="list-inline profile-menu">
                             <li>
-                                <a href="friends.html">Friends</a>
+                                <a href="#">top videos</a>
                             </li>
                             <li>
-                                <a href="followers.html">Followers</a>
+                                <a href="#">campaigns</a>
                             </li>
                         </ul>
 
@@ -163,6 +197,11 @@
     <!-- End All Section Area -->
 
     <!-- End Template Sidebar Area -->
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
     <!-- Start Go Top Area -->
     <div class="go-top">
         <i class="ri-arrow-up-s-fill"></i>
@@ -170,6 +209,7 @@
     </div>
     <!-- End Go Top Area -->
     <!-- Jquery Min JS -->
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
