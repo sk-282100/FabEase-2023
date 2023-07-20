@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using static System.Net.WebRequestMethods;
 
 namespace FanEase_CQRS.Controllers
 {
@@ -14,6 +15,7 @@ namespace FanEase_CQRS.Controllers
     public class AccountController : ControllerBase
     {
         readonly IMediator _mediator;
+        private static int otp = 0;
         public AccountController(IMediator mediator )
         {
             _mediator = mediator;
@@ -53,8 +55,11 @@ namespace FanEase_CQRS.Controllers
         [Route("forgetPassword/{email}")]
         public async Task<ActionResult> ForgetPassword(string email)
         {
-            bool status =  SendRegisterationLink.SendLink(email); 
-            if(status)
+
+            bool status = SendRegisterationLink.SendLink(email)
+;
+            otp = SendRegisterationLink.OTP;
+            if (status)
             {
                 return Ok(new ResponseModel<bool>
                 {
@@ -66,9 +71,9 @@ namespace FanEase_CQRS.Controllers
         }
 
         [HttpPost("SetPassword")]
-        public async Task<ActionResult> SetPassword(string username,string password)
+        public async Task<ActionResult> SetPassword(SetPasswordVm setPasswordVm)
         {
-            ResponseModel<bool> status = await _mediator.Send(new SetPasswordCommand(username, password));
+            ResponseModel<bool> status = await _mediator.Send(new SetPasswordCommand(setPasswordVm.UserName, setPasswordVm.Password));
             if (status.data)
             {
                 status.message = "Password Reset Successfully ";
@@ -77,29 +82,20 @@ namespace FanEase_CQRS.Controllers
 
             return BadRequest();
         }
-
-        [HttpPost]
+        [HttpGet]
         [Route("VerifyOTP")]
         public async Task<ActionResult> VeriifyOTP(int OTP)
         {
-            if (SendRegisterationLink.OTP == OTP)
+            if (otp == OTP)
             {
                 if (SendRegisterationLink.time > DateTime.Now)
                     return Ok(new ResponseModel<int>
                     {
                         data = OTP
                     });
-                else
-                    return BadRequest(new ResponseModel<DateTime>
-                    {
-                        data = SendRegisterationLink.time,
-                        message = "OTP Expired, try again"
-                    });
+
             }
-            return BadRequest(new ResponseModel<DateTime>
-            {
-              message = "OTP not matched, try again"
-            });
+            return BadRequest();
         }
 
         [HttpPut]
@@ -114,6 +110,8 @@ namespace FanEase_CQRS.Controllers
             }
 
             return BadRequest();
+
+
         }
 
         [HttpPost]

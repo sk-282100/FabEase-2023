@@ -1,41 +1,48 @@
-﻿<!DOCTYPE html>
-
+﻿@inject IHttpContextAccessor HttpContextAccessor;
+<!DOCTYPE html>
+@{
+    string Email = HttpContextAccessor.HttpContext.Session.GetString("emailId");
+    string Name = HttpContextAccessor.HttpContext.Session.GetString("name");
+    string role = HttpContextAccessor.HttpContext.Session.GetString("role");
+}
 <html>
 <head>
-    
+
     <title>@ViewData["Title"] - FanEase.UI</title>
 
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<!-- Link Of CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-	<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="assets/css/animate.min.css">
-	<link rel="stylesheet" href="assets/css/remixicon.css">
-	<link rel="stylesheet" href="assets/css/boxicons.min.css">
-	<link rel="stylesheet" href="assets/css/iconsax.css">
-	<link rel="stylesheet" href="assets/css/metismenu.min.css">
-	<link rel="stylesheet" href="assets/css/simplebar.min.css">
+    <!-- Link Of CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/remixicon.css">
+    <link rel="stylesheet" href="../assets/css/boxicons.min.css">
+    <link rel="stylesheet" href="../assets/css/iconsax.css">
+    <link rel="stylesheet" href="../assets/css/metismenu.min.css">
+    <link rel="stylesheet" href="../assets/css/simplebar.min.css">
 
-	<link rel="stylesheet" href="assets/css/sweetalert2.min.css">
-	<link rel="stylesheet" href="assets/css/jbox.all.min.css">
-	<link rel="stylesheet" href="assets/css/editor.css">
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-	<link rel="stylesheet" href="assets/css/loaders.css">
-	<link rel="stylesheet" href="assets/css/header.css">
-	<link rel="stylesheet" href="assets/css/sidebar-menu.css">
-	<link rel="stylesheet" href="assets/css/footer.css">
-	<link rel="stylesheet" href="assets/css/style.css">
-	<link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../assets/css/jbox.all.min.css">
+    <link rel="stylesheet" href="../assets/css/editor.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/loaders.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
 
-	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="assets/images/favicon.svg">
-	
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.svg">
+
 </head>
 <body class="body-bg-f8faff">
+
+
 
     <!-- Start All Section Area -->
     <div class="all-section-area">
@@ -50,15 +57,15 @@
                                 <span class="middle-bar"></span>
                                 <span class="bottom-bar"></span>
                             </div>
-                            
+
                             <div class="main-logo">
                                 <a href="index.html">
-                                    <img src="assets\images\FanEase\Logo-Index.png" height="50px" width="50px" alt="main-logo"> FanEase
+                                    <img src="../assets\images\FanEase\Logo-Index.png" height="50px" width="50px" alt="main-logo"> FanEase
                                 </a>
                             </div>
 
                             <form class="search-bar d-flex">
-                                <img src="assets/images/icon/search-normal.svg" alt="search-normal">
+                                <img src="../assets/images/icon/search-normal.svg" alt="search-normal">
 
                                 <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                             </form>
@@ -82,11 +89,11 @@
                         </div>
 
                         <div class="header-right-content d-flex align-items-center">
-                            
+
                             <div class="header-right-option notification-option dropdown">
                                 <div class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="notification-btn">
-                                        <img src="assets/images/icon/notification.svg" alt="notification">
+                                        <img src="../assets/images/icon/notification.svg" alt="notification">
                                         <span class="badge">4</span>
                                     </div>
                                 </div>
@@ -162,23 +169,23 @@
 
                             <div class="header-right-option dropdown profile-nav-item pt-0 pb-0">
                                 <a class="dropdown-item dropdown-toggle avatar d-flex align-items-center" href="#" id="navbarDropdown-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="assets/images/avatar.png" alt="avatar">
+                                    <img src="../assets/images/avatar.png" alt="avatar">
                                     <div class="d-none d-lg-block d-md-block">
-                                        <h3>John Smilga</h3>
-                                        <span>Super Admin</span>
+                                        <h3>@Name</h3>
+                                        <span>@role</span>
                                     </div>
                                 </a>
 
                                 <div class="dropdown-menu">
                                     <div class="dropdown-header d-flex flex-column align-items-center">
                                         <div class="figure mb-3">
-                                            <img src="assets/images/avatar.png" class="rounded-circle" alt="avatar">
+                                            <img src="../assets/images/avatar.png" class="rounded-circle" alt="avatar">
                                         </div>
 
                                         <div class="info text-center">
-                                            <span class="name">John Smilga</span>
+                                            <span class="name">@Name</span>
                                             <p class="mb-3 email">
-                                                <a href="mailto:johnsmilga@hello.com">johnsmilga@hello.com</a>
+                                                <a href="mailto:'@Email'">@Email</a>
                                             </p>
                                         </div>
                                     </div>
@@ -193,23 +200,9 @@
                                             </li>
 
                                             <li class="nav-item">
-                                                <a href="inbox.html" class="nav-link">
-                                                    <i class="ri-mail-send-line"></i>
-                                                    <span>My Inbox</span>
-                                                </a>
-                                            </li>
-
-                                            <li class="nav-item">
                                                 <a href="edit-profile.html" class="nav-link">
                                                     <i class="ri-edit-box-line"></i>
                                                     <span>Edit Profile</span>
-                                                </a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="edit-profile.html" class="nav-link">
-                                                    <i class="ri-settings-5-line"></i>
-                                                    <span>Settings</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -218,7 +211,7 @@
                                     <div class="dropdown-footer">
                                         <ul class="profile-nav">
                                             <li class="nav-item">
-                                                <a href="login.html" class="nav-link">
+                                                <a asp-action="Login" asp-controller="Account" class="nav-link">
                                                     <i class="ri-login-circle-line"></i>
                                                     <span>Logout</span>
                                                 </a>
@@ -230,7 +223,7 @@
 
                             <div class="header-right-option template-option">
                                 <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                    <img src="assets/images/icon/setting.svg" alt="setting">
+                                    <img src="../assets/images/icon/setting.svg" alt="setting">
                                 </a>
                             </div>
                         </div>
@@ -242,31 +235,19 @@
         <!-- Start Sidebar Menu Area -->
         <nav class="sidebar-menu">
             <ul class="list-group flex-column d-inline-block first-menu" data-simplebar>
-                <li class="list-group-item main-grid active">
+                
+                <li class="list-group-item main-grid">
                     <a href="#" class="icon">
-                        <img src="assets/images/icon/element.svg" alt="element">
+                        <img src="../assets/images/icon/diagram.svg" alt="dashboard">
                     </a>
 
                     <ul class="list-group flex-column d-inline-block submenu">
+                        <li class="list-group-item"><h5>Dash Board</h5></li>
                         <li class="list-group-item">
-                            <a href="website-analytics.html" class="active">Website Analytics</a>
+                            <a href="#" class="active">@Name DashBoard</a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="hr-management.html">HR Management</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="tutor-lms.html">Tutor LMS</a>
-                        </li>
+                        
 
-                        <!-- <ul class="list-group flex-column d-inline-block sub-submenu">
-                            <span class="arrow"></span>
-                            <li class="list-group-item">
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="#">My Sites</a>
-                            </li>
-                        </ul> It's sub menu Past in (list-group-item) -->
                     </ul>
                 </li>
 
@@ -274,103 +255,82 @@
 
                 <li class="list-group-item main-grid">
                     <a href="#" class="icon">
-                        <img src="assets/images/icon/document-copy.svg" alt="document-copy">
+                        <img src="../assets/images/icon/video.svg" alt="video">
                     </a>
 
                     <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                        <li class="list-group-item"><h5>Videos</h5></li>
                         <li class="list-group-item">
-                            <a href="my-devices.html">My Devices</a>
+                            <a href="#">All Videos</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="recent.html">Recent</a>
+                            <a href="#">Find Video</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="important.html">Important</a>
+                            <a href="#">Edit Video</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="deleted-files.html">Deleted Files</a>
+                            <a href="#">Delete Video</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="documents.html">Documents</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="images.html">Images</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="videos.html">Videos</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="audio.html">Audio</a>
-                        </li>
+                            <a href="#">Top 5 Videos</a>
+                       </li>
                     </ul>
                 </li>
 
 
                 <li class="list-group-item main-grid">
                     <a href="#" class="icon">
-                        <img src="assets/images/icon/email.svg" alt="email">
+                        <img src="../assets/images/icon/advanced.svg" alt="Campaigens">
                     </a>
-
+                    
                     <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                        <li class="list-group-item"><h5>Campaigns</h5></li>
                         <li class="list-group-item">
-                            <a href="inbox.html">Inbox</a>
+                            <a href="#">Add Campaign</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="starred.html">Starred</a>
+                            <a href="#">Edit Campaign</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="drafts.html">Drafts</a>
+                            <a href="#">Remove Campaign</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="importants.html">Important</a>
+                            <a href="#">Top Campaign</a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="trash.html">Trash</a>
-                        </li>
+                        
                     </ul>
                 </li>
 
                 <li class="list-group-item main-grid">
                     <a href="#" class="icon">
-                        <img src="assets/images/icon/user-octagon.svg" alt="user-octagon">
+                        <img src="../assets/images/icon/folder-2.svg" alt="media">
                     </a>
 
                     <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                        <li class="list-group-item"><h5>Media</h5></li>
                         <li class="list-group-item">
-                            <a href="login.html">Login</a>
+                            <a href="#">Add Media</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="register.html">Register</a>
+                            <a href="#">View All</a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="profile.html">Profile</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="edit-profile.html">Edit profile</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="forget-password.html">Forget Password</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="screen-lock.html">Screen Lock</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="error.html">Error</a>
-                        </li>
+                        
                     </ul>
                 </li>
 
                 <li class="list-group-item main-grid">
                     <a href="#" class="icon">
-                        <img src="assets/images/icon/book.svg" alt="book">
+                        <img src="../assets/images/icon/element.svg" alt="templets">
                     </a>
 
                     <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                        <li class="list-group-item"><h5>Templates</h5></li>
                         <li class="list-group-item">
-                            <a href="box-icon.html">Box Icon</a>
+                            <a href="#">All Templates</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="remix-icon.html">Remix Icon</a>
+                            <a href="#">Add Template</a>
                         </li>
                     </ul>
                 </li>
@@ -383,11 +343,9 @@
         <!-- Start Footer Area -->
         <main class="main-content-wrap">
             @RenderBody()
-        
-        <!-- End Footer Area -->
 
-        
-            
+
+
         </main>
         <div class="footer-area">
             <div class="container-fluid">
@@ -396,5 +354,11 @@
                 </div>
             </div>
         </div>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </div>
 </body>
 </html>
+>

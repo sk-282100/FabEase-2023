@@ -87,7 +87,7 @@ namespace FanEase.Middleware
             //For Account
             services.AddScoped<IRequestHandler<ResetPasswordCommand, ResponseModel<bool>>, ResetPasswordHandler>();
             services.AddScoped<IRequestHandler<SetCreatorPasswordCommand,ResponseModel<bool>>,SetCreatorPasswordCommandHandler>();
-
+            services.AddScoped<IRequestHandler<SetPasswordCommand, ResponseModel<bool>>, SetPasswordCommandHandler>();
             return services;
         }
     }

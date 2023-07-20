@@ -1,6 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor HttpContextAccessor;
+<!DOCTYPE html>
 @{
-    string Username = "UserName";
+    string Email = HttpContextAccessor.HttpContext.Session.GetString("emailId");
+    string Name = HttpContextAccessor.HttpContext.Session.GetString("name");
+    string role = HttpContextAccessor.HttpContext.Session.GetString("role");
 }
 <html>
 <head>
@@ -168,8 +171,8 @@
                                 <a class="dropdown-item dropdown-toggle avatar d-flex align-items-center" href="#" id="navbarDropdown-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="../assets/images/avatar.png" alt="avatar">
                                     <div class="d-none d-lg-block d-md-block"> 
-                                        <h3>@Username</h3>
-                                        <span>Super Admin</span>
+                                        <h3>@Name</h3>
+                                        <span>@role</span>
                                     </div>
                                 </a>
 
@@ -180,9 +183,9 @@
                                         </div>
 
                                         <div class="info text-center">
-                                            <span class="name">John Smilga</span>
+                                            <span class="name">@Name</span>
                                             <p class="mb-3 email">
-                                                <a href="mailto:johnsmilga@hello.com">johnsmilga@hello.com</a>
+                                                <a href="mailto:'@Email'">@Email</a>
                                             </p>
                                         </div>
                                     </div>
@@ -208,7 +211,7 @@
                                     <div class="dropdown-footer">
                                         <ul class="profile-nav">
                                             <li class="nav-item">
-                                                <a href="login.html" class="nav-link">
+                                                <a asp-action="Login" asp-controller="Account" class="nav-link">
                                                     <i class="ri-login-circle-line"></i>
                                                     <span>Logout</span>
                                                 </a>

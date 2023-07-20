@@ -91,5 +91,16 @@ namespace FanEase.Entity.Models
             return true;
         }
 
+        //method to verifyOTP at backend
+        public static bool CheckOTP(int otp)
+        {
+            if (otp == OTP)
+            {
+                return true;
+            }
+
+            else { return false; }
+        }
+
     }
 }
