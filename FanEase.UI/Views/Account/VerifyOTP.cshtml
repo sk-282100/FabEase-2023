@@ -1,8 +1,10 @@
 ﻿@model FanEase.UI.Models.User.VerifyOTPVm
+@inject IHttpContextAccessor HttpContextAccessor;
 
 @{
     ViewData["Title"] = "VerifyOTP";
     Layout = "_layout";
+    string Username = @HttpContextAccessor.HttpContext.Session.GetString("storedemail");
 }
 
 <head>
@@ -65,7 +67,7 @@
                         </div>
 
                         <div class="form-group mb-24">
-                            <p class="account text-center">Resend OTP? <a asp-action="ForgetPassword">Resend OTP</a></p>
+                            <p class="account text-center">Resend OTP? <a asp-action="ForgetPassword" asp-controller="Account" asp-route-data=@Username>Resend OTP</a></p>
                         </div>
 
                     </form>
