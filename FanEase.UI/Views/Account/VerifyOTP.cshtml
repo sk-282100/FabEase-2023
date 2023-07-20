@@ -54,17 +54,18 @@
                     <form class="account-wrap" asp-action="VerifyOTP" asp-controller="Account">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group mb-24 icon">
-                            <label asp-for="OTP">
+                            
                                 <input asp-for="OTP" type="number" class="form-control" placeholder="OTP">
                                 <img src="assets/images/icon/key.svg" alt="key">
-                            </label>
+                            
                         </div>
+                        <span class="text-danger">@ViewBag.ErrorMessage</span>
                         <div class="form-group mb-24">
-                            <input type="submit" class="default-btn" value="Verify" />
+                            <button type="submit" class="default-btn">Verify</button>
                         </div>
 
                         <div class="form-group mb-24">
-                            <p class="account text-center">Resend OTP? <a href="Register">Resend OTP</a></p>
+                            <p class="account text-center">Resend OTP? <a asp-action="ForgetPassword">Resend OTP</a></p>
                         </div>
 
                     </form>

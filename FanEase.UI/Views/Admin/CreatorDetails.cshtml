@@ -5,17 +5,8 @@
     ViewData["Title"] = "CreatorDetails";
     int likes = 0;
     string path = "";
-   
-    
-        if (Model.Creator.ProfilePhoto != null)
-            path = "../" + Model.Creator.ProfilePhoto.Replace("\\", "/").Replace("..", ".");
-        string roles = HttpContextAccessor.HttpContext.Session.GetString("role");
-        if (roles == "Admin")
-            Layout = "AdminLayout";
-        else
-            Layout = "FanEaseLayout";
-    
-    
+    path = "../" + Model.Creator.ProfilePhoto.Replace("\\", "/").Replace("..", ".");
+    string roles = HttpContextAccessor.HttpContext.Session.GetString("role");
 }
 <head>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
@@ -42,10 +33,7 @@
     </script>
 </head>
 
-<body>
-    <div class="all-section-area">
-        <!-- Start Main Content Area -->
-        <main class="main-content-wrap">
+
             <!-- Start Page Title Area -->
             <div class="page-title-area">
                 <div class="container-fluid">
@@ -69,7 +57,7 @@
                                 <div class="profile-info d-flex align-items-center">
                                     <img class="w-25 rounded-4" src=@path alt="profile-img">
                                     <div class="profile-name ms-4">
-                                        <h4><p>@Model.Creator.FirstName @Model.Creator.LastName</></h4>
+                                        <h4><p>@Model.Creator.FirstName @Model.Creator.LastName<p/></h4>
                                         <span>Member Since: @Model.Creator.CreationDate</span>
                                         <div class="follow-email">
                                             <a href="mailto:{@Model.Creator.Email}" class="btn btn-secondary">
@@ -191,9 +179,6 @@
             <!-- End Profile Area -->
 
 
-        </main>
-        <!-- End Main Content Area -->
-    </div>
     <!-- End All Section Area -->
 
     <!-- End Template Sidebar Area -->
@@ -223,5 +208,5 @@
     <script src="assets/js/contact-form-script.js"></script>
     <script src="assets/js/ajaxchimp.min.js"></script>
     @*<script src="assets/js/custom.js"></script>*@
-</body>
+
 
