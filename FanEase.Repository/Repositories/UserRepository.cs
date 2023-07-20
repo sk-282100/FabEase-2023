@@ -214,7 +214,7 @@ namespace FanEase.Repository.Repositories
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                User user = connection.Query<User>("GetUserByUserName", new { userName }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                User user = connection.Query<User>("GetUserByUserName", new { @UsertName = userName }, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                 return user;
             }

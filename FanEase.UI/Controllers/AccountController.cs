@@ -102,23 +102,50 @@ namespace FanEase.UI.Controllers
         [Route("forgetpassword")]
         public async Task<ActionResult> ForgetPassword(ForgetPasswordVm emailVM)
         {
-            //Adding email to session
-            HttpContext.Session.SetString("storedemail", emailVM.Email);
-            ForgetPasswordVm psw = new ForgetPasswordVm();
+            User user = null;
             using (var httpclient = new HttpClient())
             {
-                // string change = emailVM.Email.Replace("@","%40");
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Account/forgetPassword/{emailVM.Email}"))
-
+                string email = emailVM.Email.Replace("@", "%40");
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/GetByUserName/{email}"))
                 {
-
-                    string data = response.Content.ReadAsStringAsync().Result;
-                    psw = JsonConvert.DeserializeObject<ForgetPasswordVm>(data);
+                    string data = await response.Content.ReadAsStringAsync();
+                    user = JsonConvert.DeserializeObject<ResponseModel<User>>(data).data;
                 }
-                return RedirectToAction("VerifyOTP");
+            }
+            if (user != null)
+            {
+                //Adding email to session
+                HttpContext.Session.SetString("storedemail", emailVM.Email);
+                ForgetPasswordVm psw = new ForgetPasswordVm();
+                using (var httpclient = new HttpClient())
+                {
+                    // string change = emailVM.Email.Replace("@","%40");
+                    using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Account/forgetPassword/{emailVM.Email}"))
+
+                    {
+
+                        string data = response.Content.ReadAsStringAsync().Result;
+                        psw = JsonConvert.DeserializeObject<ForgetPasswordVm>(data);
+                    }
+                    return RedirectToAction("VerifyOTP");
+                }
+            }
+            else
+            {
+                ViewBag.InvalidEmail = "! Not Registered Email ID Try Again...";
+                return View();
             }
 
 
+        }
+
+        [HttpGet("ResendOTP")]
+        public IActionResult ResendOTP()
+        {
+            ForgetPasswordVm forgetPasswordVm = new ForgetPasswordVm();
+          forgetPasswordVm.Email =  HttpContext.Session.GetString("storedemail");
+            ViewBag.ErrorMessage = "Sent OTP agin to your MailID";
+            return RedirectToAction("ForgetPassword", forgetPasswordVm);
         }
 
 
