@@ -20,8 +20,15 @@ namespace FanEase.UI.Controllers
         
         public IActionResult Login()
         {
-            HttpContext.Session.Clear();
+            //HttpContext.Session.Clear();
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
 
         [HttpPost]
@@ -132,7 +139,7 @@ namespace FanEase.UI.Controllers
             }
             else
             {
-                ViewBag.InvalidEmail = "! Not Registered Email ID Try Again...";
+                ViewBag.InvalidEmail = "! Not Registered Email ID Try Again With Registered Email";
                 return View();
             }
 
@@ -160,6 +167,7 @@ namespace FanEase.UI.Controllers
         public async Task<ActionResult> VerifyOTP(VerifyOTPVm verifyOTPVm)
         {
             int otp = 0;
+            string message = "test";
             VerifyOTPVm verifyOtp = new VerifyOTPVm();
             using (var httpclient = new HttpClient())
             {
@@ -168,11 +176,19 @@ namespace FanEase.UI.Controllers
 
                     string data = response.Content.ReadAsStringAsync().Result;
                     otp = JsonConvert.DeserializeObject<ResponseModel<int>>(data).data;
+                    message= JsonConvert.DeserializeObject<ResponseModel<int>>(data).message;
                 }
                 if (otp != 0)
                     return RedirectToAction("SetPassword");
+                if(message== "timeout")
+                {
+                    ViewBag.ErrorMessage = "OTP Expired!!!";
+                    return View();
+                }
 
-                ViewBag.ErrorMessage = "! OTP Not Matched";
+                    
+
+                ViewBag.ErrorMessage = "Invalid OTP!!!";
                 return View();
             }
 
@@ -247,6 +263,11 @@ namespace FanEase.UI.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult UnderConstruction()
+        {
+            return View();
+        }
 
 
 

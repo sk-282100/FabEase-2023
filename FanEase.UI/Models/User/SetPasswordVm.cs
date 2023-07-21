@@ -8,10 +8,12 @@ namespace FanEase.UI.Models.User
         public string UserName { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("ConfirmPassword", ErrorMessage = "Password not matched")]
+        [Required]
         public string Password { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Password not matched")]
         public string ConfirmPassword { get; set; }
     }
 }

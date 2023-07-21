@@ -1,0 +1,241 @@
+﻿@model FanEase.UI.Models.Videos.AddVideoVm
+
+
+@{
+    ViewData["Title"] = "AddVideo";
+    Layout = "FanEaseLayout";
+}
+
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Link Of CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/remixicon.css">
+    <link rel="stylesheet" href="../assets/css/boxicons.min.css">
+    <link rel="stylesheet" href="../assets/css/iconsax.css">
+    <link rel="stylesheet" href="../assets/css/metismenu.min.css">
+    <link rel="stylesheet" href="../assets/css/simplebar.min.css">
+    <link rel="stylesheet" href="../assets/css/calendar.css">
+    <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../assets/css/jbox.all.min.css">
+    <link rel="stylesheet" href="../assets/css/editor.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/loaders.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="~/../assets/css/AddVideoStyleSheet.css" />
+
+
+    <!-- Title -->
+    <title>FanEase -Add Video</title>
+    <script>
+        function myCancelFunction() {
+            //alert("are you sure you want to cancel the process?");
+            var result = confirm("Are you sure you want to cancel the process?");
+            if (result) {
+                document.getElementById("btnReset").onclick = clearForm;
+            } else {
+                alert("You select No!");
+            }
+        }
+
+
+        function CheckRadio(x) {
+            if (x == 1) {
+                document.getElementById('chooseFile1').classList.remove("hidden");
+            }
+            else {
+                document.getElementById('chooseFile1').classList.add("hidden");
+            }
+            return;
+        }
+    </script>
+</head>
+
+<body class="body-bg-f8faff">
+    <div class="profile-area">
+        <form asp-action="AddVideo" asp-controller="Video" method="post">
+            <div class="container-fluid">
+                <div class="div1">
+                    <h3>Add New Video</h3>
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="row">
+                                <div class="col-lg-6" id="thumbnilId">
+                                    <div class="form-group">
+                                        @*<p>Video Thumnail Image</p>*@
+                                        <label asp-for="VideoThumbnil" class="control-label"></label>
+                                        <video asp-for="VideoThumbnil" class="form-control" id="thumnailImage" src="http://www.w3schools.com/html/mov_bbb.mp4"></video>
+                                        <span asp-validation-for="VideoThumbnil" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                @*<div class="col-lg-4" id="chooseFile">
+                                <div class="form-group">
+                                <input type="file" id="myFile" name="filename">
+                                </div>
+                                </div>*@
+
+                                <div class="form-group">
+                                    <label asp-for="VideoImage" class="control-label"></label>
+                                    <input asp-for="VideoImage" class="form-control" type="file" id="takeImage" />
+                                    <span asp-validation-for="VideoImage" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-lg-12" id="title">
+                                    <div class="form-group">
+                                        <label asp-for="Title" class="control-label"></label>
+                                        <input asp-for="Title" class="form-control" id="titleWidth" placeholder="Enter Video Title" />
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12" id="description">
+                                    <div class="form-group">
+                                        @*<p>Video Description</p>*@
+                                        <label asp-for="Description" class="control-label"></label>
+                                        <textarea asp-for="Description" class="form-control" id="textAreaWidth" rows="4" cols="50" placeholder="Enter Description"></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="div2">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group" id="dateAndTime">
+                                        <label asp-for="GoLiveDateTime" class="control-label"></label>
+                                        <input asp-for="GoLiveDateTime" class="form-control" />
+                                        <span asp-validation-for="GoLiveDateTime" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                @* <div class="col-lg-12" id="videoType">
+                                <p>Video Type</p>
+                                <label asp-for="VideoType" class="control-label"></label>
+                                <input asp-for="VideoType" class="form-control" type="radio" id="videotype" name="videotype" value="Live"> Live
+                                <input asp-for="VideoType" class="form-control" type="radio" id="videotype" name="videotype" value="Pre-recorded"> Pre-Recorded
+                                <span asp-validation-for="VideoType" class="text-danger"></span>
+                                </div>*@
+
+                                @*                     <div class="col-lg-12" id="videoType">
+                                <label class="control-label">Video Type</label>
+                                <div class="form-check">
+                                <input class="form-check-input" onclick="CheckRadio(0)"  type="radio" name="exampleRadios" id="exampleRadios1" value="Live" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                Live
+                                </label>
+
+                                <div class="form-check">
+                                <input class="form-check-input" onclick="CheckRadio(1)" type="radio" name="exampleRadios" id="exampleRadios2" value="Pre-Recorded">
+                                <label class="form-check-label" for="exampleRadios1">
+                                Pre-Recorded
+                                </label>
+                                </div>
+                                </div>
+                                </div>*@
+
+                                @* <div class="form-group" id="videoTypeId">
+                                <label asp-for="VideoType" class="control-label"></label>
+                                <input asp-for="VideoType"  class="form-check-input" onclick="CheckRadio(0)" type="radio" value="Live" name="exampleRadio" checked/>Live
+                                <input asp-for="VideoType"  class="form-check-input" onclick="CheckRadio(1)" type="radio" value="Recorded" name="exampleRadio" />Pre-Recorded
+                                <span asp-validation-for="VideoType" class="text-danger"></span>
+                                </div>*@
+
+
+                                <div class="form-group" id="videoTypeId">
+                                    @Html.LabelFor(Model => Model.VideoType, htmlAttributes: new {@class = "control-label col-md-2"})
+                                    <label asp-for="VideoType" class="radio-inline" onclick="CheckRadio(0)">
+                                        @Html.RadioButtonFor(Model => Model.VideoType, "Live", new { @name = "videoType"})Live
+                                    </label>
+
+                                    <label asp-for="VideoType" class="radio-inline" onclick="CheckRadio(1)">
+                                        @Html.RadioButtonFor(Model => Model.VideoType,"Recorded", new { @name = "videoType"})Pre-Recorded
+                                    </label>
+                                </div>
+
+
+
+                                @*<div class="col-lg-4 hidden" id="chooseFile1">
+                                <div class="form-group">
+                                <label asp-for="VideoFile" class="form-check-label"> MP4VideoFile</label>
+                                <input type="file" id="preRecordedVideo" name="filename">
+                                </div>
+                                </div>*@
+
+
+
+
+
+                                @*  <div class="col-lg-12" id="videoPlayer">
+                                @*<p>Select Video Player Type</p>
+                                <label asp-for="VideoPlayer" class="control-label"></label>
+                                <select asp-for="VideoPlayer" class="form-control">
+                                <option value="youtube">YouTube</option>
+                                <option value="self-hosted MP4">Self-Hosted MP4</option>
+                                </select>
+                                <span asp-validation-for="VideoPlayer" class="text-danger"></span>
+                                </div>*@
+
+                                <div class="form-group" id="videoPlayerId">
+                                    <label asp-for="VideoPlayer" class="control-label"></label>
+                                    @* <input asp-for="VideoPlayer" class="form-control" />*@
+                                    <select asp-for="VideoPlayer" class="form-control">
+                                        <option asp-for="VideoPlayer" value="Youtube">YouTube</option>
+                                        <option asp-for="VideoPlayer" value="Hosted MP4 Player">Self-Hosted MP4</option>
+                                    </select>
+                                    <span asp-validation-for="VideoPlayer" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-lg-12" id="videoUrl">
+                                    <label asp-for="VideoURL" class="control-label"></label>
+                                    <input asp-for="VideoURL" class="form-control" placeholder="Enter MP4 Video URL" />
+                                    <span asp-validation-for="VideoURL" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group hidden" id="chooseFile1">
+                                    <label asp-for="VideoFile" class="form-check-label">MP4VideoFile</label>
+                                    <input asp-for="VideoFile" class="form-control" type="file" />
+                                    <span asp-validation-for="VideoFile" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="col-lg-12" id="cancleAndProcessed">
+                                    <input onclick="myCancelFunction()" type="submit" value="Cancel" class="btn btn-danger" id="btnReset" />
+                                    &nbsp;
+                                    <input type="submit" value="Processed" class="btn btn-primary" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+</body>
+    

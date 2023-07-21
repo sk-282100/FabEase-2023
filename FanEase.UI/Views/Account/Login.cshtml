@@ -4,8 +4,23 @@
     ViewData["Title"] = "Login";
     Layout = "_layout";
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<script>
+   function showErrorAlert(message) {
 
-
+        Swal.fire({
+            title: 'Error',
+            text: message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    }
+    
+@if (!string.IsNullOrEmpty(ViewBag.NotAllowed))
+{
+    @:showErrorAlert("@Html.Raw(ViewBag.NotAllowed)");
+}
+</script>
 <header>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -51,37 +66,57 @@
                         </a>
                         <h3>Login</h3>
                     </div>
-                    <span class="text-danger">@ViewBag.NotAllowed</span>
-                    <form class="account-wrap" asp-action="Login">
+                   
+                    <form class="account-wrap" asp-action="Login" id="loginForm">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group mb-24 icon">
-                            
-                            <input type="email" asp-for=Email class="form-control" placeholder="Email">
-                            <img src="../assets/images/icon/sms.svg" alt="sms">
+                      <div>
+                           <div class="form-group">
+                             <label asp-for="Email" class="control-label"></label><span class="text-danger">*</span>
+                              <div class="form-group mb-24 icon">
                            
-                        </div>
-                        <div class="form-group mb-24 icon">
+                               <input type="email" asp-for=Email class="form-control" placeholder="Email">
+                                <img src="../assets/images/icon/sms.svg" alt="sms">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                               
+                           </div>
+
+                            <div class="form-group">
+                              <label asp-for="Password" class="control-label"></label><span class="text-danger">*</span>
+                              <div class="form-group mb-24 icon">
                             
-                            <input type="password" asp-for="Password" class="form-control" placeholder="Password">
-                            <img src="../assets/images/icon/key.svg" alt="key">
-                        </div>
-                        
-                        <div class="form-group mb-24">
-                            <a href="ForgetPassword" class="forgot">Forgot Password?</a>
-                        </div>
-                        <div class="form-group mb-24">
+                              <input type="password" asp-for="Password" class="form-control" placeholder="Password">
+                              <img src="../assets/images/icon/key.svg" alt="key">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                               </div>
+                               
+                            </div>
+                      </div>
+
+                          <div class="form-group">
+                       
+                             <div class="form-group mb-24">
+                                 <a href="ForgetPassword" class="forgot">Forgot Password?</a>
+                             </div>
+                          </div>
+                           <div class="form-group mb-24">
                             <button type="submit" class="default-btn">Log In</button>
-                        </div>
-                        <div class="form-group mb-24 text-center">
+                           </div>
+                           <div class="form-group mb-24 text-center">
                             <p class="account">Not A Member? <a href="Register">Create An Account</a></p>
-                        </div>
+                            </div>
+                                
                     </form>
 
+                    @section Scripts {
+                        @{
+                            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                        }
+                    }
                   
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
