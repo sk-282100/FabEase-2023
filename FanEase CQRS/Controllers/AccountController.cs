@@ -1,5 +1,6 @@
 ﻿using ExceptionHandling;
 using FanEase.Entity.Models;
+using FanEase.HelperClasses;
 using FanEase.Middleware.Data.Commands.ForUser;
 using FanEase.Middleware.Data.Handler.ForUser;
 using MediatR;
@@ -37,7 +38,7 @@ namespace FanEase_CQRS.Controllers
         [Route("Login")]
         public async Task<ActionResult> Login(LoginDto logindto)
         {
-
+            logindto.Password = PasswordHasher.HashPassword(logindto.Password);
             var response = await _mediator.Send(new LoginCommand(logindto));
             if (response.data == null)
 
@@ -73,6 +74,7 @@ namespace FanEase_CQRS.Controllers
         [HttpPost("SetPassword")]
         public async Task<ActionResult> SetPassword(SetPasswordVm setPasswordVm)
         {
+            setPasswordVm.Password = PasswordHasher.HashPassword(setPasswordVm.Password);
             ResponseModel<bool> status = await _mediator.Send(new SetPasswordCommand(setPasswordVm.UserName, setPasswordVm.Password));
             if (status.data)
             {
@@ -125,6 +127,7 @@ namespace FanEase_CQRS.Controllers
         [Route("SetCreatorPassword")]
         public async Task<ActionResult> SetCreatorPassword(LoginDto login)
         {
+            login.Password=PasswordHasher.HashPassword(login.Password); 
             ResponseModel<bool> status = await _mediator.Send(new SetCreatorPasswordCommand(login.Email, login.Password));
             if (status.data)
             {

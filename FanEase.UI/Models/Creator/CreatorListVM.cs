@@ -11,6 +11,7 @@
 
         public string ContactNo { get; set; }
 
+
         public DateTime CreationDate { get; set; }
 
         public bool isActive { get; set; }

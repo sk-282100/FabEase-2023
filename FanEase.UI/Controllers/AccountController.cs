@@ -5,6 +5,7 @@ using FanEase.UI.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Security.Claims;
 using System.Text;
 
@@ -57,11 +58,14 @@ namespace FanEase.UI.Controllers
                             string? UserId = jwtToken.Claims.FirstOrDefault(c => c.Type == "uid")?.Value;
                             roles = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
                             Password = jwtToken.Claims.FirstOrDefault(c => c.Type == "firstName")?.Value + "@123";
+                            string? profilePhoto = "../"+jwtToken.Claims.FirstOrDefault(c => c.Type == "profilePhoto")?.Value.Replace("\\","/").Replace("..",".");
+                            
                             // Store the token in a secure location, such as a cookie or session
                             HttpContext.Session.SetString("name", username1);
                             HttpContext.Session.SetString("UserId", UserId);
                             HttpContext.Session.SetString("role", roles);
                             HttpContext.Session.SetString("emailId", email);
+                            HttpContext.Session.SetString("profilePhoto", profilePhoto);
 
                         }
 

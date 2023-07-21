@@ -10,26 +10,27 @@ namespace FanEase.UI.Models.User
         public IFormFile ProfilePhoto { get; set; }
 
         [MaxLength(50,ErrorMessage ="Maximum 50 Charachters Allowed")]
-        [Required]
+        [Required(ErrorMessage ="Enter Name")]
         public string FirstName { get; set; }
 
         [MaxLength(50, ErrorMessage = "Maximum 50 Charachters Allowed")]
-        [Required]
+        [Required(ErrorMessage ="Enter Last Name")]
         public string LastName { get; set; }
 
         [MaxLength(100, ErrorMessage = "Maximum 100 Charachters Allowed")]
-        [Required]
+        [Required(ErrorMessage ="Enter Address")]
         public string Address { get; set; }
 
+        [Required(ErrorMessage ="Enter Country")]
         public string Country { get; set; }
 
-        
+        [Required(ErrorMessage ="Enter City")]
         public string City { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Enter Email")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Enter Contact Number")]
        
         public string ContactNo { get; set; }
 

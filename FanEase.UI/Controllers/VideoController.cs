@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FanEase.Entity.Models;
 using FanEase.UI.Models.Videos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
