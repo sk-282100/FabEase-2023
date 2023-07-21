@@ -3,9 +3,10 @@
 @inject IHttpContextAccessor HttpContextAccessor;
 @{
     ViewData["Title"] = "ContenetCreatorList";
-    
-        Layout = "AdminLayout";
+
+    Layout = "AdminLayout";
    
+
 }
 <head>
     <meta charset="utf-8">
@@ -49,44 +50,39 @@
 
                   
                 <table class="table class=" table align-middle mb-0"">
-    <thead>
+    <thead align="center">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                Last Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Video Count
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VideoCount)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Contact No.
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ContactNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
+                Creation Date
             </th>
             <th>
                 
                 Status
             </th>
-            <th></th>
+            <th>
+                Quick Actions
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-             <td>
-            
-                @Html.DisplayFor(modelItem => item.UserId)
-            
-            </td>
+        <tr align="center">
+
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -102,8 +98,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ContactNo)
             </td>
+                                
             <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
+               @item.CreationDate.ToShortDateString()
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.isActive)

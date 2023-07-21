@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using FanEase.Entity.Models;
 using FanEase.UI.Models.Creator;
+using FanEase.UI.Models.Videos;
 
 namespace FanEase.UI.Configurations
 {
@@ -8,6 +10,7 @@ namespace FanEase.UI.Configurations
         public MapperConfig()
         {
             CreateMap<CreatorVM,CreatorListVM>().ReverseMap();
+            CreateMap<AddVideoVm,Video>().ReverseMap();
         }
     }
 }

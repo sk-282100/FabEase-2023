@@ -151,7 +151,8 @@ namespace FanEase.Repository.Repositories
                  new Claim("uid",_user.UserId),
                  new Claim(ClaimTypes.Email,_user.Email),
                  new Claim(ClaimTypes.Name,_user.FirstName+" "+_user.LastName),
-                 new Claim("firstName",_user.FirstName)
+                 new Claim("firstName",_user.FirstName),
+                 new Claim("profilePhoto",_user.ProfilePhoto)
                  
 
             }.Union(roleclaim);
