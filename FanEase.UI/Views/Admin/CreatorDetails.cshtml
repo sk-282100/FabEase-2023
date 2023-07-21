@@ -5,7 +5,12 @@
     ViewData["Title"] = "CreatorDetails";
     int likes = 0;
     string path = "";
-    path = "../" + Model.Creator.ProfilePhoto.Replace("\\", "/").Replace("..", ".");
+    try
+    {
+        if (Model.Creator.ProfilePhoto != null)
+            path = "../" + Model.Creator.ProfilePhoto.Replace("\\", "/").Replace("..", ".");
+    }
+    catch{};
     string roles = HttpContextAccessor.HttpContext.Session.GetString("role");
 }
 <head>

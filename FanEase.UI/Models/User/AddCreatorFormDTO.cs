@@ -9,15 +9,15 @@ namespace FanEase.UI.Models.User
         
         public IFormFile ProfilePhoto { get; set; }
 
-        [MaxLength(12,ErrorMessage ="Maximum 12 Charachters Allowed")]
+        [MaxLength(50,ErrorMessage ="Maximum 50 Charachters Allowed")]
         [Required]
         public string FirstName { get; set; }
 
-        [MaxLength(12, ErrorMessage = "Maximum 12 Charachters Allowed")]
+        [MaxLength(50, ErrorMessage = "Maximum 50 Charachters Allowed")]
         [Required]
         public string LastName { get; set; }
 
-        [MaxLength(50, ErrorMessage = "Maximum 12 Charachters Allowed")]
+        [MaxLength(100, ErrorMessage = "Maximum 100 Charachters Allowed")]
         [Required]
         public string Address { get; set; }
 

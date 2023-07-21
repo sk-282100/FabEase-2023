@@ -118,14 +118,14 @@
                                     <div class="dropdown-wrap">
                                         <ul class="profile-nav p-0 pt-3">
                                             <li class="nav-item">
-                                                <a asp-action="AdminDashBoard" asp-controller="Admin" class="nav-link">
+                                                <a asp-action="UnderConstruction"  class="nav-link">
                                                     <i class="ri-user-line"></i>
                                                     <span>Profile</span>
                                                 </a>
                                             </li>
                                                                                       
                                             <li class="nav-item">
-                                                <a asp-action="AdminDashBoard" asp-controller="Admin" class="nav-link">
+                                                <a asp-action="UnderConstruction" asp-controller="Admin" class="nav-link">
                                                     <i class="ri-edit-box-line"></i>
                                                     <span>Edit Profile</span>
                                                 </a>
@@ -136,7 +136,7 @@
                                     <div class="dropdown-footer">
                                         <ul class="profile-nav">
                                             <li class="nav-item">
-                                                <a asp-action="Login" asp-controller="Account" class="nav-link">
+                                                <a asp-action="Logout" asp-controller="Account" class="nav-link">
                                                     <i class="ri-login-circle-line"></i>
                                                     <span>Logout</span>
                                                 </a>
@@ -170,10 +170,10 @@
                                 <a href="website-analytics.html" class="active">DashBoard</a>
                             </li>
                             <li class="list-group-item">
-                                <a href="hr-management.html">Viewer Mode</a>
+                                <a href="UnderConstruction">Viewer Mode</a>
                             </li>
                             <li class="list-group-item">
-                                <a href="tutor-lms.html">Creator Mode</a>
+                                <a href="UnderConstruction">Creator Mode</a>
                             </li>
 
                         </ul>
@@ -189,16 +189,16 @@
                                 <a asp-action="AddCreator" asp-controller="Admin">Add Creator from Users</a>
                             </li>
                             <li class="list-group-item">
-                                <a asp-action="ContenetCreatorList" asp-controller="Admin">Creator List</a>
+                                <a asp-action="ContenetCreatorList" >Creator List</a>
                             </li>
                             <li class="list-group-item">
-                                <a asp-action="AllVideos" asp-controller="Video">Video List</a>
+                                <a asp-action="UnderConstruction" >Video List</a>
                             </li>
                             <li class="list-group-item">
-                                <a asp-action="AllAdvertisements" asp-controller="Advertisement">Advertisement List</a>
+                                <a asp-action="UnderConstruction" >Advertisement List</a>
                             </li>
                             <li class="list-group-item">
-                                <a href="screen-lock.html">Screen Lock</a>
+                                <a href="UnderConstruction">Screen Lock</a>
                             </li>
                         </ul>
                     </li>
@@ -213,14 +213,14 @@
                     <ul class="list-group flex-column d-inline-block first-menu" data-simplebar>
 
                         <li class="list-group-item main-grid">
-                            <a href="#" class="icon">
+                        <a href="#" class="icon">
                                 <img src="../assets/images/icon/diagram.svg" alt="dashboard">
                             </a>
 
                             <ul class="list-group flex-column d-inline-block submenu">
                                 <li class="list-group-item"><h5>Dash Board</h5></li>
                                 <li class="list-group-item">
-                                    <a href="#" class="active">@Name DashBoard</a>
+                                <a href="UnderConstruction" class="active">@Name DashBoard</a>
                                 </li>
 
 
@@ -237,19 +237,19 @@
                             <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
                                 <li class="list-group-item"><h5>Videos</h5></li>
                                 <li class="list-group-item">
-                                    <a href="#">All Videos</a>
+                                <a href="UnderConstruction">All Videos</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="#">Find Video</a>
+                                <a asp-action="AddVideo" asp-controller="Video">Add Video</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="#">Edit Video</a>
+                                <a href="UnderConstruction">Edit Video</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="#">Delete Video</a>
+                                <a href="UnderConstruction">Delete Video</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="#">Top 5 Videos</a>
+                                <a href="UnderConstruction">Top 5 Videos</a>
                                 </li>
                             </ul>
                         </li>
@@ -263,16 +263,16 @@
                             <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
                                 <li class="list-group-item"><h5>Campaigns</h5></li>
                                 <li class="list-group-item">
-                                    <a href="#">Add Campaign</a>
+                                <a href="UnderConstruction">Add Campaign</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="#">Edit Campaign</a>
+                                <a href="UnderConstruction">Edit Campaign</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="#">Remove Campaign</a>
+                                <a href="UnderConstruction">Remove Campaign</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="#">Top Campaign</a>
+                                <a href="UnderConstruction">Top Campaign</a>
                                 </li>
 
                             </ul>
@@ -286,10 +286,10 @@
                             <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
                                 <li class="list-group-item"><h5>Media</h5></li>
                                 <li class="list-group-item">
-                                    <a href="#">Add Media</a>
+                                <a href="UnderConstruction">Add Media</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="#">View All</a>
+                                <a href="UnderConstruction">View All</a>
                                 </li>
 
                             </ul>
@@ -303,10 +303,10 @@
                             <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
                                 <li class="list-group-item"><h5>Templates</h5></li>
                                 <li class="list-group-item">
-                                    <a href="#">All Templates</a>
+                                <a href="UnderConstruction">All Templates</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="#">Add Template</a>
+                                <a href="UnderConstruction">Add Template</a>
                                 </li>
                             </ul>
                         </li>

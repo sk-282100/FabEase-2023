@@ -6,8 +6,71 @@
     Layout = "_layout";
     string Username = @HttpContextAccessor.HttpContext.Session.GetString("storedemail");
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<script>
+    function showSucessAlert(message) {
 
-<head>
+        Swal.fire({
+            title: 'OTP Sent',
+            text: message,
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    }
+ </script>
+<script>
+    function showErrorAlert(message) {
+
+        Swal.fire({
+            title: 'Error',
+            text: message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        @:showErrorAlert("@Html.Raw(ViewBag.ErrorMessage)");
+    }
+</script>
+@section scripts {
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+           
+            $("#resendOTPBtn").click(function (e) {
+                e.preventDefault(); 
+
+                var email = "@Username"; 
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ForgetPassword", "Account")", 
+                    data: { Email: email }, 
+                    success: function (response) {
+                       
+                        if (response.redirectUrl) {
+                            window.location.href = response.redirectUrl;
+                        } else {
+
+                             showSucessAlert("@Html.Raw("OTP Sent to your Email")");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                       
+                        alert("Failed to resend OTP. Please try again later.");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+<header>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,7 +101,7 @@
     <link rel="icon" type="image/png" href="assets/images/favicon.svg">
     <!-- Title -->
     <title>FanEase -Forget Password</title>
-</head>
+</header>
 
 <!-- Start Account Area -->
 <div class="account-area">
@@ -61,13 +124,13 @@
                                 <img src="assets/images/icon/key.svg" alt="key">
                             
                         </div>
-                        <span class="text-danger">@ViewBag.ErrorMessage</span>
+                        
                         <div class="form-group mb-24">
                             <button type="submit" class="default-btn">Verify</button>
                         </div>
 
                         <div class="form-group mb-24">
-                            <p class="account text-center">Resend OTP? <a asp-action="ForgetPassword" asp-controller="Account" asp-route-data=@Username>Resend OTP</a></p>
+                            <a id="resendOTPBtn" asp-action="ForgetPassword" asp-controller="Account" class="default-btn">Resend OTP</a>
                         </div>
 
                     </form>
@@ -79,32 +142,7 @@
     </div>
 </div>
 <!-- End Account Area -->
-<!-- Start Template Sidebar Area -->
-<div class="template-sidebar-area">
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight">
-        <div class="offcanvas-header">
-            <a href="index.html">
-                <img src="assets/images/main-logo.svg" alt="main-logo">
-            </a>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul>
-                <li>
-                    <a class="default-btn btn active" target="_blank" href="#">
-                        Buy Now
-                    </a>
-                </li>
-                <li>
-                    <a class="default-btn btn" target="_blank" href="https://themeforest.net/user/envytheme/portfolio">
-                        Our Portfolio
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!-- End Template Sidebar Area -->
+
 <!-- Start Go Top Area -->
 <div class="go-top">
     <i class="ri-arrow-up-s-fill"></i>

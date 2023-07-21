@@ -93,9 +93,16 @@ namespace FanEase_CQRS.Controllers
                     {
                         data = OTP
                     });
-
+                else
+                    return BadRequest(new ResponseModel<int>
+                    {
+                        message = "timeout"
+                    });
             }
-            return BadRequest();
+            return BadRequest(new ResponseModel<int>
+            {
+                message = "notmatched"
+            });
         }
 
         [HttpPut]
