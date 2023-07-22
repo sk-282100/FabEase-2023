@@ -221,6 +221,29 @@ namespace FanEase.Repository.Repositories
             }
         }
 
+        public async Task<User> GetUserByContactNo(string contactNo)
+        {
+            string connectionString = _configuration.GetConnectionString("Key");
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                User user = connection.Query<User>("GetUserByContactNoSP", new { @ContactNo = contactNo }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+                return user;
+            }
+        }
+
+        /* all below procedure to your database
+    CREATE PROCEDURE GetUserByContactNoSP
+    @ContactNo varchar(max)
+AS
+BEGIN 
+    SELECT *
+    FROM Users
+    WHERE contactNo = @ContactNo;
+END;*/
+
         public async Task<List<User>> GetAllCreators()
         {
             List<User> users = new List<User>();
