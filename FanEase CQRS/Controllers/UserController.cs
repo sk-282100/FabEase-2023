@@ -48,16 +48,16 @@ namespace FanEase_CQRS.Controllers
             {
                 return Created("api/Created", status);
             }
-            return BadRequest();
+            return BadRequest(status);
         }
 
         [HttpPut]
         public async Task<IActionResult> EditUser(User user)
         {
            ResponseModel<bool> status = await _meadiator.Send(new EditUserCommand(user));
-            if (status.data)
+            if (status!=null)
             {
-                return Ok(user);
+                return Ok(status);
             }
 
             return BadRequest();

@@ -67,14 +67,26 @@ namespace FanEase.UI.Controllers
 
                         string data = await response.Content.ReadAsStringAsync();
                         var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+                        if (result.message == "Email Exists")
+                        {
+                            ViewBag.ErrorMessage = "Already Registered User with same Email Address try again";
+                            return View();
+                        }
+
+                        if (result.message == "ContactNo Exists")
+                        {
+                            ViewBag.ErrorMessage = "Already Registered User with same Contact Number try again";
+                            return View();
+                        }
+
                         if (result.Succeed)
                         {
                             string userid = creator.FirstName.Substring(0, 1) + creator.LastName.Substring(0, 1) + creator.ContactNo.Substring(creator.ContactNo.Length - 4);
                             using (var response1 = await httpclient.GetAsync($"https://localhost:7208/api/User/AddCreator/{userid}"))
                             {
                                 string data1 = response.Content.ReadAsStringAsync().Result;
-
                             }
+
                             Entity.Models.CredentialVM credentails = new Entity.Models.CredentialVM();
                             credentails = new Entity.Models.CredentialVM()
                             {
@@ -92,16 +104,15 @@ namespace FanEase.UI.Controllers
                             }
                             return RedirectToAction("ContenetCreatorList");
                         }
+                     
 
-
-
-
+            
                     }
 
                 }
                
             }
-            ViewBag.OnlyImage = "! only files with .jpg, .jpeg & .png are allowed";
+            ViewBag.ErrorMessage = " only files with .jpg, .jpeg & .png are allowed";
             return View();
         }
 
@@ -197,7 +208,7 @@ namespace FanEase.UI.Controllers
         }
 
         [HttpGet]
-        [Route("{creatorId}")]
+        [Route("CreatorDetails/{creatorId}")]
         public async Task<IActionResult> CreatorDetails(string creatorId)
         {
             CreatorVM creator;
@@ -267,9 +278,10 @@ namespace FanEase.UI.Controllers
         }
 
         [HttpGet]
-        [Route("EditCreator/creatorId")]
+        
         public async Task<IActionResult> EditCreator(string creatorId)
         {
+
             CreatorVM creator;
             using (var httpclient = new HttpClient())
             {
@@ -279,25 +291,52 @@ namespace FanEase.UI.Controllers
                     creator = JsonConvert.DeserializeObject<ResponseModel<CreatorVM>>(data).data;
 
                 }
-                return View(creator);
+                return View(_mapper.Map<EditCreatorVM>(creator));
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCreator(CreatorVM creator)
+        
+        public async Task<IActionResult> EditCreator(EditCreatorVM creator)
         {
-            
+            if (creator.UpdatePhoto != null)
+            {
+                string imagePath = await SaveImageAsync(creator.UpdatePhoto);
+                if (imagePath.Contains(".jpg") || imagePath.Contains(".jpeg") || imagePath.Contains(".png"))
+                
+                    creator.ProfilePhoto = imagePath;
+                
+                else
+                {
+                    ViewBag.ErrorMessage = " only files with .jpg, .jpeg & .png are allowed";
+                    return View(creator);
+                }
+                
+            }
+            User user = _mapper.Map<User>(creator);
             using (var httpclient = new HttpClient())
             {
-                var content= new StringContent(JsonConvert.SerializeObject(creator), Encoding.UTF8, "application/json");
+                var content= new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
                 using (var response = await httpclient.PutAsync($"https://localhost:7208/api/User",content))
                 {
                     string data = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data).data;
+                    var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+                    if (result.message == "Email Exists")
+                    {
+                        ViewBag.ErrorMessage = "Already Registered User with same Email Address try again";
+                        return View(creator);
+                    }
 
-                    if (result)
-                        return RedirectToAction("CreatorDetails", creator.UserId);
-                    return RedirectToAction("EditCreator", creator.UserId);
+                    if (result.message == "ContactNo Exists")
+                    {
+                        ViewBag.ErrorMessage = "Already Registered User with same Contact Number try again";
+                        return View(creator);
+                    }
+
+                    if (result.Succeed)
+                        return RedirectToAction("CreatorDetails", "Admin", new { creatorId = creator.UserId });
+                    ViewBag.ErrorMessage = " Something Went Wrong";
+                    return View(creator);
 
                 }
                 

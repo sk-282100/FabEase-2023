@@ -1,99 +1,224 @@
-﻿@model FanEase.UI.Models.Creator.CreatorVM
+﻿@model FanEase.UI.Models.Creator.EditCreatorVM
 
 @{
     ViewData["Title"] = "EditCreator";
     Layout = "AdminLayout";
+    string path = "";
+
+    if (Model.ProfilePhoto != null)
+        path = "../" + Model.ProfilePhoto.Replace("\\", "/").Replace("..", ".");
+
+
+    
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<script>
+    function showErrorAlert(message) {
 
-<h1>EditCreator</h1>
+        Swal.fire({
+            title: 'Failure',
+            text: message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    }
 
-<h4>CreatorVM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditCreator" asp-controller="Admin" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        @:showErrorAlert("@Html.Raw(ViewBag.ErrorMessage)");
+    }
+</script>
+<header>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Link Of CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/remixicon.css">
+    <link rel="stylesheet" href="assets/css/boxicons.min.css">
+    <link rel="stylesheet" href="assets/css/iconsax.css">
+    <link rel="stylesheet" href="assets/css/metismenu.min.css">
+    <link rel="stylesheet" href="assets/css/simplebar.min.css">
+    <link rel="stylesheet" href="assets/css/calendar.css">
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="assets/css/jbox.all.min.css">
+    <link rel="stylesheet" href="assets/css/editor.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/loaders.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</header>
+
+
+<div class="page-title-area">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-sm-6">
+                <div class="page-title">
+                    <h3>Edit Creator</h3>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ProfilePhoto" class="control-label"></label>
-                <input asp-for="ProfilePhoto" class="form-control" />
-                <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VideoCount" class="control-label"></label>
-                <input asp-for="VideoCount" class="form-control" />
-                <span asp-validation-for="VideoCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactNo" class="control-label"></label>
-                <input asp-for="ContactNo" class="form-control" />
-                <span asp-validation-for="ContactNo" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="isActive" /> @Html.DisplayNameFor(model => model.isActive)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreationDate" class="control-label"></label>
-                <input asp-for="CreationDate" class="form-control" />
-                <span asp-validation-for="CreationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-11">
+            <div class="edit-profile-content card-box-style">
+<h3>@Model.FirstName @Model.LastName</h3>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+                <form asp-action="EditCreator" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <span>Change Profile Photo</span>
+                    <input asp-for="UpdatePhoto" type="file" class="form-control" />
+
+                    <span asp-validation-for="UpdatePhoto" class="text-danger"></span>
+
+                </div>
+            </div>
+                <div class="col-lg-4">
+            <div class="form-group">
+                
+                <img class="w-25 rounded-4" src=@path alt="profile-img">
+                                <div class="form-group">
+                                    
+                                    <input type="hidden" asp-for="ProfilePhoto" class="form-control" />
+                                    <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
+                                </div>
+               
+                <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
+            </div>
+            </div>
+                        <div class="col-lg-1">
+                            <span>Status</span>
+                            <div class="form-group form-check">
+                                
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="isActive" /> @Html.DisplayNameFor(model => model.isActive)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+                    <span>First Name</span><span class="text-danger">*</span>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+                    <span>Last Name</span><span class="text-danger">*</span>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+           </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+                    <span>Address</span><span class="text-danger">*</span>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+          </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+                    <span>City</span><span class="text-danger">*</span>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            </div>
+                        <div class="col-lg-6">
+                <div class="form-group">
+                    <span>Country</span><span class="text-danger">*</span>
+                    <input asp-for="Country" class="form-control" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+                </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+                    <span>Email</span><span class="text-danger">*</span>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+                <span>Contact Number</span><span class="text-danger">*</span>
+                <input asp-for="ContactNo" class="form-control" />
+                <span asp-validation-for="ContactNo" class="text-danger"></span>
+            </div>
+            </div>
+                        
+                        <div class="col-lg-6">
+            <div class="form-group">
+
+                <input asp-for="UserId" type="hidden" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+
+                <input asp-for="VideoCount" type="hidden" class="form-control" />
+                <span asp-validation-for="VideoCount" class="text-danger"></span>
+            </div>
+            </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+               
+                <input asp-for="CreationDate" type="hidden" class="form-control" />
+                <span asp-validation-for="CreationDate" class="text-danger"></span>
+            </div>
+            </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+               
+                <input asp-for="UserName" type="hidden" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            </div>
+                        <div class="col-lg-6">
+            <div class="form-group">
+               
+                <input asp-for="Password" type="hidden"class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            </div>
+            </div>
+            <div class="form-group">
+               
+                        <div class="text-end edit-massage">
+
+                            <input class="btn btn-secondary" type="button" onclick="location.href='@Url.Action("ContenetCreatorList","Admin")'" value="Back to List" />
+                            <input type="reset" value="Reset" class="btn btn-danger" />
+                            <input type="submit" value="Save" class="btn btn-success" />
+
+
+                        </div>
+            </div>
+        </form>
+
+                <div>
+                    <a asp-action="ContenetCreatorList">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
