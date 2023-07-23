@@ -84,7 +84,8 @@ namespace FanEase.UI.Controllers
                             string userid = creator.FirstName.Substring(0, 1) + creator.LastName.Substring(0, 1) + creator.ContactNo.Substring(creator.ContactNo.Length - 4);
                             using (var response1 = await httpclient.GetAsync($"https://localhost:7208/api/User/AddCreator/{userid}"))
                             {
-                                string data1 = response.Content.ReadAsStringAsync().Result;
+                                string data1 = response1.Content.ReadAsStringAsync().Result;
+                                
                             }
 
                             Entity.Models.CredentialVM credentails = new Entity.Models.CredentialVM();
