@@ -17,8 +17,4 @@
     <ProjectReference Include="..\FanEase.Entity\FanEase.Entity.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\UploadImage\Creator\" />
-  </ItemGroup>
-
 </Project>

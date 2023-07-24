@@ -1,0 +1,267 @@
+﻿@{
+    Layout = "AdminLayout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Link Of CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/remixicon.css">
+    <link rel="stylesheet" href="assets/css/boxicons.min.css">
+    <link rel="stylesheet" href="assets/css/iconsax.css">
+    <link rel="stylesheet" href="assets/css/metismenu.min.css">
+    <link rel="stylesheet" href="assets/css/simplebar.min.css">
+    <link rel="stylesheet" href="assets/css/calendar.css">
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="assets/css/jbox.all.min.css">
+    <link rel="stylesheet" href="assets/css/editor.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/loaders.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <title>Video Template Editor</title>
+    <link rel="stylesheet" href="assets/css/addTemplate.css">
+
+</head>
+<body>
+  <div class="card-box-style">
+      <div class="row">
+        <div class="others-title">
+            <h3>Video Template Editor</h3>
+        </div>
+       <div class="col-lg-6">
+         <h3>Type 1</h3>
+           <div class="container-fluid">
+        
+            <div class="type1-top-grid-container" id="template-grid">
+               <div class="type1-top-grid-item" data-block="1">Block 1</div>
+             
+        
+               <div class="grid-container" id="template-grid">
+                  <div class="type1-video-grid-item" data-block="4">
+                      Block 2
+                    <div>I Will use this for description</div>
+                  </div>
+               <div>
+          
+                <video id="type1-video-player" controls>
+                <source src="./Videos/2mb-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+                <div class="type1-top-grid-item" data-block="3">Block 3</div>
+               </div>
+                <div class="type1-grid-item" data-block="4">Block 4</div>
+              </div>
+           </div>
+          </div>
+     
+
+              <h3>Type 2</h3>
+              <div class="container-fluid">
+
+            <div class="grid-container" id="template-grid">
+
+                   <div class="type2-side-grid-item" data-block="2">Block 2</div>
+              
+                   <div>
+                      <div class="type2-top-grid-item" data-block="1">Block 1 </div>
+                     <div></div>
+                
+                    <video id="type1-video-player"  controls>
+                        <source src="./Videos/2mb-video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+
+                    <div class="type2-bottom-grid-item" data-block="4">Block 4</div>
+                   </div>
+                    <div class="type2-side-grid-item" data-block="3">Block 3</div>
+                 
+               
+             </div>
+        
+          </div>
+
+
+        <h3>Type 3</h3>
+          <div class="container-fluid">
+        
+
+            <div class="type3-top-grid-container" id="template-grid">
+
+                <video id="type3-video-player" controls>
+                    <source src="./Videos/2mb-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+               
+                <div class="type3-side-grid-item" data-block="1">Block 1</div>
+                    
+                  <div></div>
+             </div>
+            
+                    
+                   
+            
+                    <div class="grid-container" id="template-grid">
+
+                    <div class="type3-bottom-grid-item" data-block="2">Block 2</div>
+                    <div class="type3-bottom-grid-item" data-block="3">Block 3</div>
+                    <div class="type3-bottom-grid-item" data-block="4">Block 4</div>
+                
+                   
+                    </div>
+
+            
+          </div>
+       </div>
+  
+    <div class="col-lg-6">
+        <div class="container-fluid">
+            <div class="card-box-style">
+                <div class="others-title">
+                    <h3>Add Template to your video</h3>
+                    </div>
+        <div id="form-container" >
+            
+            <form id="content-form" >
+
+            
+                <label for="TemplateType" class="form-label">Template Type</label>
+                <select id="inputState" class="form-select form-control">
+                    <option >Choose Template Type...</option>
+                    <option value="type1">Type 1</option>
+                    <option value="type2">Type 2</option>
+                    <option value="type3">Type 3</option>
+
+                </select>
+           
+
+                <div class="block-content">
+                    <label for="block-1">Block 1:</label>
+                    <select id="block-1" class="content-type form-select form-control">
+                        <option value="none">Select Content Type</option>
+                        <option value="text">Text (Title/Content)</option>
+                        <option value="image">Image</option>
+                        <option value="video">Video</option>
+                    </select>
+                    <div class="content-options"></div>
+                </div>
+
+                <div class="block-content">
+                    <label for="block-2">Block 2:</label>
+                                    <select id="block-2" class="content-type form-select form-control">
+                        <option value="none">Select Content Type</option>
+                        <option value="text">Text (Title/Content)</option>
+                        <option value="image">Image</option>
+                        <option value="video">Video</option>
+                    </select>
+                    <div class="content-options"></div>
+                </div>
+
+                <div class="block-content">
+                    <label for="block-3">Block 3:</label>
+                                    <select id="block-3" class="content-type form-select form-control">
+                        <option value="none">Select Content Type</option>
+                        <option value="text">Text (Title/Content)</option>
+                        <option value="image">Image</option>
+                        <option value="video">Video</option>
+                    </select>
+                    <div class="content-options"></div>
+                </div>
+
+            <div class="block-content">
+                <label for="block-4">Block 4:</label>
+                                    <select id="block-4" class="content-type form-select form-control">
+                    <option value="none">Select Content Type</option>
+                    <option value="text">Text (Title/Content)</option>
+                    <option value="image">Image</option>
+                    <option value="video">Video</option>
+                </select>
+                <div class="content-options"></div>
+            </div>
+
+                                <button type="button" id="done-btn" class="btn btn-primary">Done</button>
+            </form>
+        </div>
+                    </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        
+        
+
+        <!-- Additional JavaScript and scripts -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const formContainer = document.getElementById("form-container");
+                const contentForm = document.getElementById("content-form");
+                const doneBtn = document.getElementById("done-btn");
+
+                // Function to handle the content type selection for each block
+                function handleContentTypeSelect() {
+                    const selectedBlock = this.id; // e.g., "block-1"
+                    const contentOptionsContainer = this.nextElementSibling; // The div for content options
+
+                    contentOptionsContainer.innerHTML = ""; // Clear previous options
+
+                    if (this.value !== "none") {
+                        // Show content options based on the selected content type
+                        const contentOptions = document.createElement("div");
+                        contentOptions.className = "content-options";
+
+                        if (this.value === "text") {
+                            // No additional options needed for text content
+                        const textInput = document.createElement("input");
+                        textInput.type = "textarea";
+                        textInput.className = "form-control";
+                        textInput.placeholder="Description/Text Content";
+                        
+                        contentOptions.appendChild(textInput);
+                           // contentOptions.innerHTML = "Text content options here";
+                        } else if (this.value === "image") {
+                            // Show file upload option for image content
+                            const fileInput = document.createElement("input");
+                            fileInput.type = "file";
+                            fileInput.accept = "image/*";
+                        fileInput.className = "form-control";
+                            contentOptions.appendChild(fileInput);
+                        } else if (this.value === "video") {
+                            // Show file upload option for video content
+                            const fileInput = document.createElement("input");
+                            fileInput.type = "file";
+                            fileInput.accept = "video/*";
+                        fileInput.className = "form-control";
+                            contentOptions.appendChild(fileInput);
+                        }
+
+                        contentOptionsContainer.appendChild(contentOptions);
+                    }
+                }
+
+                // Add event listeners for all content type selects
+                const contentTypeSelects = contentForm.getElementsByClassName("content-type");
+                Array.from(contentTypeSelects).forEach(select => {
+                    select.addEventListener("change", handleContentTypeSelect);
+                });
+
+                // Done button event listener (implement the action you want to take on finishing the template)
+                doneBtn.addEventListener("click", () => {
+                    // Implement the action to take when the template is done (e.g., saving the data)
+                    alert("Template editing complete!");
+                });
+            });
+        </script>
+
+</body>
+
+</html>
