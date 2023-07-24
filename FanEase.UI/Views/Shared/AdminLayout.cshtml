@@ -7,6 +7,7 @@
     string role = HttpContextAccessor.HttpContext.Session.GetString("role");
     string path = null;
     path = HttpContextAccessor.HttpContext.Session.GetString("profilePhoto");
+    string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
  
 }
 <html>
@@ -140,14 +141,14 @@
                                     <div class="dropdown-wrap">
                                         <ul class="profile-nav p-0 pt-3">
                                             <li class="nav-item">
-                                                <a asp-action="UnderConstruction"  class="nav-link">
+                                                <a onclick="location.href='@Url.Action("CreatorDetails","Admin",new{creatorId=uid})'" class="nav-link">
                                                     <i class="ri-user-line"></i>
                                                     <span>Profile</span>
                                                 </a>
                                             </li>
                                                                                       
                                             <li class="nav-item">
-                                                <a asp-action="UnderConstruction" asp-controller="Admin" class="nav-link">
+                                                <a onclick="location.href='@Url.Action("EditCreator","Admin",new{creatorId=uid})'" class="nav-link">
                                                     <i class="ri-edit-box-line"></i>
                                                     <span>Edit Profile</span>
                                                 </a>
@@ -219,7 +220,7 @@
                                 <a asp-action="UnderConstruction" >Video List</a>
                             </li>
                             <li class="list-group-item">
-                                <a asp-action="UnderConstruction" >Advertisement List</a>
+                                <a asp-action="AdvertisementList" asp-controller="Advertisement" >Advertisement List</a>
                             </li>
                             <li class="list-group-item">
                                 <a href="AddCreator">Add Creator from Existing Users</a>

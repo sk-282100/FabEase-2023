@@ -33,6 +33,18 @@ namespace FanEase.Repository.Repositories
             }
         }
 
+        public async Task<List<AdvertisementListVM>> AdvertisementListScreen()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                List<AdvertisementListVM> advertisements = connection.Query<AdvertisementListVM>("AdvertisementListScreenProcedure", commandType: CommandType.StoredProcedure).ToList();
+
+                return advertisements;
+            }
+        }
+
+
         public async Task<bool> DeleteAdvertisement(int id)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

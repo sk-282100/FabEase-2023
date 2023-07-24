@@ -25,7 +25,7 @@ namespace FanEase.Entity.Models
 
         public string VideoPlayer { get; set; }
 
-        public string VideoURL { get; set; }
+        public string? VideoURL { get; set; }
 
         public string? VideoFile { get; set; }
 

@@ -28,7 +28,7 @@ namespace FanEase.Middleware.Data.Handler.ForUser
             {
                 return new ResponseModel<bool> { Succeed = false, message = "Email Exists" };
             }
-            if (user2 != null && user1.UserId != request.User.UserId)
+            if (user2 != null && user2.UserId != request.User.UserId)
             {
                 return new ResponseModel<bool> { Succeed = false, message = "ContactNo Exists" };
             }

@@ -11,7 +11,7 @@
     grid-gap: 4px;
 }
 
-.type1-top-grid-item {
+.type1-section1 {
     height: 200px/2px;
     background-color: #f2f2f2;
     text-align: center;
@@ -98,6 +98,12 @@
     padding: 2px;
     width:560px;
     
+}
+
+.btn-custom-xxs {
+    padding: 3px 10px;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 
