@@ -21,7 +21,7 @@ namespace FanEase.Entity.Models
 
         public string Description { get; set; }
 
-        public string VideoType { get; set; } 
+        public string VideoType { get; set; }  //Live OR Recorded
 
         public string VideoPlayer { get; set; }
 

@@ -1,8 +1,7 @@
 ﻿using ExceptionHandling;
 using FanEase.Entity.Models;
-
+using FanEase.Middleware.Data.Queries.ForAdvertisement;
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace FanEase_CQRS.Controllers
@@ -30,7 +29,37 @@ namespace FanEase_CQRS.Controllers
             return Ok(advertisements);
 
         }
-        
+
+
+        [HttpGet("AdvertisementListScreen")]
+        public async Task<IActionResult> AdvertisementListScreen()
+        {
+
+            ResponseModel<List<AdvertisementListVM>> advertisements = await _meadiator.Send(new AdvertisementListScreenQuery());
+            if (advertisements.data.Count == 0)
+            {
+                throw new NullReferenceException("nothing in the list");
+            }
+            return Ok(advertisements);
+
+        }
+
+
+        [HttpGet]
+        [Route("UserId")]
+        public async Task<IActionResult> AdvertisementListScreenByUserId(string userId)
+        {
+
+            ResponseModel<List<AdvertisementListVM>> advertisements = await _meadiator.Send(new AdvertisementListScreenByUserIdQuery());
+            if (advertisements.data.Count == 0)
+            {
+                throw new NullReferenceException("nothing in the list");
+            }
+            return Ok(advertisements);
+
+        }
+
+
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetAdvertisementById(int id)

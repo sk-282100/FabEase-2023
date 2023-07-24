@@ -5,6 +5,7 @@ namespace FanEase.Repository.Interfaces
     public interface IAdvertisementRepository
     {
         Task<bool> AddAdvertisement(Advertisement advertisement);
+        Task<List<AdvertisementListVM>> AdvertisementListScreen();
         Task<bool> DeleteAdvertisement(int id);
         Task<bool> EditAdvertisement(Advertisement advertisement);
         Task<Advertisement> GetAdvertisementById(int id);
