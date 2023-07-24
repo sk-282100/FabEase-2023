@@ -20,7 +20,7 @@ namespace FanEase.Middleware.Data.Handler.ForUser
         }
         public async Task<ResponseModel<User>> Handle(GetUserByUserNameQuery request, CancellationToken cancellationToken)
         {
-            User user = await _userRepository.GetUserByUserName(request.UserName);
+            User user = await _userRepository.GetUserByUserName(request.UserName);            
             return new ResponseModel<User> { data = user, message = "Data recived" };
         }
     }

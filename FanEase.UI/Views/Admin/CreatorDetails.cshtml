@@ -31,11 +31,17 @@
                 if (result.isConfirmed) {
                     // If the user confirms the removal, redirect to the appropriate action
                     window.location.href = '@Url.Action("RemoveCreator","Admin")?creatorId=' + userId;
-                    window.location.href = '@Url.Action("ContenetCreatorList","Admin");
                 }
             });
         }
     </script>
+    <style>
+        .btn-custom-xxs {
+            padding: 3px 10px;
+            font-size: 15px;
+            line-height: 1.5;
+            
+        }</style>
 </head>
 
 
@@ -69,7 +75,14 @@
                                                 E-mail
                                             </a>
                                         </div>
-                                    </div>
+                                        <br/>
+                                        <div>
+                            <button type="button" class="btn btn-primary btn-custom-xxs" onclick="location.href='@Url.Action("EditCreator","Admin",new{creatorId=Model.Creator.UserId})'">Edit</button>
+
+                            <button type="button" width="10" class="btn btn-danger btn-custom-xxs" onclick="confirmRemove('@Model.Creator.UserId')">Delete</button>
+
+                            </div>
+                        </div>
                                 </div>
                             </div>
 
@@ -109,12 +122,7 @@
                                     </div>
                                 </div>
 
-                                <div class="text-end edit-massage">
-
-                                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditUser","User",new{userId=Model.Creator.UserId})'">Edit Creator</button>
-                                    <button type="button" class="btn btn-danger" onclick="confirmRemove('@Model.Creator.UserId')">Delete Creator</button>
-                                        
-                                </div>
+                   
                             </div>
                         </div>
                     </div>

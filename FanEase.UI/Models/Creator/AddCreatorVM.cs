@@ -6,7 +6,7 @@ namespace FanEase.UI.Models.Creator
     {
         [MaxLength(6,ErrorMessage ="Enter Valid CeatorId")]
         [MinLength(6,ErrorMessage = "Enter Valid CeatorId")]
-        [Required]
+        [Required(ErrorMessage ="Enter UserId")]
         public string UserId { get; set; }
     }
 }

@@ -70,7 +70,19 @@ namespace FanEase_CQRS.Controllers
             return NotFound();
         }
 
-       
+        [HttpGet("AdvertisementListScreen")]
+        public async Task<IActionResult> AdvertisementListScreen()
+        {
+
+            ResponseModel<List<AdvertisementListVM>> advertisements = await _meadiator.Send(new AdvertisementListScreenQuery());
+            if (advertisements.data.Count == 0)
+            {
+                throw new NullReferenceException("nothing in the list");
+            }
+            return Ok(advertisements);
+
+        }
+
         [HttpGet]
         [Route("User/{userId}")]
         public async Task<IActionResult> GetAdvertisementsByUser(string userId)

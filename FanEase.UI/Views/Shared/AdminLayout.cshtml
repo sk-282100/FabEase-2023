@@ -1,9 +1,14 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor;
+
 <!DOCTYPE html>
 @{
     string Email = HttpContextAccessor.HttpContext.Session.GetString("emailId");
     string Name = HttpContextAccessor.HttpContext.Session.GetString("name");
     string role = HttpContextAccessor.HttpContext.Session.GetString("role");
+    string path = null;
+    path = HttpContextAccessor.HttpContext.Session.GetString("profilePhoto");
+    string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+ 
 }
 <html>
 <head>
@@ -38,6 +43,12 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/images/favicon.svg">
+    <style>
+    #profile1 {
+        height:50px;
+        width:auto;
+    }
+    </style>
 
 </head>
 <body class="body-bg-f8faff">
@@ -64,11 +75,7 @@
                                 </a>
                             </div>
 
-                            <form class="search-bar d-flex">
-                                <img src="../assets/images/icon/search-normal.svg" alt="search-normal">
-
-                                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                            </form>
+                           
 
                             <div class="option-item for-mobile-devices d-block d-lg-none">
                                 <i class="search-btn ri-search-line"></i>
@@ -92,9 +99,17 @@
 
                            
 
-                            <div class="header-right-option dropdown profile-nav-item pt-0 pb-0">
+                            <div class="header-right-option dropdown profile-nav-item pt-0 pb-0" >
                                 <a class="dropdown-item dropdown-toggle avatar d-flex align-items-center" href="#" id="navbarDropdown-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="../assets/images/avatar.png" alt="avatar">
+                                    @if (path == null)
+                                    {
+                                        <img src="../assets/images/avatar.png"  alt="avatar">
+                                    }
+                                    else
+                                    {
+
+                                        <img src=@path alt="avatar" id="profile1">
+                                    }
                                     <div class="d-none d-lg-block d-md-block"> 
                                         <h3>@Name</h3>
                                         <span>@role</span>
@@ -104,7 +119,15 @@
                                 <div class="dropdown-menu">
                                     <div class="dropdown-header d-flex flex-column align-items-center">
                                         <div class="figure mb-3">
+                                            @if (path == null)
+                                    {
                                             <img src="../assets/images/avatar.png" class="rounded-circle" alt="avatar">
+                                    }
+                                            else
+                                            {
+                                              
+                                                <img src=@path class="rounded-circle" alt="avatar">
+                                            }
                                         </div>
 
                                         <div class="info text-center">
@@ -118,14 +141,14 @@
                                     <div class="dropdown-wrap">
                                         <ul class="profile-nav p-0 pt-3">
                                             <li class="nav-item">
-                                                <a asp-action="UnderConstruction"  class="nav-link">
+                                                <a onclick="location.href='@Url.Action("CreatorDetails","Admin",new{creatorId=uid})'" class="nav-link">
                                                     <i class="ri-user-line"></i>
                                                     <span>Profile</span>
                                                 </a>
                                             </li>
                                                                                       
                                             <li class="nav-item">
-                                                <a asp-action="UnderConstruction" asp-controller="Admin" class="nav-link">
+                                                <a onclick="location.href='@Url.Action("EditCreator","Admin",new{creatorId=uid})'" class="nav-link">
                                                     <i class="ri-edit-box-line"></i>
                                                     <span>Edit Profile</span>
                                                 </a>
@@ -166,6 +189,7 @@
                         </a>
 
                         <ul class="list-group flex-column d-inline-block submenu">
+                            <li class="list-group-item"><h5>FanEase Analysis</h5></li>
                             <li class="list-group-item">
                                 <a href="website-analytics.html" class="active">DashBoard</a>
                             </li>
@@ -185,8 +209,9 @@
                         </a>
 
                         <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
+                            <li class="list-group-item"><h5>Creator Section</h5></li>
                             <li class="list-group-item">
-                                <a asp-action="AddCreator" asp-controller="Admin">Add Creator from Users</a>
+                                <a asp-action="AddCreatorForm" asp-controller="Admin">Add New Creator</a>
                             </li>
                             <li class="list-group-item">
                                 <a asp-action="ContenetCreatorList" >Creator List</a>
@@ -195,10 +220,10 @@
                                 <a asp-action="UnderConstruction" >Video List</a>
                             </li>
                             <li class="list-group-item">
-                                <a asp-action="UnderConstruction" >Advertisement List</a>
+                                <a asp-action="AdvertisementList" asp-controller="Advertisement" >Advertisement List</a>
                             </li>
                             <li class="list-group-item">
-                                <a href="UnderConstruction">Screen Lock</a>
+                                <a href="AddCreator">Add Creator from Existing Users</a>
                             </li>
                         </ul>
                     </li>
@@ -218,6 +243,7 @@
                             </a>
 
                             <ul class="list-group flex-column d-inline-block submenu">
+
                                 <li class="list-group-item"><h5>Dash Board</h5></li>
                                 <li class="list-group-item">
                                 <a href="UnderConstruction" class="active">@Name DashBoard</a>

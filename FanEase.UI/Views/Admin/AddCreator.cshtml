@@ -24,25 +24,25 @@
                             <div class="row align-items-center">
         <form asp-action="AddCreator" class="account-wrap">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mb-24 icon">
-                                <div class="form-group mb-24 icon">
-                <label asp-for="UserId" class="control-label">
-                    <input asp-for="UserId" type="text" class="form-control" placeholder="UserId">
-                   <img src="../assets/images/icon/user-square.svg" alt="user-square">
-                </label>
-                </div>
-                
-                   
-                <div>
+            <div>
+
+                        <span>User ID</span><span class="text-danger">*</span>
+                        <div>
+                  <label>
+                    <div class="form-group mb-24 icon">
+                       <input asp-for="UserId" type="text" class="form-control" placeholder="UserId">
+                      <img src="../assets/images/icon/user-square.svg" alt="user-square">
+                    </div>
+                            </label>
+                        </div>
+                        
                 <span asp-validation-for="UserId" class="text-danger"></span>
-                </div>
-                
-                <div>
-                             
-                <input type="submit" value="Add Creator" class="btn btn-primary" />
-                
-                </div>
+
             </div>
+   
+                <input type="submit" value="Add Creator" class="btn btn-primary" />
+
+           
         </form>
     </div>
 </div>

@@ -151,7 +151,8 @@ namespace FanEase.Repository.Repositories
                  new Claim("uid",_user.UserId),
                  new Claim(ClaimTypes.Email,_user.Email),
                  new Claim(ClaimTypes.Name,_user.FirstName+" "+_user.LastName),
-                 new Claim("firstName",_user.FirstName)
+                 new Claim("firstName",_user.FirstName),
+                 new Claim("profilePhoto",_user.ProfilePhoto)
                  
 
             }.Union(roleclaim);
@@ -219,6 +220,29 @@ namespace FanEase.Repository.Repositories
                 return user;
             }
         }
+
+        public async Task<User> GetUserByContactNo(string contactNo)
+        {
+            string connectionString = _configuration.GetConnectionString("Key");
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                User user = connection.Query<User>("GetUserByContactNoSP", new { @ContactNo = contactNo }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+                return user;
+            }
+        }
+
+        /* all below procedure to your database
+    CREATE PROCEDURE GetUserByContactNoSP
+    @ContactNo varchar(max)
+AS
+BEGIN 
+    SELECT *
+    FROM Users
+    WHERE contactNo = @ContactNo;
+END;*/
 
         public async Task<List<User>> GetAllCreators()
         {

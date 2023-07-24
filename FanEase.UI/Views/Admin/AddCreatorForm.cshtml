@@ -16,9 +16,9 @@
         });
     }
 
-    @if (!string.IsNullOrEmpty(ViewBag.OnlyImage))
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
     {
-        @:showErrorAlert("@Html.Raw(ViewBag.OnlyImage)");
+        @:showErrorAlert("@Html.Raw(ViewBag.ErrorMessage)");
     }
     </script>
 <header>
@@ -62,10 +62,10 @@
             </div>
         </div>
 
-        <div class="profile-area">
+        
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-11">
                         <div class="edit-profile-content card-box-style">
                             <h3>Creator Registration Form</h3>
                             <form asp-action="AddCreatorForm" enctype="multipart/form-data">
@@ -73,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                    <label asp-for="ProfilePhoto" class="control-label"></label><span class="text-danger">*</span>
+                                      <span>Profile Photo</span><span class="text-danger">*</span>
                                             <input asp-for="ProfilePhoto" type="file" class="form-control" />
                                    
                                             <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
@@ -84,7 +84,7 @@
                                   <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                    <label asp-for="FirstName" class="control-label"></label><span class="text-danger">*</span>
+                                    <span>First Name</span><span class="text-danger">*</span>
                                             <input asp-for="FirstName" class="form-control" />
                                             <span asp-validation-for="FirstName" class="text-danger"></span>
                                         </div>
@@ -93,21 +93,21 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                    <label asp-for="LastName" class="control-label"></label><span class="text-danger">*</span>
+                                    <span>Last Name</span><span class="text-danger">*</span>
                                             <input asp-for="LastName" class="form-control" />
                                             <span asp-validation-for="LastName" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                    <label asp-for="Email" class="control-label"></label><span class="text-danger">*</span>
+                                    <span>Email</span><span class="text-danger">*</span>
                                             <input asp-for="Email" type="email" class="form-control" />
                                             <span asp-validation-for="Email" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                    <label asp-for="ContactNo" class="control-label"></label><span class="text-danger">*</span>
+                                    <span>Contact Number</span><span class="text-danger">*</span>
                                             <input asp-for="ContactNo" class="form-control" />
                                             <span asp-validation-for="ContactNo" class="text-danger"></span>
                                         </div>
@@ -115,7 +115,7 @@
 
 
                                     <div class="form-group">
-                                <label asp-for="Address" class="control-label"></label><span class="text-danger">*</span>
+                            <span>Address</span><span class="text-danger">*</span>
                                         <input asp-for="Address" class="form-control" />
                                         <span asp-validation-for="Address" class="text-danger"></span>
                                     </div>
@@ -123,7 +123,7 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                    <label asp-for="City" class="control-label"></label><span class="text-danger">*</span>
+                                    <span>City</span><span class="text-danger">*</span>
                                             <input asp-for="City" class="form-control" />
                                             <span asp-validation-for="City" class="text-danger"></span>
                                         </div>
@@ -132,7 +132,7 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                    <label asp-for="Country" class="control-label"></label><span class="text-danger">*</span>
+                                    <span>Country</span><span class="text-danger">*</span>
                                             <input asp-for="Country" class="form-control" />
                                             <span asp-validation-for="Country" class="text-danger"></span>
                                         </div>
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+          
 
 
 

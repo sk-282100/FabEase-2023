@@ -1,5 +1,6 @@
 ﻿using ExceptionHandling;
 using FanEase.Entity.Models;
+using FanEase.HelperClasses;
 using FanEase.Middleware.Data.Commands.ForUser;
 using FanEase.Middleware.Data.Queries.ForUser;
 using MediatR;
@@ -40,21 +41,23 @@ namespace FanEase_CQRS.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(User user)
         {
+            if(user!=null)
+                user.Password= PasswordHasher.HashPassword(user.Password);
             ResponseModel<bool> status = await _meadiator.Send(new AddUserCommand(user));
             if (status.data)
             {
                 return Created("api/Created", status);
             }
-            return BadRequest();
+            return BadRequest(status);
         }
 
         [HttpPut]
         public async Task<IActionResult> EditUser(User user)
         {
            ResponseModel<bool> status = await _meadiator.Send(new EditUserCommand(user));
-            if (status.data)
+            if (status!=null)
             {
-                return Ok(user);
+                return Ok(status);
             }
 
             return BadRequest();

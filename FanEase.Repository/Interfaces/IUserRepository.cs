@@ -13,6 +13,8 @@ namespace FanEase.Repository.Interfaces
         Task<List<User>> GetAllUsers();
         Task<User> GetUserById(string id);
         Task<User> GetUserByUserName(string userName);
+        Task<User> GetUserByContactNo(string contactNo);
+
         Task<ResponseModel<AuthResponse>> Login(LoginDto loginDto);
         Task<bool> RemoveCreator(string creatorId);
         Task<ResponseModel<bool>> ResetPassword(string newPassword, string oldPassword, string userId);
