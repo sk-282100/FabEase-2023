@@ -38,15 +38,15 @@ namespace FanEase.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddVideo(AddVideoVm addVideoVm)
         {
-            // Video video = _mapper.Map<Video>(addVideoVm);
+            AddVideoVm video = _mapper.Map<AddVideoVm>(addVideoVm);
             using (var httpclient = new HttpClient())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(addVideoVm), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(video), Encoding.UTF8, "application/json");
                 using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Video", content))
                 {
                     string data = response.Content.ReadAsStringAsync().Result;
                 }
-                return RedirectToAction("UnderConstruction","Home");
+                return RedirectToAction("UnderConstruction", "Home");
             }
         }
 

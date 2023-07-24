@@ -26,13 +26,21 @@ namespace FanEase.UI.Controllers
         [HttpGet]
         public IActionResult AdminDashboard()
         {
-            return View();
+            if (HttpContext.Session.GetString("role") == "Admin")
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
         public IActionResult AddCreatorForm()
         {
-            return View();
+            if (HttpContext.Session.GetString("role") == "Admin")
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
@@ -137,16 +145,21 @@ namespace FanEase.UI.Controllers
         [HttpGet]
         public IActionResult AddCreator()
         {
-            return View();
+            if (HttpContext.Session.GetString("role") == "Admin")
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
         public async Task<IActionResult> AddCreator(AddCreatorVM creatorId)
         {
-            CreatorVM creator = new CreatorVM();
-            Entity.Models.CredentialVM credentails = new Entity.Models.CredentialVM();
-            using (var httpclient = new HttpClient())
-            {
+           
+                CreatorVM creator = new CreatorVM();
+              Entity.Models.CredentialVM credentails = new Entity.Models.CredentialVM();
+              using (var httpclient = new HttpClient())
+              {
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/{creatorId.UserId}"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
@@ -183,9 +196,10 @@ namespace FanEase.UI.Controllers
                     }
                     return RedirectToAction("ContenetCreatorList");
                 }
-            }
+              }
 
-            return RedirectToAction("AddCreator");
+              return RedirectToAction("AddCreator");
+
         }
 
 
@@ -193,25 +207,34 @@ namespace FanEase.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> ContenetCreatorList()
         {
-            ResponseModel<List<CreatorVM>> responseModel = new ResponseModel<List<CreatorVM>>();
-
-            using (var httpclient = new HttpClient())
+          
+            if (HttpContext.Session.GetString("role") == "Admin")
             {
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/creatorlist"))
-                {
-                    string data = await response.Content.ReadAsStringAsync();
-                    responseModel = JsonConvert.DeserializeObject<ResponseModel<List<CreatorVM>>>(data);
-                }
+                ResponseModel<List<CreatorVM>> responseModel = new ResponseModel<List<CreatorVM>>();
 
+                using (var httpclient = new HttpClient())
+                {
+                    using (var response = await httpclient.GetAsync($"https://localhost:7208/creatorlist"))
+                    {
+                        string data = await response.Content.ReadAsStringAsync();
+                        responseModel = JsonConvert.DeserializeObject<ResponseModel<List<CreatorVM>>>(data);
+                    }
+
+                }
+                List<CreatorListVM> CreatorVMList = _mapper.Map<List<CreatorListVM>>(responseModel.data);
+                return View(CreatorVMList);
             }
-            List<CreatorListVM> CreatorVMList = _mapper.Map<List<CreatorListVM>>(responseModel.data);
-            return View(CreatorVMList);
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
         [Route("CreatorDetails/{creatorId}")]
         public async Task<IActionResult> CreatorDetails(string creatorId)
         {
+            if (HttpContext.Session.GetString("role") !=null)
+            {
+                
+            
             CreatorVM creator;
             List<Advertisement> advertisements;
             List<Video> videos;
@@ -259,7 +282,8 @@ namespace FanEase.UI.Controllers
                 Advertisements = advertisements
             });
 
-            //return View(creator);
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
@@ -282,8 +306,9 @@ namespace FanEase.UI.Controllers
         
         public async Task<IActionResult> EditCreator(string creatorId)
         {
-
-            CreatorVM creator;
+            if (HttpContext.Session.GetString("role") != null)
+            {
+                CreatorVM creator;
             using (var httpclient = new HttpClient())
             {
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/{creatorId}"))
@@ -294,6 +319,8 @@ namespace FanEase.UI.Controllers
                 }
                 return View(_mapper.Map<EditCreatorVM>(creator));
             }
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]

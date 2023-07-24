@@ -16,6 +16,7 @@ using FanEase.Middleware.Data.Handler.ForTemplate;
 using FanEase.Middleware.Data.Handler.ForTemplateDetails;
 using FanEase.Middleware.Data.Handler.ForUser;
 using FanEase.Middleware.Data.Handler.ForVideo;
+using FanEase.Middleware.Data.Queries.ForAdvertisement;
 using FanEase.Middleware.Data.Queries.ForCampaign;
 using FanEase.Middleware.Data.Queries.ForCampaignAdvertisement;
 using FanEase.Middleware.Data.Queries.ForPlayer;
@@ -88,6 +89,7 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<ResetPasswordCommand, ResponseModel<bool>>, ResetPasswordHandler>();
             services.AddScoped<IRequestHandler<SetCreatorPasswordCommand,ResponseModel<bool>>,SetCreatorPasswordCommandHandler>();
             services.AddScoped<IRequestHandler<SetPasswordCommand, ResponseModel<bool>>, SetPasswordCommandHandler>();
+            services.AddScoped<IRequestHandler<AdvertisementListScreenQuery, ResponseModel<List<AdvertisementListVM>>>, AdvertisementListScreenHandler>();
             return services;
         }
     }
