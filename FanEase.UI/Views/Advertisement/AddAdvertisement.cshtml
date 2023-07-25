@@ -21,7 +21,7 @@
                 </div>
 
 
-        <form asp-action="AddAdvertisement">
+                <form asp-action="AddAdvertisement" asp-controller="Advertisement" method="post">
          <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
           
@@ -63,7 +63,15 @@
             <div class="col-lg-6">
             <div class="form-group">
                 <span>Content Type</span>
-                <input asp-for="ContentType" class="form-control" />
+                                <select asp-for="ContentType" class="form-control form-select" aria-hidden="true">
+                                    <option value="">-----Select Content Type-----</option>
+                                    <option asp-for="ContentType" value="Image">Image</option>
+                                    <option asp-for="ContentType" value="Video">Video</option>
+                                    <option asp-for="ContentType" value="Text">Text</option>
+                                    <option asp-for="ContentType" value="Url">Url</option>
+                                </select>
+                                <span asp-validation-for="ContentType" class="text-danger"></span>
+                
                 <span asp-validation-for="ContentType" class="text-danger"></span>
             </div>
             </div>

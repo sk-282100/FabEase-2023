@@ -1,6 +1,8 @@
 ﻿using ExceptionHandling;
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Queries.ForAdvertisement;
+using FanEase.Repository.Interfaces;
+using FanEase_CQRS.Controllers;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,11 +12,18 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForAdvertisement
 {
-    internal class AdvertisementListScreenByUserIdHandler : IRequestHandler<AdvertisementListScreenByUserIdQuery, ResponseModel<List<AdvertisementListVM>>>
+    public class AdvertisementListScreenByUserIdHandler : IRequestHandler<AdvertisementListScreenByUserIdQuery, ResponseModel<List<AdvertisementListVM>>>
     {
-        public Task<ResponseModel<List<AdvertisementListVM>>> Handle(AdvertisementListScreenByUserIdQuery request, CancellationToken cancellationToken)
+      
+            readonly IAdvertisementRepository _advertisementRepository;
+
+            public AdvertisementListScreenByUserIdHandler(IAdvertisementRepository advertisementRepository)
+            {
+                _advertisementRepository = advertisementRepository;
+            }
+            public async Task<ResponseModel<List<AdvertisementListVM>>> Handle(AdvertisementListScreenByUserIdQuery request, CancellationToken cancellationToken)
         {
-            List<AdvertisementListVM> ads = await _advertisementRepository.AdvertisementListScreen();
+            List<AdvertisementListVM> ads = await _advertisementRepository.AdvertisementListScreenByUserId(request.UserId);
             return new ResponseModel<List<AdvertisementListVM>> { data = ads, message = "data received" };
         }
     }

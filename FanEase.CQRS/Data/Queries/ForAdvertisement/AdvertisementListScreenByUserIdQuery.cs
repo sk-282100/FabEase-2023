@@ -11,5 +11,13 @@ namespace FanEase.Middleware.Data.Queries.ForAdvertisement
 {
     public class AdvertisementListScreenByUserIdQuery : IRequest<ResponseModel<List<AdvertisementListVM>>>
     {
+        
+
+        public AdvertisementListScreenByUserIdQuery(string userId)
+        {
+            this.UserId = userId;
+        }
+
+        public string UserId { get; internal set; }
     }
 }

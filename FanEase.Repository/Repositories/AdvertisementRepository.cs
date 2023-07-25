@@ -7,6 +7,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data;
+using System.Web.Http;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace FanEase.Repository.Repositories
@@ -46,8 +47,17 @@ namespace FanEase.Repository.Repositories
             }
         }
 
+        
+        public async Task<List<AdvertisementListVM>> AdvertisementListScreenByUserId(string userId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                List<AdvertisementListVM> advertisements = connection.Query<AdvertisementListVM>("AdvertisementListScreenByUserIdProcedure", new { @userId= userId }, commandType: CommandType.StoredProcedure).ToList();
 
-
+                return advertisements;
+            }
+        }
 
         public async Task<bool> DeleteAdvertisement(int id)
         {

@@ -1,11 +1,12 @@
-﻿
-<!--View For:-List of Advertisement for creator-->
-
+﻿<!--View For:-List of Advertisement for creator-->
 @model IEnumerable<FanEase.Entity.Models.AdvertisementListVM>
+@inject IHttpContextAccessor HttpContextAccessor;
 
 @{
-    ViewData["Title"] = "AdvertisementList";
-    Layout = "AdminLayout";
+    ViewData["Title"] = "AdvertisementListScreenByUserId";
+    Layout = "FanEaseLayout";
+    //string UserId = "AT10";
+    string UserId =HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
 <head>
     <meta charset="utf-8">
@@ -25,7 +26,7 @@
                 </div>
 
 
-                <table class="table class=" table align-middle mb-0"">
+                <table class="table class=" table align-middle mb-0"" >
                     <thead align="center">
                         <tr>
                             <th>
@@ -59,53 +60,54 @@
                             <th>
                                 Is Active
                             </th>
-                          
+
                         </tr>
                     </thead>
 
 
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdvertisementTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdvertisementId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContentType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdClicks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CampaignId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Views)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AdvertisementTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AdvertisementId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Image)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ContentType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AdClicks)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CampaignId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Views)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsPublished)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsActive)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
                 @section Scripts {
                     @{

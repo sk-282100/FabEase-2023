@@ -37,6 +37,6 @@ namespace FanEase.Entity.Models
         [Required(ErrorMessage = "Enter Number of clicks")]
         public int AdClicks { get; set; }
 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
     }
 }
