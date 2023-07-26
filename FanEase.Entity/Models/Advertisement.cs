@@ -12,27 +12,42 @@ namespace FanEase.Entity.Models
         public int AdvertisementId { get; set; }
 
         [Required(ErrorMessage ="Enter Advertisement Title")]
+        [MaxLength(20 ,ErrorMessage ="Title sholuld be only of 50 letters")]
         public string AdvertisementTitle { get; set; }
 
         [Required(ErrorMessage ="date & Time required")]
         public DateTime StartDate { get; set; }
-        [Required(ErrorMessage = "date & Time required")]
+        
+        
+       [Required(ErrorMessage = "date & Time required")]
+        //[BindProperty(SupportsGet = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "dd.MM.yyyy")]
+        [Display(Name = "End Date", ResourceType = typeof(string))]
         public DateTime EndDate { get; set; }
 
-        [Required(ErrorMessage = "Enter Content type like Image,video,url,text")]
-        public string ContentType { get; set; } //'Image','Video','Text','URL'
+        [Required(ErrorMessage = "Select Advertisement type")]
+        public string ContentType { get; set; } // In view this fiels is Advertisement type,'Image','Video','Text' OR 'URL'
+
 
         [Required(ErrorMessage = "Enter Description")]
+        [MaxLength(50, ErrorMessage = "Description should be only of 100 letters")]
         public string Description { get; set; }
+
 
         [Required(ErrorMessage = "Enter Advertisement Image")]
         public string Image { get; set; }
 
+        
+        
         [Required(ErrorMessage = "Select Advertisement placement")]
         public string AvertisementPlacement { get; set; }
 
+        
+        
         [Required(ErrorMessage = "Enter URL")]
         public string Url { get; set; }
+
 
         [Required(ErrorMessage = "Enter Number of clicks")]
         public int AdClicks { get; set; }

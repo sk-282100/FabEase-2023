@@ -3,6 +3,7 @@ using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Queries.ForAdvertisement;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FanEase_CQRS.Controllers
 {
@@ -119,6 +120,19 @@ namespace FanEase_CQRS.Controllers
             return NotFound();
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

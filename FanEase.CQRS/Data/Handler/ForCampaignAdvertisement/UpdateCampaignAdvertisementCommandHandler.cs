@@ -22,7 +22,7 @@ namespace FanEase.Middleware.Data.Handler.ForCampaignAdvertisement
         {
             Campaign_Advertisement CampaignAdvertisement = new Campaign_Advertisement
             {
-                Id = request.Id,
+               
                 campaignId = request.campaignId,
                 advertisementId = request.advertisementId
             };

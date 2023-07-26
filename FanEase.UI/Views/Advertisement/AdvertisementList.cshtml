@@ -25,7 +25,7 @@
                 </div>
 
 
-                <table class="table class=" table align-middle mb-0"">
+                <table  class=" table align-middle mb-0"">
                     <thead align="center">
                         <tr>
                             <th>
@@ -58,6 +58,9 @@
                             </th>
                             <th>
                                 Is Active
+                            </th>
+                            <th>
+                                Quick Actions
                             </th>
                           
                         </tr>
@@ -98,9 +101,16 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+               @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-Danger" onclick="location.href='@Url.Action("DeleteAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Delete</button>
+                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Edit</button>
+                                        <button type="button" class="btn btn-warning" onclick="confirmRemove('@item.AdvertisementId')">Remove</button>
+                </div>
+
             </td>
         </tr>
 }

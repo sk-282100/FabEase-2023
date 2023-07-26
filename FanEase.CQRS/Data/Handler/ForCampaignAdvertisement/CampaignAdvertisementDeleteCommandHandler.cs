@@ -20,11 +20,11 @@ namespace FanEase.Middleware.Data.Handler.ForCampaignAdvertisement
         }
         public async Task<ResponseModel<bool>> Handle(CampaignAdvertisementDeleteCommand request, CancellationToken cancellationToken)
         {
-            var CampaignAdvertisement = await _campaignAdvertisementRepository.DeleteCampaignAdvertisement(request.Id);
+            var CampaignAdvertisement = await _campaignAdvertisementRepository.DeleteCampaignAdvertisement(request.campaignId);
             if (CampaignAdvertisement == null) return default;
 
-            int rowsaffected = await _campaignAdvertisementRepository.DeleteCampaignAdvertisement(request.Id);
-            var response = new ResponseModel<bool> { data = false, message = "failed to Delete campaign" };
+            int rowsaffected = await _campaignAdvertisementRepository.DeleteCampaignAdvertisement(request.campaignId);
+            var response = new ResponseModel<bool> { data = false, message = "Campaign Deleted successfully" };
             if (rowsaffected > 0)
             {
                 response.data = true;

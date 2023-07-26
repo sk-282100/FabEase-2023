@@ -20,7 +20,7 @@ namespace FanEase.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddAdvertisement(Advertisement advertisement)
         {
-           // string UserId = "AT10";
+            string UserId = "AT10";
             
             using (var httpclient = new HttpClient())
             {
@@ -61,42 +61,15 @@ namespace FanEase.UI.Controllers
 
             }
 
-            List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
-            
+            List<AdvertisementListVM> advertisements = responseModel.data;
+
+
             return View(advertisements);
 
         }
 
 
-        //Advertisement ListScreen for a perticular User
-
-
-        //[HttpGet]
-
-        //public async Task<IActionResult> AdvertisementListScreenByUserId(string userId)
-        //{
-        //    string UserId = "AT10";
-        //    //string UserId = HttpContext.Session.GetString("UserId");
-        //    userId = UserId;
-        //    ResponseModel<List<AdvertisementListVM>> responseModel = new ResponseModel<List<AdvertisementListVM>>();
-
-        //    using (var httpclient = new HttpClient())
-        //    {
-             
-                
-        //        using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementsByUser/{userId}"))
-        //        {
-        //            string data = await response.Content.ReadAsStringAsync();
-        //            responseModel = JsonConvert.DeserializeObject<ResponseModel<List<AdvertisementListVM>>>(data);
-        //        }
-
-        //    }
-        //    List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
-
-        //    return View(advertisements);
-
-        //}
-
+       
         //Corected code above
         [HttpGet]
         public async Task<IActionResult> AdvertisementListScreenByUserId(string userId)
@@ -118,6 +91,45 @@ namespace FanEase.UI.Controllers
 
             return View(advertisements);
         }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteAdvertisement(int id)
+        {
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($" https://localhost:7208/api/Advertisement/DeleteAdvertisement/{id}"))
+                {
+               
+                    string data = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<bool>(data);
+
+                    return RedirectToAction("AdvertisementList");
+                }
+            }
+        }
+
+
+        [HttpGet]
+
+        public async Task<IActionResult> EditAdvertisement(Advertisement advertisement)
+        {
+            Advertisement add;
+                using (var httpclient = new HttpClient())
+                {
+                    using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/EditAdvertisement"))
+                    {
+                        string data = await response.Content.ReadAsStringAsync();
+                    add = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
+
+                    }
+                    return View(AdvertisementList);
+                }
+            
+           // return RedirectToAction("AdvertisementList", "Advertisement");
+        }
+
 
 
 
