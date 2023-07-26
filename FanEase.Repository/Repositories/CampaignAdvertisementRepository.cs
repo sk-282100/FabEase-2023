@@ -28,12 +28,12 @@ namespace FanEase.Repository.Repositories
             return rowsAffected;
         }
 
-        public async Task<int> DeleteCampaignAdvertisement(int Id)
+        public async Task<int> DeleteCampaignAdvertisement(int campaignId)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@ID", Id);
+            parameters.Add("@CampaignId", campaignId);
 
-            int rowsAffected = await ExecuteAsync("DeleteCampaignAdvertisement", parameters, CommandType.StoredProcedure);
+            int rowsAffected = await ExecuteAsync("DeleteCampaignAdvertisementByCampaignId", parameters, CommandType.StoredProcedure);
             return rowsAffected;
         }
 
@@ -43,10 +43,10 @@ namespace FanEase.Repository.Repositories
             return campaigns.ToList();
         }
 
-        public async Task<Campaign_Advertisement> GetCampaignAdvertisementById(int Id)
+        public async Task<Campaign_Advertisement> GetCampaignAdvertisementById(int campaignId)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@Id", Id);
+            parameters.Add("@CampaignId", campaignId);
 
             Campaign_Advertisement campaign = await GetByIdAsync<Campaign_Advertisement>("GetCampaignAdvertisementById", parameters, CommandType.StoredProcedure);
             return campaign;
@@ -55,7 +55,7 @@ namespace FanEase.Repository.Repositories
         public async Task<int> UpdateCampaignAdvertisement(Campaign_Advertisement Advertisement)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@Id", Advertisement.Id);
+            
             parameters.Add("@campaignId", Advertisement.campaignId);
             parameters.Add("@advertisementId", Advertisement.advertisementId);
 

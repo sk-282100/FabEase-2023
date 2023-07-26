@@ -2,8 +2,8 @@
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Queries.ForAdvertisement;
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FanEase_CQRS.Controllers
 {
@@ -18,7 +18,7 @@ namespace FanEase_CQRS.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("GetAllAdvertisements")]
         public async Task<IActionResult> GetAllAdvertisements()
         {
             
@@ -30,16 +30,7 @@ namespace FanEase_CQRS.Controllers
             return Ok(advertisements);
 
         }
-        
-        [HttpGet("{id}")]
 
-        public async Task<IActionResult> GetAdvertisementById(int id)
-        {
-            ResponseModel<Advertisement> advertisement = await _meadiator.Send(new GetAdvertisementByIdQuery(id));
-            if (advertisement != null)
-                return Ok(advertisement);
-            return NotFound();
-        }
 
         [HttpGet("AdvertisementListScreen")]
         public async Task<IActionResult> AdvertisementListScreen()
@@ -54,8 +45,35 @@ namespace FanEase_CQRS.Controllers
 
         }
 
+
         [HttpGet]
-        [Route("User/{userId}")]
+        [Route("AdvertisementListScreenByUserId/userId")]
+        public async Task<IActionResult> AdvertisementListScreenByUserId(string userId)
+        {
+
+            ResponseModel<List<AdvertisementListVM>> advertisements = await _meadiator.Send(new AdvertisementListScreenByUserIdQuery(userId));
+            if (advertisements.data.Count == 0)
+            {
+                throw new NullReferenceException("nothing in the list");
+            }
+            return Ok(advertisements);
+
+        }
+
+
+        [HttpGet("GetAdvertisementById/{id}")]
+
+        public async Task<IActionResult> GetAdvertisementById(int id)
+        {
+            ResponseModel<Advertisement> advertisement = await _meadiator.Send(new GetAdvertisementByIdQuery(id));
+            if (advertisement != null)
+                return Ok(advertisement);
+            return NotFound();
+        }
+
+
+        [HttpGet]
+        [Route("GetAdvertisementsByUser/{userId}")]
         public async Task<IActionResult> GetAdvertisementsByUser(string userId)
         {
             ResponseModel<List<Advertisement>> response = await _meadiator.Send(new GetAdvertisementsByUserQuery(userId));
@@ -66,6 +84,7 @@ namespace FanEase_CQRS.Controllers
        
 
         [HttpPost]
+        [Route("AddAdvertisement")]
         public async Task<IActionResult> AddAdvertisement(Advertisement advertisement)
         {
             ResponseModel<bool> status = await _meadiator.Send(new AddAdvertisementCommand(advertisement));
@@ -73,10 +92,11 @@ namespace FanEase_CQRS.Controllers
             {
                 return Created("api/Created", status);
             }
-            return BadRequest();
+            return BadRequest(status);
         }
 
         [HttpPut]
+        [Route("EditAdvertisement")]
         public async Task<IActionResult> EditAdvertisement(Advertisement advertisement)
         {
             ResponseModel<bool> status = await _meadiator.Send(new EditAdvertisementCommand(advertisement));
@@ -88,7 +108,7 @@ namespace FanEase_CQRS.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteAdvertisement/{id}")]
         public async Task<IActionResult> DeleteAdvertisement(int id)
         {
             ResponseModel<bool> status = await _meadiator.Send(new DeleteAdvertisementCommand(id));
@@ -100,6 +120,19 @@ namespace FanEase_CQRS.Controllers
             return NotFound();
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

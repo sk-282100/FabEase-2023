@@ -11,10 +11,11 @@ namespace FanEase.Middleware.Data.Queries.ForCampaignAdvertisement
 {
     public class GetAllCampaignAdvertisementIdQuery : IRequest<ResponseModel<Campaign_Advertisement>>
     {
-        public GetAllCampaignAdvertisementIdQuery(int Id)
+        public GetAllCampaignAdvertisementIdQuery(int campaignId)
         {
-            this.Id = Id;
+            CampaignId = campaignId;
         }
-        public int Id { get; set; }
+
+        public int CampaignId { get; }
     }
 }

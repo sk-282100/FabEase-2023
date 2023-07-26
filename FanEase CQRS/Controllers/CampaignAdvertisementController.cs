@@ -21,7 +21,7 @@ namespace FanEase_CQRS.Controllers
         }
 
         [HttpGet]
-        [Route("Get")]
+        [Route("GetAllCampaigns")]
         public async Task<IActionResult> Get()
         {
             ResponseModel<List<Campaign_Advertisement>> campaigns = await _mediator.Send(new GetAllCampaignAdvertisementsQuery());
@@ -33,10 +33,10 @@ namespace FanEase_CQRS.Controllers
         }
 
         [HttpGet]
-        [Route("GetById")]
-        public async Task<IActionResult> GetById(int Id)
+        [Route("GetCampaignByCampaignId")]
+        public async Task<IActionResult> GetById(int campaignId)
         {
-            ResponseModel<Campaign_Advertisement> campaignResponse = await _mediator.Send(new GetAllCampaignAdvertisementIdQuery(Id));
+            ResponseModel<Campaign_Advertisement> campaignResponse = await _mediator.Send(new GetAllCampaignAdvertisementIdQuery(campaignId));
 
             if (campaignResponse != null && campaignResponse.Succeed)
             {
@@ -45,7 +45,9 @@ namespace FanEase_CQRS.Controllers
 
             return NotFound(campaignResponse);
         }
+
         [HttpPost]
+        [Route("CreateCampaignAdvertisement")]
         public async Task<IActionResult> Post([FromBody] CampaignAdvertisementCreateCommand command)
         {
             ResponseModel<bool> campaigns = await _mediator.Send(command);
@@ -55,17 +57,23 @@ namespace FanEase_CQRS.Controllers
             }
             return NotFound(campaigns);
         }
+
+
         [HttpPut]
+        [Route("Update CampaignAvertisement")]
 
         public async Task<IActionResult> Put([FromBody] UpdateCampaignAdvertisementCommand commands)
         {
             ResponseModel<bool> campaigns = await _mediator.Send(commands);
             return Ok(campaigns);
         }
+
+
+
         [HttpDelete]
-        public async Task<IActionResult> Delete(int Id)
+        public async Task<IActionResult> Delete(int campaignId)
         {
-            var command = new CampaignAdvertisementDeleteCommand { Id = Id };
+            var command = new CampaignAdvertisementDeleteCommand { campaignId = campaignId };
             ResponseModel<bool> deleteResponse = await _mediator.Send(command);
 
             if (deleteResponse != null && deleteResponse.Succeed)

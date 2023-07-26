@@ -4,6 +4,7 @@ using FanEase.UI.Models.Creator;
 using FanEase.UI.Models.Videos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace FanEase.UI.Controllers
@@ -19,20 +20,31 @@ namespace FanEase.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddAdvertisement(Advertisement advertisement)
         {
-            // Video video = _mapper.Map<Video>(addVideoVm);
+            string UserId = "AT10";
+            
             using (var httpclient = new HttpClient())
             {
+                
                 var content = new StringContent(JsonConvert.SerializeObject(advertisement), Encoding.UTF8, "application/json");
-                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Advertisement", content))
+            
+                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Advertisement/AddAdvertisement", content))
                 {
                     string data = response.Content.ReadAsStringAsync().Result;
+                    var status = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+
+                    if(status.data)
+                        return RedirectToAction("AdvertisementListScreenByUserId", "Advertisement");
+
+                    return View(advertisement);
+
                 }
-                return RedirectToAction("UnderConstruction", "Home");
+               
             }
         }
 
 
 
+        //Advertisement List Screen for Admin
         [HttpGet]
 
         public async Task<IActionResult> AdvertisementList()
@@ -49,13 +61,74 @@ namespace FanEase.UI.Controllers
 
             }
 
+            List<AdvertisementListVM> advertisements = responseModel.data;
+
+
+            return View(advertisements);
+
+        }
+
+
+       
+        //Corected code above
+        [HttpGet]
+        public async Task<IActionResult> AdvertisementListScreenByUserId(string userId)
+        {
+            string UserId = "AT10";
+            //string UserId = HttpContext.Session.GetString("UserId");
+            userId = UserId;
+
             List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementsByUser/{userId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    advertisements = JsonConvert.DeserializeObject<List<AdvertisementListVM>>(data);
+                }
+            }
+
             return View(advertisements);
         }
 
 
 
+        [HttpGet]
+        public async Task<IActionResult> DeleteAdvertisement(int id)
+        {
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($" https://localhost:7208/api/Advertisement/DeleteAdvertisement/{id}"))
+                {
+               
+                    string data = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<bool>(data);
 
+                    return RedirectToAction("AdvertisementList");
+                }
+            }
+        }
+
+
+        [HttpGet]
+
+        public async Task<IActionResult> EditAdvertisement(Advertisement advertisement)
+        {
+            Advertisement add;
+                using (var httpclient = new HttpClient())
+                {
+                    using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/EditAdvertisement"))
+                    {
+                        string data = await response.Content.ReadAsStringAsync();
+                    add = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
+
+                    }
+                    return View(AdvertisementList);
+                }
+            
+           // return RedirectToAction("AdvertisementList", "Advertisement");
+        }
 
 
 
