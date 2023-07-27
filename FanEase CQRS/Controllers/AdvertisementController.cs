@@ -122,6 +122,17 @@ namespace FanEase_CQRS.Controllers
         }
 
 
+        //[HttpPut("EditAdvertisement/{id}")]
+        //public async Task<IActionResult> EditAdvertisement(int id)
+        //{
+        //    ResponseModel<bool> status = await _meadiator.Send(new EditAdvertisementByIdCommand(id));
+        //    if(status.data)
+        //    {
+        //        return Ok();
+        //    }
+        //    return NotFound();
+        //}
+
 
 
 
