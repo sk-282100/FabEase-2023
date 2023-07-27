@@ -62,26 +62,26 @@
             return;
         }
 
-        $(document).ready(function () {
-            var dtToday = new Date();
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate();
-            var year = dtToday.getFullYear();
-            var hour = dtToday.getHours();
-            var mins = dtToday.getMinutes();
-            var sec = dtToday.getSeconds();
-            var millisec = dtToday.getMilliseconds();
+        //$(document).ready(function () {
+        //    var dtToday = new Date();
+        //    var month = dtToday.getMonth() + 1;
+        //    var day = dtToday.getDate();
+        //    var year = dtToday.getFullYear();
+        //    var hour = dtToday.getHours();
+        //    var mins = dtToday.getMinutes();
+        //    var sec = dtToday.getSeconds();
+        //    var millisec = dtToday.getMilliseconds();
 
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
+        //    if (month < 10)
+        //        month = '0' + month.toString();
+        //    if (day < 10)
+        //        day = '0' + day.toString();
 
 
-            var maxDate = year + '-' + month + '-' + day;
-            $('#dateandtime1').attr('min', maxDate);
+        //    var maxDate = year + '-' + month + '-' + day;
+        //    $('#dateandtime1').attr('min', maxDate);
 
-        })
+        //})
 
 
         var loadFile = function (event) {
@@ -142,32 +142,38 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row">
                         <div class="form-group hidden">
-                            <label asp-for="VideoId" class="control-label"></label>
-                            <input asp-for="VideoId" class="form-control" />
-                            <span asp-validation-for="VideoId" class="text-danger"></span>
+                            
+                            <input asp-for="VideoId" class="form-control"/>
+                            <input asp-for="VideoThumbnil" class="form-control"/>
+                            <input asp-for="VideoImage" class="form-control"/>
+                            <input asp-for="VideoFile" class="form-control"/>
+                            <input asp-for="TemplateId" class="form-control"/>
+                            <input asp-for="CampaignId" class="form-control" />
+
                         </div>
 
                         <div class="col-lg-6" id="thumbnilId">
                             <div class="form-group">
-                                <label asp-for="VideoThumbnil" class="control-label"></label>
-                                <img asp-for="VideoThumbnil" src="@path" class="form-control" id="thumnailImage" />
+                                <span>Video Thumbnil</span>
+                                <img  src="@path" class="form-control" id="thumnailImage" />
                                 <span asp-validation-for="VideoThumbnil" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="col-lg-6" id="dateAndTime">
                             <div class="form-group">
-                                <label asp-for="GoLiveDateTime" class="control-label"></label><span class="text-danger">*</span>
-                                <input asp-for="GoLiveDateTime" class="form-control" id="dateandtime1" />
-                                <span asp-validation-for="GoLiveDateTime" class="text-danger"></span>
+                                
+                                <Label>Chanege Go Live Time</Label>
+                                <input asp-for="GoLiveDateTime" class="form-control" id="dateandtime1" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"/>
+                                
                             </div>
                         </div>
 
-                        @*<img id="output" />*@
+                        
 
                         <div class="col-lg-6" id="videoImageId">
                             <div class="form-group">
-                                <label asp-for="UploadVideoImage" class="control-label"></label><span class="text-danger">*</span>
+                                <span>Change Video Image</span>
                                 <input asp-for="UploadVideoImage" class="form-control" type="file" id="takeImage" onchange="loadFile(event)" />
 
                                 <span asp-validation-for="UploadVideoImage" class="text-danger"></span>

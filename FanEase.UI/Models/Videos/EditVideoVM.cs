@@ -35,14 +35,6 @@ namespace FanEase.UI.Models.Videos
 
         public bool IsActive { get; set; } //active status
 
-        public int Views { get; set; }
-
-        public int Likes { get; set; } //appriciation
-
-        public int Dislikes { get; set; }
-
-        public int Skipped { get; set; }
-
         public int? TemplateId { get; set; } //template ref
 
         public string? UserId { get; set; } //user ref

@@ -148,20 +148,37 @@ namespace FanEase.UI.Controllers
 
         public async Task<IActionResult> EditVideoPost(EditVideoVM video)
         {
-            //if (creator.UpdatePhoto != null)
-            //{
-            //    string imagePath = await SaveImageAsync(creator.UpdatePhoto);
-            //    if (imagePath.Contains(".jpg") || imagePath.Contains(".jpeg") || imagePath.Contains(".png"))
+            if (video.UploadVideoImage != null)
+            {
+                string imagePath = await SaveThumnail(video.UploadVideoImage);
+                if (imagePath.Contains(".jpg") || imagePath.Contains(".jpeg") || imagePath.Contains(".png"))
+                {
+                    video.VideoThumbnil = imagePath;
+                    video.VideoImage = imagePath;
+                }
 
-            //        creator.ProfilePhoto = imagePath;
+                else
+                {
+                    ViewBag.ErrorMessage = " only files with .jpg, .jpeg & .png are allowed";
+                    return View(video);
+                }
 
-            //    else
-            //    {
-            //        ViewBag.ErrorMessage = " only files with .jpg, .jpeg & .png are allowed";
-            //        return View(creator);
-            //    }
+            }
+            if (video.UploadVideo != null)
+            {
+                string videoPath = await SaveVideo(video.UploadVideo);
+                if (videoPath != null)
+                {
+                    video.VideoFile = videoPath;
+                }
 
-            //}
+                else
+                {
+                    ViewBag.ErrorMessage = " only mp4 videos allowed";
+                    return View(video);
+                }
+
+            }
             Video video1 = _mapper.Map<Video>(video);
             using (var httpclient = new HttpClient())
             {
