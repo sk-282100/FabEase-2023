@@ -10,6 +10,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    @*<script>
+        function checkContentType(x){
+            if(x == 0){
+                document.getElementById('imageOrvideo').classList.remove("hidden");
+                document.getElementById('redirectUrl').classList.add("hidden");
+            }
+            else{
+                document.getElementById('redirectUrl').classList.remove("hidden");
+                document.getElementById('imageOrvideo').classList.add("hidden");
+            }
+            return;
+        }
+    </script>*@
+
 </head>
 
 <body class="body-bg-f8faff">
@@ -50,7 +65,7 @@
             <div class="form-group">
                 <span>Start Date</span>
                 <span class="text-danger">*</span>
-                <input asp-for="StartDate" class="form-control" />
+                <input asp-for="StartDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"  />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             </div>
@@ -59,7 +74,7 @@
             <div class="form-group">
                 <span>End Date</span>
                 <span class="text-danger">*</span>
-                <input asp-for="EndDate" class="form-control" />
+                <input asp-for="EndDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             </div>
@@ -70,9 +85,9 @@
                 <span class="text-danger">*</span>
                                 <select asp-for="ContentType" class="form-control form-select" aria-hidden="true">
                                     <option value="">-----Select Advertisement Type-----</option>
-                                    <option asp-for="ContentType" value="Image">Image</option>
-                                    <option asp-for="ContentType" value="Video">Video</option>
-                                    <option asp-for="ContentType" value="Url">Url</option>
+                                    <option asp-for="ContentType" value="Image" onclick="checkContentType(0)">Image</option>
+                                    <option asp-for="ContentType" value="Video" >Video</option>
+                                    <option asp-for="ContentType" value="Url" onclick="checkContentType(1)">Url</option>
                                 </select>
                                 <span asp-validation-for="ContentType" class="text-danger"></span>
                 
@@ -105,7 +120,7 @@
                         </div>
 
             <div class="col-lg-6">
-            <div class="form-group">
+            <div class="form-group  " id="imageOrvideo">
                 <span>Image / Video</span>
                 <input asp-for="Image" class="form-control" type="file" />
                 <span asp-validation-for="Image" class="text-danger"></span>
@@ -115,7 +130,7 @@
            
 
             <div class="col-lg-4">
-            <div class="form-group">
+            <div class="form-group  " id="redirectUrl">
                 <span>Redirect URL</span>
                 <input asp-for="Url" class="form-control" type="url" />
                 <button type="button" class="btn btn-primary">Add</button>

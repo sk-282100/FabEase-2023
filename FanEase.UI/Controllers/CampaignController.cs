@@ -15,7 +15,7 @@ namespace FanEase.UI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> AddCampaignss(Campaignvm campaignvm)
+        public async Task<ActionResult> AddCampaign(Campaignvm campaignvm)
         {
 
             string UserId = "AT10";
