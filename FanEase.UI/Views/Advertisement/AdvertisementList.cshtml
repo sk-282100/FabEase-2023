@@ -18,9 +18,7 @@
         <div class="container-fluid">
             <div class="table-responsive" data-simplebar>
                 <div class="others-title">
-                    <p align="right">
-                        <a asp-action="AddAdvertisement"><input type="button" value="Add Advertisement" class="btn btn-primary"></a>
-                    </p>
+                    
                     <h3>Advertisement List</h3>
                 </div>
 
@@ -101,14 +99,13 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-               @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+              
 
                 <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-Danger" onclick="location.href='@Url.Action("DeleteAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Delete</button>
+                                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("AddAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Select</button>
+                                        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Delete</button>
                                         <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Edit</button>
-                                        <button type="button" class="btn btn-warning" onclick="confirmRemove('@item.AdvertisementId')">Remove</button>
+                                        
                 </div>
 
             </td>

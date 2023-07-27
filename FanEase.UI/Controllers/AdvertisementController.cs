@@ -1,4 +1,5 @@
-﻿using FanEase.Entity.Models;
+﻿using AutoMapper;
+using FanEase.Entity.Models;
 using FanEase.UI.Models;
 using FanEase.UI.Models.Creator;
 using FanEase.UI.Models.Videos;
@@ -11,6 +12,11 @@ namespace FanEase.UI.Controllers
 {
     public class AdvertisementController : Controller
     {
+        readonly IMapper _mapper;
+        public AdvertisementController(IMapper mapper)
+        {
+            mapper = _mapper;
+        }
         [HttpGet]
         public IActionResult AddAdvertisement()
         {
@@ -92,43 +98,73 @@ namespace FanEase.UI.Controllers
             return View(advertisements);
         }
 
-
+        //Delete Advertisement Method 
 
         [HttpGet]
+        [Route("RemoveVideo/{VideoId}")]
         public async Task<IActionResult> DeleteAdvertisement(int id)
         {
             using (var httpclient = new HttpClient())
             {
-                using (var response = await httpclient.GetAsync($" https://localhost:7208/api/Advertisement/DeleteAdvertisement/{id}"))
+                using (var response = await httpclient.DeleteAsync($"https://localhost:7208/api/Advertisement/DeleteAdvertisement/{id}"))
                 {
-               
-                    string data = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<bool>(data);
+                
 
-                    return RedirectToAction("AdvertisementList");
+                    string data = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+
+                    return RedirectToAction("AdvertisementListScreenByUserId");
                 }
             }
         }
 
+        //Edit advertisement GET method
+
 
         [HttpGet]
+        [Route("EditAdvertisement/{AdvertisementId}")]
+
+        public async Task<IActionResult> EditAdvertisement(int AdvertisementId)
+        {
+
+            Advertisement advertisement;
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Video/{AdvertisementId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    advertisement = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
+
+                }
+                return View(_mapper.Map<Advertisement>(advertisement));
+            }
+
+        }
+
+        //Edit Advertisement POST method
+
+        [HttpPost]
 
         public async Task<IActionResult> EditAdvertisement(Advertisement advertisement)
         {
-            Advertisement add;
-                using (var httpclient = new HttpClient())
-                {
-                    using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/EditAdvertisement"))
-                    {
-                        string data = await response.Content.ReadAsStringAsync();
-                    add = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
 
-                    }
-                    return View(AdvertisementList);
+            Advertisement advertisement1 = _mapper.Map<Advertisement>(advertisement);
+            using (var httpclient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(advertisement1), Encoding.UTF8, "application/json");
+                using (var response = await httpclient.PutAsync($"https://localhost:7208/api/Video/EditVideo", content))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+
+                    return RedirectToAction("AdvertisementListScreenByUserId");
+
                 }
-            
-           // return RedirectToAction("AdvertisementList", "Advertisement");
+
+            }
         }
+
+
 
 
 

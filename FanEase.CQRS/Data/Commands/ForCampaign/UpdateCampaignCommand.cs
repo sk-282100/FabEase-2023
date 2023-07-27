@@ -16,6 +16,6 @@ namespace FanEase.Middleware.Data.Commands.ForCampaign
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
         public int engagement { get; set; }
-        public int userId { get; set; }
+        public string userId { get; set; }
     }
 }

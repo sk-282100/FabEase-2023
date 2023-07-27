@@ -79,6 +79,22 @@ namespace FanEase_CQRS.Controllers
             return BadRequest(deleteResponse);
         }
 
+        [HttpGet]
+        [Route("GetAllCampaignListScreenByUserId/userId")]
+        public async Task<IActionResult> GetAllCampaignListScreenByUserId(string userId)
+        {
+
+            ResponseModel<List<CampaignListScreenVm>> Campai = await _mediator.Send(new GetAllCampaignListScreenByUserIdQuery(userId));
+            if (Campai.data.Count == 0)
+            {
+                throw new NullReferenceException("nothing in the list");
+            }
+            return Ok(Campai);
+
+        }
+
+        
+
 
     }
 }
