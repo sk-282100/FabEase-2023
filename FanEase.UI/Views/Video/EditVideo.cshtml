@@ -1,0 +1,293 @@
+﻿@model FanEase.UI.Models.Videos.EditVideoVM
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{
+    ViewData["Title"] = "EditVideo";
+    Layout = "AdminLayout";
+     string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+   // string uid = "SC6656";
+
+    string path = "";
+
+    if (Model.VideoThumbnil != null)
+        path = "../" + Model.VideoThumbnil.Replace("\\", "/");
+
+}
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Link Of CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/remixicon.css">
+    <link rel="stylesheet" href="../assets/css/boxicons.min.css">
+    <link rel="stylesheet" href="../assets/css/iconsax.css">
+    <link rel="stylesheet" href="../assets/css/metismenu.min.css">
+    <link rel="stylesheet" href="../assets/css/simplebar.min.css">
+    <link rel="stylesheet" href="../assets/css/calendar.css">
+    <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../assets/css/jbox.all.min.css">
+    <link rel="stylesheet" href="../assets/css/editor.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/loaders.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    @*<link rel="stylesheet" href="~/../assets/css/AddVideoStyleSheet.css" />*@
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Title -->
+    <title>FanEase -Edit Video</title>
+
+    <script>
+
+        function CheckRadio(x) {
+            if (x == 1) {
+                document.getElementById('chooseFile1').classList.remove("hidden");
+                document.getElementById('videoUrl').classList.add("hidden");
+            }
+            else {
+                document.getElementById('chooseFile1').classList.add("hidden");
+                document.getElementById('videoUrl').classList.remove("hidden");
+            }
+            return;
+        }
+
+        $(document).ready(function () {
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            var hour = dtToday.getHours();
+            var mins = dtToday.getMinutes();
+            var sec = dtToday.getSeconds();
+            var millisec = dtToday.getMilliseconds();
+
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+
+
+            var maxDate = year + '-' + month + '-' + day;
+            $('#dateandtime1').attr('min', maxDate);
+
+        })
+
+
+        var loadFile = function (event) {
+            var output = document.getElementById('thumnailImage');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+    </script>
+
+    <style>
+
+        #thumnailImage {
+            height: 130px;
+        }
+
+        #title, #description, #videoImageId {
+            margin-top: 30px;
+        }
+
+        #videoTypeId {
+            margin-top: -20px;
+        }
+
+        #videoPlayerId {
+            margin-top: -80px;
+        }
+
+        #videoUrl {
+            margin-top: -80px;
+        }
+
+        #chooseFile1 {
+            margin-top: -80px;
+        }
+
+        .right {
+            margin-right: 16px;
+            margin-bottom: 2px;
+            float: right;
+        }
+
+    </style>
+
+
+</head>
+
+<body class="body-bg-f8faff">
+    <div class="contact-list-area">
+        <div class="container-fluid">
+            <div class="table-responsive" data-simplebar>
+                <div class="others-title">
+                    <h3>Edit Video</h3>
+                </div>
+
+                <form asp-action="EditVideoPost" asp-controller="Video" method="post" runat="server" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="form-group hidden">
+                            <label asp-for="VideoId" class="control-label"></label>
+                            <input asp-for="VideoId" class="form-control" />
+                            <span asp-validation-for="VideoId" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-6" id="thumbnilId">
+                            <div class="form-group">
+                                <label asp-for="VideoThumbnil" class="control-label"></label>
+                                <img asp-for="VideoThumbnil" src="@path" class="form-control" id="thumnailImage" />
+                                <span asp-validation-for="VideoThumbnil" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6" id="dateAndTime">
+                            <div class="form-group">
+                                <label asp-for="GoLiveDateTime" class="control-label"></label><span class="text-danger">*</span>
+                                <input asp-for="GoLiveDateTime" class="form-control" id="dateandtime1" />
+                                <span asp-validation-for="GoLiveDateTime" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        @*<img id="output" />*@
+
+                        <div class="col-lg-6" id="videoImageId">
+                            <div class="form-group">
+                                <label asp-for="UploadVideoImage" class="control-label"></label><span class="text-danger">*</span>
+                                <input asp-for="UploadVideoImage" class="form-control" type="file" id="takeImage" onchange="loadFile(event)" />
+
+                                <span asp-validation-for="UploadVideoImage" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6" id="videoTypeId">
+                            <div class="form-group">
+                                @Html.LabelFor(Model => Model.VideoType, htmlAttributes: new {@class = "control-label col-md-2"})
+                                <span class="text-danger">*</span>
+                                <label asp-for="VideoType" class="radio-inline" onclick="CheckRadio(0)">
+                                    @Html.RadioButtonFor(Model => Model.VideoType, "Live", new { @name = "videoType"})Live
+                                </label>
+                                &nbsp;
+                                <label asp-for="VideoType" class="radio-inline" onclick="CheckRadio(1)">
+                                    @Html.RadioButtonFor(Model => Model.VideoType,"Recorded", new { @name = "videoType"})Pre-Recorded
+                                </label>
+                                <span asp-validation-for="VideoType" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6" id="title">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label"></label><span class="text-danger">*</span>
+                                <input asp-for="Title" class="form-control" id="titleWidth" placeholder="Enter Video Title" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6" id="videoPlayerId">
+                            <div class="form-group">
+                                <label asp-for="VideoPlayer" class="control-label"></label>
+                                <span class="text-danger">*</span>
+                                <select asp-for="VideoPlayer" class="form-control form-select">
+                                    <option value="">-----Select your option-----</option>
+                                    <option asp-for="VideoPlayer" value="Youtube">YouTube</option>
+                                    <option asp-for="VideoPlayer" value="Hosted MP4 Player">Self-Hosted MP4</option>
+                                </select>
+                                <span asp-validation-for="VideoPlayer" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6" id="description">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label><span class="text-danger">*</span>
+                                <textarea asp-for="Description" class="form-control" id="textAreaWidth" rows="3" cols="30" placeholder="Enter Description"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6 hidden" id="videoUrl">
+                            <label asp-for="VideoURL" class="control-label"></label><span class="text-danger">*</span>
+                            <input asp-for="VideoURL" class="form-control" placeholder="Enter MP4 Video URL" />
+                            <span asp-validation-for="VideoURL" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group hidden" id="chooseFile1">
+                                <label asp-for="UploadVideo" class="form-check-label">MP4VideoFile</label><span class="text-danger">*</span>
+                                <input asp-for="UploadVideo" class="form-control" type="file" />
+                                <span asp-validation-for="UploadVideo" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 hidden" id="userId">
+                            <div class="form-group">
+                                <label asp-for="UserId" class="control-label"></label><span class="text-danger">*</span>
+                                <input asp-for="UserId" class="form-control" id="userWidth" value=@Model.UserId />
+                                <span asp-validation-for="UserId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-check hidden">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
+                            </label>
+                        </div>
+                        <div class="form-group form-check hidden">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary right" />
+                    </div>
+                </form>
+
+                @section Scripts {
+                    @{
+                        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                    }
+                }
+
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="VideoList">Back to List</a>
+        </div>
+    </div>
+    <div class="go-top">
+        <i class="ri-arrow-up-s-fill"></i>
+        <i class="ri-arrow-up-s-fill"></i>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/metismenu.min.js"></script>
+    <script src="assets/js/simplebar.min.js"></script>
+    <script src="assets/js/geticons.js"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
+    <script src="assets/js/jbox.all.min.js"></script>
+    <script src="assets/js/editor.js"></script>
+    <script src="assets/js/form-validator.min.js"></script>
+    <script src="assets/js/contact-form-script.js"></script>
+    <script src="assets/js/ajaxchimp.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+</body>
+

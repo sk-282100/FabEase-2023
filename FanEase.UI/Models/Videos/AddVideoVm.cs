@@ -1,12 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
+
 
 namespace FanEase.UI.Models.Videos
 {
     public class AddVideoVm
     {
-        [Required(ErrorMessage = "Upload Photo in .jpg, .jpeg or .png format")]
-        [DataType(DataType.Upload)]
-        public string? VideoImage { get; set; }
+        public int VideoId { get; set; }
+        public IFormFile UploadVideoImage { get; set; }
+
+        public string VideoImage { get; set; }
 
         public string? VideoThumbnil { get; set; }
 
@@ -32,5 +35,12 @@ namespace FanEase.UI.Models.Videos
 
         [Required(ErrorMessage = "Enter Video File")]
         public string? VideoFile { get; set; }
+
+        public IFormFile UploadVideo { get; set; }
+        public string UserId { get; set; }
+
+        public bool IsPublished { get; set; } = false;//publish status
+
+        public bool IsActive { get; set; } = false;
     }
 }

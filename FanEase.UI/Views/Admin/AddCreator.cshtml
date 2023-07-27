@@ -1,59 +1,58 @@
-﻿ @model FanEase.UI.Models.Creator.AddCreatorVM
+﻿@model FanEase.UI.Models.Creator.AddCreatorVM
 
 @{
     ViewData["Title"] = "AddCreator";
     Layout = "AdminLayout";
 }
 
-        <div class="container">
-        <div class="page-title-area">
-            
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-sm-6">
-                        <div class="page-title">
-                            <h3>Add Creator</h3>
-                        </div>
-                    </div>
+<div class="container">
+    <div class="page-title-area">
+
+        
+            <div class="col-lg-6 col-sm-6">
+                <div class="page-title">
+                    <h3>Add Creator</h3>
                 </div>
             </div>
-        </div>
+        
+    </div>
 
-<div class="profile-area">
-                    <div class="container">
-                        <div class="card-box-style">
-                            <div class="row align-items-center">
-        <form asp-action="AddCreator" class="account-wrap">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div>
+        <div class="card-box-style">
+            
+                <form asp-action="AddCreator" class="account-wrap">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div>
 
                         <span>User ID</span><span class="text-danger">*</span>
                         <div>
-                  <label>
-                    <div class="form-group mb-24 icon">
-                       <input asp-for="UserId" type="text" class="form-control" placeholder="UserId">
-                      <img src="../assets/images/icon/user-square.svg" alt="user-square">
-                    </div>
+                            <label>
+                                <div class="form-group mb-24 icon">
+                                    <input asp-for="UserId" type="text" class="form-control" placeholder="UserId">
+                                    <img src="../assets/images/icon/user-square.svg" alt="user-square">
+                                </div>
                             </label>
                         </div>
-                        
-                <span asp-validation-for="UserId" class="text-danger"></span>
 
-            </div>
-   
-                <input type="submit" value="Add Creator" class="btn btn-primary" />
+                        <span asp-validation-for="UserId" class="text-danger"></span>
 
+                    </div>
+
+                    <input type="submit" value="Add Creator" class="btn btn-primary" />
+
+
+                </form>
            
-        </form>
+        </div>
+
+
+        <div>
+            <a asp-action="ContenetCreatorList">Back to List</a>
+        </div>
     </div>
-</div>
 
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 
-<div>
-    <a asp-action="ContenetCreatorList">Back to List</a>
-</div>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-    </div>

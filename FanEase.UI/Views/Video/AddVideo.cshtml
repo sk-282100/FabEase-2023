@@ -1,9 +1,14 @@
 ﻿@model FanEase.UI.Models.Videos.AddVideoVm
-
+@inject IHttpContextAccessor HttpContextAccessor;
 
 @{
     ViewData["Title"] = "AddVideo";
     Layout = "FanEaseLayout";
+
+    // string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    string uid = "SC6656";
+
+
 }
 
 
@@ -62,34 +67,99 @@
             return;
         }
 
-        $(document).ready(function () {
-            var dtToday = new Date();
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate();
-            var year = dtToday.getFullYear();
-            var hour = dtToday.getHours();
-            var mins = dtToday.getMinutes();
-            var sec = dtToday.getSeconds();
-            var millisec = dtToday.getMilliseconds();
+        //$(document).ready(function () {
+        //    var dtToday = new Date();
+        //    var month = dtToday.getMonth() + 1;
+        //    var day = dtToday.getDate();
+        //    var year = dtToday.getFullYear();
+        //    var hour = dtToday.getHours();
+        //    var mins = dtToday.getMinutes();
+        //    var sec = dtToday.getSeconds();
+        //    var millisec = dtToday.getMilliseconds();
 
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
+        //    if (month < 10)
+        //        month = '0' + month.toString();
+        //    if (day < 10)
+        //        day = '0' + day.toString();
 
 
-            var maxDate = year + '-' + month + '-' + day;
-            $('#dateandtime1').attr('min', maxDate);
-        })
+        //    var maxDate = year + '-' + month + '-' + day;
+        //    $('#dateandtime1').attr('min', maxDate);
+
+        //})
+
+
+        var loadFile = function (event) {
+            var output = document.getElementById('thumnailImage');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+
+
+
+        //const prevBtns = document.querySelectorAll('.btn-prev')
+        //const nextBtns = document.querySelectorAll('.btn-next')
+        //const progress = document.getElementById('progress')
+        //const formSteps = document.querySelectorAll('.form-step')
+        //const progressSteps = document.querySelectorAll('.progress-step')
+
+        //let formStepsNum = 0;
+
+        //nextBtns.forEach(btn => {
+        //    btn.addEventListener('click', () => {
+        //        formStepsNum++;
+        //        updateFormSteps();
+        //        updateProgressbar();
+        //    })
+        //})
+
+        //prevBtns.forEach(btn => {
+        //    btn.addEventListener('click', () => {
+        //        formStepsNum--;
+        //        updateFormSteps();
+        //        updateProgressbar();
+        //    })
+        //})
+
+        //function updateFormSteps(){
+        //    formSteps.forEach(formStep => {
+        //        formStep.classList.contains('active')&&
+        //        formStep.classList.remove('active')
+        //    })
+        //    formSteps[formStepsNum].classList.add('active')
+        //}
+
+        //function updateProgressbar(){
+        //    progressSteps.forEach((progressStep: Element, idx) => {
+        //        if(idx < formStepsNum + 1){
+        //            progressStep.classList.add('active')
+        //        }
+        //        else{
+        //            progressStep.classList.remove('active')
+        //        }
+        //    })
+
+        //    const progressActive = document.querySelectorAll('.progress-step.active')
+        //    progress.style.width = (progressActive.length-1) / (progressSteps.length-1) * 100 + '%'
+
+        //}
+
+
+
+
+
 
     </script>
 
 
     <style>
-        #cancleAndProcessed {
-            margin-top: 30px;
-            margin-left: 540px;
-        }
+
+        /*#cancleAndProcessed {
+                    margin-top: -44px;
+                    /*margin-left: 120vh;
+                }*/
 
         #thumnailImage {
             height: 130px;
@@ -99,17 +169,92 @@
             margin-top: 30px;
         }
 
-        #videoTypeId, #videoPlayerId, #videoUrl, #chooseFile1 {
-            margin-top: -20px;
+        #videoTypeId {
+            margin-top: -42px;
         }
+
+        #videoPlayerId {
+            margin-top: -72px;
+        }
+
+        #videoUrl {
+            margin-top: -80px;
+        }
+
+        #chooseFile1 {
+            margin-top: -80px;
+        }
+
+        .right {
+            margin-right: 16px;
+            margin-bottom: 2px;
+            float: right;
+        }
+
+        /* .btn:hover{
+                    box-shadow: 0 0 0 2px black, 0 0 0 3px var(--primary-color);
+                }*/
+
+
+        /*.progressbar{
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 2rem 0 4rem 0;
+                    counter-reset: step;
+                }
+
+                .progressbar ::before, .progress{
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    height: 4px;
+                    width: 40%;
+                    background-color: #dcdcdc;
+                }
+
+
+                .progress-step{
+                    width: 35px;
+                    height: 35px;
+                    background-color: #dcdcdc;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 2;
+                }
+
+                .progress-step ::before{
+                    counter-increment: step;
+                    content: counter(step);
+                }
+
+                .progress-step ::after{
+                    content: attr(data-title);
+                    position: absolute;
+                    top: calc(100% + 0.5rem);
+                    font-size: .80rem;
+                    color: #666666;
+                }
+
+                .progress-step.active{
+                    background-color: var(--primary-color);
+                    color: #f3f3f3;
+                }
+
+                .progress{
+                    background-color: var(--primary-color);
+                    width: 0%;
+                    transition: 0.3s ease-in-out;
+                }*/
+
+
     </style>
 
 
 </head>
-
-
-
-
 
 <body class="body-bg-f8faff">
     <div class="contact-list-area">
@@ -119,13 +264,19 @@
                     <h3>Add New Video</h3>
                 </div>
 
-                <form asp-action="AddVideo" asp-controller="Video" method="post">
+                @*<div class="progressbar">
+                <div class="progress" id="progress"></div>
+                <div class="progress-step active" data-title="Video"></div>
+                <div class="progress-step" data-title="Campaign"></div>
+                </div>*@
+
+                <form asp-action="AddVideo" asp-controller="Video" method="post" runat="server" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row">
                         <div class="col-lg-6" id="thumbnilId">
                             <div class="form-group">
                                 <label asp-for="VideoThumbnil" class="control-label"></label>
-                                <video asp-for="VideoThumbnil" class="form-control" id="thumnailImage" src="http://www.w3schools.com/html/mov_bbb.mp4"></video>
+                                <img asp-for="VideoThumbnil" class="form-control" id="thumnailImage" />
                                 <span asp-validation-for="VideoThumbnil" class="text-danger"></span>
                             </div>
                         </div>
@@ -133,16 +284,19 @@
                         <div class="col-lg-6" id="dateAndTime">
                             <div class="form-group">
                                 <label asp-for="GoLiveDateTime" class="control-label"></label><span class="text-danger">*</span>
-                                <input asp-for="GoLiveDateTime" class="form-control" id="dateandtime1" />
+                                <input asp-for="GoLiveDateTime" class="form-control" id="dateandtime1" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                                 <span asp-validation-for="GoLiveDateTime" class="text-danger"></span>
                             </div>
                         </div>
 
+                        @*<img id="output" />*@
+
                         <div class="col-lg-6" id="videoImageId">
                             <div class="form-group">
-                                <label asp-for="VideoImage" class="control-label"></label><span class="text-danger">*</span>
-                                <input asp-for="VideoImage" class="form-control" type="file" id="takeImage" />
-                                <span asp-validation-for="VideoImage" class="text-danger"></span>
+                                <label asp-for="UploadVideoImage" class="control-label"></label><span class="text-danger">*</span>
+                                <input asp-for="UploadVideoImage" class="form-control" type="file" id="takeImage" onchange="loadFile(event)" />
+
+                                <span asp-validation-for="UploadVideoImage" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -150,6 +304,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(Model => Model.VideoType, htmlAttributes: new {@class = "control-label col-md-2"})
                                 <span class="text-danger">*</span>
+                                <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <label asp-for="VideoType" class="radio-inline" onclick="CheckRadio(0)">
                                     @Html.RadioButtonFor(Model => Model.VideoType, "Live", new { @name = "videoType"})Live
                                 </label>
@@ -194,25 +349,35 @@
 
                         <div class="col-lg-6 hidden" id="videoUrl">
                             <label asp-for="VideoURL" class="control-label"></label><span class="text-danger">*</span>
-                            <input asp-for="VideoURL" class="form-control" placeholder="Enter MP4 Video URL" />
+                            <input asp-for="VideoURL" class="form-control" type="url" placeholder="Enter MP4 Video URL" />
                             <span asp-validation-for="VideoURL" class="text-danger"></span>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="form-group hidden" id="chooseFile1">
-                                <label asp-for="VideoFile" class="form-check-label">MP4VideoFile</label><span class="text-danger">*</span>
-                                <input asp-for="VideoFile" class="form-control" type="file" />
-                                <span asp-validation-for="VideoFile" class="text-danger"></span>
+                                <label asp-for="UploadVideo" class="form-check-label">MP4VideoFile</label><span class="text-danger">*</span>
+                                <input asp-for="UploadVideo" class="form-control" type="file" />
+                                <span asp-validation-for="UploadVideo" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 hidden" id="userId">
+                            <div class="form-group">
+                                <label asp-for="UserId" class="control-label"></label><span class="text-danger">*</span>
+                                <input asp-for="UserId" class="form-control" id="userWidth" value=@uid />
+                                <span asp-validation-for="UserId" class="text-danger"></span>
                             </div>
                         </div>
 
 
-                        <div class="col-lg-6" id="cancleAndProcessed">
-                            <input onclick="myCancelFunction()" type="submit" value="Cancel" class="btn btn-danger" id="btnReset" />
-                            &nbsp;
-                            <input type="submit" value="Proceed" class="btn btn-primary" />
-                        </div>
                     </div>
+
+                    <div class="col-lg-12" id="cancleAndProcessed">
+                        <button onclick="myCancelFunction()" type="submit" value="Cancel" class="btn btn-danger right" id="btnReset">Cancel</button>
+
+                        <button type="submit" value="Proceed" class="btn btn-primary right">Proceed </button>
+                    </div>
+
                 </form>
 
                 @section Scripts {
@@ -223,7 +388,6 @@
             </div>
         </div>
     </div>
-    @*</div>*@
     <div class="go-top">
         <i class="ri-arrow-up-s-fill"></i>
         <i class="ri-arrow-up-s-fill"></i>

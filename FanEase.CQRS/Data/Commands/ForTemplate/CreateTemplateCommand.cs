@@ -1,4 +1,5 @@
 ﻿using ExceptionHandling;
+using FanEase.Entity.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,11 @@ namespace FanEase.Middleware.Data.Commands.ForTemplate
 {
     public class CreateTemplateCommand : IRequest<ResponseModel<bool>>
     {
-        public CreateTemplateCommand(int templateDetailsId, string userId)
+        public CreateTemplateCommand(Templates template)
         {
-            TemplateDetailsId = templateDetailsId;
-            UserId = userId;
+            Templates = template;
         }
 
-        public int TemplateDetailsId { get; set; }
-        public string UserId { get; set; }
+        public Templates Templates { get; set; }
     }
 }

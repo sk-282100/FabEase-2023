@@ -50,17 +50,17 @@ namespace FanEase_CQRS.Controllers
             }
             return BadRequest();
         }
-
         [HttpPut]
+        [Route("EditVideo")]
         public async Task<IActionResult> EditVideo(Video video)
         {
             ResponseModel<bool> status = await _meadiator.Send(new EditVideoCommand(video));
-            if(status.data)
+            if (status.data)
             {
-                return Ok(video);
+                return Ok(status);
             }
 
-             return BadRequest(); 
+            return BadRequest(status);
         }
 
         [HttpDelete("{id}")]
@@ -86,5 +86,25 @@ namespace FanEase_CQRS.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        [Route("GetVideosList")]
+        public async Task<IActionResult> GetAllVideosList()
+        {
+
+            ResponseModel<List<VideoListVm>> videosList = await _meadiator.Send(new GetAllVideosListQuery());
+
+            return Ok(videosList);
+
+        }
+
+        [HttpGet]
+        [Route("GetVideosListScreenByUserId/{userId}")]
+        public async Task<IActionResult> GetVideosListScreenByUserId(string userId)
+        {
+            ResponseModel<List<VideoListVm>> result = await _meadiator.Send(new GetVideosListScreenByUserIdQuery(userId));
+            if (result.data.Count != 0)
+                return Ok(result.data);
+            return NotFound();
+        }
     }
 }

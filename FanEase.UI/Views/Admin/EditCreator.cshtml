@@ -1,4 +1,5 @@
-﻿@model FanEase.UI.Models.Creator.EditCreatorVM
+﻿@inject IHttpContextAccessor HttpContextAccessor;
+@model FanEase.UI.Models.Creator.EditCreatorVM
 
 @{
     ViewData["Title"] = "EditCreator";
@@ -7,6 +8,8 @@
 
     if (Model.ProfilePhoto != null)
         path = "../" + Model.ProfilePhoto.Replace("\\", "/").Replace("..", ".");
+
+    string role = HttpContextAccessor.HttpContext.Session.GetString("role");
 
 
     
@@ -27,6 +30,10 @@
     {
         @:showErrorAlert("@Html.Raw(ViewBag.ErrorMessage)");
     }
+
+        
+    };
+
 </script>
 <header>
     <!-- Required meta tags -->
@@ -75,13 +82,13 @@
             <div class="edit-profile-content card-box-style">
 <h3>@Model.FirstName @Model.LastName</h3>
 
-                <form asp-action="EditCreator" enctype="multipart/form-data" method="post">
+                <form asp-action="EditCreator" enctype="multipart/form-data" method="post" runat="server">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
                     <span>Change Profile Photo</span>
-                    <input asp-for="UpdatePhoto" type="file" class="form-control" />
+                                <input asp-for="UpdatePhoto" type="file" class="form-control" />
 
                     <span asp-validation-for="UpdatePhoto" class="text-danger"></span>
 
@@ -90,7 +97,7 @@
                 <div class="col-lg-4">
             <div class="form-group">
                 
-                <img class="w-25 rounded-4" src=@path alt="profile-img">
+                <img class="w-25 rounded-4" src=@path alt="profile-img" id="profileimage">
                                 <div class="form-group">
                                     
                                     <input type="hidden" asp-for="ProfilePhoto" class="form-control" />

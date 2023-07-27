@@ -14,6 +14,10 @@ namespace FanEase.Entity.Models
         public int TemplateId { get; set; }
         
         public int TemplateDetailsId { get; set; }
+
+        public bool PublishStatus { get; set; }
+
+        public bool VideoStatus { get; set; }
         
         public string UserId { get; set; }
     }

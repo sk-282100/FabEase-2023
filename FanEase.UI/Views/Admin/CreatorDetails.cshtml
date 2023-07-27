@@ -12,6 +12,7 @@
     }
     catch{};
     string roles = HttpContextAccessor.HttpContext.Session.GetString("role");
+    string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
 <head>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
@@ -54,10 +55,34 @@
                                 <h3>Creator Profile</h3>
                             </div>
                         </div>
+            <div class="col-lg-6 col-sm-6">
+                @if (roles == "Admin")
+                {
+                    <ul class="list-inline profile-menu" align="right">
+                        <li>
+                            <a onclick="location.href='@Url.Action("ContenetCreatorList","Admin")'">back to creator list</a>
+
+                </li>
+
+                    </ul>
+                }
+                else
+                {
+                    <ul class="list-inline profile-menu" align="right">
+                        <li>
+                            <a asp-action="UnderConstruction">back to Home</a>
+
+                        </li>
+
+                    </ul>
+                    
+                }
+            </div>
 
                     </div>
                 </div>
             </div>
+
             <!-- End Page Title Area -->
             <!-- Start Profile Area -->
             <div class="profile-area">
@@ -78,9 +103,10 @@
                                         <br/>
                                         <div>
                             <button type="button" class="btn btn-primary btn-custom-xxs" onclick="location.href='@Url.Action("EditCreator","Admin",new{creatorId=Model.Creator.UserId})'">Edit</button>
-
-                            <button type="button" width="10" class="btn btn-danger btn-custom-xxs" onclick="confirmRemove('@Model.Creator.UserId')">Delete</button>
-
+                                @if (roles == "Admin")
+                                {
+                                    <button type="button" width="10" class="btn btn-danger btn-custom-xxs" onclick="confirmRemove('@Model.Creator.UserId')">Delete</button>
+                                }
                             </div>
                         </div>
                                 </div>
@@ -88,38 +114,42 @@
 
                             <div class="col-lg-6">
                                 <div class="row justify-content-center">
-                                    <div class="col-lg-4 col-sm-6">
-                                        <div class="profile-activity">
-                                            <a href="@Url.Action("GetVideosByUserId","Video",new{userId=Model.Creator.UserId})">
-                                                <i class='bx bx-video'></i>
-                                            </a>
-                                            <h3>Videos Uploaded</h3>
-                                            <h2>@Model.Videos.Count.ToString()</h2>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-sm-6">
-                                        <div class="profile-activity">
-                                            
-                                            <i class='bx bx-like'></i>
-                                            
-                                            @foreach (var videos in @Model.Videos)
-                                            {
-                                                likes = likes + videos.Likes;
-                                            }
-                                            <h3>Likes</h3>
-                                            <h2>@likes</h2>
+                                  @if (roles == "Creator"||Model.Creator.UserId!=UserId)
+                        {
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="profile-activity">
+                                    <a href="@Url.Action("GetVideosByUserId","Video",new{userId=Model.Creator.UserId})">
+                                        <i class='bx bx-video'></i>
+                                    </a>
+                                    <h3>Videos Uploaded</h3>
+                                    <h2>@Model.Videos.Count.ToString()</h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="profile-activity">
 
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-sm-6">
-                                        <div class="profile-activity">
-                                            <a href="@Url.Action("GetAdvertisementsByUserId","Advertisement",new{userId=Model.Creator.UserId})">
-                                            <i class='bx bx-file'></i>
-                                            </a>
-                                            <h3>Advertises</h3>
-                                            <h2>@Model.Advertisements.Count()</h2>
-                                        </div>
-                                    </div>
+                                    <i class='bx bx-like'></i>
+
+                                    @foreach (var videos in @Model.Videos)
+                                    {
+                                        likes = likes + videos.Likes;
+                                    }
+                                    <h3>Likes</h3>
+                                    <h2>@likes</h2>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="profile-activity">
+                                    <a href="@Url.Action("GetAdvertisementsByUserId","Advertisement",new{userId=Model.Creator.UserId})">
+                                        <i class='bx bx-file'></i>
+                                    </a>
+                                    <h3>Advertises</h3>
+                                    <h2>@Model.Advertisements.Count()</h2>
+                                </div>
+                            </div>
+                        }
+
                                 </div>
 
                    
@@ -128,14 +158,14 @@
                     </div>
 
                     <div class="profile-details card-box-style">
-                        <ul class="list-inline profile-menu">
-                            <li>
-                                <a href="#">top videos</a>
-                            </li>
-                            <li>
-                                <a href="#">campaigns</a>
-                            </li>
-                        </ul>
+                        @{/*<ul class="list-inline profile-menu">
+                        //    <li>
+                        //        <a href="#">top videos</a>
+                        //    </li>
+                        //    <li>
+                        //        <a href="#">campaigns</a>
+                        //    </li>
+                        //</ul>*/}
 
                         <div class="row">
                             <div class="col-lg-12">

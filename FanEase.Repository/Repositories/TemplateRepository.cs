@@ -52,16 +52,16 @@ namespace FanEase.Repository.Repositories
             }
         }
 
-        public async Task<List<Templates>> GetAllTemplatesAsync()
+        public async Task<List<TemplateListDTO>> GetAllTemplatesAsync()
         {
-            List<Templates> templates = new List<Templates>();
+            List<TemplateListDTO> templates = new List<TemplateListDTO>();
 
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                templates = connection.Query<Templates>("GetAllTemplatesProcedure", commandType: CommandType.StoredProcedure).ToList();
+                templates = connection.Query<TemplateListDTO>("GetAllTemplatesProcedure", commandType: CommandType.StoredProcedure).ToList();
 
             }
             return templates;
@@ -97,6 +97,19 @@ namespace FanEase.Repository.Repositories
                     return true;
                 return false;
             }
+        }
+
+        public async Task<List<TemplateListDTO>> GetAllTemplatesByUser(string userId)
+        {
+            List<TemplateListDTO> templates = new List<TemplateListDTO>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                templates = connection.Query<TemplateListDTO>("GetAllTemplatesByUserProcedure", new { @UserId= userId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+            return templates;
         }
     }
 }

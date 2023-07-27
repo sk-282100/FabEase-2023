@@ -1,0 +1,180 @@
+﻿@model IEnumerable<FanEase.Entity.Models.VideoListVm>
+
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    ViewData["Title"] = "VideoList";
+    Layout = "AdminLayout";
+    
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+        function confirmRemove(VideoId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Video will be removed Permanently!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, remove it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If the user confirms the removal, redirect to the appropriate action
+                    window.location.href = "https://localhost:7163/RemoveVideo/" + videoId;
+                }
+            });
+        }
+    </script>
+
+    @*<style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    </style>
+    *@
+</head>
+
+<body class="body-bg-f8faff">
+
+    <div class="contact-list-area">
+        <div class="container-fluid">
+            <div class="table-responsive" data-simplebar>
+                <div class="others-title">
+                    <h3>
+                        Video List
+                    </h3>
+                </div>
+
+                <table class="table align-middle mb-0">
+                    <thead align="center">
+                        <tr>
+                            <th hidden>
+                                Video Id
+                            </th>
+                            <th>
+                                Advertisement Id
+                            </th>
+                            <th>
+                                Advertisment Clicks
+                            </th>
+                            <th>
+                                Video Thumbnil
+                            </th>
+                            <th>
+                                Video Title
+                            </th>
+                            <th>
+                                Video Type
+                            </th>
+                            <th>
+
+                                Campaign Id
+                            </th>
+                            <th>
+                                Views
+                            </th>
+                            <th>
+                                Is Published
+                            </th>
+                            <th>
+                                Is Active
+                            </th>
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr align="center">
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.VideoId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AdvertisementId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AdClicks)
+                                </td>
+                                <td>
+                                    @{
+                                        string path = "../" + item.VideoThumbnil.Replace("\\", "/");
+                                    }
+                                    @*@Html.DisplayFor(modelItem => item.VideoThumbnil)*@
+                                    <img width="50" height="50" src=@path alt="Thumbnail" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VideoType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CampaignId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Views)
+                                </td>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => item.IsPublished)*@
+                                    @item.IsPublished.GetValueOrDefault()
+                                </td>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => item.IsActive)*@
+                                    @item.IsActive.GetValueOrDefault()
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+
+                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditVideo","Video",new{VideoId=item.VideoId})'">Edit</button>
+                                        <button type="button" class="btn btn-danger" onclick="confirmRemove('@item.VideoId')">Remove</button>
+                                        @*<button type="button" class="btn btn-danger" onclick="confirmRemove('@item.VideoId')">Remove</button>*@
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+                @section Scripts {
+                    @{
+                        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Go Top Area -->
+    <div class="go-top">
+        <i class="ri-arrow-up-s-fill"></i>
+        <i class="ri-arrow-up-s-fill"></i>
+    </div>
+    <!-- End Go Top Area -->
+    <!-- Jquery Min JS -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/metismenu.min.js"></script>
+    <script src="assets/js/simplebar.min.js"></script>
+    <script src="assets/js/geticons.js"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
+    <script src="assets/js/jbox.all.min.js"></script>
+    <script src="assets/js/editor.js"></script>
+    <script src="assets/js/form-validator.min.js"></script>
+    <script src="assets/js/contact-form-script.js"></script>
+    <script src="assets/js/ajaxchimp.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+</body>

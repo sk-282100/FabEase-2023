@@ -214,10 +214,10 @@
                                 <a asp-action="AddCreatorForm" asp-controller="Admin">Add New Creator</a>
                             </li>
                             <li class="list-group-item">
-                                <a asp-action="ContenetCreatorList" >Creator List</a>
+                                <a asp-action="ContenetCreatorList" asp-controller="Admin" >Creator List</a>
                             </li>
                             <li class="list-group-item">
-                                <a asp-action="UnderConstruction" >Video List</a>
+                                <a asp-action="VideoList" asp-controller="Video" >Video List</a>
                             </li>
                             <li class="list-group-item">
                                 <a asp-action="AdvertisementList" asp-controller="Advertisement" >Advertisement List</a>
@@ -263,16 +263,10 @@
                             <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
                                 <li class="list-group-item"><h5>Videos</h5></li>
                                 <li class="list-group-item">
-                                <a href="UnderConstruction">All Videos</a>
+                                <a onclick="location.href='@Url.Action("VideoListByUSerId","Video",new{userId=uid})'">All Videos</a>
                                 </li>
                                 <li class="list-group-item">
                                 <a asp-action="AddVideo" asp-controller="Video">Add Video</a>
-                                </li>
-                                <li class="list-group-item">
-                                <a href="UnderConstruction">Edit Video</a>
-                                </li>
-                                <li class="list-group-item">
-                                <a href="UnderConstruction">Delete Video</a>
                                 </li>
                                 <li class="list-group-item">
                                 <a href="UnderConstruction">Top 5 Videos</a>
@@ -329,7 +323,7 @@
                             <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
                                 <li class="list-group-item"><h5>Templates</h5></li>
                                 <li class="list-group-item">
-                                <a href="UnderConstruction">All Templates</a>
+                                <a href="/GetAllTemplatesbyuser/@uid">All Templates</a>
                                 </li>
                                 <li class="list-group-item">
                                 <a href="UnderConstruction">Add Template</a>

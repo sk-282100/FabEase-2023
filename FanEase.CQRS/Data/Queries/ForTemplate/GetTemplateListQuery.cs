@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Queries.ForTemplate
 {
-    public class GetTemplateListQuery : IRequest<ResponseModel<List<Templates>>>
+    public class GetTemplateListQuery : IRequest<ResponseModel<List<TemplateListDTO>>>
     { 
     }
 }
