@@ -331,9 +331,12 @@ namespace FanEase.UI.Controllers
             {
                 string imagePath = await SaveImageAsync(creator.UpdatePhoto);
                 if (imagePath.Contains(".jpg") || imagePath.Contains(".jpeg") || imagePath.Contains(".png"))
-                
+                {
+
                     creator.ProfilePhoto = imagePath;
-                
+                    HttpContext.Session.SetString("profilePhoto", creator.ProfilePhoto);
+                }
+
                 else
                 {
                     ViewBag.ErrorMessage = " only files with .jpg, .jpeg & .png are allowed";

@@ -22,8 +22,7 @@ namespace FanEase_CQRS.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTemplate(Templates templates)
         {
-            ResponseModel<bool> templateData = await _mediator.Send(new CreateTemplateCommand(
-                  templates.TemplateDetailsId, templates.UserId));
+            ResponseModel<bool> templateData = await _mediator.Send(new CreateTemplateCommand(templates));
             if (templateData.data)
             {
                 return Created("api/Created", templateData);
@@ -56,9 +55,10 @@ namespace FanEase_CQRS.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllTemplatesAsync()
+        [Route("GetAllTemplates")]
+        public async Task<IActionResult> GetAllTemplates()
         {
-            ResponseModel<List<Templates>> templateList = await _mediator.Send(new GetTemplateListQuery());
+            ResponseModel<List<TemplateListDTO>> templateList = await _mediator.Send(new GetTemplateListQuery());
 
             return Ok(templateList);
         }
@@ -71,6 +71,16 @@ namespace FanEase_CQRS.Controllers
             if (templatesById != null)
                 return Ok(templatesById);
             return NotFound();
+        }
+
+        [HttpGet]
+        [Route("GetAllTemplatesByUser/{userId}")]
+        public async Task<IActionResult> GetAllTemplatesByUser(string userId)
+        {
+            ResponseModel<List<TemplateListDTO>> templatesById = await _mediator.Send(new GetAllTemplatesByUserQuery() { UserId = userId });
+            if (templatesById != null)
+                return Ok(templatesById);
+            return NotFound(templatesById);
         }
     }
 }

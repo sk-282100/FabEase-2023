@@ -33,7 +33,7 @@ namespace FanEase.Entity.Models
             mailMessage.To.Add(recipientEmail);
             mailMessage.Subject = "OTP-Restore Password";
             Random rnd = new Random();
-            OTP=rnd.Next(10000);
+            OTP=rnd.Next(1000000);
             time = DateTime.Now.AddMinutes(1);
             
             mailMessage.Body = $"Your OTP to reset Password is : {OTP}";

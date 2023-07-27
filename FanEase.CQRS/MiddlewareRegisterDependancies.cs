@@ -20,6 +20,7 @@ using FanEase.Middleware.Data.Queries.ForAdvertisement;
 using FanEase.Middleware.Data.Queries.ForCampaign;
 using FanEase.Middleware.Data.Queries.ForCampaignAdvertisement;
 using FanEase.Middleware.Data.Queries.ForPlayer;
+using FanEase.Middleware.Data.Queries.ForTemplate;
 using FanEase.Middleware.Data.Queries.ForTemplateDetails;
 using FanEase.Middleware.Data.Queries.ForUser;
 using FanEase.Middleware.Data.Queries.ForVideo;
@@ -47,8 +48,10 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<EditVideoCommand, ResponseModel<bool>>, EditVideoHandler>();
             services.AddScoped<IRequestHandler<DeleteVideoCommand, ResponseModel<bool>>, DeleteVideoHandler>();
             services.AddScoped<IRequestHandler<GetVideosByUserIdQuery,ResponseModel<List<Video>>>,GetVideosByUserIdQueryHandler> ();
-           
-            //For template
+            services.AddScoped<IRequestHandler<GetAllVideosListQuery, ResponseModel<List<VideoListVm>>>, GetAllVideosListHandler>();
+            services.AddScoped<IRequestHandler<GetVideosListScreenByUserIdQuery, ResponseModel<List<VideoListVm>>>, GetVideosListScreenByUserIdHandler>();
+
+
             services.AddScoped<IRequestHandler<GetAllTemplateDetailsQuery, ResponseModel<List<TemplateDetail>>>, GetAllTemplateDetailsHandler>();
             services.AddScoped<IRequestHandler<GetTemplateDetailsByIdQuery, ResponseModel<TemplateDetail>>, GetTemplateDetailsByIdHandler>();
             services.AddScoped<IRequestHandler<AddTemplateDetailsCommand, ResponseModel<bool>>, AddTemplateDetailsHandler>();
@@ -103,6 +106,14 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<SetCreatorPasswordCommand,ResponseModel<bool>>,SetCreatorPasswordCommandHandler>();
             services.AddScoped<IRequestHandler<SetPasswordCommand, ResponseModel<bool>>, SetPasswordCommandHandler>();
             services.AddScoped<IRequestHandler<AdvertisementListScreenQuery, ResponseModel<List<AdvertisementListVM>>>, AdvertisementListScreenHandler>();
+            //For Template
+            services.AddScoped<IRequestHandler<GetTemplateListQuery, ResponseModel<List<TemplateListDTO>>>, GetTemplateListHandler>();
+            services.AddScoped<IRequestHandler<GetTemplateListByIdQuery, ResponseModel<Templates>>, GetAllTemplateHandler>();
+            services.AddScoped<IRequestHandler<CreateTemplateCommand, ResponseModel<bool>>, CreateTemplateHandler>();
+            services.AddScoped<IRequestHandler<UpdateTemplateCommand, ResponseModel<bool>>, UpdateTemplateHandler>();
+            services.AddScoped<IRequestHandler<DeleteTemplateCommand, ResponseModel<bool>>, DeleteTemplateHandler>();
+            services.AddScoped<IRequestHandler<GetAllTemplatesByUserQuery, ResponseModel<List<TemplateListDTO>>>, GetAllTemplatesByUserQueryHandler>();
+            
             return services;
         }
     }

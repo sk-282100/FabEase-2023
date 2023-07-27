@@ -34,9 +34,19 @@
     </script>
 
 </head>
-<body class="body-bg-f8faff">
-    
-    <div class="contact-list-area">
+
+<div class="page-title-area">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-sm-6">
+                <div class="page-title">    
+                    <h3>FanEase Creator List</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="contact-list-area ">
         <div class="container-fluid">
             <div class="table-responsive" data-simplebar>
                 <div class="others-title">
@@ -105,7 +115,15 @@
 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.isActive)
+                                    @if (item.isActive)
+                                    {
+                                        <p style="color :green;">Active</p>
+                                    }
+                                    else
+                                    {
+                                        <p style="color :orangered;">Inactive</p>
+                                    }
+
             </td>
             <td>
                  <div class="btn-group" role="group" aria-label="Basic example">
@@ -148,4 +166,4 @@
     <script src="assets/js/contact-form-script.js"></script>
     <script src="assets/js/ajaxchimp.min.js"></script>
     <script src="assets/js/custom.js"></script>
-</body>
+

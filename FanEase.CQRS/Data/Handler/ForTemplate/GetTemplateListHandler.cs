@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForTemplate
 {
-    public class GetTemplateListHandler : IRequestHandler<GetTemplateListQuery, ResponseModel<List<Templates>>>
+    public class GetTemplateListHandler : IRequestHandler<GetTemplateListQuery, ResponseModel<List<TemplateListDTO>>>
     {
         private readonly ITemplateRepository _templateRepository;
 
@@ -20,10 +20,10 @@ namespace FanEase.Middleware.Data.Handler.ForTemplate
             _templateRepository = templateRepository;
         }
 
-        public async Task<ResponseModel<List<Templates>>> Handle(GetTemplateListQuery request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<List<TemplateListDTO>>> Handle(GetTemplateListQuery request, CancellationToken cancellationToken)
         {
-            List<Templates> templates = await _templateRepository.GetAllTemplatesAsync();
-            return new ResponseModel<List<Templates>>() { data = templates, message = "data received" };
+            List<TemplateListDTO> templates = await _templateRepository.GetAllTemplatesAsync();
+            return new ResponseModel<List<TemplateListDTO>>() { data = templates, message = "data received" };
 
             //throw new NotImplementedException(); 
         }

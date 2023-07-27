@@ -31,7 +31,8 @@ namespace FanEase.UI.Models.User
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required(ErrorMessage ="Enter Contact Number")]
-       
+
+        [StringLength(10,ErrorMessage ="Enter 10 Digit Contact Number")]
         public string ContactNo { get; set; }
 
         public bool isActive { get; set; }  

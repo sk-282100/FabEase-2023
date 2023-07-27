@@ -13,6 +13,7 @@ namespace FanEase.UI.Configurations
             CreateMap<CreatorVM, EditCreatorVM>().ReverseMap();
             CreateMap<User, EditCreatorVM>().ReverseMap();
             CreateMap<AddVideoVm,Video>().ReverseMap();
+            CreateMap<EditVideoVM, Video>().ReverseMap();   
         }
     }
 }

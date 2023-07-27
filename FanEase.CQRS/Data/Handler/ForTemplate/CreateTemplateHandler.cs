@@ -22,11 +22,7 @@ namespace FanEase.Middleware.Data.Handler.ForTemplate
 
         public async Task<ResponseModel<bool>> Handle(CreateTemplateCommand request, CancellationToken cancellationToken)
         {
-            Templates temp = new Templates
-            {
-                TemplateDetailsId = request.TemplateDetailsId,
-                UserId = request.UserId
-            };
+            Templates temp = request.Templates;
             bool status = await _templateRepository.AddTemplate(temp);
             return new ResponseModel<bool> { data = status, message = "Template Added" };
             //throw new NotImplementedException();

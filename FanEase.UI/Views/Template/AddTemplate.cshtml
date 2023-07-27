@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "AdminLayout";
-    string type = "";
+    string Type = "";
+    
 }
 <!DOCTYPE html>
 <html>
@@ -32,6 +33,97 @@
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <title>Video Template Editor</title>
     <link rel="stylesheet" href="../assets/css/addTemplate.css">
+    <link rel="stylesheet" href="../assets/css/addTemplateNew.css">
+
+    <script>
+ 
+            function changebutton1() {
+       
+            var button1 = document.getElementById("template1button");
+            var button2 = document.getElementById("template2button");
+            var button3 = document.getElementById("template3button");
+            var type=document.getElementById("type");
+                if(button1.innerHTML!="Selected"){
+                button1.innerHTML = "Selected";
+                button1.disabled = false;
+                button2.disabled = true;
+                button3.disabled = true;
+                type.value = "Template1";
+
+                
+                }
+                else{
+                  button1.innerHTML = "Choose Template 1";
+                button2.disabled = false;
+                button3.disabled = false;
+                type.value = "";
+                }
+              
+            }
+
+        function changebutton2() {
+
+            var button1 = document.getElementById("template1button");
+            var button2 = document.getElementById("template2button");
+            var button3 = document.getElementById("template3button");
+            var section6 = document.getElementById("section-6");
+            var section7 = document.getElementById("section-7");
+            var section8 = document.getElementById("section-8");
+            if (button2.innerHTML != "Selected") {
+                button2.innerHTML = "Selected";
+                button2.disabled = false;
+                button1.disabled = true;
+                button3.disabled = true;
+                section6.disabled=true;
+                section7.disabled =true;
+                section8.disabled=true;
+                type.value = "Template2";
+                        }
+            else {
+                button2.innerHTML = "Choose Template 2";
+                button1.disabled = false;
+                button3.disabled = false;
+                section6.disabled = false;
+                section7.disabled = false;
+                section8.disabled = false;
+                type.value = "";
+       
+            }
+
+        }
+
+        function changebutton3() {
+
+            var button1 = document.getElementById("template1button");
+            var button2 = document.getElementById("template2button");
+            var button3 = document.getElementById("template3button");
+            var section6 = document.getElementById("section-6");
+            var section7 = document.getElementById("section-7");
+            var section8 = document.getElementById("section-8");
+            if (button3.innerHTML != "Selected") {
+                button3.innerHTML = "Selected";
+                button3.disabled = false;
+                button2.disabled = true;
+                button1.disabled = true;
+                section6.disabled = true;
+                section7.disabled = true;
+                section8.disabled = true;
+                type.value = "Template3";
+                        }
+            else {
+                button3.innerHTML = "Choose Template 3";
+                button2.disabled = false;
+                button1.disabled = false;
+                section6.disabled = false;
+                section7.disabled = false;
+                section8.disabled = false;
+                type.value = "";
+      
+            }
+
+        }
+   
+    </script>
 
 </head>
 <body>
@@ -39,7 +131,7 @@
       <div class="row">
         <div class="others-title">
                 <div class="row">
-                    <div class="col-lg-6"><h2>Edit Template</h2></div>
+                    <div class="col-lg-6"><h2>Add Template</h2></div>
                     <div align="right" class="col-lg-6"> <progress value="70" max="100">70 %</progress> 100%</div>
             </div>
                 
@@ -53,122 +145,150 @@
                 </div>
 
             </div>
-       <div class="col-lg-4">
-         <h3>Type 1</h3>
-           <div class="container-fluid">
-                        <div class="type1-top-grid-container" id="template-grid">
-               <div class="type1-section1">Block 1</div>
-               </div>
-             
-        
-               <div class="grid-container" id="template-grid">
-                  <div class="type1-video-grid-item" data-block="4">
-                      Block 2
-                    <div>I Will use this for description</div>
-                  </div>
-               <div>
-          
-                <video id="type1-video-player" controls>
-                <source src="./Videos/2mb-video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video>
-                <div class="type1-top-grid-item" data-block="3">Block 3</div>
-               </div>
-                <div class="type1-grid-item" data-block="4">Block 4</div>
-              </div>
-           </div>
-          </div>
+       <div>
+         <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                <div class="col-lg-4">
+                   <h3>Template 1</h3>
+               
+                   <div class="container-fluid">
+                    
+                        
+                                <div class="grid-container1" id="allgrid">
+                                <div grid-container1-top1>
+                                <div class="type1-section1">1</div>
+                                <div class="grid-container1-top2">
+                                <div class="type1-section3">3</div>
+                                <div class="type1-section4">4</div>
+                                </div>
+                                </div>
+                                <div class="type1-section2">2</div>
+                                <div class="grid-container1-bottom1">
+                                <div class="type1-section5">5</div>
+                                <div class="type1-section6">6</div>
+                                </div>
+                               <div class="grid-container1-bottom2">
+                               <div class="type1-section7">7</div>
+                                <div class="type1-section8">8</div>
+                                </div>
+                             </div>
+                             <div class="form-control" align="right">
+                                        <button onclick="changebutton1()" class="btn btn-primary" id="template1button" type="button">Choose Template 1</button>
+                              </div>
+
+                   </div>
+                            
+                </div>
+
+                        <div class="col-lg-4">
+                            <h3>Template 2</h3>
+
+                            <div class="container-fluid">
+                                <div class="grid-container2" id="allgrid2">
+                                    
+                                        <div class="type2-section1">1</div>
+                                        <div class="grid-container1-top2">
+                                            <div class="type2-section2">2</div>
+                                            <div class="type2-section3">3</div>
+                                        </div>
+
+                                    <div class="grid-container1-bottom1">
+                                        <div class="type2-section4">4</div>
+                                        <div class="type2-section5">5</div>
+                                    </div>
+                                </div>
+
+                                    <div class="form-control" align="right">
+                                        <button onclick="changebutton2()" class="btn btn-primary" id="template2button" type="button">Choose Template 2</button>
+                                    </div>
+
+                            </div>
+
+                               
+
+                        </div>
+
+                            <div class="col-lg-4">
+                                <h3>Template 3</h3>
+
+                                <div class="container-fluid">
+                                    <div class="grid-container2">
+                                    <div class="grid-container1" id="allgrid">
+                                        <div grid-container1-top1>
+                                            <div class="type3-section1">1</div>
+                                            <div class="grid-container1-top2">
+                                                <div class="type3-section3">3</div>
+                                                <div class="type3-section4">4</div>
+                                            </div>
+                                        </div>
+                                        <div class="type1-section2">2</div>
+                                     
+                                            
+
+                                    </div>
+                                        <div class="type1-section5">5</div>
+                                    </div>
+
+                                    <div class="form-control" align="right">
+                                        <button onclick="changebutton3()" class="btn btn-primary" id="template3button" type="button">Choose Template 3</button>
+                                    </div>
+                                </div>
+
+                              
+
+                            </div>
+                   </div>
+
+            </div>
+
+         </div>
+
+         </div>
      
 
-              <h3>Type 2</h3>
-              <div class="container-fluid">
-
-            <div class="grid-container" id="template-grid">
-
-                   <div class="type2-side-grid-item" data-block="2">Block 2</div>
-              
-                   <div>
-                      <div class="type2-top-grid-item" data-block="1">Block 1 </div>
-                     <div></div>
-                
-                    <video id="type1-video-player"  controls>
-                        <source src="./Videos/2mb-video.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-
-                    <div class="type2-bottom-grid-item" data-block="4">Block 4</div>
-                   </div>
-                    <div class="type2-side-grid-item" data-block="3">Block 3</div>
-                 
-               
-             </div>
-        
-          </div>
-
-
-        <h3>Type 3</h3>
-          <div class="container-fluid">
-        
-
-            <div class="type3-top-grid-container" id="template-grid">
-
-                <video id="type3-video-player" controls>
-                    <source src="./Videos/2mb-video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-               
-                <div class="type3-side-grid-item" data-block="1">Block 1</div>
-                    
-                  <div></div>
-             </div>
-            
-                    
-                   
-            
-                    <div class="grid-container" id="template-grid">
-
-                    <div class="type3-bottom-grid-item" data-block="2">Block 2</div>
-                    <div class="type3-bottom-grid-item" data-block="3">Block 3</div>
-                    <div class="type3-bottom-grid-item" data-block="4">Block 4</div>
-                
-                   
-                    </div>
+             
 
             
-          </div>
-       </div>
+         
+          
+
+       
   
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="container-fluid">
             <div class="card-box-style">
                 <div class="others-title">
-                    <h3>Add Template to your video</h3>
+                    <h3>Add Template to your video </h3>
                     </div>
-        <div id="form-container" >
+        <div id="form-container">
             
-            <form id="content-form" >
-                
+            <form id="content-form">
+
+                                <div class="col-lg-6">
+                                    <span>Template Type</span><span class="text-danger"> *</span>
+
+                                    <input type="text" id="type" class="form-control" disabled/>
+                                    </div>
+
+                <div class="row">
+                                <div class="col-lg-6">
                 <span>Template Title</span><span class="text-danger"> *</span>
               
                 <input type="text" class="form-control" placeholder="Template Title"/>
-                            
+                                </div>
+                                <div class="col-lg-6">
                  <span>Template Thumbnil</span><span class="text-danger"> *</span>
                  <div class="form-control">
                  <input type="file" accept="image/*" class="form Control" />
                                 </div>
-                <label for="TemplateType" class="form-label">Template Type</label><lable class="text-danger"> *</lable>
-                                <select id="TemplateType" class="form-select form-control">
-                    <option >Choose Template Type...</option>
-                    <option value="type1">Type 1</option>
-                    <option value="type2">Type 2</option>
-                    <option value="type3">Type 3</option>
+                                </div>
+                                </div>
 
-                </select>
-           
-
-                <div class="block-content">
-                    <label for="block-1">Block 1:</label>
-                    <select id="block-1" class="content-type form-select form-control">
+                 <div class="row">
+                                <div class="block-content  col-lg-6">
+                    <label>Section 1:</label>
+                    <select id="section-1" class="content-type form-select form-control">
                         <option value="none">Select Content Type</option>
                         <option value="text">Text (Title/Content)</option>
                         <option value="image">Image</option>
@@ -177,9 +297,21 @@
                     <div class="content-options"></div>
                 </div>
 
-                <div class="block-content">
-                    <label for="block-2">Block 2:</label>
-                      <select id="block-2" class="content-type form-select form-control">
+                                    <div class="block-content col-lg-6">
+                    <label>Section 2:</label>
+                      <select id="section-2" class="content-type form-select form-control">
+                        <option value="none">Select Content Type</option>
+                        <option value="text">Text (Title/Content)</option>
+                        <option value="image">Image</option>
+                        <option value="video">Video</option>
+                    </select>
+                    <div class="content-options"></div>
+                </div>
+                                </div>
+                                <div class="row">
+                                <div class="block-content col-lg-6">
+                    <label>Section 3:</label>
+                        <select id="section-3" class="content-type form-select form-control">
                         <option value="none">Select Content Type</option>
                         <option value="text">Text (Title/Content)</option>
                         <option value="image">Image</option>
@@ -188,28 +320,68 @@
                     <div class="content-options"></div>
                 </div>
 
-                <div class="block-content">
-                    <label for="block-3">Block 3:</label>
-                        <select id="block-3" class="content-type form-select form-control">
-                        <option value="none">Select Content Type</option>
-                        <option value="text">Text (Title/Content)</option>
-                        <option value="image">Image</option>
-                        <option value="video">Video</option>
-                    </select>
-                    <div class="content-options"></div>
-                </div>
-
-            <div class="block-content">
-                <label for="block-4">Block 4:</label>
+                                <div class="block-content col-lg-6">
+                <label>Section 4:</label>
                    
-                   <select id="block-4" class="content-type form-select form-control">
+                   <select id="section-4" class="content-type form-select form-control">
                     <option value="none">Select Content Type</option>
                     <option value="text">Text (Title/Content)</option>
                     <option value="image">Image</option>
                     <option value="video">Video</option>
                 </select>
                 <div class="content-options"></div>
-            </div>
+              </div>
+                                </div>
+                                <div class="row">
+                                <div class="block-content col-lg-6">
+                                    <label>Section 5:</label>
+
+                                    <select id="section-5" class="content-type form-select form-control">
+                                        <option value="none">Select Content Type</option>
+                                        <option value="text">Text (Title/Content)</option>
+                                        <option value="image">Image</option>
+                                        <option value="video">Video</option>
+                                    </select>
+                                    <div class="content-options"></div>
+                                </div>
+
+                                <div class="block-content col-lg-6">
+                                    <label>Section 6:</label>
+
+                                    <select id="section-6" class="content-type form-select form-control">
+                                        <option value="none">Select Content Type</option>
+                                        <option value="text">Text (Title/Content)</option>
+                                        <option value="image">Image</option>
+                                        <option value="video">Video</option>
+                                    </select>
+                                    <div class="content-options"></div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="block-content col-lg-6">
+                                    <label>Section 7:</label>
+
+                                    <select id="section-7" class="content-type form-select form-control">
+                                        <option value="none">Select Content Type</option>
+                                        <option value="text">Text (Title/Content)</option>
+                                        <option value="image">Image</option>
+                                        <option value="video">Video</option>
+                                    </select>
+                                    <div class="content-options"></div>
+                                </div>
+
+                                <div class="block-content col-lg-6">
+                                    <label>Section 8:</label>
+
+                                    <select id="section-8" class="content-type form-select form-control">
+                                        <option value="none">Select Content Type</option>
+                                        <option value="text">Text (Title/Content)</option>
+                                        <option value="image">Image</option>
+                                        <option value="video">Video</option>
+                                    </select>
+                                    <div class="content-options"></div>
+                                </div>
+                                </div>
             <div>
                 <div></div>
 
@@ -225,6 +397,7 @@
         
 
         <script>
+        
             document.addEventListener("DOMContentLoaded", function () {
                 const formContainer = document.getElementById("form-container");
                 const contentForm = document.getElementById("content-form");
@@ -240,6 +413,9 @@
                    Title.type = "textarea";
                    Title.className = "form-control";
                    Title.placeholder = "Title";
+
+
+           
 
                 function handleContentTypeSelect() {
 
@@ -307,6 +483,8 @@
                     
                     alert("Template editing complete!");
                 });
+
+            
             });
         </script>
 
