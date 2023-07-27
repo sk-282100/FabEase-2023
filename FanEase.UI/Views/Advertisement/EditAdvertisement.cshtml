@@ -1,0 +1,182 @@
+﻿@model FanEase.Entity.Models.Advertisement
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    ViewData["Title"] = "EditAdvertisement";
+    Layout = "FanEaseLayout";
+    string UserId = "AT10";
+    //string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body class="body-bg-f8faff">
+
+    <div class="contact-list-area">
+        <div class="container-fluid">
+            <div class="table-responsive" data-simplebar>
+
+                <div class="others-title">
+                    <h3>Edit Advertisement</h3>
+                </div>
+
+
+                <form asp-action="EditAdvertisement" asp-controller="Advertisement" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group hidden">
+                            <span>Advertisement Id</span>
+                            <input asp-for="AdvertisementId" class="form-control" />
+                            <span asp-validation-for="AdvertisementId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <span>Advertisement Title</span> <!--span tag is  used to show field name above text box-->
+                                <span class="text-danger">*</span>  <!--It is used to give Astric on required field -->
+                                <input asp-for="AdvertisementTitle" class="form-control" placeholder="Enter video title" />
+                                <span asp-validation-for="AdvertisementTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <span>Start Date</span>
+                                <span class="text-danger">*</span>
+                                <input asp-for="StartDate" class="form-control" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <span>End Date</span>
+                                <span class="text-danger">*</span>
+                                <input asp-for="EndDate" class="form-control" />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <span>Advertisement Type</span>
+                                <span class="text-danger">*</span>
+                                <select asp-for="ContentType" class="form-control form-select" aria-hidden="true">
+                                    <option value="">-----Select Advertisement Type-----</option>
+                                    <option asp-for="ContentType" value="Image">Image</option>
+                                    <option asp-for="ContentType" value="Video">Video</option>
+                                    <option asp-for="ContentType" value="Url">Url</option>
+                                </select>
+                                <span asp-validation-for="ContentType" class="text-danger"></span>
+
+                                <span asp-validation-for="ContentType" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <span>Description</span>
+                                <span class="text-danger">*</span>
+                                <input asp-for="Description" class="form-control" placeholder="Enter Description" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <span>Avertisement Placement</span>
+                                <span class="text-danger">*</span>
+                                <select asp-for="AvertisementPlacement" class="form-control form-select" aria-hidden="true">
+                                    <option value="">-----Select Position-----</option>
+                                    <option asp-for="AvertisementPlacement" value="Top_Left">Top Left</option>
+                                    <option asp-for="AvertisementPlacement" value="Top_Right">Top Right</option>
+                                    <option asp-for="AvertisementPlacement" value="Top_Right">Bottom Left</option>
+                                    <option asp-for="AvertisementPlacement" value="Top_Right">Bottom Right</option>
+                                </select>
+                                <span asp-validation-for="AvertisementPlacement" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <span>Image / Video</span>
+                                <input asp-for="Image" class="form-control" type="file" />
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <span>Redirect URL</span>
+                                <input asp-for="Url" class="form-control" type="url" />
+                                <button type="button" class="btn btn-primary">Add</button>
+                                <span asp-validation-for="Url" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-lg-6">
+                            <div class="form-group hidden">
+                                <label asp-for="AdClicks" class="control-label"></label>
+                                <input asp-for="AdClicks" class="form-control" />
+                                <span asp-validation-for="AdClicks" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group hidden">
+                            <label asp-for="UserId" class="control-label"></label>
+                            <input asp-for="UserId" class="form-control" value="@UserId" />
+                            <span asp-validation-for="UserId" class="text-danger"></span>
+                        </div><br />
+                        <div class="form-group">
+                            <input type="submit" value="ADD" class="btn btn-success" />
+                            &nbsp;
+                            <input type="submit" value="Back To List" class="btn btn-warning" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        </br>
+
+
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+
+        <!-- Start Go Top Area -->
+        <div class="go-top">
+            <i class="ri-arrow-up-s-fill"></i>
+            <i class="ri-arrow-up-s-fill"></i>
+        </div>
+        <!-- End Go Top Area -->
+        <!-- Jquery Min JS -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/owl.carousel.min.js"></script>
+        <script src="assets/js/metismenu.min.js"></script>
+        <script src="assets/js/simplebar.min.js"></script>
+        <script src="assets/js/geticons.js"></script>
+        <script src="assets/js/sweetalert2.all.min.js"></script>
+        <script src="assets/js/jbox.all.min.js"></script>
+        <script src="assets/js/editor.js"></script>
+        <script src="assets/js/form-validator.min.js"></script>
+        <script src="assets/js/contact-form-script.js"></script>
+        <script src="assets/js/ajaxchimp.min.js"></script>
+        <script src="assets/js/custom.js"></script>
+</body>

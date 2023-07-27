@@ -20,10 +20,7 @@ namespace FanEase.Entity.Models
         
         
        [Required(ErrorMessage = "date & Time required")]
-        //[BindProperty(SupportsGet = true)]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "dd.MM.yyyy")]
-        [Display(Name = "End Date", ResourceType = typeof(string))]
+      
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Select Advertisement type")]

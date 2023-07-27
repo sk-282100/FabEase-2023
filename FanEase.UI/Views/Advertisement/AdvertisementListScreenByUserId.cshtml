@@ -8,9 +8,41 @@
     //string UserId = "AT10";
     string UserId =HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
+
+
+
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Link Of CSS -->
+
+
+
+    <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/animate.min.css">
+    <link rel="stylesheet" href="~/assets/css/remixicon.css">
+    <link rel="stylesheet" href="~/assets/css/boxicons.min.css">
+    <link rel="stylesheet" href="~/assets/css/iconsax.css">
+    <link rel="stylesheet" href="~/assets/css/metismenu.min.css">
+    <link rel="stylesheet" href="~/assets/css/simplebar.min.css">
+    <link rel="stylesheet" href="~/assets/css/calendar.css">
+    <link rel="stylesheet" href="~/assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="~/assets/css/jbox.all.min.css">
+    <link rel="stylesheet" href="~/assets/css/editor.css">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/loaders.css">
+    <link rel="stylesheet" href="~/assets/css/header.css">
+    <link rel="stylesheet" href="~/assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="~/assets/css/footer.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    
+    <!--For pagination-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 </head>
 
 <body class="body-bg-f8faff">
@@ -20,13 +52,13 @@
             <div class="table-responsive" data-simplebar>
                 <div class="others-title">
                     <p align="right">
-                        <a asp-action="AddAdvertisement"><input type="button" value="Add Advertisement" class="btn btn-primary"></a>
+                        <a asp-action="AddAdvertisement" asp-controller="Advertisement"><input type="button" value="Add Advertisement" class="btn btn-primary"></a>
                     </p>
                     <h3>Advertisement List</h3>
                 </div>
 
-
-                <table class="table class=" table align-middle mb-0"" >
+                                                                     <!--For pagination Add id inside table-->
+                <table class="table align-middle mb-0" id="MyTable">
                     <thead align="center">
                         <tr>
                             <th>
@@ -60,7 +92,9 @@
                             <th>
                                 Is Active
                             </th>
-
+                            <th>
+                                Quick Actions
+                            </th>
                         </tr>
                     </thead>
 
@@ -100,20 +134,19 @@
                                     @Html.DisplayFor(modelItem => item.IsActive)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("AddAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Select</button>
+                                        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Delete</button>
+                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Edit</button>
+
+                                    </div>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
 
-                @section Scripts {
-                    @{
-                        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-                    }
-                }
+               
             </div>
         </div>
     </div>
@@ -124,7 +157,17 @@
     </div>
     <!-- End Go Top Area -->
     <!-- Jquery Min JS -->
-    <script src="assets/js/jquery.min.js"></script>
+    <!--script src="assets/js/jquery.min.js"></!--script>
+
+     <!--Script for Pagination-->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        // Initialize DataTable on the "MyTable" element
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+        });
+    </script>
+
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
     <script src="assets/js/metismenu.min.js"></script>
@@ -137,4 +180,12 @@
     <script src="assets/js/contact-form-script.js"></script>
     <script src="assets/js/ajaxchimp.min.js"></script>
     <script src="assets/js/custom.js"></script>
+
+   
+   
+
+
+
+
+
 </body>
