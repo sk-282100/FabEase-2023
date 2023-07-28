@@ -283,13 +283,10 @@
                             <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
                                 <li class="list-group-item"><h5>Campaigns</h5></li>
                                 <li class="list-group-item">
-                                <a href="UnderConstruction">Add Campaign</a>
+                                <a onclick="location.href='@Url.Action("CampaignListScreenByUserId","Campaign",new{userId=uid})'">All Campaigns</a>
                                 </li>
                                 <li class="list-group-item">
-                                <a href="UnderConstruction">Edit Campaign</a>
-                                </li>
-                                <li class="list-group-item">
-                                <a href="UnderConstruction">Remove Campaign</a>
+                                <a asp-action="AddCampaignss" asp-controller="Campaign">Add Campaign</a>
                                 </li>
                                 <li class="list-group-item">
                                 <a href="UnderConstruction">Top Campaign</a>
@@ -306,10 +303,10 @@
                             <ul class="list-group flex-column d-inline-block submenu" data-simplebar>
                                 <li class="list-group-item"><h5>Media</h5></li>
                                 <li class="list-group-item">
-                                <a href="UnderConstruction">Add Media</a>
+                                <a asp-action="AddAdvertisement" asp-controller="Advertisement">Add Media</a>
                                 </li>
                                 <li class="list-group-item">
-                                <a href="UnderConstruction">View All</a>
+                                <a onclick="location.href='@Url.Action("AdvertisementListScreenByUserId","Advertisement",new{userId=uid})'">View All</a>
                                 </li>
 
                             </ul>

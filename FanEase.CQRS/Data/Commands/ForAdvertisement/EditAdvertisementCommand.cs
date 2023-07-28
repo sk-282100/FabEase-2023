@@ -10,7 +10,8 @@ namespace FanEase_CQRS.Controllers
 
         public EditAdvertisementCommand(Advertisement advertisement)
         {
-               Advertisement = advertisement;
+            Advertisement = advertisement;
         }
+
     }
 }

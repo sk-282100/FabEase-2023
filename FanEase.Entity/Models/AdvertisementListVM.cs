@@ -21,13 +21,13 @@ namespace FanEase.Entity.Models
 
         //fields of video table
        
-        public int? CampaignId { get; set; } //campaign ref
+        public int CampaignId { get; set; } //campaign ref
 
-        public int? Views { get; set; } //No. of views
+        public int Views { get; set; } //No. of views
 
-        public bool? IsPublished { get; set; } //publish status  true=Go Live , false=draft
+        public bool IsPublished { get; set; } //publish status  true=Go Live , false=draft
 
-        public bool? IsActive { get; set; } //active status Active=True , Inactive=False
+        public bool IsActive { get; set; } //active status Active=True , Inactive=False
 
 
 

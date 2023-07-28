@@ -4,14 +4,17 @@
 @{
     ViewData["Title"] = "EditVideo";
     Layout = "AdminLayout";
-     string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
-   // string uid = "SC6656";
+    string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    // string uid = "SC6656";
 
     string path = "";
+    string Videopath = "";
 
     if (Model.VideoThumbnil != null)
         path = "../" + Model.VideoThumbnil.Replace("\\", "/");
-
+    
+    if(Model.VideoFile!=null)
+        Videopath = "../" + Model.VideoFile.Replace("\\", "/");
 }
 
 
@@ -41,6 +44,20 @@
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/responsive.css">
+
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/metismenu.min.js"></script>
+    <script src="../assets/js/simplebar.min.js"></script>
+    <script src="../assets/js/geticons.js"></script>
+    <script src="../assets/js/sweetalert2.all.min.js"></script>
+    <script src="../assets/js/editor.js"></script>
+    <script src="../assets/js/form-validator.min.js"></script>
+    <script src="../assets/js/contact-form-script.js"></script>
+    <script src="../assets/js/ajaxchimp.min.js"></script>
+    <script src="../assets/js/custom.js"></script>
     @*<link rel="stylesheet" href="~/../assets/css/AddVideoStyleSheet.css" />*@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -155,7 +172,7 @@
                         <div class="col-lg-6" id="thumbnilId">
                             <div class="form-group">
                                 <span>Video Thumbnil</span>
-                                <img  src="@path" class="form-control" id="thumnailImage" />
+                                <img src="@path" class="form-control" id="thumnailImage" width="100" height="100" />
                                 <span asp-validation-for="VideoThumbnil" class="text-danger"></span>
                             </div>
                         </div>
@@ -234,10 +251,25 @@
 
                         <div class="col-lg-6">
                             <div class="form-group hidden" id="chooseFile1">
+                                
                                 <label asp-for="UploadVideo" class="form-check-label">MP4VideoFile</label><span class="text-danger">*</span>
                                 <input asp-for="UploadVideo" class="form-control" type="file" />
                                 <span asp-validation-for="UploadVideo" class="text-danger"></span>
                             </div>
+                            @if (Videopath != null)
+                            {
+                                <div>
+                                <span>Video Preview</span>
+                                </div>
+                                <video src=@Videopath width="250" height="150" controls alt="video" />
+                            }
+                            else
+                            {
+                                <div>
+                                    <span>Video Preview</span>
+                                </div>
+                                <video src=@Model.VideoURL width="250" height="150" controls alt="video" />
+                            }
                         </div>
 
                         <div class="col-lg-6 hidden" id="userId">
@@ -282,18 +314,5 @@
         <i class="ri-arrow-up-s-fill"></i>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/metismenu.min.js"></script>
-    <script src="assets/js/simplebar.min.js"></script>
-    <script src="assets/js/geticons.js"></script>
-    <script src="assets/js/sweetalert2.all.min.js"></script>
-    <script src="assets/js/jbox.all.min.js"></script>
-    <script src="assets/js/editor.js"></script>
-    <script src="assets/js/form-validator.min.js"></script>
-    <script src="assets/js/contact-form-script.js"></script>
-    <script src="assets/js/ajaxchimp.min.js"></script>
-    <script src="assets/js/custom.js"></script>
 </body>
 

@@ -2,9 +2,9 @@
 @inject IHttpContextAccessor HttpContextAccessor;
 @{
     ViewData["Title"] = "EditAdvertisement";
-    Layout = "FanEaseLayout";
-    string UserId = "AT10";
-    //string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    Layout = "AdminLayout";
+    //string UserId = "AT10";
+    string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
 
 <head>
@@ -23,7 +23,7 @@
                 </div>
 
 
-                <form asp-action="EditAdvertisement" asp-controller="Advertisement" method="post">
+                <form asp-action="EditAdvertisementPost" asp-controller="Advertisement" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 

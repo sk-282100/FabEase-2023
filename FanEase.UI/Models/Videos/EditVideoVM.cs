@@ -9,6 +9,7 @@ namespace FanEase.UI.Models.Videos
 
         public string? VideoThumbnil { get; set; }
 
+        [Required(ErrorMessage = "Set Go Live Date and Time")]
         public DateTime GoLiveDateTime { get; set; }
 
         [MaxLength(25, ErrorMessage = "Maximum 25 Charachters Allowed")]

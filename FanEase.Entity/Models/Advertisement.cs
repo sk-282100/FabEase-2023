@@ -33,7 +33,7 @@ namespace FanEase.Entity.Models
 
 
         [Required(ErrorMessage = "Enter Advertisement Image")]
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         
         
@@ -43,7 +43,7 @@ namespace FanEase.Entity.Models
         
         
         [Required(ErrorMessage = "Enter URL")]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
 
         [Required(ErrorMessage = "Enter Number of clicks")]

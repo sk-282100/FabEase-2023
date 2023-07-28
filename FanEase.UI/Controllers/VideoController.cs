@@ -188,7 +188,14 @@ namespace FanEase.UI.Controllers
                     string data = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
 
-                    return RedirectToAction("VideoList");
+                    if (HttpContext.Session.GetString("role") == "Admin")
+                    {
+                        return RedirectToAction("VideoList");
+                    }
+                    else
+                    {
+                        return RedirectToAction("VideoListByUSerId", new { userId = video.UserId});
+                    }
 
                 }
 
