@@ -13,7 +13,6 @@
     <Folder Include="Data\Commands\ForTeam\" />
     <Folder Include="Data\Handler\ForCreatorDashBoard\" />
     <Folder Include="Data\Handler\ForTeam\" />
-    <Folder Include="Data\Handler\ForUser\" />
     <Folder Include="Data\Queries\ForCreatorDashBoard\" />
     <Folder Include="Data\Queries\ForTeam\" />
     <Folder Include="Data\Queries\ForUser\" />

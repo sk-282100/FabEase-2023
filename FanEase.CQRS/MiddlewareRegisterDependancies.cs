@@ -99,6 +99,7 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetUserByUserNameQuery, ResponseModel<User>>, GetUserByUserNameQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllCreatorsQuery, ResponseModel<List<User>>>, GetAllCreatorsQueryHandler>();
             services.AddScoped<IRequestHandler<AddCreatorCommand, ResponseModel<bool>>, AddCreatorCommandHandler>();
+            services.AddScoped<IRequestHandler<AddViewerCommand, ResponseModel<bool>>, AddViewerCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveCreatorCommand,bool>, RemoveCreatorCommandHandler>(); 
             
             //For Account
