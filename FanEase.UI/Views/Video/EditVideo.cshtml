@@ -4,14 +4,17 @@
 @{
     ViewData["Title"] = "EditVideo";
     Layout = "AdminLayout";
-     string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
-   // string uid = "SC6656";
+    string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    // string uid = "SC6656";
 
     string path = "";
+    string Videopath = "";
 
     if (Model.VideoThumbnil != null)
         path = "../" + Model.VideoThumbnil.Replace("\\", "/");
-
+    
+    if(Model.VideoFile!=null)
+        Videopath = "../" + Model.VideoFile.Replace("\\", "/");
 }
 
 
@@ -41,6 +44,20 @@
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/responsive.css">
+
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/metismenu.min.js"></script>
+    <script src="../assets/js/simplebar.min.js"></script>
+    <script src="../assets/js/geticons.js"></script>
+    <script src="../assets/js/sweetalert2.all.min.js"></script>
+    <script src="../assets/js/editor.js"></script>
+    <script src="../assets/js/form-validator.min.js"></script>
+    <script src="../assets/js/contact-form-script.js"></script>
+    <script src="../assets/js/ajaxchimp.min.js"></script>
+    <script src="../assets/js/custom.js"></script>
     @*<link rel="stylesheet" href="~/../assets/css/AddVideoStyleSheet.css" />*@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -62,26 +79,26 @@
             return;
         }
 
-        $(document).ready(function () {
-            var dtToday = new Date();
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate();
-            var year = dtToday.getFullYear();
-            var hour = dtToday.getHours();
-            var mins = dtToday.getMinutes();
-            var sec = dtToday.getSeconds();
-            var millisec = dtToday.getMilliseconds();
+        //$(document).ready(function () {
+        //    var dtToday = new Date();
+        //    var month = dtToday.getMonth() + 1;
+        //    var day = dtToday.getDate();
+        //    var year = dtToday.getFullYear();
+        //    var hour = dtToday.getHours();
+        //    var mins = dtToday.getMinutes();
+        //    var sec = dtToday.getSeconds();
+        //    var millisec = dtToday.getMilliseconds();
 
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
+        //    if (month < 10)
+        //        month = '0' + month.toString();
+        //    if (day < 10)
+        //        day = '0' + day.toString();
 
 
-            var maxDate = year + '-' + month + '-' + day;
-            $('#dateandtime1').attr('min', maxDate);
+        //    var maxDate = year + '-' + month + '-' + day;
+        //    $('#dateandtime1').attr('min', maxDate);
 
-        })
+        //})
 
 
         var loadFile = function (event) {
@@ -142,32 +159,38 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row">
                         <div class="form-group hidden">
-                            <label asp-for="VideoId" class="control-label"></label>
-                            <input asp-for="VideoId" class="form-control" />
-                            <span asp-validation-for="VideoId" class="text-danger"></span>
+                            
+                            <input asp-for="VideoId" class="form-control"/>
+                            <input asp-for="VideoThumbnil" class="form-control"/>
+                            <input asp-for="VideoImage" class="form-control"/>
+                            <input asp-for="VideoFile" class="form-control"/>
+                            <input asp-for="TemplateId" class="form-control"/>
+                            <input asp-for="CampaignId" class="form-control" />
+
                         </div>
 
                         <div class="col-lg-6" id="thumbnilId">
                             <div class="form-group">
-                                <label asp-for="VideoThumbnil" class="control-label"></label>
-                                <img asp-for="VideoThumbnil" src="@path" class="form-control" id="thumnailImage" />
+                                <span>Video Thumbnil</span>
+                                <img src="@path" class="form-control" id="thumnailImage" width="100" height="100" />
                                 <span asp-validation-for="VideoThumbnil" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="col-lg-6" id="dateAndTime">
                             <div class="form-group">
-                                <label asp-for="GoLiveDateTime" class="control-label"></label><span class="text-danger">*</span>
-                                <input asp-for="GoLiveDateTime" class="form-control" id="dateandtime1" />
-                                <span asp-validation-for="GoLiveDateTime" class="text-danger"></span>
+                                
+                                <Label>Chanege Go Live Time</Label>
+                                <input asp-for="GoLiveDateTime" class="form-control" id="dateandtime1" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"/>
+                                
                             </div>
                         </div>
 
-                        @*<img id="output" />*@
+                        
 
                         <div class="col-lg-6" id="videoImageId">
                             <div class="form-group">
-                                <label asp-for="UploadVideoImage" class="control-label"></label><span class="text-danger">*</span>
+                                <span>Change Video Image</span>
                                 <input asp-for="UploadVideoImage" class="form-control" type="file" id="takeImage" onchange="loadFile(event)" />
 
                                 <span asp-validation-for="UploadVideoImage" class="text-danger"></span>
@@ -228,10 +251,25 @@
 
                         <div class="col-lg-6">
                             <div class="form-group hidden" id="chooseFile1">
+                                
                                 <label asp-for="UploadVideo" class="form-check-label">MP4VideoFile</label><span class="text-danger">*</span>
                                 <input asp-for="UploadVideo" class="form-control" type="file" />
                                 <span asp-validation-for="UploadVideo" class="text-danger"></span>
                             </div>
+                            @if (Videopath != null)
+                            {
+                                <div>
+                                <span>Video Preview</span>
+                                </div>
+                                <video src=@Videopath width="250" height="150" controls alt="video" />
+                            }
+                            else
+                            {
+                                <div>
+                                    <span>Video Preview</span>
+                                </div>
+                                <video src=@Model.VideoURL width="250" height="150" controls alt="video" />
+                            }
                         </div>
 
                         <div class="col-lg-6 hidden" id="userId">
@@ -276,18 +314,5 @@
         <i class="ri-arrow-up-s-fill"></i>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/metismenu.min.js"></script>
-    <script src="assets/js/simplebar.min.js"></script>
-    <script src="assets/js/geticons.js"></script>
-    <script src="assets/js/sweetalert2.all.min.js"></script>
-    <script src="assets/js/jbox.all.min.js"></script>
-    <script src="assets/js/editor.js"></script>
-    <script src="assets/js/form-validator.min.js"></script>
-    <script src="assets/js/contact-form-script.js"></script>
-    <script src="assets/js/ajaxchimp.min.js"></script>
-    <script src="assets/js/custom.js"></script>
 </body>
 

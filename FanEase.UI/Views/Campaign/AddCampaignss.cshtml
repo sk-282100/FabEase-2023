@@ -2,8 +2,9 @@
 @inject IHttpContextAccessor HttpContextAccessor;
 @{
     ViewData["Title"] = "AddCampaignss";
-    Layout = "FanEaseLayout";
-    string UserId = "RB6567";
+    Layout = "AdminLayout";
+    
+    string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
 <head>
     <meta charset="utf-8">
@@ -32,69 +33,112 @@
     <link rel="stylesheet" href="~/assets/css/responsive.css">
     <link rel="stylesheet" href="~/assets/css/Campaign.css" />
 
-    <title>FanEase -Campaign Details</title>
 </head>
-<div class="profile-area">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="edit-profile-content card-box-style col-lg-12">
-                <div class="d-flex justify-content-between mb-3">
-                    <h1>Campaign Details</h1>
-                    <!-- Two buttons at the opposite side -->
-                    <div>
-                        <button type="button" class="btn btn-primary">View Existing Advertisement</button>
-                        <button type="button" class="btn btn-success">Add Advertisement</button>
+
+
+<title>FanEase -Campaign Details</title>
+<body>
+    <div class="profile-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="edit-profile-content card-box-style col-lg-12">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h1>Campaign Details</h1>
+                        <!-- Two buttons at the opposite side -->
+                        <div>
+                            <button type="button" class="btn btn-primary">View Existing Advertisement</button>
+                            <button type="button" class="btn btn-success">Add Advertisement</button>
+                        </div>
                     </div>
+
+
+                    <form asp-action="AddCampaignss" asp-controller="Campaign" method="post" id="myForm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row hidden">
+                            <div class="col-md-6 sol-sm-12">
+                                <div hidden>
+                                   
+                                        <input asp-for="userId" class="form-control" id="end1"  value=@UserId/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 sol-sm-12">
+                                <div class="form-group">
+                                    <!--<label asp-for="name" class="control-label"></label>-->
+                                    <span>Campaign Name</span>
+                                    <span class="text-danger">*</span>
+                                    <div class="input-group">
+                                        <textarea asp-for="name" class="form-control" id="end1" placeholder="Enter CampaignName"></textarea>
+                                        <span asp-validation-for="name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
+                                    <span>Start Date</span>
+                                    <span class="text-danger">*</span>
+                                    <input asp-for="startDate" class="form-control" />
+                                    <span asp-validation-for="startDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
+                                    <span>End Date</span>
+                                    <span class="text-danger">*</span>
+                                    <input asp-for="endDate" class="form-control" />
+                                    <span asp-validation-for="endDate" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="save-update">
+                                <input onclick="myCancelFunction()" type="button" value="Cancel" class="btn btn-danger" id="btnReset" />
+                                &nbsp;
+                                <input type="submit" value="Submit" class="btn btn-primary float-right" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-                <form asp-action="AddCampaignss" asp-controller="Campaign" method="post">
-                    <div class="row hidden">
-                        <div class="col-md-6 sol-sm-12">
-                            <div class="form-group">
-                                <label asp-for="userId" class="control-label"></label>
-                                <div class="input-group">
-                                    <textarea asp-for="userId" class="form-control" id="end1" placeholder="Enter Campaign Name"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 sol-sm-12">
-                            <div class="form-group">
-                                <!--<label asp-for="name" class="control-label"></label>-->
-                                <span>Campaign Name</span>
-                                <span class="text-danger">*</span>
-                                <div class="input-group">
-                                    <textarea asp-for="name" class="form-control" id="end1" placeholder="Enter CampaignName"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 col-sm-12">
-                            <div class="form-group">
-                               <span>Start Date</span>
-                                <span class="text-danger">*</span>
-                                <input asp-for="startDate" class="form-control"  />
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <div class="form-group">
-                                <span>End Date</span>
-                                <span class="text-danger">*</span>
-                                <input asp-for="endDate" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="save-update">
-                            <input onclick="myCancelFunction()" type="submit" value="Cancel" class="btn btn-danger" id="btnReset" />
-                            &nbsp;
-                            <input type="submit" value="Submit" class="btn btn-primary float-right" />
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="go-top">
+        <i class="ri-arrow-up-s-fill"></i>
+        <i class="ri-arrow-up-s-fill"></i>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+    <!-- JavaScript files -->
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/metismenu.min.js"></script>
+    <script src="~/assets/js/simplebar.min.js"></script>
+    <script src="~/assets/js/geticons.js"></script>
+    <script src="~/assets/js/sweetalert2.all.min.js"></script>
+    <script src="~/assets/js/jbox.all.min.js"></script>
+    <script src="~/assets/js/editor.js"></script>
+    <script src="~/assets/js/form-validator.min.js"></script>
+    <script src="~/assets/js/contact-form-script.js"></script>
+    <script src="~/assets/js/ajaxchimp.min.js"></script>
+    <script src="~/assets/js/custom.js"></script>
+
+    <!-- JavaScript function to reset form fields -->
+    <script>
+        function myCancelFunction() {
+            var result = confirm("Are you sure you want to cancel the process?");
+            if (result) {
+                document.getElementById("btnReset").onclick = document.getElementById("myForm").reset();
+            } else {
+                alert("You select No!");
+            }
+        }
+    </script>
+</body>

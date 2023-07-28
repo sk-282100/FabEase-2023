@@ -3,17 +3,21 @@
 
 @{
     ViewData["Title"] = "CampaignListScreenByUserId";
-    string UserId = "1";
-    Layout = "FanEaseLayout";
-   // Layout = "FanEaseLayout";
-   // string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    
+    Layout = "AdminLayout";
+   
+     string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Link Of CSS -->
-
+    <style>
+        #MyTable{
+            border:none;
+        }
+    </style>
 
 
     <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
@@ -56,9 +60,9 @@
                                 Campaign List
                             </h3>
 
-                          @*  <form class="search-form d-flex">
-                                <input type="text" class="form-control" placeholder="Search Files">
-                                <button type="button" class="btn btn-outline-primary mx-3">search</button>
+                            @*  <form class="search-form d-flex">
+                            <input type="text" class="form-control" placeholder="Search Files">
+                            <button type="button" class="btn btn-outline-primary mx-3">search</button>
                             </form>*@
 
                             <ul class="create-upload d-flex">
@@ -74,9 +78,9 @@
                         </div>
                     </div>
                 </div>
-                <table class="table align-middle mb-0" id="MyTable">
-    <thead>
-        <tr>
+                <table class="table align-middle mb-0"" id="MyTable">
+                    <thead>
+                        <tr>
                         <tr>
                             <th>  campaignId  </th>
                             <th>  Thumbnail  </th>
@@ -85,40 +89,62 @@
                             <th>  Video Status </th>
                             <th>  Views </th>
                             <th>  Clicks </th>
-                           
-                           
+                            <th>Quick Action</th>
+
                         </tr>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.campaignId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.videoThumbnil)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-             <td>
-             @Html.DisplayFor(modelItem => item.isPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.views)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.adClicks)
-            </td>
-           
-        </tr>
-}
-    </tbody>
-</table>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.campaignId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.videoThumbnil)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @if (item.isPublished)
+                                    {
+                                        <p style="color :green;">Draft</p>
+                                    }
+                                    else
+                                    {
+                                        <p style="color :skyblue;">Golive</p>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (item.isActive)
+                                    {
+                                        <p style="color :green;">Active</p>
+                                    }
+                                    else
+                                    {
+                                        <p style="color :orangered;">Inactive</p>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.views)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.adClicks)
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+
+
+                                        <button type="button" class="btn btn-danger" onclick="confirmRemove('@item.campaignId')">Remove</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
 
             </div>
@@ -131,6 +157,27 @@
         // Initialize DataTable on the "MyTable" element
         $(document).ready(function () {
             $('#MyTable').DataTable();
+            $('#MyTable').addClass("table align-middle mb-0");
         });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script>
+        function confirmRemove(campaignId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Campaign will be removed Permanently!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, remove it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If the user confirms the removal, redirect to the appropriate action
+                    window.location.href = '@Url.Action("RemoveCampaign","Campaign")?campaignId=' + campaignId;
+                }
+            });
+        }
     </script>
 }

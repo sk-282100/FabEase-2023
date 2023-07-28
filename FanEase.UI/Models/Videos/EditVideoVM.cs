@@ -9,6 +9,7 @@ namespace FanEase.UI.Models.Videos
 
         public string? VideoThumbnil { get; set; }
 
+        [Required(ErrorMessage = "Set Go Live Date and Time")]
         public DateTime GoLiveDateTime { get; set; }
 
         [MaxLength(25, ErrorMessage = "Maximum 25 Charachters Allowed")]
@@ -34,14 +35,6 @@ namespace FanEase.UI.Models.Videos
         public bool IsPublished { get; set; } //publish status
 
         public bool IsActive { get; set; } //active status
-
-        public int Views { get; set; }
-
-        public int Likes { get; set; } //appriciation
-
-        public int Dislikes { get; set; }
-
-        public int Skipped { get; set; }
 
         public int? TemplateId { get; set; } //template ref
 

@@ -4,9 +4,9 @@
 
 @{
     ViewData["Title"] = "AdvertisementListScreenByUserId";
-    Layout = "FanEaseLayout";
+    Layout = "AdminLayout";
     //string UserId = "AT10";
-    string UserId =HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
 
 
@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="~/assets/css/footer.css">
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link rel="stylesheet" href="~/assets/css/responsive.css">
-    
+
     <!--For pagination-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -57,7 +57,7 @@
                     <h3>Advertisement List</h3>
                 </div>
 
-                                                                     <!--For pagination Add id inside table-->
+                <!--For pagination Add id inside table-->
                 <table class="table align-middle mb-0" id="MyTable">
                     <thead align="center">
                         <tr>
@@ -135,7 +135,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("AddAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Select</button>
+                                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("AddAdvertisement","Advertisement",new{id=item.AdvertisementId})'">Select</button>
                                         <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Delete</button>
                                         <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditAdvertisement","Advertisement",new{AdvertisementId=item.AdvertisementId})'">Edit</button>
 
@@ -146,7 +146,7 @@
                     </tbody>
                 </table>
 
-               
+
             </div>
         </div>
     </div>
@@ -181,8 +181,8 @@
     <script src="assets/js/ajaxchimp.min.js"></script>
     <script src="assets/js/custom.js"></script>
 
-   
-   
+
+
 
 
 
