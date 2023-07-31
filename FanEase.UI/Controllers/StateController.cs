@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ExceptionHandling;
+
 using FanEase.Entity.Models;
 using FanEase.UI.Models;
 using FanEase.UI.Models.State;

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
+
 namespace FanEase.UI.Controllers
 {
     public class VideoController : Controller
@@ -70,17 +71,17 @@ namespace FanEase.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> VideoList()
         {
-            ResponseModel<List<VideoListVm>> responseModel = new ResponseModel<List<VideoListVm>>();
+            ResponseModel<List<Entity.Models.VideoListVm>> responseModel = new ResponseModel<List<Entity.Models.VideoListVm>>();
 
             using (var httpclient = new HttpClient())
             {
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Video/GetVideosList"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
-                    responseModel = JsonConvert.DeserializeObject<ResponseModel<List<VideoListVm>>>(data);
+                    responseModel = JsonConvert.DeserializeObject<ResponseModel<List<Entity.Models.VideoListVm>>>(data);
                 }
             }
-            List<VideoListVm> videolist = responseModel.data;
+            List<Entity.Models.VideoListVm> videolist = responseModel.data;
             return View(videolist);
         }
 
@@ -89,14 +90,14 @@ namespace FanEase.UI.Controllers
         public async Task<IActionResult> VideoListByUSerId(string userId)
         {
           
-            List<VideoListVm> videos = new List<VideoListVm>();
+            List<Entity.Models.VideoListVm> videos = new List<Entity.Models.VideoListVm>();
 
             using (var httpclient = new HttpClient())
             {
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Video/GetVideosListScreenByUserId/{userId}"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
-                    videos = JsonConvert.DeserializeObject<List<VideoListVm>>(data);
+                    videos = JsonConvert.DeserializeObject<List<Entity.Models.VideoListVm>>(data);
                 }
             }
 

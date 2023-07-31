@@ -4,9 +4,10 @@ namespace FanEase.UI.Models.Videos
 {
     public class VideoDetailsVm
     {
-        public string? VideoImage { get; set; }
+        public string? PlayVideo { get; set; }
 
         public string? VideoThumbnil { get; set; }
+        public string? VideoImage { get; set; }
 
         public DateTime GoLiveDateTime { get; set; }
 
@@ -24,8 +25,10 @@ namespace FanEase.UI.Models.Videos
 
         public string UserId { get; set; }
 
-        public bool IsPublished { get; set; } = false;//publish status
+        public int Views { get; set; }
 
-        public bool IsActive { get; set; } = false;
+        public int Likes { get; set; }
+
+        public double Duration { get; set; }
     }
 }

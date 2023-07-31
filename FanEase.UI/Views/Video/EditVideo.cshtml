@@ -7,8 +7,8 @@
     string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
     // string uid = "SC6656";
 
-    string path = "";
-    string Videopath = "";
+    string path=null;
+    string Videopath=null;
     
     if (Model.VideoThumbnil != null)
         path = "../" + Model.VideoThumbnil.Replace("\\", "/");

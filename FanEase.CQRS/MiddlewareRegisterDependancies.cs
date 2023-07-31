@@ -11,6 +11,7 @@ using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Middleware.Data.Handler.ForAdvertisement;
 using FanEase.Middleware.Data.Handler.ForCampaign;
 using FanEase.Middleware.Data.Handler.ForCampaignAdvertisement;
+using FanEase.Middleware.Data.Handler.ForDashboard;
 using FanEase.Middleware.Data.Handler.ForPlayer;
 using FanEase.Middleware.Data.Handler.ForTemplate;
 using FanEase.Middleware.Data.Handler.ForTemplateDetails;
@@ -19,6 +20,7 @@ using FanEase.Middleware.Data.Handler.ForVideo;
 using FanEase.Middleware.Data.Queries.ForAdvertisement;
 using FanEase.Middleware.Data.Queries.ForCampaign;
 using FanEase.Middleware.Data.Queries.ForCampaignAdvertisement;
+using FanEase.Middleware.Data.Queries.ForDashboard;
 using FanEase.Middleware.Data.Queries.ForPlayer;
 using FanEase.Middleware.Data.Queries.ForTemplate;
 using FanEase.Middleware.Data.Queries.ForTemplateDetails;
@@ -114,7 +116,7 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<UpdateTemplateCommand, ResponseModel<bool>>, UpdateTemplateHandler>();
             services.AddScoped<IRequestHandler<DeleteTemplateCommand, ResponseModel<bool>>, DeleteTemplateHandler>();
             services.AddScoped<IRequestHandler<GetAllTemplatesByUserQuery, ResponseModel<List<TemplateListDTO>>>, GetAllTemplatesByUserQueryHandler>();
-            
+            services.AddScoped<IRequestHandler<AdminDashBoardQuery,ResponseModel<AdminDashboardDTO>>,AdminDashBoardQueryHandler>();
             return services;
         }
     }
