@@ -1,0 +1,333 @@
+﻿@model FanEase.UI.Models.Videos.VideoDetailsVm
+@inject IHttpContextAccessor HttpContextAccessor;
+@using System.IO;
+
+@{
+    ViewData["Title"] = "VideoDetails";
+    Layout = "FanEaseLayout";
+    // string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    string uid = "SC6656";
+
+    string path = "";
+    string videoplay = "";
+
+    if (Model.VideoThumbnil != null)
+        path = "../" + Model.VideoThumbnil.Replace("\\", "/");
+
+    if (Model.VideoFile != null)
+        videoplay = "../" + Model.VideoFile.Replace("\\","/") ;
+}
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Link Of CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/remixicon.css">
+    <link rel="stylesheet" href="../assets/css/boxicons.min.css">
+    <link rel="stylesheet" href="../assets/css/iconsax.css">
+    <link rel="stylesheet" href="../assets/css/metismenu.min.css">
+    <link rel="stylesheet" href="../assets/css/simplebar.min.css">
+    <link rel="stylesheet" href="../assets/css/calendar.css">
+    <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../assets/css/jbox.all.min.css">
+    <link rel="stylesheet" href="../assets/css/editor.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/loaders.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    @*<link rel="stylesheet" href="~/../assets/css/AddVideoStyleSheet.css" />*@
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Title -->
+    <title>FanEase -Video Details</title>
+    <style>
+        .span_bold{
+            font-weight:800;
+        }
+
+        #VideoPlayId {
+            margin-left:13vh;
+        }
+
+        #DuViLi{
+            margin-top:8vh;
+        }
+
+        .checkMargin{
+            margin-top:3vh;
+        }
+        
+        #videoUrl{
+            margin-top:2vh;
+        }
+
+        #thumnailImage{
+            width:100vh;
+            height:25vh;
+        }
+    </style>
+
+    <script>
+        var loadFile = function (event) {
+            var output = document.getElementById('thumnailImage');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+
+        const video = document.getElementById('VideoPlayId');
+        const durationDisplay = document.getElementById('durationDisplay1');
+
+        video.addEventListener('loadedmetadata', function () {
+            const durationInSeconds = video.duration;
+            const formattedDuration = formatTime(durationInSeconds);
+            durationDisplay.textContent = formattedDuration;
+        });
+
+        function formatTime(timeInSeconds) {
+            const hours = Math.floor(timeInSeconds / 3600);
+            const minutes = Math.floor((timeInSeconds % 3600) / 60);
+            const seconds = Math.floor(timeInSeconds % 60);
+
+            const formattedHours = String(hours).padStart(2, '0');
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+
+            if (hours > 0) {
+                return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+            } else {
+                return `${formattedMinutes}:${formattedSeconds}`;
+            }
+        }
+
+
+
+    </script>
+</head>
+
+<body class="body-bg-f8faff">
+    <div class="contact-list-area">
+        <div class="container-fluid">
+            <div class="table-responsive" data-simplebar>
+                <div class="others-title">
+                    <h3>Video Details</h3>
+                </div>
+                <form enctype="multipart/form-data">
+    <div class="row">
+                    <div class="col-lg-6">
+                            <video id="VideoPlayId" width="220" height="160" controls>
+                                <source src=@videoplay type="video/mp4" />
+                            </video>               
+                    </div>
+
+                    <div class="col-lg-6"> 
+                        <div class="row">
+                                <div class="col-lg-12 checkMargin">
+                                    <span class="span_bold">Video Title</span>
+                                    @Html.DisplayFor(model => model.Title)
+                                </div>
+                                <div class="col-lg-12 checkMargin">
+                                    <span class="span_bold">Video Description</span>
+                                    @Html.DisplayFor(model => model.Description)
+                                </div>
+                                <div class="col-lg-12 checkMargin" id="videoUrl">
+                                    <span class="span_bold">Video URL: </span>
+                                    @Html.DisplayFor(model => model.VideoURL)
+                                </div>
+                        </div>
+                    </div>
+
+                        <div class="col-lg-6 checkMargin">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <span class="span_bold">Video Thumbnil</span>
+                                    <img src="@path" class="form-control" id="thumnailImage" />
+                                </div>
+
+                                <div class="col-lg-6 checkMargin hidden">
+                                    <input class="form-control" type="file" id="takeImage" onchange="loadFile(event)" />
+                                    @*Html.DisplayFor(model => model.VideoImage)*@
+                                </div>
+                            </div>
+                        </div>  
+                            
+                        <div class="col-lg-6" id="DuViLi">
+                            <div class="row">
+
+                                <div class="col-lg-4">
+                                    <span class="span_bold">Duration: </span>
+                                    <span id="durationDisplayId"></span>
+                                    @Html.DisplayFor(model => model.Duration)
+                                </div>
+                                <div class="col-lg-4">
+                                    <span class="span_bold">Views: </span>
+                                    @Html.DisplayFor(model => model.Views)
+                                </div>
+                                <div class="col-lg-4">
+                                    <span class="span_bold">Likes: </span>
+                                    @Html.DisplayFor(model => model.Likes)
+                                </div>
+                                <div class="col-lg-12 checkMargin ">
+                                    <span class="span_bold">GoLiveDate</span>
+                                    @Html.DisplayFor(model => model.GoLiveDateTime)
+                                </div>
+                                <div class="col-lg-12 checkMargin">
+                                    <span class="span_bold">Video Type</span>
+                                    @Html.DisplayFor(model => model.VideoType)
+                                </div>
+                                <div class="col-lg-12 checkMargin">
+                                    <span class="span_bold">Video Player Type</span>
+                                    @Html.DisplayFor(model => model.VideoPlayer)
+                                </div>
+                                <div class="col-lg-12 checkMargin">
+                                    <span class="span_bold">Video File</span>
+                                    @Html.DisplayFor(model => model.VideoFile)
+                                </div>
+                                <div class="col-lg-6 hidden">
+                                    <span class="span_bold">User Id</span>
+                                    @Html.DisplayFor(model => model.UserId)
+                                </div>
+                            </div>
+                        </div>
+
+     
+                            @*<dt>
+                                @Html.DisplayNameFor(model => model.Duration)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Duration)
+                            </dd>*@
+                           
+            
+                        @*<dt>
+                            @Html.DisplayNameFor(model => model.Views)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Views)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Likes)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Likes)
+                        </dd>*@
+                    
+       @* <div class="col-lg-6">
+                        <dt class="col-lg-6">
+                            @Html.DisplayNameFor(model => model.VideoThumbnil)
+                        </dt>
+                        <dd class="col-lg-6">
+                            @Html.DisplayFor(model => model.VideoThumbnil)
+                        </dd>
+        </div>
+        
+
+                    <dt class="col-lg-6">
+                        @Html.DisplayNameFor(model => model.VideoURL)
+                    </dt>
+                    <dd class="col-lg-6">
+                        @Html.DisplayFor(model => model.VideoURL)
+                    </dd>
+
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VideoImage)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VideoImage)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GoLiveDateTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GoLiveDateTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VideoType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VideoType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VideoPlayer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VideoPlayer)
+        </dd>
+        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VideoFile)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VideoFile)
+        </dd>
+        <dt class = "col-sm-2 hidden">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class = "col-sm-10 hidden">
+            @Html.DisplayFor(model => model.UserId)
+        </dd>*@
+       
+       
+       
+    </div>
+    </form>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+            @section Scripts {
+                @{
+                    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                }
+            }
+</div>
+
+</div>
+    <div class="go-top">
+        <i class="ri-arrow-up-s-fill"></i>
+        <i class="ri-arrow-up-s-fill"></i>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/metismenu.min.js"></script>
+    <script src="assets/js/simplebar.min.js"></script>
+    <script src="assets/js/geticons.js"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
+    <script src="assets/js/jbox.all.min.js"></script>
+    <script src="assets/js/editor.js"></script>
+    <script src="assets/js/form-validator.min.js"></script>
+    <script src="assets/js/contact-form-script.js"></script>
+    <script src="assets/js/ajaxchimp.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+</body>
+
+

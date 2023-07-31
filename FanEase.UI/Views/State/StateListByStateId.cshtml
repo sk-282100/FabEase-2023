@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FanEase.UI.Models.State.StateVm>
+
+@{
+    ViewData["Title"] = "StateListByStateId";
+    Layout = "FanEaseLayout";
+}
+
+<body class="body-bg-f8faff">
+    <div class="contact-list-area">
+        <div class="container-fluid">
+            <div class="table-responsive" data-simplebar>
+                <div class="others-title">
+                    <h3>State List By Id</h3>
+                </div>
+<p>
+    <a asp-action="AddState">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StateId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StateName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+</body>
