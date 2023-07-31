@@ -107,6 +107,18 @@ namespace FanEase_CQRS.Controllers
         }
 
         [HttpGet]
+        [Route("AddViewer/{viewerId}")]
+        public async Task<ActionResult> AddViewer(string viewerId)
+        {
+            ResponseModel<bool> result = await _meadiator.Send(new AddViewerCommand(viewerId));
+            if (result.data)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
         [Route("RemoveCreator/{creatorId}")]
         public async Task<ActionResult> RemoveCreator(string creatorId)
         {

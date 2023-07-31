@@ -62,7 +62,7 @@ namespace FanEase.UI.Controllers
                 {
                     string data = response.Content.ReadAsStringAsync().Result;
                 }
-                return RedirectToAction("UnderConstruction", "Home");
+                return RedirectToAction("VideoListByUSerId", new { userId = addVideoVm.UserId });
             }
         }
 
@@ -112,11 +112,18 @@ namespace FanEase.UI.Controllers
             {
                 using (var response = await httpclient.DeleteAsync($"https://localhost:7208/api/Video/{VideoId}"))
                 {
-
+                    var UserId = HttpContext.Session.GetString("UserId");
                     string data = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
 
-                    return RedirectToAction("VideoList");
+                    if (HttpContext.Session.GetString("role") == "Admin")
+                    {
+                        return RedirectToAction("VideoList");
+                    }
+                    else
+                    {
+                        return RedirectToAction("VideoListByUSerId", new { userId = UserId });
+                    }
                 }
             }
         }

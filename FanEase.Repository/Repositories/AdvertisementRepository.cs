@@ -15,7 +15,7 @@ namespace FanEase.Repository.Repositories
     public class AdvertisementRepository : IAdvertisementRepository
     {
         readonly IConfiguration _configuration;
-        string connectionString;
+        string? connectionString;
 
         public AdvertisementRepository(IConfiguration configuration)
         {

@@ -118,7 +118,7 @@ namespace FanEase.Repository.Repositories
             {
                 _user = connection.Query<User>("GetUserByUserName", new { @UsertName = loginDto.Email }, commandType: CommandType.StoredProcedure).FirstOrDefault();
                 bool isValidate = (loginDto.Password == _user.Password);
-                if (_user == null || isValidate == false)
+                if (_user == null || isValidate == false || _user.isActive==false)
                 {
                     return null;
                 }
@@ -281,6 +281,21 @@ END;*/
                 connection.Open();
 
                 var result = connection.Execute("RemoveCreatorSP", new { @UserId = creatorId }, commandType: CommandType.StoredProcedure);
+                if (result > 0)
+                    return true;
+
+                return false;
+
+            }
+        }
+
+        public async Task<bool> AddViewer(string viewerId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute("AddViewerSP", new { @UserId = viewerId }, commandType: CommandType.StoredProcedure);
                 if (result > 0)
                     return true;
 

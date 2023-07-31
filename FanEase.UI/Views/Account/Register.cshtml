@@ -6,6 +6,23 @@
 }
 
  <head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <script>
+        function showErrorAlert(message) {
+
+            Swal.fire({
+                title: 'Failure',
+                text: message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            @:showErrorAlert("@Html.Raw(ViewBag.ErrorMessage)");
+        }
+    </script>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -36,14 +53,22 @@
 		<link rel="icon" type="image/png" href="assets/images/favicon.svg">
 		<!-- Title -->
 		<title>FanEase - Register</title>
+
+        <style>
+        #formId{
+            margin-top:40px;
+
+        }
+        </style>
+
     </head>
 
 <!-- Start Account Area -->
-<div class="account-area">
+<div class="account-area" >
     <div class="d-table">
-        <div class="d-table-cell">
+        <div class="d-table-cell" >
             <div class="container">
-                <div class="account-content">
+                <div class="edit-profile-content card-box-style" id="formId">
                     <div class="account-header">
                         <a href="index.html">
                             <img src="assets\images\FanEase\Logo-Index.png" height="50px" width="50px" alt="main-logo">
@@ -51,52 +76,93 @@
                         <h3>Registration</h3>
                     </div>
 
-                    <form class="account-wrap">
-                        <div class="form-group mb-24 icon">
-                            <input type="text" class="form-control" placeholder="Email">
-                            <img src="assets/images/icon/user-square.svg" alt="user-square">
-                        </div>
-                        <div class="form-group mb-24 icon">
-                            <input type="email" class="form-control" placeholder="Email">
-                            <img src="assets/images/icon/sms.svg" alt="sms">
-                        </div>
-                        <div class="form-group mb-24 icon">
-                            <input type="password" class="form-control" placeholder="Password">
-                            <img src="assets/images/icon/key.svg" alt="key">
-                        </div>
-                        <div class="form-group mb-24">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    I agree <a href="terms.html">Terms & Policy</a>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mb-24">
-                            <button type="submit" class="default-btn">Registration</button>
-                        </div>
-                        <div class="form-group mb-24">
-                            <p class="account">Already Have An Account? <a href="Login">Log In</a></p>
-                        </div>
-                    </form>
+                        <form asp-action="Register" enctype="multipart/form-data" class="account-wrap" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <span>Profile Photo</span><span class="text-danger">*</span>
+                                        <input asp-for="ProfilePhoto" type="file" accept="image/*" class="form-control" />
 
-                    <ul class="account-social-link">
-                        <li>
-                            <a href="https://www.google.com/" target="_blank">
-                                <i class='bx bxl-google'></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/" target="_blank">
-                                <i class='bx bxl-facebook'></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.twitter.com/" target="_blank">
-                                <i class='bx bxl-twitter'></i>
-                            </a>
-                        </li>
-                    </ul>
+                                        <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <span>First Name</span><span class="text-danger">*</span>
+                                        <input asp-for="FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <span>Last Name</span><span class="text-danger">*</span>
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <span>Email</span><span class="text-danger">*</span>
+                                        <input asp-for="Email" type="email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <span>Contact Number</span><span class="text-danger">*</span>
+                                        <input asp-for="ContactNo" class="form-control" />
+                                        <span asp-validation-for="ContactNo" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <span>Address</span><span class="text-danger">*</span>
+                                    <input asp-for="Address" class="form-control" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <span>City</span><span class="text-danger">*</span>
+                                        <input asp-for="City" class="form-control" />
+                                        <span asp-validation-for="City" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <span>Country</span><span class="text-danger">*</span>
+                                        <input asp-for="Country" class="form-control" />
+                                        <span asp-validation-for="Country" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="text-end edit-massage">
+
+                                <input class="btn btn-secondary" type="button" onclick="location.href='@Url.Action("Login","Account")'" value="Back to Login" />
+                                <input type="reset" value="Reset" class="btn btn-danger" />
+                                <input type="submit" value="Register" class="btn btn-success" />
+
+
+                            </div>
+
+
+                        </form>
+
                 </div>
             </div>
         </div>

@@ -247,7 +247,7 @@ namespace FanEase.UI.Controllers
                     creator = JsonConvert.DeserializeObject<ResponseModel<CreatorVM>>(data).data;
 
                 }
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/user/{creatorId}"))
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementsByUser/{creatorId}"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
                     try

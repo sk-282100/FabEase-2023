@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "VideoListByUSerId";
     Layout = "AdminLayout";
+    string role = HttpContextAccessor.HttpContext.Session.GetString("role");
 
 }
 
@@ -48,9 +49,12 @@
         <div class="container-fluid">
             <div class="table-responsive" data-simplebar>
                 <div class="others-title">
-                    <p align="right">
-                        <a asp-action="AddVideo"><input type="button" value="Add Video" class="btn btn-primary" /> </a>
-                    </p>
+                    @if (role == "Creator")
+                    {
+                        <p align="right">
+                            <a asp-action="AddVideo"><input type="button" value="Add Video" class="btn btn-primary" /> </a>
+                        </p>
+                    }
                     <h3>
                         Video List of Creator
                     </h3>

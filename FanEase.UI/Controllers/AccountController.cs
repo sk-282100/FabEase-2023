@@ -83,12 +83,19 @@ namespace FanEase.UI.Controllers
                             else
                                 return RedirectToAction("SetPassword", "Account");
                         }
+                        else if (roles == "Viewer")
+                        {
+                            if (login.Password != Password)
+                                return RedirectToAction("UnderConstruction");
+                            else
+                                return RedirectToAction("SetPassword", "Account");
+                        }
                         return RedirectToAction("Login");
                     }
                     catch
                     {
                         ViewBag.NotAllowed = "Invalid UserName or Password";
-                        return View();
+                        return View(login);
                     }
 
                 }
@@ -256,7 +263,7 @@ namespace FanEase.UI.Controllers
         }
 
 
-
+        
 
 
 
@@ -265,6 +272,106 @@ namespace FanEase.UI.Controllers
         {
             return View();
         }
+
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(RegisterVm viewer)
+        {
+            string imagePath = await SaveImageAsync(viewer.ProfilePhoto);
+            if (imagePath.Contains(".jpg") || imagePath.Contains(".jpeg") || imagePath.Contains(".png"))
+            {
+                User user = new User()
+                {
+                    ProfilePhoto = imagePath,
+                    FirstName = viewer.FirstName,
+                    LastName = viewer.LastName,
+                    VideoCount = 0,
+                    Address = viewer.Address,
+                    Country = viewer.Country,
+                    City = viewer.City,
+                    Email = viewer.Email,
+                    ContactNo = viewer.ContactNo,
+                    isActive = true,
+                    CreationDate = DateTime.Now,
+                    UserName = viewer.Email,
+                    Password = viewer.FirstName + "@123"
+
+                };
+
+                using (var httpclient = new HttpClient())
+                {
+                    StringContent PostUser = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                    using (var response = await httpclient.PostAsync($"https://localhost:7208/api/User", PostUser))
+                    {
+
+                        string data = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+                        if (result.message == "Email Exists")
+                        {
+                            ViewBag.ErrorMessage = "Already Registered User with same Email Address try again";
+                            return View();
+                        }
+
+                        if (result.message == "ContactNo Exists")
+                        {
+                            ViewBag.ErrorMessage = "Already Registered User with same Contact Number try again";
+                            return View();
+                        }
+
+                        if (result.Succeed)
+                        {
+                            string userid = viewer.FirstName.Substring(0, 1) + viewer.LastName.Substring(0, 1) + viewer.ContactNo.Substring(viewer.ContactNo.Length - 4);
+                            using (var response1 = await httpclient.GetAsync($"https://localhost:7208/api/User/AddViewer/{userid}"))
+                            {
+                                string data1 = response1.Content.ReadAsStringAsync().Result;
+
+                            }
+
+                            Entity.Models.CredentialVM credentails = new Entity.Models.CredentialVM();
+                            credentails = new Entity.Models.CredentialVM()
+                            {
+                                Email = user.Email,
+                                ContactNo = user.ContactNo,
+                                UserName = user.UserName,
+                                Password = user.Password
+
+                            };
+                            StringContent Credcontent = new StringContent(JsonConvert.SerializeObject(credentails), Encoding.UTF8, "application/json");
+                            using (var resp = await httpclient.PostAsync($"https://localhost:7208/api/Account/SendCredentials", Credcontent))
+                            {
+                                string data1 = response.Content.ReadAsStringAsync().Result;
+
+                            }
+                            return RedirectToAction("Login");
+                        }
+
+
+
+                    }
+
+                }
+
+            }
+            ViewBag.ErrorMessage = " only files with .jpg, .jpeg & .png are allowed";
+            return View();
+        }
+
+        private async Task<string> SaveImageAsync(IFormFile image)
+        {
+            var uploadPath = Path.Combine("wwwroot", "UploadImage", "Creator");
+            var imageName = Path.GetRandomFileName();
+            var imageExtension = Path.GetExtension(image.FileName);
+
+            var imagePath = Path.Combine(uploadPath, imageName + imageExtension);
+
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await image.CopyToAsync(fileStream);
+            }
+
+            return (Path.Combine("UploadImage", "Creator", imageName + "." + imageExtension));
+        }
+
 
 
         [HttpGet]
