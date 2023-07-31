@@ -1,9 +1,295 @@
-﻿
+﻿@model FanEase.UI.Models.User.AdminDashboardVM
 @{
     ViewData["Title"] = "AdminDashboard";
     Layout = "AdminLayout";
 }
 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<img class="image" src="../assets/images/maintenancebg.jpg" width="1400px" height="auto" alt="main-logo">
+    <!-- Link Of CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/remixicon.css">
+    <link rel="stylesheet" href="../assets/css/boxicons.min.css">
+    <link rel="stylesheet" href="../assets/css/iconsax.css">
+    <link rel="stylesheet" href="../assets/css/metismenu.min.css">
+    <link rel="stylesheet" href="../assets/css/simplebar.min.css">
+    <link rel="stylesheet" href="../assets/css/calendar.css">
+    <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../assets/css/jbox.all.min.css">
+    <link rel="stylesheet" href="../assets/css/editor.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/loaders.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    <!-- Title -->
+    <title>Admin Dashboard</title>
+</head>
+
+
+
+
+    <div class="overview-area">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="overview-content-wrap card-box-style">
+                        <div class="overview-content d-flex justify-content-between align-items-center">
+                            <div class="overview-title">
+                                <h3>FanEase Overview</h3>
+                               
+                            </div>
+                        </div>
+
+                        <div class="audience-content-wrap">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="single-audience d-flex justify-content-between align-items-center">
+                                        <div class="audience-content">
+                                            <h5>Content Creators</h5>
+                                            <h4>@Model.CreatorCount <span>+55%</span></h4>
+                                        </div>
+                                        <div class="icon">
+                                            <img src="../assets/images/icon/white-profile-2user.svg" alt="white-profile-2user">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                        <div class="col-lg-2 col-sm-6">
+                                            <div class="single-audience d-flex justify-content-between align-items-center">
+                                                <div class="audience-content">
+                                                    <h5>Advertisement</h5>
+                                                    <h4>@Model.AdvertisementCount <span>+55%</span></h4>
+                                                </div>
+                                                <div class="icon">
+                                                    <img src="../assets/images/icon/send-2.svg" alt="white-profile-2user">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="single-audience d-flex justify-content-between align-items-center">
+                                        <div class="audience-content color-style-fe5957">
+                                            <h5>Video Uploaded</h5>
+                                            <h4>@Model.VideoCount <span>+32%</span></h4>
+                                        </div>
+                                        <div class="icon">
+                                            <img src="../assets/images/icon/video-2.svg" alt="eye">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="single-audience d-flex justify-content-between align-items-center">
+                                        <div class="audience-content">
+                                            <h5>Advertisement Clicks</h5>
+                                            <h4>0 <span>+23%</span></h4>
+                                        </div>
+                                        <div class="icon">
+                                            <img src="../assets/images/icon/export.svg" alt="timer">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="single-audience d-flex justify-content-between align-items-center">
+                                        <div class="audience-content color-style-fe5957">
+                                            <h5>Views on Videos</h5>
+                                            <h4>@Model.Views <span>-15%</span></h4>
+                                        </div>
+                                        <div class="icon">
+                                            <img src="../assets/images/icon/eye.svg" alt="mask">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                         <div class="row">
+                            <div class="col-lg-6">
+                                <div class="traffic-content card-box-style">
+                                    <div class="main-title d-flex justify-content-between align-items-center">
+                                        <h3>Traffic Channel</h3>
+
+                                        <select class="form-select form-control" aria-label="Default select example">
+                                            <option selected>15 days</option>
+                                            <option value="1">16 days</option>
+                                            <option value="2">17 days</option>
+                                            <option value="3">18 days</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="traffic-chart text-center">
+                                        <div id="traffic_chart"></div>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        
+                                        <div class="col-xxl-3 col-md-3 col-sm-3">
+                                            <div class="single-traffic">
+                                                <span class="title">Organic Search</span>
+                                                <h4>19,202 <span>+32.50%</span></h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-3 col-md-3 col-sm-3">
+                                            <div class="single-traffic border-style-5c31d6">
+                                                <span class="title">Social Media</span>
+                                                <h4>15,202 <span>+32.50%</span></h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-3 col-md-3 col-sm-3">
+                                            <div class="single-traffic border-style-4fcb8d">
+                                                <span class="title">Email</span>
+                                                <h4>502 <span>+2%</span></h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-3 col-md-3 col-sm-3">
+                                            <div class="single-traffic border-style-fec107">
+                                                <span class="title">Referrals</span>
+                                                <h4>1,202 <span>+32.50%</span></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-lg-6">
+                                <div class="total-visits-browse-area">
+                                    <div class="container-fluid">
+                                        <div class="row justify-content-center">
+                                            
+                                                <div class="total-visits-content card-box-style">
+                                                    <div class="main-title d-flex justify-content-between align-items-center">
+                                                        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                                            <li class="nav-item" role="presentation">
+                                                                <button class="nav-link active" id="topvideo-tab" data-bs-toggle="tab" data-bs-target="#topvideo-tab-pane" type="button" role="tab" aria-controls="topvideo-tab-pane" aria-selected="true">Top Videos</button>
+                                                            </li>
+                                                            <li class="nav-item" role="presentation">
+                                                                <button class="nav-link" id="topcampaign-tab" data-bs-toggle="tab" data-bs-target="#topcampaign-tab-pane" type="button" role="tab" aria-controls="topcampaign-tab-pane" aria-selected="false">Top Campaigns</button>
+                                                            </li>
+                                                        </ul>
+
+                                                        <select class="form-select form-control" aria-label="Default select example">
+                                                            <option selected>30 days</option>
+                                                            <option value="1">15 days</option>
+                                                            <option value="2">10 days</option>
+                                                            <option value="3">7 days</option>
+                                                            <option value="4">1 day</option>
+                                                        </select>
+                                                    </div>
+                                                     <div class="tab-content" id="myTabContent">
+                                                        <div class="tab-pane fade show active" id="topvideo-tab-pane" role="tabpanel" aria-labelledby="topvideo-tab" tabindex="0">
+                                                    <table class="table align-middle">
+                                                        <thead align="center">
+                                                            <tr>
+                                                                <th scope="col">LINK</th>
+                                                                <th scope="col">VIDEO TITLE</th>
+                                                                <th scope="col">VIEWS</th>
+                                                                <th scope="col">LIKES</th>
+                                                                <th scope="col">TIME</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach(var videos in Model.Videos){
+                                                            <tr align="center">
+                                                                <td scope="row">
+                                                                    <a href="index.html">
+                                                                        <img src="../assets/images/icon/link.svg" alt="link">
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <span>@videos.Title</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>@videos.Views</span>
+                                                                </td>
+                                                                <td >
+                                                                    <span>@videos.Likes</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>@videos.Duration</span>
+                                                                </td>
+                                                            </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
+
+                                                        <div class="tab-pane fade show active" id="topcampaign-tab-pane" role="tabpanel" aria-labelledby="topcampaign-tab" tabindex="0">
+                                                            <table class="table align-middle">
+                                                                <thead>
+                                                                    <tr align="center">
+                                                                        <th scope="col">LINK</th>
+                                                                        <th scope="col">CAMPAIGN TITLE</th>
+                                                                        <th scope="col">ENGAEMENET</th>
+                                                                        <th scope="col">USER ID</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach(var campaign in Model.Campaigns){
+                                                                    <tr align="center">
+                                                                        <td scope="row">
+                                                                            <a href="index.html">
+                                                                                <img src="../assets/images/icon/link.svg" alt="link">
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>@campaign.name</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>@campaign.engagement</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>@campaign.userId</span>
+                                                                        </td>
+                                                                      
+                                                                    </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                           
+
+                                       </div>     
+                                </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+        </div>
+    </div>
+
+
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/owl.carousel.min.js"></script>
+<script src="../assets/js/metismenu.min.js"></script>
+<script src="../assets/js/simplebar.min.js"></script>
+<script src="../assets/js/apexcharts/apexcharts.min.js"></script>
+<script src="../assets/js/apexcharts/website-analytics.js"></script>
+<script src="../assets/js/geticons.js"></script>
+<script src="../assets/js/calendar.js"></script>
+<script src="../assets/js/editor.js"></script>
+<script src="../assets/js/form-validator.min.js"></script>
+<script src="../assets/js/contact-form-script.js"></script>
+<script src="../assets/js/ajaxchimp.min.js"></script>
+<script src="../assets/js/custom.js"></script>
 

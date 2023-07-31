@@ -22,15 +22,23 @@ namespace FanEase.UI.Controllers
         {
             _mapper = mapper;
         }
-
         [HttpGet]
-        public IActionResult AdminDashboard()
+        public async Task<IActionResult> AdminDashboard()
         {
-            if (HttpContext.Session.GetString("role") == "Admin")
+
+            ResponseModel<AdminDashboardVM> responseModel = new ResponseModel<AdminDashboardVM>();
+
+            using (var httpclient = new HttpClient())
             {
-                return View();
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Dashboard/Get"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    responseModel = JsonConvert.DeserializeObject<ResponseModel<AdminDashboardVM>>(data);
+                }
+
             }
-            return RedirectToAction("Login", "Account");
+            
+            return View(responseModel.data);
         }
 
         [HttpGet]
