@@ -1,0 +1,43 @@
+﻿@model FanEase.UI.Models.State.StateVm
+
+@{
+    ViewData["Title"] = "RemoveState";
+    Layout = "FanEaseLayout";
+}
+
+<body class="body-bg-f8faff">
+    <div class="contact-list-area">
+        <div class="container-fluid">
+            <div class="table-responsive" data-simplebar>
+                <div class="others-title">
+                    <h3>Remove State</h3>
+                </div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StateId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StateId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StateName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StateName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CountryId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CountryId)
+        </dd>
+    </dl>
+    
+    <form asp-action="RemoveState">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+</div>
+</div>
+</body>
