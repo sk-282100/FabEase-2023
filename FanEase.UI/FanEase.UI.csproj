@@ -17,4 +17,10 @@
     <ProjectReference Include="..\FanEase.Entity\FanEase.Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\State\" />
+    <Folder Include="Views\State\" />
+    <Folder Include="wwwroot\UploadAdvertisement\" />
+  </ItemGroup>
+
 </Project>
