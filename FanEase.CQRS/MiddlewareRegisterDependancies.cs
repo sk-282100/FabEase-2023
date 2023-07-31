@@ -4,6 +4,7 @@ using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Commands.ForCampaign;
 using FanEase.Middleware.Data.Commands.ForCampaignAdvertisement;
 using FanEase.Middleware.Data.Commands.ForPlayer;
+using FanEase.Middleware.Data.Commands.ForState;
 using FanEase.Middleware.Data.Commands.ForTemplate;
 using FanEase.Middleware.Data.Commands.ForTemplateDetails;
 using FanEase.Middleware.Data.Commands.ForUser;
@@ -13,6 +14,7 @@ using FanEase.Middleware.Data.Handler.ForCampaign;
 using FanEase.Middleware.Data.Handler.ForCampaignAdvertisement;
 using FanEase.Middleware.Data.Handler.ForDashboard;
 using FanEase.Middleware.Data.Handler.ForPlayer;
+using FanEase.Middleware.Data.Handler.ForState;
 using FanEase.Middleware.Data.Handler.ForTemplate;
 using FanEase.Middleware.Data.Handler.ForTemplateDetails;
 using FanEase.Middleware.Data.Handler.ForUser;
@@ -22,6 +24,7 @@ using FanEase.Middleware.Data.Queries.ForCampaign;
 using FanEase.Middleware.Data.Queries.ForCampaignAdvertisement;
 using FanEase.Middleware.Data.Queries.ForDashboard;
 using FanEase.Middleware.Data.Queries.ForPlayer;
+using FanEase.Middleware.Data.Queries.ForState;
 using FanEase.Middleware.Data.Queries.ForTemplate;
 using FanEase.Middleware.Data.Queries.ForTemplateDetails;
 using FanEase.Middleware.Data.Queries.ForUser;
@@ -116,7 +119,14 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<UpdateTemplateCommand, ResponseModel<bool>>, UpdateTemplateHandler>();
             services.AddScoped<IRequestHandler<DeleteTemplateCommand, ResponseModel<bool>>, DeleteTemplateHandler>();
             services.AddScoped<IRequestHandler<GetAllTemplatesByUserQuery, ResponseModel<List<TemplateListDTO>>>, GetAllTemplatesByUserQueryHandler>();
-            services.AddScoped<IRequestHandler<AdminDashBoardQuery,ResponseModel<AdminDashboardDTO>>,AdminDashBoardQueryHandler>();
+
+            //For State
+            services.AddScoped<IRequestHandler<StateCreateCommand, ResponseModel<bool>>, CreateStateHandler>();
+            services.AddScoped<IRequestHandler<StateDeleteCommand, ResponseModel<bool>>, DeleteStateHandler>();
+            services.AddScoped<IRequestHandler<GetStateListByIdQuery, ResponseModel<State>>, GetAllStateHandler>();
+            services.AddScoped<IRequestHandler<GetStateListQuery, ResponseModel<List<State>>>, GetStateListHandler>();
+            services.AddScoped<IRequestHandler<StateUpdateCommand, ResponseModel<bool>>, UpdateStateHandler>();
+
             return services;
         }
     }

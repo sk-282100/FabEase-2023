@@ -4,6 +4,7 @@ using FanEase.UI.Models;
 using FanEase.UI.Models.Creator;
 using FanEase.UI.Models.Videos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -13,6 +14,7 @@ namespace FanEase.UI.Controllers
     public class AdvertisementController : Controller
     {
         readonly IMapper _mapper;
+        bool flag;
         public AdvertisementController(IMapper mapper)
         {
             mapper = _mapper;
@@ -54,12 +56,14 @@ namespace FanEase.UI.Controllers
 
         public async Task<IActionResult> AdvertisementList()
         {
+             
             ResponseModel<List<AdvertisementListVM>> responseModel = new ResponseModel<List<AdvertisementListVM>>();
 
             using (var httpclient = new HttpClient())
             {
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/AdvertisementListScreen"))
                 {
+                    flag = true;
                     string data = await response.Content.ReadAsStringAsync();
                     responseModel = JsonConvert.DeserializeObject<ResponseModel<List<AdvertisementListVM>>>(data);
                 }
@@ -79,6 +83,9 @@ namespace FanEase.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> AdvertisementListScreenByUserId(string userId)
         {
+            string UserId = "AT10";
+            //string UserId = HttpContext.Session.GetString("UserId");
+            userId = UserId;
 
             List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
 
@@ -105,13 +112,12 @@ namespace FanEase.UI.Controllers
             {
                 using (var response = await httpclient.DeleteAsync($"https://localhost:7208/api/Advertisement/DeleteAdvertisement/{advertisementId}"))
                 {
-
+                
 
                     string data = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
-                    string UserId = HttpContext.Session.GetString("UserId"); 
 
-                    return RedirectToAction("AdvertisementListScreenByUserId", new { userId = UserId });
+                    return RedirectToAction("AdvertisementListScreenByUserId");
                 }
             }
         }
@@ -147,10 +153,10 @@ namespace FanEase.UI.Controllers
         public async Task<IActionResult> EditAdvertisementPost(Advertisement advertisement)
         {
 
-            Advertisement advertisement1 = _mapper.Map<Advertisement>(advertisement);
+            
             using (var httpclient = new HttpClient())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(advertisement1), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(advertisement), Encoding.UTF8, "application/json");
                 using (var response = await httpclient.PutAsync($"https://localhost:7208/api/Advertisement/EditAdvertisement", content))
                 {
                     string data = await response.Content.ReadAsStringAsync();
