@@ -191,7 +191,7 @@
                         <ul class="list-group flex-column d-inline-block submenu">
                             <li class="list-group-item"><h5>FanEase Analysis</h5></li>
                             <li class="list-group-item">
-                                <a href="website-analytics.html" class="active">DashBoard</a>
+                                <a asp-action="AdminDashboard" asp-controller="Admin" class="active">DashBoard</a>
                             </li>
                             <li class="list-group-item">
                                 <a href="UnderConstruction">Viewer Mode</a>
@@ -223,7 +223,7 @@
                                 <a asp-action="AdvertisementList" asp-controller="Advertisement" >Advertisement List</a>
                             </li>
                             <li class="list-group-item">
-                                <a href="AddCreator">Add Creator from Existing Users</a>
+                                <a asp-action="AddCreator" asp-controller="Admin">Add Creator from Existing Users</a>
                             </li>
                         </ul>
                     </li>
@@ -286,7 +286,7 @@
                                 <a onclick="location.href='@Url.Action("CampaignListScreenByUserId","Campaign",new{userId=uid})'">All Campaigns</a>
                                 </li>
                                 <li class="list-group-item">
-                                <a asp-action="AddCampaignss" asp-controller="Campaign">Add Campaign</a>
+                                <a asp-action="AddCampaign" asp-controller="Campaign">Add Campaign</a>
                                 </li>
                                 <li class="list-group-item">
                                 <a href="UnderConstruction">Top Campaign</a>

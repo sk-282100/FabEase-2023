@@ -10,5 +10,6 @@ namespace FanEase.Repository.Interfaces
         Task<Campaigns> GetCampaignById(int campaignId);
         Task<int> UpdateCampaign(Campaigns campaign);
         Task<List<CampaignListScreenVm>> CampaignListScreenByUserId(string userId);
+        Task<int> LatestAddedCampaign(string userId);
     }
 }

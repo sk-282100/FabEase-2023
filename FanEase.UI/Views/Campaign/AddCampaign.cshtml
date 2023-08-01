@@ -1,10 +1,11 @@
 ﻿@model FanEase.UI.Models.Campaignvm
 @inject IHttpContextAccessor HttpContextAccessor;
 @{
-    ViewData["Title"] = "AddCampaignss";
+    ViewData["Title"] = "AddCampaign";
     Layout = "AdminLayout";
-    
+
     string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    int? VideoId = HttpContextAccessor.HttpContext.Session.GetInt32("videoId");
 }
 <head>
     <meta charset="utf-8">
@@ -20,7 +21,7 @@
     <link rel="stylesheet" href="~/assets/css/iconsax.css">
     <link rel="stylesheet" href="~/assets/css/metismenu.min.css">
     <link rel="stylesheet" href="~/assets/css/simplebar.min.css">
-    <link rel="stylesheet" href="~/assets/css/calendar.css">
+  
     <link rel="stylesheet" href="~/assets/css/sweetalert2.min.css">
     <link rel="stylesheet" href="~/assets/css/jbox.all.min.css">
     <link rel="stylesheet" href="~/assets/css/editor.css">
@@ -52,7 +53,7 @@
                     </div>
 
 
-                    <form asp-action="AddCampaignss" asp-controller="Campaign" method="post" id="myForm">
+                    <form asp-action="AddCampaign" asp-controller="Campaign" method="post" id="myForm">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="row hidden">
                             <div class="col-md-6 sol-sm-12">
@@ -93,10 +94,15 @@
 
                                 </div>
                             </div>
-                            <div class="save-update">
+                            <div class="save-update col-sm-7" align="right">
                                 <input onclick="myCancelFunction()" type="button" value="Cancel" class="btn btn-danger" id="btnReset" />
                                 &nbsp;
-                                <input type="submit" value="Submit" class="btn btn-primary float-right" />
+                                <input type="submit" value="Save" class="btn btn-secondary float-right" />
+                                &nbsp;
+                                @if (VideoId != null)
+                                {
+                                    <input type="submit" asp-action="AddCampaignProceed" asp-controller="Campaign" value="Proceed" class="btn btn-primary float-right" />
+                                }
                             </div>
                         </div>
                     </form>
@@ -117,13 +123,13 @@
     }
     <!-- JavaScript files -->
     <script src="~/assets/js/jquery.min.js"></script>
-    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
     <script src="~/assets/js/owl.carousel.min.js"></script>
     <script src="~/assets/js/metismenu.min.js"></script>
     <script src="~/assets/js/simplebar.min.js"></script>
     <script src="~/assets/js/geticons.js"></script>
     <script src="~/assets/js/sweetalert2.all.min.js"></script>
-    <script src="~/assets/js/jbox.all.min.js"></script>
+
     <script src="~/assets/js/editor.js"></script>
     <script src="~/assets/js/form-validator.min.js"></script>
     <script src="~/assets/js/contact-form-script.js"></script>

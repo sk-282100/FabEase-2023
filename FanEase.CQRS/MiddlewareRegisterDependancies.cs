@@ -127,6 +127,10 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetStateListQuery, ResponseModel<List<State>>>, GetStateListHandler>();
             services.AddScoped<IRequestHandler<StateUpdateCommand, ResponseModel<bool>>, UpdateStateHandler>();
 
+            services.AddScoped<IRequestHandler<AdminDashBoardQuery, ResponseModel<AdminDashboardDTO>>, AdminDashBoardQueryHandler>();
+            services.AddScoped<IRequestHandler<LatestAddedVideoQuery, ResponseModel<int>>, LatestAddedVideoQueryHandler>();
+            services.AddScoped<IRequestHandler<AssignCampaignCommand, ResponseModel<bool>>, AssignCampaignCommandHandler>();
+            services.AddScoped<IRequestHandler<LatestAddedCampaignQuery, ResponseModel<int>>, LatestAddedCampaignQueryHandler>();
             return services;
         }
     }

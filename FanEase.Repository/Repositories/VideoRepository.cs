@@ -162,5 +162,36 @@ namespace FanEase.Repository.Repositories
 
             return videos;
         }
+
+        public async Task<int> LatestAddedVideo(string userId)
+        {
+            int videoId;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                videoId = connection.ExecuteScalar<int>("LatestAddedVideoSP", new {@UserId= userId }, commandType: CommandType.StoredProcedure);
+                
+            }
+
+            return videoId;
+        }
+
+  
+
+        public async Task<bool> AssignCampaign(int? videoId, int? campaignId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var result = connection.Execute("AssignCampaignSP", new {@VideoId=videoId,@CampaignId=campaignId}, commandType: CommandType.StoredProcedure);
+                
+                if (result > 0)
+                    return true;
+                return false;
+            }
+        }
     }
+
 }

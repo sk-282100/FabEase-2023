@@ -25,8 +25,10 @@ namespace FanEase.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> AdminDashboard()
         {
+            if (HttpContext.Session.GetString("role") == "Admin")
+            {
 
-            ResponseModel<AdminDashboardVM> responseModel = new ResponseModel<AdminDashboardVM>();
+                ResponseModel<AdminDashboardVM> responseModel = new ResponseModel<AdminDashboardVM>();
 
             using (var httpclient = new HttpClient())
             {
@@ -39,6 +41,8 @@ namespace FanEase.UI.Controllers
             }
             
             return View(responseModel.data);
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]

@@ -63,6 +63,14 @@ namespace FanEase.UI.Controllers
 
             return View(TemplateList);
         }
+
+
+        [HttpGet]
+        public IActionResult UnderConstruction()
+        {
+            return View();
+        }
+
     }
 
 }

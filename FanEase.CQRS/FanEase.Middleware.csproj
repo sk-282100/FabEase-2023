@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Commands\ForCreatorDashBoard\" />
-	  <Folder Include="Data\Commands\ForCampaign\" />
 	  <Folder Include="Data\Commands\ForPlayer\" />
     <Folder Include="Data\Commands\ForTeam\" />
     <Folder Include="Data\Commands\ForState\" />
