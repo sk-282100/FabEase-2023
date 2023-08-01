@@ -222,5 +222,13 @@ namespace FanEase.UI.Controllers
                 return View();
             }
         }
+
+
+        [HttpGet]
+        public IActionResult UnderConstruction()
+        {
+            return View();
+        }
+
     }
 }

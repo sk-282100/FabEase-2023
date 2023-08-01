@@ -30,6 +30,7 @@ namespace FanEase.Repository
             services.AddScoped<IDashBoardRepository,DashBoardRepository>();
           
             services.AddScoped<IStateRepository, StateRepository>();
+            
 
             return services;
         }

@@ -87,5 +87,19 @@ namespace FanEase.Repository.Repositories
             }
         }
 
+        public async Task<int> LatestAddedCampaign(string userId)
+        {
+            int campaignId;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                campaignId = connection.ExecuteScalar<int>("LatestAddedCampaignSP", new { @UserId = userId }, commandType: CommandType.StoredProcedure);
+
+            }
+
+            return campaignId;
+        }
     }
 }

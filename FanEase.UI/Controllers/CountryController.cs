@@ -170,7 +170,15 @@ namespace FanEase.UI.Controllers
             }
             
         }
-        
+
+
+        [HttpGet]
+        public IActionResult UnderConstruction()
+        {
+            return View();
+        }
+
+
 
     }
 }

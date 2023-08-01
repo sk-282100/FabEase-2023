@@ -67,6 +67,44 @@ namespace FanEase.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> AddVideoProceed(AddVideoVm addVideoVm)
+        {
+            if (addVideoVm.UploadVideo != null)
+            {
+                addVideoVm.VideoFile = await SaveVideo(addVideoVm.UploadVideo);
+                if (addVideoVm.VideoFile == null)
+                {
+                    return View(addVideoVm);
+                }
+            }
+            addVideoVm.VideoImage = await SaveThumnail(addVideoVm.UploadVideoImage);
+            if (addVideoVm.VideoImage == null)
+            {
+                return View(addVideoVm);
+            }
+            addVideoVm.VideoThumbnil = addVideoVm.VideoImage;
+            AddVideoVm video = _mapper.Map<AddVideoVm>(addVideoVm);
+            using (var httpclient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(video), Encoding.UTF8, "application/json");
+                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Video", content))
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                }
+                ViewBag.SucessMessage = "Video added to your list and campaign for your video";
+                string userId=addVideoVm.UserId;
+                int VideoId;
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Video/LatestAddedVideo/{userId}"))
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    VideoId = JsonConvert.DeserializeObject<ResponseModel<int>>(data).data;
+                }
+
+                HttpContext.Session.SetInt32("videoId", VideoId);
+                return RedirectToAction("AddCampaign", "Campaign");
+            }
+        }
 
         [HttpGet]
         public async Task<IActionResult> VideoList()
@@ -291,6 +329,14 @@ namespace FanEase.UI.Controllers
             }
             return null;
         }
+
+
+        [HttpGet]
+        public IActionResult UnderConstruction()
+        {
+            return View();
+        }
+
 
     }
 }

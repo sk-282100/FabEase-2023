@@ -18,7 +18,7 @@ namespace FanEase.Entity.Models
 
         public string? VideoType { get; set; } // Live/Pre-Recorded
 
-        public int? CampaignId { get; set; } // Associated Campaign
+        public string? Name { get; set; } // Associated Campaign
 
         public int? Views { get; set; } // No. of Views
 

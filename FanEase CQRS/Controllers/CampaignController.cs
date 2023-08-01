@@ -2,6 +2,7 @@
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Commands.ForCampaign;
 using FanEase.Middleware.Data.Queries.ForCampaign;
+using FanEase.Middleware.Data.Queries.ForVideo;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -93,8 +94,14 @@ namespace FanEase_CQRS.Controllers
 
         }
 
-        
 
+        [HttpGet]
+        [Route("LatestAddedCampaign/{userId}")]
+        public async Task<IActionResult> LatestAddedCampaign(string userId)
+        {
+            ResponseModel<int> CampaignId = await _mediator.Send(new LatestAddedCampaignQuery(userId));
+            return Ok(CampaignId);
+        }
 
     }
 }

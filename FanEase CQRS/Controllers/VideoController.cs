@@ -106,5 +106,22 @@ namespace FanEase_CQRS.Controllers
                 return Ok(result.data);
             return NotFound();
         }
+
+        [HttpGet]
+        [Route("LatestAddedVideo/{userId}")]
+        public async Task<IActionResult> LatestAddedVideo(string userId)
+        {
+            ResponseModel<int> VideoId = await _meadiator.Send(new LatestAddedVideoQuery(userId));
+            return Ok(VideoId);
+        }
+
+        [HttpPost]
+        [Route("AssignCampaign")]
+        public async Task<IActionResult> AssignCampaign(AssignCampaignVM assignCampaign)
+        {
+            ResponseModel<bool> status = await _meadiator.Send(new AssignCampaignCommand(assignCampaign.VideoId, assignCampaign.CampaignId));
+            return Ok(status);
+
+        }
     }
 }

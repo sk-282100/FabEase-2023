@@ -15,5 +15,7 @@ namespace FanEase.Repository.Interfaces
 
         Task<List<VideoListVm>> GetAllVideosList(); //For Video List Screen
         Task<List<VideoListVm>> GetVideosListScreenByUserId(string userId);
+        Task<int> LatestAddedVideo(string userId);
+        Task<bool> AssignCampaign(int? videoId, int? campaignId);
     }
 }

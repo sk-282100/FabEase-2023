@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="../assets/css/iconsax.css">
     <link rel="stylesheet" href="../assets/css/metismenu.min.css">
     <link rel="stylesheet" href="../assets/css/simplebar.min.css">
-    <link rel="stylesheet" href="../assets/css/calendar.css">
     <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
     <link rel="stylesheet" href="../assets/css/jbox.all.min.css">
     <link rel="stylesheet" href="../assets/css/editor.css">
@@ -37,6 +36,7 @@
 
 
 
+<body class="body-bg-f8faff">
 
     <div class="overview-area">
         <div class="container-fluid">
@@ -230,7 +230,7 @@
                                                     </table>
                                                     </div>
 
-                                                        <div class="tab-pane fade show active" id="topcampaign-tab-pane" role="tabpanel" aria-labelledby="topcampaign-tab" tabindex="0">
+                                                        <div class="tab-pane fade show" id="topcampaign-tab-pane" role="tabpanel" aria-labelledby="topcampaign-tab" tabindex="0">
                                                             <table class="table align-middle">
                                                                 <thead>
                                                                     <tr align="center">
@@ -265,7 +265,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                           
+                                        @section Scripts {
+                                            @{
+                                                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                                            }
+                                        }
 
                                        </div>     
                                 </div>
@@ -274,22 +278,31 @@
                     </div>
                     </div>
                     </div>
+
+      
         </div>
     </div>
-
+    
+<div class="go-top">
+    <i class="ri-arrow-up-s-fill"></i>
+    <i class="ri-arrow-up-s-fill"></i>
+</div>
 
 <script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/owl.carousel.min.js"></script>
-<script src="../assets/js/metismenu.min.js"></script>
-<script src="../assets/js/simplebar.min.js"></script>
-<script src="../assets/js/apexcharts/apexcharts.min.js"></script>
-<script src="../assets/js/apexcharts/website-analytics.js"></script>
-<script src="../assets/js/geticons.js"></script>
-<script src="../assets/js/calendar.js"></script>
-<script src="../assets/js/editor.js"></script>
-<script src="../assets/js/form-validator.min.js"></script>
-<script src="../assets/js/contact-form-script.js"></script>
-<script src="../assets/js/ajaxchimp.min.js"></script>
-<script src="../assets/js/custom.js"></script>
 
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/metismenu.min.js"></script>
+    <script src="../assets/js/simplebar.min.js"></script>
+    <script src="../assets/js/geticons.js"></script>
+    <script src="../assets/js/sweetalert2.all.min.js"></script>
+    <script src="../assets/js/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/js/apexcharts/website-analytics.js"></script>
+
+    <script src="../assets/js/calendar.js"></script>
+    <script src="../assets/js/editor.js"></script>
+    <script src="../assets/js/form-validator.min.js"></script>
+    <script src="../assets/js/contact-form-script.js"></script>
+    <script src="../assets/js/ajaxchimp.min.js"></script>
+    <script src="../assets/js/custom.js"></script>
+
+</body>

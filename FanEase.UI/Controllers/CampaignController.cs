@@ -11,7 +11,7 @@ namespace FanEase.UI.Controllers
     public class CampaignController : Controller
     {
         [HttpGet]
-        public ActionResult AddCampaignss()
+        public ActionResult AddCampaign()
         {
             return View();
         }
@@ -32,7 +32,35 @@ namespace FanEase.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> AddCampaignProceed(Campaignvm campaignvm)
+        {
+            using (var httpclient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(campaignvm), Encoding.UTF8, "application/json");
+                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Campaign", content))
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                }
+                string userId=campaignvm.userId;
+                int CampaignId;
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/LatestAddedCampaign/{userId}"))
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    CampaignId = JsonConvert.DeserializeObject<ResponseModel<int>>(data).data;
+                }
+                HttpContext.Session.SetInt32("campaignId", CampaignId);
+                int? VideoId = HttpContext.Session.GetInt32("videoId");
 
+                var content1 = new StringContent(JsonConvert.SerializeObject(new AssignCampaignVM{VideoId=VideoId,CampaignId=CampaignId}), Encoding.UTF8, "application/json");
+                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Video/AssignCampaign", content1))
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                }
+
+                return RedirectToAction("AddAdvertisement", "Advertisement");
+            }
+        }
 
         [HttpGet]
         public async Task<IActionResult> CampaignListScreenByUserId(string userId)
@@ -91,6 +119,14 @@ namespace FanEase.UI.Controllers
 
         //    return RedirectToAction("CampaignListScreenByUserId", "Campaign");
         //}
+
+
+        [HttpGet]
+        public IActionResult UnderConstruction()
+        {
+            return View();
+        }
+
 
     }
 }
