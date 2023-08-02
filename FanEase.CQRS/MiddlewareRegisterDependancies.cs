@@ -3,6 +3,7 @@ using ExceptionHandling;
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Commands.ForCampaign;
 using FanEase.Middleware.Data.Commands.ForCampaignAdvertisement;
+using FanEase.Middleware.Data.Commands.ForCountry;
 using FanEase.Middleware.Data.Commands.ForPlayer;
 using FanEase.Middleware.Data.Commands.ForState;
 using FanEase.Middleware.Data.Commands.ForTemplate;
@@ -12,6 +13,7 @@ using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Middleware.Data.Handler.ForAdvertisement;
 using FanEase.Middleware.Data.Handler.ForCampaign;
 using FanEase.Middleware.Data.Handler.ForCampaignAdvertisement;
+using FanEase.Middleware.Data.Handler.ForCountry;
 using FanEase.Middleware.Data.Handler.ForDashboard;
 using FanEase.Middleware.Data.Handler.ForPlayer;
 using FanEase.Middleware.Data.Handler.ForState;
@@ -22,6 +24,7 @@ using FanEase.Middleware.Data.Handler.ForVideo;
 using FanEase.Middleware.Data.Queries.ForAdvertisement;
 using FanEase.Middleware.Data.Queries.ForCampaign;
 using FanEase.Middleware.Data.Queries.ForCampaignAdvertisement;
+using FanEase.Middleware.Data.Queries.ForCountry;
 using FanEase.Middleware.Data.Queries.ForDashboard;
 using FanEase.Middleware.Data.Queries.ForPlayer;
 using FanEase.Middleware.Data.Queries.ForState;
@@ -124,8 +127,16 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<StateCreateCommand, ResponseModel<bool>>, CreateStateHandler>();
             services.AddScoped<IRequestHandler<StateDeleteCommand, ResponseModel<bool>>, DeleteStateHandler>();
             services.AddScoped<IRequestHandler<GetStateListByIdQuery, ResponseModel<State>>, GetAllStateHandler>();
-            services.AddScoped<IRequestHandler<GetStateListQuery, ResponseModel<List<State>>>, GetStateListHandler>();
+            services.AddScoped<IRequestHandler<GetStateListQuery, ResponseModel<List<StateListVM>>>, GetStateListHandler>();
             services.AddScoped<IRequestHandler<StateUpdateCommand, ResponseModel<bool>>, UpdateStateHandler>();
+
+            //For Country
+            services.AddScoped<IRequestHandler<GetAllCountrysQuery, ResponseModel<List<Country>>>, GetAllCountrysQueryHandler>();
+            services.AddScoped<IRequestHandler<CountryCreateCommand, ResponseModel<bool>>, CountryCreateCommandHandler>();
+            services.AddScoped<IRequestHandler<CountryDeleteCommand, ResponseModel<bool>>, CountryDeleteCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateCountryCommand, ResponseModel<bool>>, UpdateCountryCommandHandler>();
+            services.AddScoped<IRequestHandler<GetAllCountryIdQuery, ResponseModel<Country>>, GetAllCountryIdQueryHandler>();
+            services.AddScoped<IRequestHandler<CheckCountryNameExistsQuery, ResponseModel<Country>>, CheckCountryNameExistsQueryHandler>();
 
             services.AddScoped<IRequestHandler<AdminDashBoardQuery, ResponseModel<AdminDashboardDTO>>, AdminDashBoardQueryHandler>();
             services.AddScoped<IRequestHandler<LatestAddedVideoQuery, ResponseModel<int>>, LatestAddedVideoQueryHandler>();

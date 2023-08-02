@@ -10,7 +10,7 @@ namespace FanEase.Repository.Interfaces
     public interface IStateRepository
     {
         Task<bool> AddState(State state);
-        Task<List<State>> GetAllState();
+        Task<List<StateListVM>> GetAllState();
         Task<State> GetStateById(int id);
         Task<bool> DeleteState(int id);
         Task<bool> UpdateState(State state);

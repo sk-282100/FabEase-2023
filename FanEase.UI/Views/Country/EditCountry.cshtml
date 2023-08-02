@@ -13,7 +13,7 @@
     <div class="col-md-4">
         <form asp-action="EditCountry">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="CountryId" class="control-label"></label>
                 <input asp-for="CountryId" class="form-control" />
                 <span asp-validation-for="CountryId" class="text-danger"></span>

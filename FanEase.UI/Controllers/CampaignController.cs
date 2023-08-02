@@ -1,5 +1,8 @@
-﻿using FanEase.Entity.Models;
+﻿using AutoMapper;
+using FanEase.Entity.Models;
 using FanEase.UI.Models;
+using FanEase.UI.Models.Advertisements;
+using FanEase.UI.Models.Campaign;
 using FanEase.UI.Models.Campaign.Dto;
 using FanEase.UI.Models.Creator;
 using Microsoft.AspNetCore.Mvc;
@@ -10,17 +13,34 @@ namespace FanEase.UI.Controllers
 {
     public class CampaignController : Controller
     {
-        [HttpGet]
-        public ActionResult AddCampaign()
+        readonly IMapper _mapper;
+
+        public CampaignController(IMapper mapper)
         {
-            return View();
+            _mapper = mapper;
+        }
+        [HttpGet]
+        public async Task<ActionResult> AddCampaign()
+        {
+            string userId = HttpContext.Session.GetString("UserId");
+            List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementsByUser/{userId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    advertisements = JsonConvert.DeserializeObject<List<AdvertisementListVM>>(data);
+                }
+            }
+            ViewBag.Advertisements = _mapper.Map<List<SelectAdvertisement>>(advertisements);
+            CampaignWithAdsDTO campaignWithAdsDTO = new CampaignWithAdsDTO();
+            campaignWithAdsDTO.Advertisements = new List<SelectAdvertisement>();
+            return View(campaignWithAdsDTO);
         }
         [HttpPost]
         public async Task<ActionResult> AddCampaign(Campaignvm campaignvm)
         {
-
-          //  string UserId = "RB6567";
-           // campaignvm.userId = UserId;
             using (var httpclient = new HttpClient())
             {
                 var content = new StringContent(JsonConvert.SerializeObject(campaignvm), Encoding.UTF8, "application/json");
@@ -33,16 +53,16 @@ namespace FanEase.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddCampaignProceed(Campaignvm campaignvm)
+        public async Task<ActionResult> AddCampaignProceed(CampaignWithAdsDTO campaignWithAdsDTO)
         {
             using (var httpclient = new HttpClient())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(campaignvm), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(campaignWithAdsDTO.Campaign), Encoding.UTF8, "application/json");
                 using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Campaign", content))
                 {
                     string data = response.Content.ReadAsStringAsync().Result;
                 }
-                string userId=campaignvm.userId;
+                string userId=campaignWithAdsDTO.Campaign.userId;
                 int CampaignId;
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/LatestAddedCampaign/{userId}"))
                 {
@@ -61,6 +81,7 @@ namespace FanEase.UI.Controllers
                 return RedirectToAction("AddAdvertisement", "Advertisement");
             }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> CampaignListScreenByUserId(string userId)

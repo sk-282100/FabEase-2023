@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Queries.ForState
 {
-    public class GetStateListQuery : IRequest<ResponseModel<List<State>>>
+    public class GetStateListQuery : IRequest<ResponseModel<List<StateListVM>>>
     {
     }
 }

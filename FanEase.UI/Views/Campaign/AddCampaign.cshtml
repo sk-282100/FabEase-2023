@@ -1,4 +1,6 @@
-﻿@model FanEase.UI.Models.Campaignvm
+﻿@using FanEase.UI.Models.Advertisements;
+@using FanEase.Entity.Models
+@model FanEase.UI.Models.Campaign.CampaignWithAdsDTO
 @inject IHttpContextAccessor HttpContextAccessor;
 @{
     ViewData["Title"] = "AddCampaign";
@@ -6,6 +8,9 @@
 
     string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
     int? VideoId = HttpContextAccessor.HttpContext.Session.GetInt32("videoId");
+
+    
+    var advertisements = ViewBag.Advertisements as List<SelectAdvertisement>;
 }
 <head>
     <meta charset="utf-8">
@@ -21,7 +26,7 @@
     <link rel="stylesheet" href="~/assets/css/iconsax.css">
     <link rel="stylesheet" href="~/assets/css/metismenu.min.css">
     <link rel="stylesheet" href="~/assets/css/simplebar.min.css">
-  
+
     <link rel="stylesheet" href="~/assets/css/sweetalert2.min.css">
     <link rel="stylesheet" href="~/assets/css/jbox.all.min.css">
     <link rel="stylesheet" href="~/assets/css/editor.css">
@@ -33,6 +38,16 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link rel="stylesheet" href="~/assets/css/responsive.css">
     <link rel="stylesheet" href="~/assets/css/Campaign.css" />
+
+    <script>
+        var selectAd = document.getElementById("selectAd")
+        selectAd.onchange=function(){
+
+        
+            @Model.Advertisements = (from a in @advertisements where a.IsSelectd = true select a).ToList();
+       
+        }
+        </script>
 
 </head>
 
@@ -58,8 +73,8 @@
                         <div class="row hidden">
                             <div class="col-md-6 sol-sm-12">
                                 <div hidden>
-                                   
-                                        <input asp-for="userId" class="form-control" id="end1"  value=@UserId/>
+
+                                    <input asp-for=Campaign.userId class="form-control" id="end1" value=@UserId />
                                 </div>
                             </div>
                         </div>
@@ -70,8 +85,8 @@
                                     <span>Campaign Name</span>
                                     <span class="text-danger">*</span>
                                     <div class="input-group">
-                                        <textarea asp-for="name" class="form-control" id="end1" placeholder="Enter CampaignName"></textarea>
-                                        <span asp-validation-for="name" class="text-danger"></span>
+                                        <textarea asp-for="Campaign.name" class="form-control" id="end1" placeholder="Enter CampaignName"></textarea>
+                                        <span asp-validation-for="Campaign.name" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -81,17 +96,103 @@
                                 <div class="form-group">
                                     <span>Start Date</span>
                                     <span class="text-danger">*</span>
-                                    <input asp-for="startDate" class="form-control" />
-                                    <span asp-validation-for="startDate" class="text-danger"></span>
+                                    <input asp-for="Campaign.startDate" class="form-control" />
+                                    <span asp-validation-for="Campaign.startDate" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-12">
                                 <div class="form-group">
                                     <span>End Date</span>
                                     <span class="text-danger">*</span>
-                                    <input asp-for="endDate" class="form-control" />
-                                    <span asp-validation-for="endDate" class="text-danger"></span>
+                                    <input asp-for="Campaign.endDate" class="form-control" />
+                                    <span asp-validation-for="Campaign.endDate" class="text-danger"></span>
 
+                                </div>
+                            </div>
+                            <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="slectedAds-tab" data-bs-toggle="tab" data-bs-target="#slectedAds-tab-pane" type="button" role="tab" aria-controls="slectedAds-tab-pane" aria-selected="true">Selected Assets</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="AdMenu-tab" data-bs-toggle="tab" data-bs-target="#AdMenu-tab-pane" type="button" role="tab" aria-controls="AdMenu-tab-pane" aria-selected="false">Add More Advertisements</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="slectedAds-tab-pane" role="tabpanel" aria-labelledby="slectedAds-tab" tabindex="0">
+                                    <table class="table align-middle">
+                                        <thead align="center">
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">TITLE</th>
+                                                <th scope="col">TYPE</th>
+                                                <th scope="col">END DATE</th>
+                                                <th scope="col">ACTIONS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                Model.Advertisements = (from a in advertisements where a.IsSelectd = true select a).ToList();
+                                            }
+                                            
+                                                @foreach (var advertise in Model.Advertisements)
+                                                {
+                                                    <tr align="center">
+                                                        <td>
+                                                            <span>@advertise.AdvertisementId</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>@advertise.AdvertisementTitle</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>@advertise.ContentType</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>@advertise.EndDate</span>
+                                                        </td>
+                                                        <td>
+                                                            <span> </span>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="tab-pane fade show" id="AdMenu-tab-pane" role="tabpanel" aria-labelledby="AdMenu-tab" tabindex="0">
+                                    <p align="right">
+                                        <a asp-action="AddAdvertisement" asp-controller="Advertisement"><input type="button" value="Add Advertisement" class="btn btn-primary"></a>
+                                    </p>
+                                    <table class="table align-middle">
+                                        <thead>
+                                            <tr align="center">
+                                                <th scope="col">SELECT</th>
+                                                <th scope="col">ADVERTISEMENT NAME</th>
+                                                <th scope="col">TYPE</th>
+                                                <th scope="col">END DATE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var advertise in advertisements)
+                                            {
+                                                <tr align="center">
+                                                    <td>
+                                                        <input type="checkbox" asp-for=@advertise.IsSelectd id="selectAd"/>
+                                                    </td>
+                                                    <td>
+                                                        <span>@advertise.AdvertisementTitle</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@advertise.ContentType</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@advertise.EndDate</span>
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div class="save-update col-sm-7" align="right">

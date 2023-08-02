@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FanEase.UI.Models.State.StateVm>
+﻿@model IEnumerable<FanEase.Entity.Models.StateListVM>
 
 @{
     ViewData["Title"] = "StateList";
@@ -53,10 +53,10 @@
         <tr>
             
             <th>
-                <span>State Name</span>
+                <span>State</span>
             </th>
             <th>
-               <span>Country Id</span>
+               <span>Country </span>
             </th>
             <th>Actions</th>
         </tr>
@@ -69,7 +69,7 @@
                 @Html.DisplayFor(modelItem => item.StateName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CountryId)
+                @Html.DisplayFor(modelItem => item.CountryName)
             </td>
                                 <td >
                                    

@@ -24,14 +24,14 @@ namespace FanEase.Repository.Repositories
             connectionString = _configuration.GetConnectionString("Key");
         }
 
-        public async Task<List<State>> GetAllState()
+        public async Task<List<StateListVM>> GetAllState()
         {
-            List<State> states = new List<State>();
+            List<StateListVM> states = new List<StateListVM>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                states = connection.Query<State>("GetAllStateProcedure", commandType: CommandType.StoredProcedure).ToList();
+                states = connection.Query<StateListVM>("GetAllStateProcedure", commandType: CommandType.StoredProcedure).ToList();
 
             }
             return states;
