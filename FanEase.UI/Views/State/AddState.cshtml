@@ -30,8 +30,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="CountryId" class="control-label"></label>
-                <input asp-for="CountryId" class="form-control" />
-                <span asp-validation-for="CountryId" class="text-danger"></span>
+                <select asp-for="CountryId" class="form-control" />
+                                <option value="">--Select Country--</option>
+                                @foreach (var country in @ViewBag.CountryList)
+                                {
+                                    <option value="@country.CountryId">@country.CountryName</option>
+                                }
+                                <span asp-validation-for="CountryId" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">

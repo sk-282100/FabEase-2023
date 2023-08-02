@@ -2,6 +2,7 @@
 using AutoMapper;
 using FanEase.Entity.Models;
 using FanEase.UI.Models.Advertisements;
+using FanEase.UI.Models.City;
 using FanEase.UI.Models.Creator;
 using FanEase.UI.Models.State;
 using FanEase.UI.Models.Videos;
@@ -19,6 +20,8 @@ namespace FanEase.UI.Configurations
             CreateMap<EditVideoVM, Video>().ReverseMap();
             CreateMap<AddAdvertisementVm,Advertisement>().ReverseMap();
             CreateMap<StateVm, State>().ReverseMap();
+            CreateMap<CityVm, City>().ReverseMap();
+            CreateMap<AdvertisementListVM, SelectAdvertisement>().ReverseMap();
         }
     }
 }

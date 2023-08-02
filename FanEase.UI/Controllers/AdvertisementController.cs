@@ -80,12 +80,10 @@ namespace FanEase.UI.Controllers
 
        
         //Corected code above
-        [HttpGet]
+        [HttpGet("userId")]
         public async Task<IActionResult> AdvertisementListScreenByUserId(string userId)
         {
-            string UserId = "AT10";
-            //string UserId = HttpContext.Session.GetString("UserId");
-            userId = UserId;
+
 
             List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
 

@@ -28,9 +28,10 @@ namespace FanEase.Repository
             services.AddScoped<ITemplateRepository, TemplateRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDashBoardRepository,DashBoardRepository>();
-          
+           services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IStateRepository, StateRepository>();
-            
+            services.AddScoped<ICityRepository, CityRepository>();
+
 
             return services;
         }

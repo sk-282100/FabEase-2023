@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using System.Text.Json;
 using FanEase.Entity.Models;
 using Newtonsoft.Json;
-using System.Text.Json;
+
 using FanEase.UI.Models;
 using Country = FanEase.UI.Models.Country.Country;
 using System.Diagnostics.Metrics;

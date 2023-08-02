@@ -7,28 +7,48 @@ using FanEase.UI.Models.Videos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 
 namespace FanEase.UI.Controllers
 {
     public class StateController : Controller
     {
         readonly IMapper _mapper;
+        private readonly HttpClient _httpClient;
 
-        public StateController(IMapper mapper)
+        public StateController(IMapper mapper, IHttpClientFactory httpClientFactory)
         {
             _mapper = mapper;
+            _httpClient = httpClientFactory.CreateClient();
+            _httpClient.BaseAddress = new System.Uri("https://localhost:7208/");
         }
 
         [HttpGet]
-        public IActionResult AddState()
+        public async Task<IActionResult> AddState()
         {
+            var response1 = await _httpClient.GetAsync("api/Country/Get");
+            response1.EnsureSuccessStatusCode();
+
+
+            var responseContent = await response1.Content.ReadAsStringAsync();
+
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true // Ensure case-insensitive property mapping
+            };
+            List<Country> countryList = System.Text.Json.JsonSerializer.Deserialize<ResponseModel<List<Country>>>(responseContent, options).data;
+
+            ViewBag.CountryList = countryList;
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> AddState(StateVm stateVm)
         {
+     
             StateVm state = _mapper.Map<StateVm>(stateVm);
             using (var httpclient = new HttpClient())
             {
@@ -37,24 +57,25 @@ namespace FanEase.UI.Controllers
                 {
                     string data = response.Content.ReadAsStringAsync().Result;
                 }
-                return RedirectToAction("StateList");
+                
             }
+            return RedirectToAction("StateList");
         }
 
         [HttpGet]
         public async Task<IActionResult> StateList()
         {
-            ResponseModel<List<StateVm>> responseModel = new ResponseModel<List<StateVm>>();
+            ResponseModel<List<StateListVM>> responseModel = new ResponseModel<List<StateListVM>>();
             
             using (var httpclient = new HttpClient())
             {
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/State"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
-                    responseModel = JsonConvert.DeserializeObject<ResponseModel<List<StateVm>>>(data);
+                    responseModel = JsonConvert.DeserializeObject<ResponseModel<List<StateListVM>>>(data);
                 }
             }
-            List<StateVm> videolist = responseModel.data;
+            List<StateListVM> videolist = responseModel.data;
             return View(videolist);
         }
 
@@ -74,6 +95,7 @@ namespace FanEase.UI.Controllers
                     state = JsonConvert.DeserializeObject<List<StateVm>>(data);
                 }
             }
+
             return View(state);
         }
 
@@ -100,6 +122,20 @@ namespace FanEase.UI.Controllers
         [Route("EditState/{StateId}")]
         public async Task<IActionResult> EditState(int StateId)
         {
+            var response1 = await _httpClient.GetAsync("api/Country/Get");
+            response1.EnsureSuccessStatusCode();
+
+
+            var responseContent = await response1.Content.ReadAsStringAsync();
+
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true // Ensure case-insensitive property mapping
+            };
+            List<Country> countryList = System.Text.Json.JsonSerializer.Deserialize<ResponseModel<List<Country>>>(responseContent, options).data;
+
+            ViewBag.CountryList = countryList;
 
             State state;
             using (var httpclient = new HttpClient())
@@ -189,7 +225,7 @@ namespace FanEase.UI.Controllers
 
         // POST: StateController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+      
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try

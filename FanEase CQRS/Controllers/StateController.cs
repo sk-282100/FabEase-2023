@@ -51,7 +51,7 @@ namespace FanEase_CQRS.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllState()
         {
-            ResponseModel<List<State>> states = await _meadiator.Send(new GetStateListQuery());
+            ResponseModel<List<StateListVM>> states = await _meadiator.Send(new GetStateListQuery());
             return Ok(states);
         }
 

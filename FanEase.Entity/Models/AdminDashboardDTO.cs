@@ -13,6 +13,8 @@ namespace FanEase.Entity.Models
 
         public int VideoCount { get; set; }
 
+        public int AdvertisementClicks { get; set; }
+
         public int Views { get; set; }
 
         public List<Video> Videos { get; set; }
