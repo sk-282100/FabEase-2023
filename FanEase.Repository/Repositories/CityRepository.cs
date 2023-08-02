@@ -12,38 +12,38 @@ using System.Threading.Tasks;
 
 namespace FanEase.Repository.Repositories
 {
-    public class StateRepository : IStateRepository
+    public class CityRepository : ICityRepository
     {
         string connectionString;
 
         private readonly IConfiguration _configuration;
 
-        public StateRepository(IConfiguration configuration)
+        public CityRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             connectionString = _configuration.GetConnectionString("Key");
         }
 
-        public async Task<List<StateListVM>> GetAllState()
+        public async Task<List<CityListVM>> GetAllCity()
         {
-            List<StateListVM> states = new List<StateListVM>();
+            List<CityListVM> states = new List<CityListVM>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                states = connection.Query<StateListVM>("GetAllStateProcedure", commandType: CommandType.StoredProcedure).ToList();
+                states = connection.Query<CityListVM>("GetAllCityProcedure", commandType: CommandType.StoredProcedure).ToList();
 
             }
             return states;
         }
 
-        public async Task<bool> AddState(State state)
+        public async Task<bool> AddCity(City city)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                var result = connection.Execute("AddStateProcedure", new { @StateName=state.StateName, @CountryId=state.CountryId}, commandType: CommandType.StoredProcedure);
+                var result = connection.Execute("AddCityProcedure", new { @CityName = city.CityName, @StateId = city.StateId }, commandType: CommandType.StoredProcedure);
 
                 if (result > 0)
                     return true;
@@ -51,32 +51,32 @@ namespace FanEase.Repository.Repositories
             }
         }
 
-        public async Task<State> GetStateById(int id)
+        public async Task<City> GetCityById(int id)
         {
-            State states = new State();
+            City states = new City();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                states = connection.Query<State>("GetStateByIdProcedure", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                states = connection.Query<City>("GetCityByIdProcedure", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
             return states;
         }
 
-        public async Task<bool> DeleteState(int id)
+        public async Task<bool> DeleteCity(int id)
         {
 
-            State state = new State();
+            City city = new City();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                state = connection.Query<State>("GetStateByIdProcedure", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
-                if (state != null)
+                city = connection.Query<City>("GetCityByIdProcedure", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                if (city != null)
                 {
-                    var result = connection.Execute("DeleteStateProcedure", new { id }, commandType: CommandType.StoredProcedure);
+                    var result = connection.Execute("DeleteCityProcedure", new { id }, commandType: CommandType.StoredProcedure);
                     if (result > 0)
                         return true;
                 }
@@ -85,12 +85,12 @@ namespace FanEase.Repository.Repositories
 
         }
 
-        public async Task<bool> UpdateState(State state)
+        public async Task<bool> UpdateCity(City city)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var result = connection.Execute("EditStateProcedure", state, commandType: CommandType.StoredProcedure);
+                var result = connection.Execute("EditCityProcedure", city, commandType: CommandType.StoredProcedure);
                 if (result > 0)
                     return true;
                 return false;

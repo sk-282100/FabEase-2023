@@ -330,6 +330,25 @@ namespace FanEase.UI.Controllers
             return null;
         }
 
+        [HttpGet]
+        //[Route("VideoDetails/{videoId}")]
+        public async Task<IActionResult> VideoDetails(string videoId)
+        {
+
+            VideoDetailsVm video;
+
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Video/{videoId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    video = JsonConvert.DeserializeObject<ResponseModel<VideoDetailsVm>>(data).data;
+
+                }
+
+            }
+            return View(video);
+        }
 
         [HttpGet]
         public IActionResult UnderConstruction()

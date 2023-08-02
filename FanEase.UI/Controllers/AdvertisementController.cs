@@ -78,15 +78,12 @@ namespace FanEase.UI.Controllers
         }
 
 
-       
-        //Corected code above
+
         [HttpGet]
         [Route("AdvertisementListScreenByUserId")]
         public async Task<JsonResult> AdvertisementListScreenByUserId()
         {
-            string UserId = "RB6567";
-            //string UserId = HttpContext.Session.GetString("UserId");
-            UserId = UserId;
+           string UserId = HttpContext.Session.GetString("UserId");
 
             List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
 

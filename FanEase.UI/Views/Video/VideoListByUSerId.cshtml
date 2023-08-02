@@ -70,10 +70,10 @@
                                 User Id
                             </th>
 
-                            <th>
+                            <th hidden>
                                Advertisement Id
                             </th>
-                            <th>
+                            <th hidden>
                                 Ad Clicks
                             </th>
                             <th>
@@ -94,11 +94,12 @@
                             <th>
                                 Publish Status
                             </th>
-                            <th>
+                            <th> 
                                 Active Status
                             </th>
+                            <th></th>
                             <th>
-                                Action
+                                Quick Actions
                             </th>
                         </tr>
                     </thead>
@@ -113,10 +114,10 @@
                                     @Html.DisplayFor(modelItem => item.UserId)
                                 </td>
 
-                                <td>
+                                <td hidden>
                                     @Html.DisplayFor(modelItem => item.AdvertisementId)
                                 </td>
-                                <td>
+                                <td hidden>
                                     @Html.DisplayFor(modelItem => item.AdClicks)
                                 </td>
                                 <td>
@@ -138,16 +139,33 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Views)
                                 </td>
+                              
                                 <td>
-                                    @*@Html.DisplayFor(modelItem => item.IsPublished)*@
-                                    @item.IsPublished.GetValueOrDefault()
+                                    @if (item.IsPublished == true)
+                                    {
+
+                                        <p style="color :blue;">Go Live</p>
+                                    }
+                                    else
+                                    {
+
+                                        <p style="color :orange;">Draft</p>
+                                    }
+
                                 </td>
                                 <td>
-                                    @*@Html.DisplayFor(modelItem => item.IsActive)*@
-                                    @item.IsActive.GetValueOrDefault()
-                                </td>
+                                    @if (item.IsActive == true)
+                                    {
+                                        <p style="color :green;">Active</p>
+
+                                    }
+                                    else
+                                    {
+                                        <p style="color :orangered;">Inactive</p>
+                                    }
                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example" align="center">
 
                                         <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("VideoDetails","Video",new{VideoId=item.VideoId})'">
                                             <img src="../assets/images/icon/eye.svg" alt="mask">
@@ -167,13 +185,6 @@
                                         </button>
                                     </div>
                                 </td>
-
-
-                                @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { / id=item.PrimaryKey / }) |
-                            @Html.ActionLink("Details", "Details", new { / id=item.PrimaryKey / }) |
-                            @Html.ActionLink("Delete", "Delete", new { / id=item.PrimaryKey / })
-                            </td>*@
                             </tr>
                         }
                     </tbody>

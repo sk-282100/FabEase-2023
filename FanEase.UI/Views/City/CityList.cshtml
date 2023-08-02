@@ -1,7 +1,8 @@
-﻿@model IEnumerable<FanEase.Entity.Models.StateListVM>
+﻿
+@model IEnumerable<FanEase.Entity.Models.CityListVM>
 
 @{
-    ViewData["Title"] = "StateList";
+    ViewData["Title"] = "CityList";
     Layout = "AdminLayout";
 }
 
@@ -11,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 
     <script>
-        function confirmRemove(StateId) {
+        function confirmRemove(CityId) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: 'State will be removed Permanently!',
@@ -24,13 +25,13 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // If the user confirms the removal, redirect to the appropriate action
-                    window.location.href = "https://localhost:7163/RemoveState/"+StateId;
+                    window.location.href = "https://localhost:7163/RemoveCity/" + CityId;
                 }
             });
         }
 
 
-       
+
     </script>
 </head>
 
@@ -40,59 +41,58 @@
             <div class="table-responsive" data-simplebar>
                 <div class="others-title">
                     <p align="right">
-                        <a asp-action="AddState"><input type="button" value="Add State" class="btn btn-primary" /> </a>
+                        <a asp-action="AddCity"><input type="button" value="Add City" class="btn btn-primary" /> </a>
                     </p>
-                    <h3>State List</h3>
+                    <h3>City List</h3>
                     @*<button type="button" class="btn btn-primary" asp-action="AddState">Create New</button>*@
                 </div>
-@*<p>
-    <a asp-action="AddState">Create New</a>
-</p>*@
-<table class="table">
-    <thead>
-        <tr>
-            
-            <th>
-                <span>State</span>
-            </th>
-            <th>
-               <span>Country </span>
-            </th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.StateName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CountryName)
-            </td>
-                                <td >
-                                   
-                                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditState","State",new{StateId=item.StateId})'">
+                @*<p>
+                <a asp-action="AddState">Create New</a>
+                </p>*@
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                <span>City</span>
+                            </th>
+                            <th>
+                                <span>State </span>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CityName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StateName)
+                                </td>
+                                <td>
+
+                                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditCity","City",new{CityId=item.CityId})'">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                             <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
                                         </svg>
                                     </button>
-                @*<button type="button" class="btn btn-success" onclick="location.href='@Url.Action("StateDetails","State",new{StateId=item.StateId})'">Details</button>*@
-                @*<button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("RemoveState","State",new{StateId = item.StateId})'">Remove</button>*@
-                                    
-                                    <button type="button" class="btn btn-danger" onclick="confirmRemove('@item.StateId')">
+
+                                    <button type="button" class="btn btn-danger" onclick="confirmRemove('@item.CityId')">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                         </svg>
                                     </button>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</div>
-</div>
-</div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>

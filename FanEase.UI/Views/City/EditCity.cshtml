@@ -1,0 +1,57 @@
+﻿@model FanEase.UI.Models.City.CityVm
+
+@{
+    ViewData["Title"] = "EditCity";
+    Layout = "AdminLayout";
+}
+
+<body class="body-bg-f8faff">
+    <div class="contact-list-area">
+        <div class="container-fluid">
+            <div class="table-responsive" data-simplebar>
+                <div class="others-title">
+                    <h3>Edit City</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <form asp-action="EditCityPost" asp-controller="City" method="post" runat="server" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group hidden">
+                                <span> City Id</span>
+                                <input asp-for="CityId" class="form-control" />
+                                <span asp-validation-for="StateId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <span>City Name</span>
+                                <input asp-for="CityName" class="form-control" />
+                                <span asp-validation-for="CityName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <span>State</span>
+                                <select asp-for="StateId" class="form-control" />
+                                <option value="">--Select State--</option>
+                                @foreach (var state in @ViewBag.StateList)
+                                {
+                                    <option value="@state.StateId">@state.StateName</option>
+                                }
+
+                                <span asp-validation-for="StateId" class="text-danger"></span>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("CityList","City")'">Back To List</button>
+                            </div>
+                        </form>
+                        @section Scripts {
+                            @{
+                                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

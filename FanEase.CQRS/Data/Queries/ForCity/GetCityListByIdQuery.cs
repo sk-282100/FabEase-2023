@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FanEase.Middleware.Data.Queries.ForState
+namespace FanEase.Middleware.Data.Queries.ForCity
 {
-    public class GetStateListQuery : IRequest<ResponseModel<List<StateListVM>>>
+    public class GetCityListByIdQuery : IRequest<ResponseModel<City>>
     {
+        public int CityId { get; set; }
     }
 }
