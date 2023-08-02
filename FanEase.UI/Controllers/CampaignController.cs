@@ -86,6 +86,7 @@ namespace FanEase.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> CampaignListScreenByUserId(string userId)
         {
+            string UserId = HttpContext.Session.GetString("UserId");
             List<CampaignListScreenVms> Campaign = new List<CampaignListScreenVms>();
 
             using (var httpClient = new HttpClient())
@@ -117,6 +118,95 @@ namespace FanEase.UI.Controllers
             }
         }
 
+
+        [HttpGet]
+        //[Route("EditCampaign/{CampaignId}")]
+
+        public async Task<IActionResult> EditCampaigns(int CampaignId)
+        {
+
+            EditCampaign editCampaign;
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/GetById?campaignId={CampaignId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    editCampaign = JsonConvert.DeserializeObject<ResponseModel<EditCampaign>>(data).data;
+
+                }
+
+                return View(editCampaign);
+
+            }
+
+        }
+
+
+
+        [HttpPost]
+
+        public async Task<IActionResult> EditCampaignPost(EditCampaign editCampaign)
+        {
+
+
+            using (var httpclient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(editCampaign), Encoding.UTF8, "application/json");
+                using (var response = await httpclient.PutAsync($"https://localhost:7208/api/Campaign", content))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+
+                    return RedirectToAction("CampaignListScreenByUserId");
+
+                }
+
+            }
+        }
+
+
+        //[HttpGet]
+        ////[Route("EditCampaign/{CampaignId}")]
+
+        //public async Task<IActionResult> EditCampaigns(int CampaignId)
+        //{
+
+        //    EditCampaign editCampaign;
+        //    using (var httpclient = new HttpClient())
+        //    {
+        //        using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/EditGetAllCampaignAdv/CampaignId?CampaignId={CampaignId}"))
+        //        {
+        //            string data = await response.Content.ReadAsStringAsync();
+        //            editCampaign = JsonConvert.DeserializeObject<ResponseModel<EditCampaign>>(data).data;
+
+        //        }
+
+        //        return View(editCampaign);
+
+        //    }
+
+        //}
+
+        //[HttpPost]
+
+        //public async Task<IActionResult> EditCampaignPost(EditCampaign editCampaign)
+        //{
+
+
+        //    using (var httpclient = new HttpClient())
+        //    {
+        //        var content = new StringContent(JsonConvert.SerializeObject(editCampaign), Encoding.UTF8, "application/json");
+        //        using (var response = await httpclient.PutAsync($"https://localhost:7208/api/Advertisement/EditAdvertisement", content))
+        //        {
+        //            string data = await response.Content.ReadAsStringAsync();
+        //            var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+
+        //            return RedirectToAction("CampaignListScreenByUserId");
+
+        //        }
+
+        //    }
+        //}
 
         [HttpGet]
         public IActionResult UnderConstruction()

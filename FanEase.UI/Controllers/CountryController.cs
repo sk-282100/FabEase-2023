@@ -32,10 +32,10 @@ namespace FanEase.UI.Controllers
 
         public async Task<IActionResult> AddCountry()
         {
-            List<Country> CountryList =  await GetCountryListAsync();
+            List<Country> CountryList = await GetCountryListAsync();
 
             ViewBag.Country = CountryList;
-            
+
             return View();
         }
 
@@ -51,7 +51,7 @@ namespace FanEase.UI.Controllers
 
                     // Fetch the updated country list after successful addition
                     var updatedCountryList = await GetCountryListAsync();
-                   
+
 
                     // Pass the updated country list and the newly added country to the view
                     ViewBag.Country = updatedCountryList;
@@ -77,11 +77,11 @@ namespace FanEase.UI.Controllers
             {
                 var response = await _httpClient.GetAsync("api/Country/Get");
                 response.EnsureSuccessStatusCode();
-            
+
 
                 var responseContent = await response.Content.ReadAsStringAsync();
 
-                
+
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true // Ensure case-insensitive property mapping
@@ -125,7 +125,7 @@ namespace FanEase.UI.Controllers
         }
 
         [HttpGet]
-        
+
 
         public async Task<IActionResult> EditCountry(int CountryId)
         {
@@ -149,12 +149,12 @@ namespace FanEase.UI.Controllers
 
 
         [HttpPost]
-        
+
 
         public async Task<IActionResult> EditCountry(Country country) // Rename the parameter to lowercase countryId
         {
 
-            
+
             using (var httpclient = new HttpClient())
             {
                 var content = new StringContent(JsonConvert.SerializeObject(country), Encoding.UTF8, "application/json");
@@ -168,7 +168,23 @@ namespace FanEase.UI.Controllers
                 }
 
             }
-            
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> CheckCountryNameExists(string countryName)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/Country/GetByName?CountryName={countryName}");
+                response.EnsureSuccessStatusCode();
+                var exists = await response.Content.ReadFromJsonAsync<ResponseModel<bool>>();
+                return Json(new { exists });
+            }
+            catch (HttpRequestException)
+            {
+                // Handle API error
+                return Json(new { exists = false });
+            }
         }
 
 

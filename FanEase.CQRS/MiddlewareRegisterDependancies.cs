@@ -17,6 +17,7 @@ using FanEase.Middleware.Data.Handler.ForCampaignAdvertisement;
 using FanEase.Middleware.Data.Handler.ForCity;
 using FanEase.Middleware.Data.Handler.ForCountry;
 using FanEase.Middleware.Data.Handler.ForDashboard;
+using FanEase.Middleware.Data.Handler.ForCountry;
 using FanEase.Middleware.Data.Handler.ForPlayer;
 using FanEase.Middleware.Data.Handler.ForState;
 using FanEase.Middleware.Data.Handler.ForTemplate;
@@ -86,6 +87,9 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetAllCampaignsQuery, ResponseModel<List<Campaigns>>>, GetAllCampaignsQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllCampaignIdQuery, ResponseModel<Campaigns>>, GetAllCampaignIdQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllCampaignListScreenByUserIdQuery, ResponseModel<List<CampaignListScreenVm>>>, GetAllCampaignListScreenByUserIdQueryHandler>();
+            //services.AddScoped<IRequestHandler<GetAllCampaignAdvIdQuery,ResponseModel<List<EditCampaignVm>>>,GetAllCampaignAdvIdQueryHandler();
+            //services.AddScoped<IRequestHandler<GetAllCampaignAdvIdQuery, ResponseModel<EditCampaignVm>>, GetAllCampaignAdvIdQueryHandler>();
+
             //For Campaign Advertisement
             services.AddScoped<IRequestHandler<CampaignAdvertisementCreateCommand, ResponseModel<bool>>, CampaignAdvertisementCreateCommandHandler>();
             services.AddScoped<IRequestHandler<CampaignAdvertisementDeleteCommand, ResponseModel<bool>>, CampaignAdvertisementDeleteCommandHandler>();
@@ -93,6 +97,7 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetAllCampaignAdvertisementsQuery, ResponseModel<List<Campaign_Advertisement>>>, GetAllCampaignAdvertisementsQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllCampaignAdvertisementIdQuery, ResponseModel<Campaign_Advertisement>>, GetCampaignAdvertisementByCampaignIdQueryHandler>();
            
+            //
             //For Player
             services.AddScoped<IRequestHandler<PlayerCreateCommand, ResponseModel<bool>>, PlayerCreateCommandHandler>();
             services.AddScoped<IRequestHandler<PlayerDeleteCommand, ResponseModel<bool>>, PlayerDeleteCommandHandler>();
@@ -125,6 +130,16 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<UpdateTemplateCommand, ResponseModel<bool>>, UpdateTemplateHandler>();
             services.AddScoped<IRequestHandler<DeleteTemplateCommand, ResponseModel<bool>>, DeleteTemplateHandler>();
             services.AddScoped<IRequestHandler<GetAllTemplatesByUserQuery, ResponseModel<List<TemplateListDTO>>>, GetAllTemplatesByUserQueryHandler>();
+
+            //For Country
+            services.AddScoped<IRequestHandler<GetAllCountrysQuery, ResponseModel<List<Country>>>, GetAllCountrysQueryHandler>();
+            services.AddScoped<IRequestHandler<CountryCreateCommand, ResponseModel<bool>>, CountryCreateCommandHandler>();
+            services.AddScoped<IRequestHandler<CountryDeleteCommand, ResponseModel<bool>>, CountryDeleteCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateCountryCommand, ResponseModel<bool>>, UpdateCountryCommandHandler>();
+            services.AddScoped<IRequestHandler<GetAllCountryIdQuery, ResponseModel<Country>>, GetAllCountryIdQueryHandler>();
+            services.AddScoped<IRequestHandler<CheckCountryNameExistsQuery, ResponseModel<Country>>, CheckCountryNameExistsQueryHandler>();
+
+       
 
             //For State
             services.AddScoped<IRequestHandler<StateCreateCommand, ResponseModel<bool>>, CreateStateHandler>();

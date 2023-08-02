@@ -1,12 +1,12 @@
-﻿using ExceptionHandling;
+﻿
+using ExceptionHandling;
 using FanEase.Entity.Models;
-using FanEase.Middleware.Data.Commands.ForCampaign;
 using FanEase.Middleware.Data.Commands.ForCountry;
-using FanEase.Middleware.Data.Queries.ForCampaign;
 using FanEase.Middleware.Data.Queries.ForCountry;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Web.Http.Results;
 
 namespace FanEase_CQRS.Controllers
 {
@@ -89,7 +89,8 @@ namespace FanEase_CQRS.Controllers
 
             if (countryResponse.data != null)
             {
-                return Ok(countryResponse);
+                return Ok(new { exists = countryResponse });
+              
             }
 
             return NotFound(countryResponse);

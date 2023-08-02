@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using FanEase.Entity.Models;
 using FanEase.Repository.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -81,10 +82,12 @@ namespace FanEase.Repository.Repositories
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@CountryName", CountryName);
 
-            Country Country = await GetByIdAsync<Country>("dbo.CheckCountryNameExists", parameters, CommandType.StoredProcedure);
+            Country Country = await GetByNameAsync<Country>("dbo.CheckCountryNameExists", parameters, CommandType.StoredProcedure);
             return Country;
         }
+
        
+
 
     }
 }

@@ -21,17 +21,18 @@ namespace FanEase.Middleware.Data.Handler.ForCampaign
 
         public async Task<ResponseModel<bool>> Handle(UpdateCampaignCommand request, CancellationToken cancellationToken)
         {
-            Campaigns campaign = new Campaigns
+            EditCampaignVm editCampaignVm = new EditCampaignVm
             {
                 campaignId = request.campaignId,
                 name = request.name,
                 startDate = request.startDate,
                 endDate = request.endDate,
                 engagement = request.engagement,
-                userId = request.userId
+                userId = request.userId,
+                //Advertisements = request.Advertisements
             };
 
-            var rowsAffected = await _campaignRepository.UpdateCampaign(campaign);
+            var rowsAffected = await _campaignRepository.UpdateCampaign(editCampaignVm);
             var response = new ResponseModel<bool> { data = false, message = "failed to Update campaign" };
             if (rowsAffected > 0)
             {
