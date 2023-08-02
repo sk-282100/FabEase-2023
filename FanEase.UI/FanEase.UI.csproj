@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\City\" />
     <Folder Include="Views\State\" />
     <Folder Include="wwwroot\UploadAdvertisement\" />
   </ItemGroup>

@@ -22,6 +22,7 @@
 
         public bool IsActive { get; set; } //active status Active=True , Inactive=False
 
+        
         public bool IsSelectd { get; set; } = false;
     }
 }

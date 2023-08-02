@@ -39,16 +39,16 @@ namespace FanEase.UI.Controllers
             return View(campaignWithAdsDTO);
         }
         [HttpPost]
-        public async Task<ActionResult> AddCampaign(Campaignvm campaignvm)
+        public async Task<ActionResult> AddCampaign(CampaignWithAdsDTO campaignWithAdsDTO)
         {
             using (var httpclient = new HttpClient())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(campaignvm), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(campaignWithAdsDTO.Campaign), Encoding.UTF8, "application/json");
                 using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Campaign", content))
                 {
                     string data = response.Content.ReadAsStringAsync().Result;
                 }
-                return RedirectToAction("CampaignListScreenByUserId", new { userId = campaignvm.userId });
+                return RedirectToAction("CampaignListScreenByUserId", new { userId = campaignWithAdsDTO.Campaign.userId });
             }
         }
 
@@ -86,9 +86,6 @@ namespace FanEase.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> CampaignListScreenByUserId(string userId)
         {
-           // string UserId = "RB6567";
-            //string UserId = HttpContext.Session.GetString("UserId");
-           // userId = UserId;
             List<CampaignListScreenVms> Campaign = new List<CampaignListScreenVms>();
 
             using (var httpClient = new HttpClient())
@@ -119,27 +116,6 @@ namespace FanEase.UI.Controllers
                 }
             }
         }
-
-
-        //[HttpGet]
-
-        //public async Task<IActionResult> EditCampaign(string campaignId)
-        //{
-
-        //    CampaignListScreenVms campai;
-        //        using (var httpclient = new HttpClient())
-        //        {
-        //            using (var response = await httpclient.GetAsync($"https://localhost:7208/api/User/{campaignId}"))
-        //            {
-        //                string data = await response.Content.ReadAsStringAsync();
-        //                campai = JsonConvert.DeserializeObject<ResponseModel<CampaignListScreenVms>>(data).data;
-
-        //            }
-        //            return View(_mapper.Map<EditCreatorVM>(creator));
-        //        }
-
-        //    return RedirectToAction("CampaignListScreenByUserId", "Campaign");
-        //}
 
 
         [HttpGet]
