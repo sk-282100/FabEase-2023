@@ -102,6 +102,24 @@ namespace FanEase_CQRS.Controllers
             ResponseModel<int> CampaignId = await _mediator.Send(new LatestAddedCampaignQuery(userId));
             return Ok(CampaignId);
         }
+        /// <summary>
+        /// Edit Campaign for the CampaignAdvertisement
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
+        //[HttpGet]
+        //[Route("EditGetAllCampaignAdv/CampaignId")]
+        //public async Task<IActionResult> EditGetAllCampaignAdv(int CampaignId)
+        //{
 
+        //    ResponseModel<EditCampaignVm> Campai = await _mediator.Send(new GetAllCampaignAdvIdQuery(CampaignId));
+        //    if (Campai.data != null)
+        //    {
+        //        return Ok(Campai);
+        //    }
+        //    return NotFound(Campai);
+
+        //}
     }
 }

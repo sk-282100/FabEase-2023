@@ -8,8 +8,9 @@ namespace FanEase.Repository.Interfaces
         Task<int> DeleteCampaign(int campaignId);
         public Task<List<Campaigns>> GetAllCampaigns();
         Task<Campaigns> GetCampaignById(int campaignId);
-        Task<int> UpdateCampaign(Campaigns campaign);
+        Task<int> UpdateCampaign(EditCampaignVm editCampaignVm);
         Task<List<CampaignListScreenVm>> CampaignListScreenByUserId(string userId);
         Task<int> LatestAddedCampaign(string userId);
+        //Task<EditCampaignVm> EditCampaignAd(int campaignId);
     }
 }

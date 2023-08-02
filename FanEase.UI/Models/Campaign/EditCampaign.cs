@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FanEase.Entity.Models
+namespace FanEase.UI.Models.Campaign
 {
-    public class Campaigns
+    public class EditCampaign
     {
         public int campaignId { get; set; }
 
@@ -24,8 +20,7 @@ namespace FanEase.Entity.Models
         public int engagement { get; set; }
         public string userId { get; set; }
 
-        
-
-
+        //[NotMapped]
+        //public string Advertisements { get; set; }
     }
 }

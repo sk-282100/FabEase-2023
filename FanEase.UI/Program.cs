@@ -5,8 +5,8 @@ builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
 builder.Services.AddAutoMapper(typeof(MapperConfig));
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

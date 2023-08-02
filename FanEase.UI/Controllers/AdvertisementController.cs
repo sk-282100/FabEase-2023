@@ -81,24 +81,25 @@ namespace FanEase.UI.Controllers
        
         //Corected code above
         [HttpGet]
-        public async Task<IActionResult> AdvertisementListScreenByUserId(string userId)
+        [Route("AdvertisementListScreenByUserId")]
+        public async Task<JsonResult> AdvertisementListScreenByUserId()
         {
-            string UserId = "AT10";
+            string UserId = "RB6567";
             //string UserId = HttpContext.Session.GetString("UserId");
-            userId = UserId;
+            UserId = UserId;
 
             List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
 
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementsByUser/{userId}"))
+                using (var response = await httpClient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementsByUser/{UserId}"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
                     advertisements = JsonConvert.DeserializeObject<List<AdvertisementListVM>>(data);
                 }
             }
 
-            return View(advertisements);
+            return new JsonResult(advertisements);
         }
 
         //Delete Advertisement Method 

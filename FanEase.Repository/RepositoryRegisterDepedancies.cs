@@ -27,6 +27,8 @@ namespace FanEase.Repository
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<ITemplateRepository, TemplateRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();    
+          
             services.AddScoped<IDashBoardRepository,DashBoardRepository>();
           
             services.AddScoped<IStateRepository, StateRepository>();
