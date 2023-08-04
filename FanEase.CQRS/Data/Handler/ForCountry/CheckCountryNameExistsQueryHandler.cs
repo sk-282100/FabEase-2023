@@ -22,7 +22,10 @@ namespace FanEase.Middleware.Data.Handler.ForCountry
         {
             Country countries = await _countryRepository.CheckCountryNameExists(request.CountryName);
 
-
+            if (countries==null)
+            {
+                return new ResponseModel<Country> { Succeed = false, data = countries, message = "Country Not Exist CheckCountryName" };
+            }
 
             return new ResponseModel<Country> { data = countries, message = "Country All Ready Exist CheckCountryName" };
         }

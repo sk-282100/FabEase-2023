@@ -7,6 +7,7 @@ using FanEase.UI.Models.Campaign.Dto;
 using FanEase.UI.Models.Creator;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Text;
 
 namespace FanEase.UI.Controllers
@@ -24,7 +25,7 @@ namespace FanEase.UI.Controllers
         {
             string userId = HttpContext.Session.GetString("UserId");
             List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
-
+            List<CampaignListScreenVms> Campaign;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementsByUser/{userId}"))
@@ -32,10 +33,19 @@ namespace FanEase.UI.Controllers
                     string data = await response.Content.ReadAsStringAsync();
                     advertisements = JsonConvert.DeserializeObject<List<AdvertisementListVM>>(data);
                 }
+
+                using (var response = await httpClient.GetAsync($"https://localhost:7208/api/Campaign/GetAllCampaignListScreenByUserId/userId?userId={userId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    Campaign = JsonConvert.DeserializeObject<ResponseModel<List<CampaignListScreenVms>>>(data).data;
+                }
             }
-            ViewBag.Advertisements = _mapper.Map<List<SelectAdvertisement>>(advertisements);
+            
+            ViewBag.Advertisements = advertisements;
+            ViewBag.CampaignList = Campaign;
             CampaignWithAdsDTO campaignWithAdsDTO = new CampaignWithAdsDTO();
-            campaignWithAdsDTO.Advertisements = new List<SelectAdvertisement>();
+            campaignWithAdsDTO.Advertisements = new List<SelectAdvertisement>(advertisements.Count);
+            campaignWithAdsDTO.Advertisement=new AddAdvertisementVm();
             return View(campaignWithAdsDTO);
         }
         [HttpPost]
@@ -57,17 +67,23 @@ namespace FanEase.UI.Controllers
         {
             using (var httpclient = new HttpClient())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(campaignWithAdsDTO.Campaign), Encoding.UTF8, "application/json");
-                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Campaign", content))
+                if (campaignWithAdsDTO.CampaignId == 0)
                 {
-                    string data = response.Content.ReadAsStringAsync().Result;
+                    var content = new StringContent(JsonConvert.SerializeObject(campaignWithAdsDTO.Campaign), Encoding.UTF8, "application/json");
+                    using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Campaign", content))
+                    {
+                        string data = response.Content.ReadAsStringAsync().Result;
+                    }
                 }
-                string userId=campaignWithAdsDTO.Campaign.userId;
-                int CampaignId;
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/LatestAddedCampaign/{userId}"))
+                string userId= HttpContext.Session.GetString("UserId");
+                int CampaignId = campaignWithAdsDTO.CampaignId;
+                if (campaignWithAdsDTO.CampaignId == 0)
                 {
-                    string data = response.Content.ReadAsStringAsync().Result;
-                    CampaignId = JsonConvert.DeserializeObject<ResponseModel<int>>(data).data;
+                    using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/LatestAddedCampaign/{userId}"))
+                    {
+                        string data = response.Content.ReadAsStringAsync().Result;
+                        CampaignId = JsonConvert.DeserializeObject<ResponseModel<int>>(data).data;
+                    }
                 }
                 HttpContext.Session.SetInt32("campaignId", CampaignId);
                 int? VideoId = HttpContext.Session.GetInt32("videoId");
@@ -77,8 +93,24 @@ namespace FanEase.UI.Controllers
                 {
                     string data = response.Content.ReadAsStringAsync().Result;
                 }
+                if (campaignWithAdsDTO.CampaignId == 0)
+                {
+                    foreach (var ads in campaignWithAdsDTO.Advertisements)
+                    {
+                        if (ads.IsSelectd == true)
+                        {
+                            var content2 = new StringContent(JsonConvert.SerializeObject(new AssignAdvertisementVM { CampaignId = CampaignId, AdvertisementId = ads.AdvertisementId }));
 
-                return RedirectToAction("AddAdvertisement", "Advertisement");
+                            using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Campaign/AssignAdvertisement", content2))
+                            {
+                                string data = response.Content.ReadAsStringAsync().Result;
+                            }
+                        }
+                    }
+                }
+
+
+                return RedirectToAction("AddTemplate", "Template");
             }
         }
 
@@ -86,6 +118,7 @@ namespace FanEase.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> CampaignListScreenByUserId(string userId)
         {
+            string UserId = HttpContext.Session.GetString("UserId");
             List<CampaignListScreenVms> Campaign = new List<CampaignListScreenVms>();
 
             using (var httpClient = new HttpClient())
@@ -117,6 +150,95 @@ namespace FanEase.UI.Controllers
             }
         }
 
+
+        [HttpGet]
+        //[Route("EditCampaign/{CampaignId}")]
+
+        public async Task<IActionResult> EditCampaigns(int CampaignId)
+        {
+
+            EditCampaign editCampaign;
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/GetById?campaignId={CampaignId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    editCampaign = JsonConvert.DeserializeObject<ResponseModel<EditCampaign>>(data).data;
+
+                }
+
+                return View(editCampaign);
+
+            }
+
+        }
+
+
+
+        [HttpPost]
+
+        public async Task<IActionResult> EditCampaignPost(EditCampaign editCampaign)
+        {
+
+
+            using (var httpclient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(editCampaign), Encoding.UTF8, "application/json");
+                using (var response = await httpclient.PutAsync($"https://localhost:7208/api/Campaign", content))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+
+                    return RedirectToAction("CampaignListScreenByUserId");
+
+                }
+
+            }
+        }
+
+
+        //[HttpGet]
+        ////[Route("EditCampaign/{CampaignId}")]
+
+        //public async Task<IActionResult> EditCampaigns(int CampaignId)
+        //{
+
+        //    EditCampaign editCampaign;
+        //    using (var httpclient = new HttpClient())
+        //    {
+        //        using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/EditGetAllCampaignAdv/CampaignId?CampaignId={CampaignId}"))
+        //        {
+        //            string data = await response.Content.ReadAsStringAsync();
+        //            editCampaign = JsonConvert.DeserializeObject<ResponseModel<EditCampaign>>(data).data;
+
+        //        }
+
+        //        return View(editCampaign);
+
+        //    }
+
+        //}
+
+        //[HttpPost]
+
+        //public async Task<IActionResult> EditCampaignPost(EditCampaign editCampaign)
+        //{
+
+
+        //    using (var httpclient = new HttpClient())
+        //    {
+        //        var content = new StringContent(JsonConvert.SerializeObject(editCampaign), Encoding.UTF8, "application/json");
+        //        using (var response = await httpclient.PutAsync($"https://localhost:7208/api/Advertisement/EditAdvertisement", content))
+        //        {
+        //            string data = await response.Content.ReadAsStringAsync();
+        //            var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+
+        //            return RedirectToAction("CampaignListScreenByUserId");
+
+        //        }
+
+        //    }
+        //}
 
         [HttpGet]
         public IActionResult UnderConstruction()

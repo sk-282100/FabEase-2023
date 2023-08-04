@@ -9,13 +9,15 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddCountry" >
+        <form asp-action="AddCountry">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="CountryName" class="control-label"></label>
-                <input asp-for="CountryName" class="form-control"  />
-                <span asp-validation-for="CountryName" class="text-danger"></span>
+               
+                <span>Country Name</span>
+                <span class="text-danger">*</span>
+                <input asp-for="CountryName" class="form-control" id="CountryName" />
+                <span asp-validation-for="CountryName" id="countryNameError" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -29,17 +31,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Country ID</th>
+               
                 <th>Country Name</th>
                 <th>Action</th>
-               
+
             </tr>
         </thead>
         <tbody>
             @foreach (var country in ViewBag.Country)
             {
                 <tr>
-                    <td>@country.CountryId</td>
+                    
                     <td>@country.CountryName</td>
                     <td>
                         <button type="button" class="btn btn-danger" onclick="confirmRemove('@country.CountryId')">
@@ -54,7 +56,7 @@
                             </svg>
                         </button>
 
-                       
+
                     </td>
                 </tr>
             }
@@ -64,6 +66,25 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $("#CountryName").on("blur", function () {
+                var countryName = $(this).val();
+                $.ajax({
+                    url: "@Url.Action("CheckCountryNameExists", "Country")",
+                    type: "POST",
+                    data: { countryName: countryName },
+                    success: function (response) {
+                        if (response.exists) {
+                            $("#countryNameError").text("Country name already exists. Please enter a different name.");
+                        } else {
+                            $("#countryNameError").text("");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 }
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
@@ -85,5 +106,5 @@
             }
         });
     }
-    </script>
+</script>
 

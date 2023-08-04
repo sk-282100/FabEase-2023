@@ -16,7 +16,7 @@ namespace FanEase_CQRS
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                
+
             })
                 .AddJwtBearer(o =>
                 {
@@ -35,7 +35,7 @@ namespace FanEase_CQRS
                     };
 
                 });
-           
+
         }
     }
 }

@@ -21,7 +21,7 @@ namespace FanEase_CQRS.Controllers
         [HttpGet("GetAllAdvertisements")]
         public async Task<IActionResult> GetAllAdvertisements()
         {
-            
+
             ResponseModel<List<Advertisement>> advertisements = await _meadiator.Send(new GetAllAdvertisementsQuery());
             if (advertisements.data.Count == 0)
             {
@@ -81,7 +81,7 @@ namespace FanEase_CQRS.Controllers
                 return Ok(response.data);
             return NotFound();
         }
-       
+
 
         [HttpPost]
         [Route("AddAdvertisement")]

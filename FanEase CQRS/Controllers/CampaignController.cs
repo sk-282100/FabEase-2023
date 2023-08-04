@@ -1,6 +1,7 @@
 ﻿using ExceptionHandling;
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Commands.ForCampaign;
+using FanEase.Middleware.Data.Commands.ForVideo;
 using FanEase.Middleware.Data.Queries.ForCampaign;
 using FanEase.Middleware.Data.Queries.ForVideo;
 using MediatR;
@@ -25,8 +26,8 @@ namespace FanEase_CQRS.Controllers
         [Route("Get")]
         public async Task<IActionResult> Get()
         {
-            ResponseModel<List <Campaigns>  > campaigns = await _mediator.Send(new GetAllCampaignsQuery());
-            if (campaigns.data != null )
+            ResponseModel<List<Campaigns>> campaigns = await _mediator.Send(new GetAllCampaignsQuery());
+            if (campaigns.data != null)
             {
                 return Ok(campaigns);
             }
@@ -38,7 +39,7 @@ namespace FanEase_CQRS.Controllers
         {
             ResponseModel<Campaigns> campaignResponse = await _mediator.Send(new GetAllCampaignIdQuery(campaignId));
 
-            if (campaignResponse.data != null )
+            if (campaignResponse.data != null)
             {
                 return Ok(campaignResponse);
             }
@@ -50,7 +51,7 @@ namespace FanEase_CQRS.Controllers
         public async Task<IActionResult> Post([FromBody] CampaignCreateCommand command)
         {
             ResponseModel<bool> campaigns = await _mediator.Send(command);
-            if (campaigns != null )
+            if (campaigns != null)
             {
                 return Ok(campaigns);
             }
@@ -103,5 +104,13 @@ namespace FanEase_CQRS.Controllers
             return Ok(CampaignId);
         }
 
+        [HttpPost]
+        [Route("AssignAdvertisement")]
+        public async Task<IActionResult> AssignAdvertisement(AssignAdvertisementVM assignAdvertisement)
+        {
+            ResponseModel<bool> status = await _mediator.Send(new AssignAdvertisementCommand(assignAdvertisement.CampaignId, assignAdvertisement.AdvertisementId));
+            return Ok(status);
+
+        }
     }
 }

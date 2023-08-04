@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(options => options.RespectBrowserAcceptHeader = true) ;
+builder.Services.AddControllers(options => options.RespectBrowserAcceptHeader = true);
 builder.Services.AddMediatR(typeof(Program).Assembly);
 builder.Services.RegisterRepositoryLayer();
 builder.Services.RegisterMiddlewareLayer();

@@ -17,6 +17,7 @@ using FanEase.Middleware.Data.Handler.ForCampaignAdvertisement;
 using FanEase.Middleware.Data.Handler.ForCity;
 using FanEase.Middleware.Data.Handler.ForCountry;
 using FanEase.Middleware.Data.Handler.ForDashboard;
+using FanEase.Middleware.Data.Handler.ForCountry;
 using FanEase.Middleware.Data.Handler.ForPlayer;
 using FanEase.Middleware.Data.Handler.ForState;
 using FanEase.Middleware.Data.Handler.ForTemplate;
@@ -52,13 +53,13 @@ namespace FanEase.Middleware
     {
         public static IServiceCollection RegisterMiddlewareLayer(this IServiceCollection services)
         {
-         //For User   
+            //For User   
             services.AddScoped<IRequestHandler<GetAllVideosQuery, ResponseModel<List<Video>>>, GetAllVideosHandler>();
             services.AddScoped<IRequestHandler<GetVideoByIdQuery, ResponseModel<Video>>, GetVideoByIdHandler>();
             services.AddScoped<IRequestHandler<AddVideoCommand, ResponseModel<bool>>, AddVideoHandler>();
             services.AddScoped<IRequestHandler<EditVideoCommand, ResponseModel<bool>>, EditVideoHandler>();
             services.AddScoped<IRequestHandler<DeleteVideoCommand, ResponseModel<bool>>, DeleteVideoHandler>();
-            services.AddScoped<IRequestHandler<GetVideosByUserIdQuery,ResponseModel<List<Video>>>,GetVideosByUserIdQueryHandler> ();
+            services.AddScoped<IRequestHandler<GetVideosByUserIdQuery, ResponseModel<List<Video>>>, GetVideosByUserIdQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllVideosListQuery, ResponseModel<List<VideoListVm>>>, GetAllVideosListHandler>();
             services.AddScoped<IRequestHandler<GetVideosListScreenByUserIdQuery, ResponseModel<List<VideoListVm>>>, GetVideosListScreenByUserIdHandler>();
 
@@ -68,7 +69,7 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<AddTemplateDetailsCommand, ResponseModel<bool>>, AddTemplateDetailsHandler>();
             services.AddScoped<IRequestHandler<EditTemplateDetailsCommand, ResponseModel<bool>>, EditTemplateDetailsHandler>();
             services.AddScoped<IRequestHandler<DeleteTemplateDetailsCommand, ResponseModel<bool>>, DeleteTemplateDetailsHandler>();
-           
+
             //For Advertisement
             services.AddScoped<IRequestHandler<GetAllAdvertisementsQuery, ResponseModel<List<Advertisement>>>, GetAllAdvertisementHandler>();
             services.AddScoped<IRequestHandler<GetAdvertisementByIdQuery, ResponseModel<Advertisement>>, GetAdvertisementByIdHandler>();
@@ -86,13 +87,17 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetAllCampaignsQuery, ResponseModel<List<Campaigns>>>, GetAllCampaignsQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllCampaignIdQuery, ResponseModel<Campaigns>>, GetAllCampaignIdQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllCampaignListScreenByUserIdQuery, ResponseModel<List<CampaignListScreenVm>>>, GetAllCampaignListScreenByUserIdQueryHandler>();
+            //services.AddScoped<IRequestHandler<GetAllCampaignAdvIdQuery,ResponseModel<List<EditCampaignVm>>>,GetAllCampaignAdvIdQueryHandler();
+            //services.AddScoped<IRequestHandler<GetAllCampaignAdvIdQuery, ResponseModel<EditCampaignVm>>, GetAllCampaignAdvIdQueryHandler>();
+
             //For Campaign Advertisement
             services.AddScoped<IRequestHandler<CampaignAdvertisementCreateCommand, ResponseModel<bool>>, CampaignAdvertisementCreateCommandHandler>();
             services.AddScoped<IRequestHandler<CampaignAdvertisementDeleteCommand, ResponseModel<bool>>, CampaignAdvertisementDeleteCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateCampaignAdvertisementCommand, ResponseModel<bool>>, UpdateCampaignAdvertisementCommandHandler>();
             services.AddScoped<IRequestHandler<GetAllCampaignAdvertisementsQuery, ResponseModel<List<Campaign_Advertisement>>>, GetAllCampaignAdvertisementsQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllCampaignAdvertisementIdQuery, ResponseModel<Campaign_Advertisement>>, GetCampaignAdvertisementByCampaignIdQueryHandler>();
-           
+
+            //
             //For Player
             services.AddScoped<IRequestHandler<PlayerCreateCommand, ResponseModel<bool>>, PlayerCreateCommandHandler>();
             services.AddScoped<IRequestHandler<PlayerDeleteCommand, ResponseModel<bool>>, PlayerDeleteCommandHandler>();
@@ -111,11 +116,11 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<GetAllCreatorsQuery, ResponseModel<List<User>>>, GetAllCreatorsQueryHandler>();
             services.AddScoped<IRequestHandler<AddCreatorCommand, ResponseModel<bool>>, AddCreatorCommandHandler>();
             services.AddScoped<IRequestHandler<AddViewerCommand, ResponseModel<bool>>, AddViewerCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoveCreatorCommand,bool>, RemoveCreatorCommandHandler>(); 
-            
+            services.AddScoped<IRequestHandler<RemoveCreatorCommand, bool>, RemoveCreatorCommandHandler>();
+
             //For Account
             services.AddScoped<IRequestHandler<ResetPasswordCommand, ResponseModel<bool>>, ResetPasswordHandler>();
-            services.AddScoped<IRequestHandler<SetCreatorPasswordCommand,ResponseModel<bool>>,SetCreatorPasswordCommandHandler>();
+            services.AddScoped<IRequestHandler<SetCreatorPasswordCommand, ResponseModel<bool>>, SetCreatorPasswordCommandHandler>();
             services.AddScoped<IRequestHandler<SetPasswordCommand, ResponseModel<bool>>, SetPasswordCommandHandler>();
             services.AddScoped<IRequestHandler<AdvertisementListScreenQuery, ResponseModel<List<AdvertisementListVM>>>, AdvertisementListScreenHandler>();
             //For Template
@@ -125,6 +130,16 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<UpdateTemplateCommand, ResponseModel<bool>>, UpdateTemplateHandler>();
             services.AddScoped<IRequestHandler<DeleteTemplateCommand, ResponseModel<bool>>, DeleteTemplateHandler>();
             services.AddScoped<IRequestHandler<GetAllTemplatesByUserQuery, ResponseModel<List<TemplateListDTO>>>, GetAllTemplatesByUserQueryHandler>();
+
+            //For Country
+            services.AddScoped<IRequestHandler<GetAllCountrysQuery, ResponseModel<List<Country>>>, GetAllCountrysQueryHandler>();
+            services.AddScoped<IRequestHandler<CountryCreateCommand, ResponseModel<bool>>, CountryCreateCommandHandler>();
+            services.AddScoped<IRequestHandler<CountryDeleteCommand, ResponseModel<bool>>, CountryDeleteCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateCountryCommand, ResponseModel<bool>>, UpdateCountryCommandHandler>();
+            services.AddScoped<IRequestHandler<GetAllCountryIdQuery, ResponseModel<Country>>, GetAllCountryIdQueryHandler>();
+            services.AddScoped<IRequestHandler<CheckCountryNameExistsQuery, ResponseModel<Country>>, CheckCountryNameExistsQueryHandler>();
+
+
 
             //For State
             services.AddScoped<IRequestHandler<StateCreateCommand, ResponseModel<bool>>, CreateStateHandler>();
@@ -152,6 +167,7 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<LatestAddedVideoQuery, ResponseModel<int>>, LatestAddedVideoQueryHandler>();
             services.AddScoped<IRequestHandler<AssignCampaignCommand, ResponseModel<bool>>, AssignCampaignCommandHandler>();
             services.AddScoped<IRequestHandler<LatestAddedCampaignQuery, ResponseModel<int>>, LatestAddedCampaignQueryHandler>();
+            services.AddScoped<IRequestHandler<AssignAdvertisementCommand, ResponseModel<bool>>, AssignAdvertisementCommandHandler>();
             return services;
         }
     }

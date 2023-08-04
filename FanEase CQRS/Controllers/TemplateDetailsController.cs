@@ -16,7 +16,7 @@ namespace FanEase_CQRS.Controllers
         readonly IMediator _mediator;
         public TemplateDetailsController(IMediator mediator)
         {
-            _mediator= mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -37,7 +37,7 @@ namespace FanEase_CQRS.Controllers
         public async Task<IActionResult> AddTemplateDetails(TemplateDetail templateDetail)
         {
             ResponseModel<bool> status = await _mediator.Send(new AddTemplateDetailsCommand(templateDetail));
-            if(status.data)
+            if (status.data)
             {
                 return Ok();
             }

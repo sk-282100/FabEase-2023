@@ -41,8 +41,8 @@ namespace FanEase_CQRS.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(User user)
         {
-            if(user!=null)
-                user.Password= PasswordHasher.HashPassword(user.Password);
+            if (user != null)
+                user.Password = PasswordHasher.HashPassword(user.Password);
             ResponseModel<bool> status = await _meadiator.Send(new AddUserCommand(user));
             if (status.data)
             {
@@ -54,8 +54,8 @@ namespace FanEase_CQRS.Controllers
         [HttpPut]
         public async Task<IActionResult> EditUser(User user)
         {
-           ResponseModel<bool> status = await _meadiator.Send(new EditUserCommand(user));
-            if (status!=null)
+            ResponseModel<bool> status = await _meadiator.Send(new EditUserCommand(user));
+            if (status != null)
             {
                 return Ok(status);
             }
@@ -99,7 +99,7 @@ namespace FanEase_CQRS.Controllers
         public async Task<ActionResult> AddCreator(string creatorId)
         {
             ResponseModel<bool> result = await _meadiator.Send(new AddCreatorCommand(creatorId));
-            if(result.data)
+            if (result.data)
             {
                 return Ok(result);
             }
@@ -123,11 +123,11 @@ namespace FanEase_CQRS.Controllers
         public async Task<ActionResult> RemoveCreator(string creatorId)
         {
             bool result = await _meadiator.Send(new RemoveCreatorCommand(creatorId));
-            if(result)
+            if (result)
                 return Ok(result);
             return BadRequest(result);
         }
 
-       
+
     }
 }

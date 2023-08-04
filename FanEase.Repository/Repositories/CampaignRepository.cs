@@ -7,6 +7,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Data;
+using System.Text.Json;
 
 namespace FanEase.Repository.Repositories
 {
@@ -34,7 +35,6 @@ namespace FanEase.Repository.Repositories
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@CampaignId", campaignId);
-
             Campaigns campaign = await GetByIdAsync<Campaigns>("GetCampaignById", parameters, CommandType.StoredProcedure);
             return campaign;
         }
@@ -53,16 +53,18 @@ namespace FanEase.Repository.Repositories
             int rowsAffected = await ExecuteAsync("CreateCampaign", parameters, CommandType.StoredProcedure);
             return rowsAffected;
         }
-        public async Task<int> UpdateCampaign(Campaigns campaign)
+        public async Task<int> UpdateCampaign(EditCampaignVm editCampaignVm)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@Name", campaign.name);
-            parameters.Add("@StartDate", campaign.startDate);
-            parameters.Add("@CampaignID", campaign.campaignId);
-            parameters.Add("@EndDate", campaign.endDate);
-            parameters.Add("@Engagement", campaign.engagement);
-            parameters.Add("@UserID", campaign.userId);
-
+            parameters.Add("@Name", editCampaignVm.name);
+            parameters.Add("@StartDate", editCampaignVm.startDate);
+            parameters.Add("@CampaignID", editCampaignVm.campaignId);
+            parameters.Add("@EndDate", editCampaignVm.endDate);
+            parameters.Add("@Engagement", editCampaignVm.engagement);
+            parameters.Add("@UserID", editCampaignVm.userId);
+            //parameters.Add("@Advertisement", editCampaignVm.Advertisements);
+            // advertismentId
+            //advertismenttitle
             int rowsAffected = await ExecuteAsync("UpdateCampaign", parameters, CommandType.StoredProcedure);
             return rowsAffected;
         }
@@ -87,6 +89,7 @@ namespace FanEase.Repository.Repositories
             }
         }
 
+
         public async Task<int> LatestAddedCampaign(string userId)
         {
             int campaignId;
@@ -100,6 +103,21 @@ namespace FanEase.Repository.Repositories
             }
 
             return campaignId;
+        }
+
+        public async Task<bool> AssignCampaign(int? campaignId, int? advertisementId)
+        {
+           
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    var result = connection.Execute("AssignAdvertisementSP", new { @CampaignId = campaignId, @AdvertisementId = advertisementId }, commandType: CommandType.StoredProcedure);
+
+                    if (result > 0)
+                        return true;
+                    return false;
+                }
+            
         }
     }
 }

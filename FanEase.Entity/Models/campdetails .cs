@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FanEase.Entity.Models
 {
-    public class Campaigns
+    public class EditCampaignVm
     {
         public int campaignId { get; set; }
 
@@ -22,10 +23,9 @@ namespace FanEase.Entity.Models
         public DateTime endDate { get; set; }
 
         public int engagement { get; set; }
+
         public string userId { get; set; }
-
-        
-
+      
 
     }
 }

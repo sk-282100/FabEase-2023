@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using static Dapper.SqlMapper;
 
 namespace FanEase.Repository.Repositories
 {
@@ -52,6 +53,59 @@ namespace FanEase.Repository.Repositories
             }
 
             return result.ToList();
+        }
+
+        #region - Query Multiple
+        public async Task<GridReader> QueryMultipleAsync<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
+        {
+            GridReader result;
+            string connectionString = _config.GetConnectionString(Connectionstring);
+            using IDbConnection db = new SqlConnection(connectionString);
+            try
+            {
+                if (db.State == ConnectionState.Closed)
+                    db.Open();
+
+                result = await db.QueryMultipleAsync(sp, parms, commandType: commandType);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (db.State == ConnectionState.Open)
+                    db.Close();
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        public async Task<T> GetByNameAsync<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
+        {
+            T result;
+            string connectionString = _config.GetConnectionString(Connectionstring);
+            using IDbConnection db = new SqlConnection(connectionString);
+            try
+            {
+                if (db.State == ConnectionState.Closed)
+                    db.Open();
+
+                result = await db.QuerySingleOrDefaultAsync<T>(sp, parms, commandType: commandType);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (db.State == ConnectionState.Open)
+                    db.Close();
+            }
+
+            return result;
         }
 
         public async Task<T> GetByIdAsync<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
