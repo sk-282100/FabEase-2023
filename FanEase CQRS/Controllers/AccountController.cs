@@ -17,7 +17,7 @@ namespace FanEase_CQRS.Controllers
     {
         readonly IMediator _mediator;
         private static int otp = 0;
-        public AccountController(IMediator mediator )
+        public AccountController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -109,7 +109,7 @@ namespace FanEase_CQRS.Controllers
 
         [HttpPut]
         [Route("ResetPassword")]
-        public async Task<ActionResult> ResetPassword(string OldPassword,string UserId,string NewPassword)
+        public async Task<ActionResult> ResetPassword(string OldPassword, string UserId, string NewPassword)
         {
             ResponseModel<bool> status = await _mediator.Send(new ResetPasswordCommand(OldPassword, UserId, NewPassword));
             if (status.data)
@@ -127,7 +127,7 @@ namespace FanEase_CQRS.Controllers
         [Route("SetCreatorPassword")]
         public async Task<ActionResult> SetCreatorPassword(LoginDto login)
         {
-            login.Password=PasswordHasher.HashPassword(login.Password); 
+            login.Password = PasswordHasher.HashPassword(login.Password);
             ResponseModel<bool> status = await _mediator.Send(new SetCreatorPasswordCommand(login.Email, login.Password));
             if (status.data)
             {

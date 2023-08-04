@@ -104,16 +104,22 @@ namespace FanEase.Repository.Repositories
 
             return campaignId;
         }
-        //public async Task<EditCampaignVm> EditCampaignAd(int campaignId)
-        //{
-        //    //DynamicParameters parameters = new DynamicParameters();
-        //    //parameters.Add("@CampaignId", campaignId);
-        //    ////EditCampaignVm objCamping = await GetByIdAsync<EditCampaignVm>("EditCampaignAdvprocedure", parameters, CommandType.StoredProcedure);
-        //    ////var advirtisements = JsonSerializer.Deserialize<List<Advertisement>>(objCamping.Advertisements);
-        //    //EditCampaignVm campaign = await GetByIdAsync<EditCampaignVm>("EditCampaignAdvprocedure", parameters, CommandType.StoredProcedure);
-        //    //return campaign;
 
 
-        //}
+        public async Task<bool> AssignCampaign(int? campaignId, int? advertisementId)
+        {
+           
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    var result = connection.Execute("AssignAdvertisementSP", new { @CampaignId = campaignId, @AdvertisementId = advertisementId }, commandType: CommandType.StoredProcedure);
+
+                    if (result > 0)
+                        return true;
+                    return false;
+                }
+            
+        }
+
     }
 }

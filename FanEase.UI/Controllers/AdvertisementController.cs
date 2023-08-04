@@ -49,6 +49,27 @@ namespace FanEase.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> AddAdvertisementProceed(Advertisement advertisement)
+        {
+
+            using (var httpclient = new HttpClient())
+            {
+
+                var content = new StringContent(JsonConvert.SerializeObject(advertisement), Encoding.UTF8, "application/json");
+
+                using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Advertisement/AddAdvertisement", content))
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    var status = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+
+                    return View(advertisement);
+
+                }
+
+            }
+        }
+
 
 
         //Advertisement List Screen for Admin

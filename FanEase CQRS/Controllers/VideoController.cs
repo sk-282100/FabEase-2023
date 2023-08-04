@@ -26,17 +26,17 @@ namespace FanEase_CQRS.Controllers
         {
 
             ResponseModel<List<Video>> videos = await _meadiator.Send(new GetAllVideosQuery());
-            
+
             return Ok(videos);
 
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetVideoById(int id) 
+        public async Task<IActionResult> GetVideoById(int id)
         {
             ResponseModel<Video> video = await _meadiator.Send(new GetVideoByIdQuery(id));
-            if(video != null) 
-            return Ok(video);
+            if (video != null)
+                return Ok(video);
             return NotFound();
         }
 

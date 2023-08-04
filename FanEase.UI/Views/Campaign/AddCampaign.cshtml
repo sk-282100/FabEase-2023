@@ -1,7 +1,7 @@
-﻿@using FanEase.UI.Models.Advertisements;
-@using FanEase.Entity.Models
-@model FanEase.UI.Models.Campaign.CampaignWithAdsDTO
-@inject IHttpContextAccessor HttpContextAccessor;
+﻿    @using FanEase.UI.Models.Advertisements;
+    @using FanEase.Entity.Models
+    @model FanEase.UI.Models.Campaign.CampaignWithAdsDTO
+    @inject IHttpContextAccessor HttpContextAccessor;
 @{
     ViewData["Title"] = "AddCampaign";
     Layout = "AdminLayout";
@@ -9,282 +9,382 @@
     string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
     int? VideoId = HttpContextAccessor.HttpContext.Session.GetInt32("videoId");
 
-    
-    var advertisements = ViewBag.Advertisements as List<SelectAdvertisement>;
-}
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Link Of CSS -->
-    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/assets/css/animate.min.css">
-    <link rel="stylesheet" href="~/assets/css/remixicon.css">
-    <link rel="stylesheet" href="~/assets/css/boxicons.min.css">
-    <link rel="stylesheet" href="~/assets/css/iconsax.css">
-    <link rel="stylesheet" href="~/assets/css/metismenu.min.css">
-    <link rel="stylesheet" href="~/assets/css/simplebar.min.css">
-
-    <link rel="stylesheet" href="~/assets/css/sweetalert2.min.css">
-    <link rel="stylesheet" href="~/assets/css/jbox.all.min.css">
-    <link rel="stylesheet" href="~/assets/css/editor.css">
-    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/assets/css/loaders.css">
-    <link rel="stylesheet" href="~/assets/css/header.css">
-    <link rel="stylesheet" href="~/assets/css/sidebar-menu.css">
-    <link rel="stylesheet" href="~/assets/css/footer.css">
-    <link rel="stylesheet" href="~/assets/css/style.css">
-    <link rel="stylesheet" href="~/assets/css/responsive.css">
-    <link rel="stylesheet" href="~/assets/css/Campaign.css" />
-
-    <script>
-        var selectAd = document.getElementById("selectAd")
-        selectAd.onchange=function(){
-
-        
-            @Model.Advertisements = (from a in @advertisements where a.IsSelectd = true select a).ToList();
-       
+    var advertisements = ViewBag.Advertisements as List<AdvertisementListVM>;
+    if (advertisements != null) {
+        foreach (var ad in advertisements) {
+            Model.Advertisements.Add(new SelectAdvertisement { AdvertisementId = ad.AdvertisementId, IsSelectd=false });
         }
-        </script>
+    }
 
-</head>
+    var i = 0;
+    }
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Link Of CSS -->
+        <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="~/assets/css/animate.min.css">
+        <link rel="stylesheet" href="~/assets/css/remixicon.css">
+        <link rel="stylesheet" href="~/assets/css/boxicons.min.css">
+        <link rel="stylesheet" href="~/assets/css/iconsax.css">
+        <link rel="stylesheet" href="~/assets/css/metismenu.min.css">
+        <link rel="stylesheet" href="~/assets/css/simplebar.min.css">
+
+        <link rel="stylesheet" href="~/assets/css/sweetalert2.min.css">
+        <link rel="stylesheet" href="~/assets/css/jbox.all.min.css">
+        <link rel="stylesheet" href="~/assets/css/editor.css">
+        <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="~/assets/css/loaders.css">
+        <link rel="stylesheet" href="~/assets/css/header.css">
+        <link rel="stylesheet" href="~/assets/css/sidebar-menu.css">
+        <link rel="stylesheet" href="~/assets/css/footer.css">
+        <link rel="stylesheet" href="~/assets/css/style.css">
+        <link rel="stylesheet" href="~/assets/css/responsive.css">
+        <link rel="stylesheet" href="~/assets/css/Campaign.css" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@*    <script>
+        $(document).ready(function () {
+
+            $("#resendOTPBtn").click(function (e) {
+                e.preventDefault();
+
+                var email = "@Username";
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ForgetPassword", "Account")",
+                    data: { Email: email },
+                    success: function (response) {
+
+                        if (response.redirectUrl) {
+                            window.location.href = response.redirectUrl;
+                        } else {
+
+                            showSucessAlert("@Html.Raw("OTP Sent to your Email")");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+
+                        alert("Failed to resend OTP. Please try again later.");
+                    }
+                });
+            });
+        });
+    </script>*@
+    </head>
 
 
-<title>FanEase -Campaign Details</title>
-<body>
-    <div class="profile-area">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="edit-profile-content card-box-style col-lg-12">
-                    <div class="d-flex justify-content-between mb-3">
-                        <h1>Campaign Details</h1>
-                        <!-- Two buttons at the opposite side -->
+    <title>FanEase -Campaign Details</title>
+    <body>
+        <div class="profile-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="edit-profile-content card-box-style col-lg-12">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h1>Campaign Details</h1>
+                            <!-- Two buttons at the opposite side -->
+                            <div>
+                                <button type="button" class="btn btn-primary">View Existing Advertisement</button>
+                                <button type="button" class="btn btn-success">Add Advertisement</button>
+                            </div>
+                        </div>
 
-                    </div>
-                    <ul class="nav nav-tabs">
-                        <!-- Create New Campaign Tab -->
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-action="AddCampaignss" asp-controller="Campaign" data-bs-toggle="tab">Create New Campaign</a>
-                        </li>
 
-                        <!-- Select Existing Campaign Tab -->
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="CampaignListScreenByUserId" asp-controller="Campaign" tab">Select Existing Campaign</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex gap-2 py-3">
-                        <div class="col-md-6 col-sm-12">
-                            <form asp-action="AddCampaign" asp-controller="Campaign" method="post" id="myForm">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="row hidden">
-                                    <div class="col-md-6 sol-sm-12">
-                                        <div hidden>
-                                            <input asp-for="userId" class="form-control" id="end1" value=@UserId />
-                                        </div>
+                        <form asp-action="AddCampaign" asp-controller="Campaign" method="post" id="myForm">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row hidden">
+                                <div class="col-md-6 sol-sm-12">
+                                    <div hidden>
+
+                                        <input asp-for=Campaign.userId class="form-control" id="end1" value=@UserId />
                                     </div>
                                 </div>
-                                <div class="d-flex flex-column">
-                                    <div class="d-flex">
-                                        <div class="form-group w-100">
-                                            <!--<label asp-for="name" class="control-label"></label>-->
-                                            <span>Campaign Name</span>
-                                            <span class="text-danger">*</span>
-                                            <div class="input-group">
-                                                <textarea asp-for="name" class="form-control" id="end1" placeholder="Enter CampaignName"></textarea>
-                                                <span asp-validation-for="name" class="text-danger"></span>
-                                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 sol-sm-12">
+                                    <div class="form-group">
+                                        <!--<label asp-for="name" class="control-label"></label>-->
+                                        <span>Campaign Name</span>
+                                        <span class="text-danger">*</span>
+                                        <div class="input-group">
+                                            <textarea asp-for="Campaign.name" class="form-control" id="name" placeholder="Enter Campaign Name"></textarea>
+                                            
                                         </div>
+                                    <span asp-validation-for="Campaign.name" class="text-danger"></span>
                                     </div>
-                                    <div class="d-flex gap-2">
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <span>Start Date</span>
-                                                <span class="text-danger">*</span>
-                                                <input asp-for="startDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
-                                                <span asp-validation-for="startDate" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <span>End Date</span>
-                                                <span class="text-danger">*</span>
-                                                <input asp-for="endDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")                />
-                                                <span asp-validation-for="endDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12">
+                                    <div class="form-group">
+                                        <span>Start Date</span>
+                                        <span class="text-danger">*</span>
+                                        <input asp-for="Campaign.startDate" class="form-control" id="sdate" />
+                                        <span asp-validation-for="Campaign.startDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-12">
+                                    <div class="form-group">
+                                        <span>End Date</span>
+                                        <span class="text-danger">*</span>
+                                        <input asp-for="Campaign.endDate" class="form-control" id="edate" />
+                                        <span asp-validation-for="Campaign.endDate" class="text-danger"></span>
 
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div class="d-flex justify-content-end">
+                                </div>
+                                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="slectedAds-tab" data-bs-toggle="tab" data-bs-target="#slectedAds-tab-pane" type="button" role="tab" aria-controls="slectedAds-tab-pane" aria-selected="true" onclick="refreshlist()">Selected Assets</button>
+                                    </li>
+                                    
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="AddAd-tab" data-bs-toggle="tab" data-bs-target="#AddAd-tab-pane" type="button" role="tab" aria-controls="AddAd-tab-pane" aria-selected="false">Create New Advertisement</button>
+                                </li>
+
+                                @* @if (VideoId != null)
+                                {*@
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="ChooseCampaign-tab" data-bs-toggle="tab" data-bs-target="#ChooseCampaign-tab-pane" type="button" role="tab" aria-controls="ChooseCampaign-tab-pane" aria-selected="false">Choose Existing Campaign</button>
+                                </li>
+                                @*    }*@
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="slectedAds-tab-pane" role="tabpanel" aria-labelledby="slectedAds-tab" tabindex="0">
+                                        <table class="table align-middle">
+                                            <thead align="center">
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">TITLE</th>
+                                                    <th scope="col">TYPE</th>
+                                                    <th scope="col">END DATE</th>
+                                                    <th scope="col">ACTIONS</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               
+                                            
+                                                    @foreach (var advertise in advertisements)
+                                                    {
+                                                        
+                                                      
+                                                        <input asp-for="@Model.Advertisements[i].AdvertisementId" value="@advertise.AdvertisementId" hidden/>
+
+                                                  <tr align="center">
+                                                            <td>
+                                                                <input asp-for="@Model.Advertisements[i].IsSelectd"/>
+                                                            </td>
+                                                            <td>
+                                                                <span>@advertise.AdvertisementId</span>
+                                                            </td>
+                                                            <td>
+                                                                <span>@advertise.AdvertisementTitle</span>
+                                                            </td>
+                                                            <td>
+                                                                <span>@advertise.ContentType</span>
+                                                            </td>
+                                                            <td>
+                                                                <span>@advertise.EndDate</span>
+                                                            </td>
+                                                            <td>
+                                                                <span> </span>
+                                                            </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                            
+                                            </tbody>
+                                        </table>
+
+                                    <div class="save-update col-sm-7" align="right">
                                         <input onclick="myCancelFunction()" type="button" value="Cancel" class="btn btn-danger" id="btnReset" />
                                         &nbsp;
                                         <input type="submit" value="Save" class="btn btn-secondary float-right" />
                                         &nbsp;
-                                        @if (VideoId != null)
-                                        {
-                                            <input type="submit" asp-action="AddCampaignProceed" asp-controller="Campaign" value="Proceed" class="btn btn-primary float-right" />
-                                        }
+                                        @* @if (VideoId != null)
+                                        {*@
+                                        <input type="submit" asp-action="AddCampaignProceed" asp-controller="Campaign" value="Proceed" class="btn btn-primary float-right" />
+                                        @*    }*@
                                     </div>
-                    <form asp-action="AddCampaign" asp-controller="Campaign" method="post" id="myForm">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="row hidden">
-                            <div class="col-md-6 sol-sm-12">
-                                <div hidden>
 
-                                    <input asp-for=Campaign.userId class="form-control" id="end1" value=@UserId />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 sol-sm-12">
-                                <div class="form-group">
-                                    <!--<label asp-for="name" class="control-label"></label>-->
-                                    <span>Campaign Name</span>
-                                    <span class="text-danger">*</span>
-                                    <div class="input-group">
-                                        <textarea asp-for="Campaign.name" class="form-control" id="end1" placeholder="Enter CampaignName"></textarea>
-                                        <span asp-validation-for="Campaign.name" class="text-danger"></span>
                                     </div>
+
+                            
+                               
+
+                                 <div class="tab-pane fade show" id="AddAd-tab-pane" role="tabpanel" aria-labelledby="AddAd-tab" tabindex="0">
+
+
+                                    <form asp-action="AddAdvertisementProceed" asp-controller="Advertisement" method="post">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group hidden">
+                                                <span>Advertisement Id</span>
+                                                <input asp-for="@Model.Advertisement.AdvertisementId" class="form-control" />
+                                                <span asp-validation-for="@Model.Advertisement.AdvertisementId" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <span>Advertisement Title</span> <!--span tag is  used to show field name above text box-->
+                                                    <span class="text-danger">*</span>  <!--It is used to give Astric on required field -->
+                                                    <input asp-for="@Model.Advertisement.AdvertisementTitle" class="form-control" placeholder="Enter video title" />
+                                                    <span asp-validation-for="@Model.Advertisement.AdvertisementTitle" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <span>Start Date</span>
+                                                    <span class="text-danger">*</span>
+                                                    <input asp-for="@Model.Advertisement.StartDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                                                    <span asp-validation-for="@Model.Advertisement.StartDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <span>End Date</span>
+                                                    <span class="text-danger">*</span>
+                                                    <input asp-for="@Model.Advertisement.EndDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                                                    <span asp-validation-for="@Model.Advertisement.EndDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <span>Advertisement Type</span>
+                                                    <span class="text-danger">*</span>
+                                                    <select asp-for="@Model.Advertisement.ContentType" class="form-control form-select" aria-hidden="true" onchange="CheckDropDown(this)">
+                                                        <option value="">-----Select Advertisement Type-----</option>
+                                                        <option asp-for="ContentType" value="Image" id="0">Image</option>
+                                                        <option asp-for="ContentType" value="Video" id="0">Video</option>
+                                                        <option asp-for="ContentType" value="Url" id="1">Url</option>
+                                                    </select>
+                                                    <span asp-validation-for="@Model.Advertisement.ContentType" class="text-danger"></span>
+
+                                                    <span asp-validation-for="@Model.Advertisement.ContentType" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <span>Description</span>
+                                                    <span class="text-danger">*</span>
+                                                    <input asp-for="@Model.Advertisement.Description" class="form-control" placeholder="Enter Description" />
+                                                    <span asp-validation-for="@Model.Advertisement.Description" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <span>Advertisement Placement</span>
+                                                    <span class="text-danger">*</span>
+                                                    <select asp-for="@Model.Advertisement.AvertisementPlacement" class="form-control form-select" aria-hidden="true">
+                                                        <option value="">-----Select Position-----</option>
+                                                        <option asp-for="AvertisementPlacement" value="Top_Left">Top Left</option>
+                                                        <option asp-for="AvertisementPlacement" value="Top_Right">Top Right</option>
+                                                        <option asp-for="AvertisementPlacement" value="Top_Right">Bottom Left</option>
+                                                        <option asp-for="AvertisementPlacement" value="Top_Right">Bottom Right</option>
+                                                    </select>
+                                                    <span asp-validation-for="@Model.Advertisement.AvertisementPlacement" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group  hidden" id="imageOrvideo">
+                                                    <span>Image / Video</span>
+                                                    <input asp-for="@Model.Advertisement.Image" class="form-control" type="file" />
+                                                    <span asp-validation-for="@Model.Advertisement.Image" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <!--For uploading Advertisement Image/Video-->
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label asp-for="@Model.Advertisement.UploadAdvertisement" class="control-label"></label><span class="text-danger">*</span>
+                                                    <input asp-for="@Model.Advertisement.UploadAdvertisement" class="form-control" type="file" id="takeImage" onchange="loadFile(event)" />
+
+                                                    <span asp-validation-for="@Model.Advertisement.UploadAdvertisement" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group  hidden" id="redirectUrl">
+                                                    <span>Redirect URL</span>
+                                                    <input asp-for="@Model.Advertisement.Url" class="form-control" type="url" />
+                                                    <span asp-validation-for="@Model.Advertisement.Url" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group hidden">
+                                                    <label asp-for="@Model.Advertisement.AdClicks" class="control-label"></label>
+                                                    <input asp-for="@Model.Advertisement.AdClicks" class="form-control" />
+                                                    <span asp-validation-for="@Model.Advertisement.AdClicks" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group hidden">
+                                                <label asp-for="@Model.Advertisement.UserId" class="control-label"></label>
+                                                <input asp-for="@Model.Advertisement.UserId" class="form-control" value="@UserId" />
+                                                <span asp-validation-for="@Model.Advertisement.UserId" class="text-danger"></span>
+                                            </div><br />
+                                            <div class="form-group">
+                                                <input type="submit" value="ADD" class="btn btn-success" />
+                                                &nbsp;
+                                                <input type="submit" value="Back To List" class="btn btn-warning" />
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    
+                                 </div>
+
+
+                              @*   @if (VideoId != null)
+                                {*@
+                                <div class="tab-pane fade show" id="ChooseCampaign-tab-pane" role="tabpanel" aria-labelledby="ChooseCampaign-tab" tabindex="0">
+                                    
+                                     <select asp-for="CampaignId" class="form-control" onchange="ValidateModel()"/>
+                                    <option value="">--Select Campaign--</option>
+                                    @foreach (var campaign in @ViewBag.CampaignList)
+                                    {
+                                        <option value="@campaign.campaignId">@campaign.name</option>
+                                        
+                                    }
+
+                                    <div class="save-update col-sm-7" align="right">
+                                        <input onclick="myCancelFunction()" type="button" value="Cancel" class="btn btn-danger" id="btnReset" />
+                                        &nbsp;
+                                        
+                                        <input type="submit" asp-action="AddCampaignProceed" asp-controller="Campaign" value="Proceed" class="btn btn-primary float-right" />
+                              
+                                    </div>
+                                    
+                                 </div>
+                              @*      }*@
                                 </div>
+
+                              
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-12">
-                                <div class="form-group">
-                                    <span>Start Date</span>
-                                    <span class="text-danger">*</span>
-                                    <input asp-for="Campaign.startDate" class="form-control" />
-                                    <span asp-validation-for="Campaign.startDate" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-12">
-                                <div class="form-group">
-                                    <span>End Date</span>
-                                    <span class="text-danger">*</span>
-                                    <input asp-for="Campaign.endDate" class="form-control" />
-                                    <span asp-validation-for="Campaign.endDate" class="text-danger"></span>
+                        </form>
 
-                                </div>
-                            </div>
-                            <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="slectedAds-tab" data-bs-toggle="tab" data-bs-target="#slectedAds-tab-pane" type="button" role="tab" aria-controls="slectedAds-tab-pane" aria-selected="true">Selected Assets</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="AdMenu-tab" data-bs-toggle="tab" data-bs-target="#AdMenu-tab-pane" type="button" role="tab" aria-controls="AdMenu-tab-pane" aria-selected="false">Add More Advertisements</button>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="slectedAds-tab-pane" role="tabpanel" aria-labelledby="slectedAds-tab" tabindex="0">
-                                    <table class="table align-middle">
-                                        <thead align="center">
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">TITLE</th>
-                                                <th scope="col">TYPE</th>
-                                                <th scope="col">END DATE</th>
-                                                <th scope="col">ACTIONS</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{
-                                                Model.Advertisements = (from a in advertisements where a.IsSelectd = true select a).ToList();
-                                            }
-                                            
-                                                @foreach (var advertise in Model.Advertisements)
-                                                {
-                                                    <tr align="center">
-                                                        <td>
-                                                            <span>@advertise.AdvertisementId</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>@advertise.AdvertisementTitle</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>@advertise.ContentType</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>@advertise.EndDate</span>
-                                                        </td>
-                                                        <td>
-                                                            <span> </span>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div class="tab-pane fade show" id="AdMenu-tab-pane" role="tabpanel" aria-labelledby="AdMenu-tab" tabindex="0">
-                                    <p align="right">
-                                        <a asp-action="AddAdvertisement" asp-controller="Advertisement"><input type="button" value="Add Advertisement" class="btn btn-primary"></a>
-                                    </p>
-                                    <table class="table align-middle">
-                                        <thead>
-                                            <tr align="center">
-                                                <th scope="col">SELECT</th>
-                                                <th scope="col">ADVERTISEMENT NAME</th>
-                                                <th scope="col">TYPE</th>
-                                                <th scope="col">END DATE</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var advertise in advertisements)
-                                            {
-                                                <tr align="center">
-                                                    <td>
-                                                        <input type="checkbox" asp-for=@advertise.IsSelectd id="selectAd" value="false"/>
-                                                    </td>
-                                                    <td>
-                                                        <span>@advertise.AdvertisementTitle</span>
-                                                    </td>
-                                                    <td>
-                                                        <span>@advertise.ContentType</span>
-                                                    </td>
-                                                    <td>
-                                                        <span>@advertise.EndDate</span>
-                                                    </td>
-
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </form>
-
-                        </div>
-                        <div class="d-flex justify-content-end col-md-6 sol-sm-12">
-                            <div>
-                                <a id="btnFetchData" class="btn btn-primary mx-3">
-                                    View Existing Advertisement
-                                </a>
-                                <a asp-controller="Advertisement" asp-action="AddAdvertisement" class="btn btn-success mx-3">
-                                    Add Advertisement
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <div id="data-container" style="display: none;" class="mt-3 w-100" >
-                            <table id="advertisement-table" class="table table-striped table-bordered">
-                                <thead class="table">
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Content Type</th>
-                                        <th>End Date</th>
-                                        <th>Ad Clicks</th>
-                                        <th>Views</th>
-                                        <th>Active Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Table body will be dynamically populated with data -->
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -298,6 +398,7 @@
         @section Scripts {
             @{
                 await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
             }
         }
         <!-- JavaScript files -->
@@ -314,7 +415,7 @@
         <script src="~/assets/js/contact-form-script.js"></script>
         <script src="~/assets/js/ajaxchimp.min.js"></script>
         <script src="~/assets/js/custom.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <!-- JavaScript function to reset form fields -->
         <script>
             function myCancelFunction() {
@@ -325,58 +426,22 @@
                     alert("You select No!");
                 }
             }
-
         </script>
-        <script>
-            // Event handler for button click
-            $('#btnFetchData').click(function () {
-                debugger;
-                // AJAX call to fetch the data
-                $.ajax({
-                    url: '/AdvertisementListScreenByUserId', // URL to your action method
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
-                        // Data received successfully
-                        console.log(data);
-                        displayDataInTable(data);
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle the error if any
-                        console.error(error);
-                    }
-                });
-            });
 
-            // Function to display the data in the table
-            function displayDataInTable(data) {
-                var table = $("#advertisement-table");
-                var tableBody = table.find('tbody');
-                console.log("fount tbody")
-                // Clear existing table rows
-                tableBody.empty();
 
-                // Loop through the data and create rows for the table
-                $.each(data, function (index, item) {
-                    var row = $("<tr>");
+    <script>
+        function selectadvertise() {
+            var ads = document.getElementsByName("selectAd")
+            @Model.Advertisements=ads.values
+        }
 
-                    // Create table cells with data for each item
-                    var titleCell = $("<td>").text(item.advertisementTitle);
-                    var contentTypeCell = $("<td>").text(item.contentType);
-                    var endDateCell = $("<td>").text(item.endDate);
-                    var adClicksCell = $("<td>").text(item.adClicks);
-                    var viewsCell = $("<td>").text(item.views);
-                    var isActiveCell = $("<td>").text(item.isActive ? "Active" : "Inactive");
-                    debugger;
-                    // Append cells to the row
-                    row.append(titleCell, contentTypeCell, endDateCell, adClicksCell, viewsCell, isActiveCell);
+        function refreshlist(){
 
-                    // Append the row to the table body
-                    tableBody.append(row);
-                });
+        }
+        debugger
+        function ValidateModel(){
+         
+        }
 
-                // Show the container (table) after data is loaded
-                $("#data-container").show();
-            }
-        </script>
-</body>
+    </script>
+    </body>
