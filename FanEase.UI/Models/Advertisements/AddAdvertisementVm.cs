@@ -29,10 +29,8 @@ namespace FanEase.UI.Models.Advertisements
 
         [Required(ErrorMessage = "Enter Advertisement Image")]
         public string? Image { get; set; }
-         
-        public IFormFile UploadAdvertisement { get; set; }  //fileld to store Image & video of advtersiment.
 
-
+        public IFormFile? UploadAdvertisement { get; set; }
 
         [Required(ErrorMessage = "Select Advertisement placement")]
         public string AvertisementPlacement { get; set; }
@@ -46,10 +44,6 @@ namespace FanEase.UI.Models.Advertisements
         [Required(ErrorMessage = "Enter Number of clicks")]
         public int AdClicks { get; set; }
 
-        public string? UserId
-        {
-            get;
-
-        }
+        public string? UserId { get; set; }
     }
 }

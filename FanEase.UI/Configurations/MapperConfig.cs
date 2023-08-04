@@ -19,6 +19,7 @@ namespace FanEase.UI.Configurations
             CreateMap<AddVideoVm,Video>().ReverseMap();
             CreateMap<EditVideoVM, Video>().ReverseMap();
             CreateMap<AddAdvertisementVm,Advertisement>().ReverseMap();
+            CreateMap<EditAdvertisementVm, Advertisement>().ReverseMap();
             CreateMap<StateVm, State>().ReverseMap();
             CreateMap<CityVm, City>().ReverseMap();
             CreateMap<AdvertisementListVM, SelectAdvertisement>().ReverseMap();

@@ -11,7 +11,7 @@ namespace FanEase.Entity.Models
 
         public string AdvertisementTitle { get; set; }
         public int AdvertisementId { get; set; }
-        public string Image { get; set; }   //thumbnailimage
+        public string Image { get; set; }   // Advertisement thumbnailimage
 
         public string ContentType { get; set; } // Advertisement type=url,video
 
@@ -19,15 +19,19 @@ namespace FanEase.Entity.Models
 
         public int AdClicks { get; set; }  // no of Add. clicks
 
+
+        //field of campaign table
+
+        public string name { get; set; }  //campaign name
+
         //fields of video table
-       
-        public int CampaignId { get; set; } //campaign ref
 
         public int Views { get; set; } //No. of views
 
         public bool IsPublished { get; set; } //publish status  true=Go Live , false=draft
 
         public bool IsActive { get; set; } //active status Active=True , Inactive=False
+
 
 
 
