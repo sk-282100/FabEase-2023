@@ -90,7 +90,6 @@ namespace FanEase_CQRS.Controllers
             if (countryResponse.data != null)
             {
                 return Ok(new { exists = countryResponse });
-
             }
 
             return NotFound(countryResponse);

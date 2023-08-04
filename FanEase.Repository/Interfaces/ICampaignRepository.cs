@@ -11,6 +11,10 @@ namespace FanEase.Repository.Interfaces
         Task<int> UpdateCampaign(EditCampaignVm editCampaignVm);
         Task<List<CampaignListScreenVm>> CampaignListScreenByUserId(string userId);
         Task<int> LatestAddedCampaign(string userId);
+
         Task<bool> AssignCampaign(int? campaignId, int? advertisementId);
+
+        //Task<EditCampaignVm> EditCampaignAd(int campaignId);
+
     }
 }

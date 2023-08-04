@@ -112,5 +112,6 @@ namespace FanEase_CQRS.Controllers
             return Ok(status);
 
         }
+
     }
 }
