@@ -4,7 +4,8 @@
     ViewData["Title"] = "AddAdvertisement";
     Layout = "AdminLayout";
     //string UserId = "AT10";
-    string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    //string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    string uid = HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
 
 <head>
@@ -34,6 +35,23 @@
             }
             return;
         }
+
+        //Start date end date picker
+
+       //$("#StartDate, #EndDate").datepicker();
+
+       // $("#EndDate").change(function () {
+       //     var startDate = document.getElementById("StartDate").value;
+       //    var endDate = document.getElementById("EndDate").value;
+
+       //    if ((Date.parse(endDate) <= Date.parse(startDate))) {
+       //         alert("End date should be greater than Start date");
+       //         document.getElementById("EndDate").value = "";
+       //    }
+       // });
+
+
+
   </script>
 
 </head>
@@ -48,8 +66,9 @@
                     <h3>Add Advertisement</h3>
                 </div>
 
+                <!--runat="server" enctype="multipart/form-data" is used to get data from server -->
 
-                <form asp-action="AddAdvertisement" asp-controller="Advertisement" method="post">
+                <form asp-action="AddAdvertisement" asp-controller="Advertisement" method="post" runat="server" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
@@ -71,7 +90,7 @@
                                 <span asp-validation-for="AdvertisementTitle" class="text-danger"></span>
                             </div>
                         </div>
-
+                     
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <span>Start Date</span>
@@ -85,10 +104,29 @@
                             <div class="form-group">
                                 <span>End Date</span>
                                 <span class="text-danger">*</span>
-                                <input asp-for="EndDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                                <input asp-for="EndDate" class="form-control" min="@DateTime.Now.ToString(" yyyy-MM-ddTHH:mm")"  />
                                 <span asp-validation-for="EndDate" class="text-danger"></span>
                             </div>
                         </div>
+
+                        @*<div class="col-lg-6">
+                            <div class="form-group">
+                                <span>Start Date</span>
+                                <span class="text-danger">*</span>
+                                <input asp-for="StartDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" id="StartDate" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <span>End Date</span>
+                                <span class="text-danger">*</span>
+                                <input asp-for="EndDate" class="form-control" min="@Model.StartDate.ToString("yyyy-MM-ddTHH:mm")" id="EndDate" />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                        </div>
+*@
 
                         <div class="col-lg-6">
                             <div class="form-group">
@@ -130,34 +168,35 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
-                            <div class="form-group  hidden" id="imageOrvideo">
-                                <span>Image / Video</span>
-                                <input asp-for="Image" class="form-control" type="file" />
-                                <span asp-validation-for="Image" class="text-danger"></span>
-                            </div>
-                        </div>
-
                         <!--For uploading Advertisement Image/Video-->
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 hidden" id="imageOrvideo">
                             <div class="form-group">
-                                <label asp-for="UploadAdvertisement" class="control-label"></label><span class="text-danger">*</span>
-                                <input asp-for="UploadAdvertisement" class="form-control" type="file" id="takeImage" onchange="loadFile(event)" />
+                                <span>Upload Advertisement</span><span class="text-danger">*</span>
+                                <input asp-for="UploadAdvertisement" class="form-control" type="file" accept=".png,.jpeg ,.jpg, .MP4" id="takeImage" onchange="loadFile(event)" />
 
                                 <span asp-validation-for="UploadAdvertisement" class="text-danger"></span>
                             </div>
                         </div>
 
+                        
+                           @* <div class="col-lg-6 form-group  hidden" id="imageOrvideo">
+                                <span>Image / Video</span>
+                                <span class="text-danger">*</span>
+                            <input asp-for="UploadAdvertisement" class="form-control" type="file" accept=".png,.jpeg ,.jpg, .MP4" />
+                            <span asp-validation-for="UploadAdvertisement" class="text-danger"></span>
+                            </div>*@
+                      
 
-
-                        <div class="col-lg-4">
-                            <div class="form-group  hidden" id="redirectUrl">
+                       
+                            <div class="col-lg-6 form-group  hidden" id="redirectUrl">
                                 <span>Redirect URL</span>
+                                <span class="text-danger">*</span>
                                 <input asp-for="Url" class="form-control" type="url" />
                                 <span asp-validation-for="Url" class="text-danger"></span>
                             </div>
-                        </div>
+                        
 
+                      
 
 
                         <div class="col-lg-6">
@@ -171,8 +210,8 @@
 
 
                         <div class="form-group hidden">
-                            <label asp-for="UserId" class="control-label"></label>
-                            <input asp-for="UserId" class="form-control" value="@UserId" />
+                            <span>User Id</span><span class="text-danger">*</span>
+                            <input asp-for="UserId" class="form-control" value=@uid />
                             <span asp-validation-for="UserId" class="text-danger"></span>
                         </div><br />
                         <div class="form-group">

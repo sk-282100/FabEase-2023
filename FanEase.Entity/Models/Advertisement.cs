@@ -9,7 +9,7 @@ namespace FanEase.Entity.Models
 {
     public class Advertisement
     {
-        public int AdvertisementId { get; set; }
+        public int? AdvertisementId { get; set; }
 
         [Required(ErrorMessage ="Enter Advertisement Title")]
         [MaxLength(20 ,ErrorMessage ="Title sholuld be only of 50 letters")]
@@ -42,7 +42,7 @@ namespace FanEase.Entity.Models
 
         
         
-        [Required(ErrorMessage = "Enter URL")]
+       
         public string? Url { get; set; }
 
 

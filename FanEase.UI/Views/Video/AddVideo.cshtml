@@ -1,4 +1,6 @@
-﻿@model FanEase.UI.Models.Videos.AddVideoVm
+﻿
+@model FanEase.UI.Models.Videos.AddVideoVm
+
 @inject IHttpContextAccessor HttpContextAccessor;
 
 @{
@@ -13,6 +15,12 @@
 
 
 <head>
+    <!--For Wizard-->
+    <div class="align-right">
+        @Html.Partial("_WizardPartialView1")
+    </div>
+
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -112,6 +120,8 @@
 
     </style>
 
+   
+   
 
 </head>
 
@@ -119,16 +129,22 @@
     <div class="contact-list-area">
         <div class="container-fluid">
             <div class="table-responsive" data-simplebar>
+                <br /><br />
+
+                
                 <div class="others-title">
                     <h3>Add New Video</h3>
+                    
                 </div>
+
+               
 
                 @*<div class="progressbar">
                 <div class="progress" id="progress"></div>
                 <div class="progress-step active" data-title="Video"></div>
                 <div class="progress-step" data-title="Campaign"></div>
                 </div>*@
-
+               
                 <form asp-action="AddVideo" asp-controller="Video" method="post" runat="server" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row">

@@ -61,6 +61,13 @@ namespace FanEase.UI.Controllers
                 var content = new StringContent(JsonConvert.SerializeObject(video), Encoding.UTF8, "application/json");
                 using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Video", content))
                 {
+                    if(response.IsSuccessStatusCode)
+                    {
+                       // @Html.Partial("[_WizardPartialView]", (string)ViewBag.Message)
+                        ViewBag.Message = "success";
+                    }
+
+                        
                     string data = response.Content.ReadAsStringAsync().Result;
                 }
                 return RedirectToAction("VideoListByUSerId", new { userId = addVideoVm.UserId });
