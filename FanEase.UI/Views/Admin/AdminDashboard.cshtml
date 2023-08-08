@@ -56,7 +56,7 @@
                                     <div class="single-audience d-flex justify-content-between align-items-center">
                                         <div class="audience-content">
                                             <h5>Content Creators</h5>
-                                            <h4>@Model.CreatorCount <span>+55%</span></h4>
+                                            <h4>@Model.CreatorCount </h4>
                                         </div>
                                         <div class="icon">
                                             <img src="../assets/images/icon/white-profile-2user.svg" alt="white-profile-2user">
@@ -68,7 +68,7 @@
                                             <div class="single-audience d-flex justify-content-between align-items-center">
                                                 <div class="audience-content">
                                                     <h5>Advertisement</h5>
-                                                    <h4>@Model.AdvertisementCount <span>+55%</span></h4>
+                                                    <h4>@Model.AdvertisementCount </h4>
                                                 </div>
                                                 <div class="icon">
                                                     <img src="../assets/images/icon/send-2.svg" alt="white-profile-2user">
@@ -80,7 +80,7 @@
                                     <div class="single-audience d-flex justify-content-between align-items-center">
                                         <div class="audience-content color-style-fe5957">
                                             <h5>Video Uploaded</h5>
-                                            <h4>@Model.VideoCount <span>+32%</span></h4>
+                                            <h4>@Model.VideoCount </h4>
                                         </div>
                                         <div class="icon">
                                             <img src="../assets/images/icon/video-2.svg" alt="eye">
@@ -92,7 +92,7 @@
                                     <div class="single-audience d-flex justify-content-between align-items-center">
                                         <div class="audience-content">
                                             <h5>Advertisement Clicks</h5>
-                                            <h4>@Model.AdvertisementClicks <span>+23%</span></h4>
+                                            <h4>0</h4>
                                         </div>
                                         <div class="icon">
                                             <img src="../assets/images/icon/export.svg" alt="timer">
@@ -104,7 +104,7 @@
                                     <div class="single-audience d-flex justify-content-between align-items-center">
                                         <div class="audience-content color-style-fe5957">
                                             <h5>Views on Videos</h5>
-                                            <h4>@Model.Views <span>-15%</span></h4>
+                                            <h4>@Model.Views</h4>
                                         </div>
                                         <div class="icon">
                                             <img src="../assets/images/icon/eye.svg" alt="mask">
@@ -122,50 +122,22 @@
                             <div class="col-lg-6">
                                 <div class="traffic-content card-box-style">
                                     <div class="main-title d-flex justify-content-between align-items-center">
-                                        <h3>Traffic Channel</h3>
-
-                                        <select class="form-select form-control" aria-label="Default select example">
-                                            <option selected>15 days</option>
-                                            <option value="1">16 days</option>
-                                            <option value="2">17 days</option>
-                                            <option value="3">18 days</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="traffic-chart text-center">
-                                        <div id="traffic_chart"></div>
-                                    </div>
-
-                                    <div class="row justify-content-center">
+                                    <div class="container-fluid">
+                                        <h3>Map</h3>
+                                    <!-- Start Map Area -->
+                                    
                                         
-                                        <div class="col-xxl-3 col-md-3 col-sm-3">
-                                            <div class="single-traffic">
-                                                <span class="title">Organic Search</span>
-                                                <h4>19,202 <span>+32.50%</span></h4>
-                                            </div>
-                                        </div>
+                                            <div class="card-box-style map-style-one"">
 
-                                        <div class="col-xxl-3 col-md-3 col-sm-3">
-                                            <div class="single-traffic border-style-5c31d6">
-                                                <span class="title">Social Media</span>
-                                                <h4>15,202 <span>+32.50%</span></h4>
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d284603.387820268!2d72.8397202!3d19.0010232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited%20Kingdom!5e0!3m2!1sen!2sbd!4v1664342734415!5m2!1sen!2sbd"></iframe>
+ 
                                             </div>
+                                           
                                         </div>
+                                    
+                                    <!-- End Map Area -->
 
-                                        <div class="col-xxl-3 col-md-3 col-sm-3">
-                                            <div class="single-traffic border-style-4fcb8d">
-                                                <span class="title">Email</span>
-                                                <h4>502 <span>+2%</span></h4>
-                                            </div>
                                         </div>
-
-                                        <div class="col-xxl-3 col-md-3 col-sm-3">
-                                            <div class="single-traffic border-style-fec107">
-                                                <span class="title">Referrals</span>
-                                                <h4>1,202 <span>+32.50%</span></h4>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                                 <div class="col-lg-6">
@@ -184,14 +156,17 @@
                                                             </li>
                                                         </ul>
 
-                                                        <select class="form-select form-control" aria-label="Default select example">
+                                                       @* <select class="form-select form-control" aria-label="Default select example">
                                                             <option selected>30 days</option>
                                                             <option value="1">15 days</option>
                                                             <option value="2">10 days</option>
                                                             <option value="3">7 days</option>
                                                             <option value="4">1 day</option>
-                                                        </select>
+                                                        </select>*@
                                                     </div>
+
+                                           
+
                                                      <div class="tab-content" id="myTabContent">
                                                         <div class="tab-pane fade show active" id="topvideo-tab-pane" role="tabpanel" aria-labelledby="topvideo-tab" tabindex="0">
                                                     <table class="table align-middle">

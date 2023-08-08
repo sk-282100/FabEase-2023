@@ -82,7 +82,7 @@ namespace FanEase.UI.Controllers
                 addVideoVm.VideoFile = await SaveVideo(addVideoVm.UploadVideo);
                 if (addVideoVm.VideoFile == null)
                 {
-                    return View(addVideoVm);
+                    return View();
                 }
             }
             addVideoVm.VideoImage = await SaveThumnail(addVideoVm.UploadVideoImage);
