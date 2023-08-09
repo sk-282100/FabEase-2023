@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <script>
+    <script>
 
         var loadFile = function (event) {
             var output = document.getElementById('thumnailImage');
@@ -23,13 +23,13 @@
         };
 
 
-        function CheckDropDown(e){
-            const option=e.value;
+        function CheckDropDown(e) {
+            const option = e.value;
             if (option == "Url") {
                 document.getElementById('imageOrvideo').classList.add("hidden");
                 document.getElementById('redirectUrl').classList.remove("hidden");
             }
-            else{
+            else {
                 document.getElementById('imageOrvideo').classList.remove("hidden");
                 document.getElementById('redirectUrl').classList.add("hidden");
             }
@@ -134,7 +134,7 @@
                                 <span class="text-danger">*</span>
                                 <select asp-for="ContentType" class="form-control form-select" aria-hidden="true" onchange="CheckDropDown(this)">
                                     <option value="">-----Select Advertisement Type-----</option>
-                                    <option asp-for="ContentType" value="Image" id="0" >Image</option>
+                                    <option asp-for="ContentType" value="Image" id="0">Image</option>
                                     <option asp-for="ContentType" value="Video" id="0">Video</option>
                                     <option asp-for="ContentType" value="Url" id="1">Url</option>
                                 </select>
@@ -207,8 +207,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="form-group hidden">
                             <span>User Id</span><span class="text-danger">*</span>
                             <input asp-for="UserId" class="form-control" value=@uid />
@@ -241,13 +239,13 @@
         <!-- End Go Top Area -->
         <!-- Jquery Min JS -->
         <script src="../assets/js/jquery.min.js"></script>
- 
+
         <script src="../assets/js/owl.carousel.min.js"></script>
         <script src="../assets/js/metismenu.min.js"></script>
         <script src="../assets/js/simplebar.min.js"></script>
         <script src="../assets/js/geticons.js"></script>
         <script src="../assets/js/sweetalert2.all.min.js"></script>
-     
+
         <script src="../assets/js/editor.js"></script>
         <script src="../assets/js/form-validator.min.js"></script>
         <script src="../assets/js/contact-form-script.js"></script>

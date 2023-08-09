@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "AdvertisementListScreenByUserId";
     Layout = "AdminLayout";
-  //  string UserId = "AT10";
+    //  string UserId = "AT10";
     string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
     string role = HttpContextAccessor.HttpContext.Session.GetString("role");
 }
@@ -189,8 +189,8 @@
                                     {
                                         <p style="color :skyblue;">Golive</p>
                                     }
-            </td>
-            <td>
+                                </td>
+                                <td>
                                     @if (item.IsActive)
                                     {
                                         <p style="color :green;">Active</p>
