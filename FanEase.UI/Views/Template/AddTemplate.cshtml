@@ -1,7 +1,18 @@
-﻿@{
+﻿@using FanEase.Entity.Models;
+@model FanEase.Entity.Models.TemplateDetail
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
     Layout = "AdminLayout";
     string Type = "";
-    
+    int? CampaignId = HttpContextAccessor.HttpContext.Session.GetInt32("campaignId");
+    if (CampaignId == 0)
+        CampaignId = null;
+    string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    var advertisements = new List<AdvertisemenetForTemp>(); ;
+    if (ViewBag.Advertisements != null)
+    {
+        advertisements = ViewBag.Advertisements as List<AdvertisemenetForTemp>;
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -20,7 +31,7 @@
     <link rel="stylesheet" href="../assets/css/iconsax.css">
     <link rel="stylesheet" href="../assets/css/metismenu.min.css">
     <link rel="stylesheet" href="../assets/css/simplebar.min.css">
-   
+
     <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
     <link rel="stylesheet" href="../assets/css/jbox.all.min.css">
     <link rel="stylesheet" href="../assets/css/editor.css">
@@ -36,30 +47,31 @@
     <link rel="stylesheet" href="../assets/css/addTemplateNew.css">
 
     <script>
- 
-            function changebutton1() {
-       
+
+        function changebutton1() {
+
             var button1 = document.getElementById("template1button");
             var button2 = document.getElementById("template2button");
             var button3 = document.getElementById("template3button");
-            var type=document.getElementById("type");
-                if(button1.innerHTML!="Selected"){
+            var type = document.getElementById("type");
+            if (button1.innerHTML != "Selected") {
                 button1.innerHTML = "Selected";
                 button1.disabled = false;
                 button2.disabled = true;
                 button3.disabled = true;
                 type.value = "Template1";
-
                 
-                }
-                else{
-                  button1.innerHTML = "Choose Template 1";
+
+
+            }
+            else {
+                button1.innerHTML = "Choose Template 1";
                 button2.disabled = false;
                 button3.disabled = false;
                 type.value = "";
-                }
-              
             }
+
+        }
 
         function changebutton2() {
 
@@ -74,11 +86,12 @@
                 button2.disabled = false;
                 button1.disabled = true;
                 button3.disabled = true;
-                section6.disabled=true;
-                section7.disabled =true;
-                section8.disabled=true;
+                section6.disabled = true;
+                section7.disabled = true;
+                section8.disabled = true;
                 type.value = "Template2";
-                        }
+                type.innerHTML = "Template2";
+            }
             else {
                 button2.innerHTML = "Choose Template 2";
                 button1.disabled = false;
@@ -87,7 +100,7 @@
                 section7.disabled = false;
                 section8.disabled = false;
                 type.value = "";
-       
+
             }
 
         }
@@ -109,7 +122,7 @@
                 section7.disabled = true;
                 section8.disabled = true;
                 type.value = "Template3";
-                        }
+            }
             else {
                 button3.innerHTML = "Choose Template 3";
                 button2.disabled = false;
@@ -118,11 +131,14 @@
                 section7.disabled = false;
                 section8.disabled = false;
                 type.value = "";
-      
+               
             }
 
+                    
+
         }
-   
+
+
     </script>
 
     <!--Progress Wizard-->
@@ -133,17 +149,16 @@
 
 </head>
 <body>
-  <div class="card-box-style">
-      <div class="row">
-        <div class="others-title">
+    <div class="card-box-style">
+        <div class="row">
+            <div class="others-title">
                 <div class="row">
                     <div class="col-lg-6"><h2>Add Template</h2></div>
-                    <div align="right" class="col-lg-6"> <progress value="70" max="100">70 %</progress> 100%</div>
+                </div>
+
             </div>
-                
-        </div>
-            <div class="others-title" >
-                
+            <div class="others-title">
+
                 <div class="row">
                     <div class="col-lg-6"><h3>Select Template</h3></div>
                     <div align="right" class="col-lg-6"> <input class="btn btn-primary" type="button" onclick="location.href='@Url.Action("TemplateList","Template")'" value="Choose Existing Template" /> </div>
@@ -151,89 +166,89 @@
                 </div>
 
             </div>
-       <div>
-         <div class="row">
-            <div class="col-lg-12">
+            <div>
                 <div class="row">
-                <div class="col-lg-4">
-                   <h3>Template 1</h3>
-               
-                   <div class="container-fluid">
-                    
-                        
-                                <div class="grid-container1" id="allgrid">
-                                <div grid-container1-top1>
-                                <div class="type1-section1">1</div>
-                                <div class="grid-container1-top2">
-                                <div class="type1-section3">3</div>
-                                <div class="type1-section4">4</div>
-                                </div>
-                                </div>
-                                <div class="type1-section2">2</div>
-                                <div class="grid-container1-bottom1">
-                                <div class="type1-section5">5</div>
-                                <div class="type1-section6">6</div>
-                                </div>
-                               <div class="grid-container1-bottom2">
-                               <div class="type1-section7">7</div>
-                                <div class="type1-section8">8</div>
-                                </div>
-                             </div>
-                             <div class="form-control" align="right">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h3>Template 1</h3>
+
+                                <div class="container-fluid">
+
+
+                                    <div class="grid-container1" id="allgrid">
+                                        <div grid-container1-top1>
+                                            <div class="type1-section1">Section 1</div>
+                                            <div class="grid-container1-top2">
+                                                <div class="type1-section3">Section 3</div>
+                                                <div class="type1-section4">Section 4</div>
+                                            </div>
+                                        </div>
+                                        <div class="type1-section2">Section 2</div>
+                                        <div class="grid-container1-bottom1">
+                                            <div class="type1-section5">Section 5</div>
+                                            <div class="type1-section6">Section 6</div>
+                                        </div>
+                                        <div class="grid-container1-bottom2">
+                                            <div class="type1-section7">Section 7</div>
+                                            <div class="type1-section8">Section 8</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-control" align="right">
                                         <button onclick="changebutton1()" class="btn btn-primary" id="template1button" type="button">Choose Template 1</button>
-                              </div>
+                                    </div>
 
-                   </div>
-                            
-                </div>
+                                </div>
 
-                        <div class="col-lg-4">
-                            <h3>Template 2</h3>
+                            </div>
 
-                            <div class="container-fluid">
-                                <div class="grid-container2" id="allgrid2">
-                                    
-                                        <div class="type2-section1">1</div>
+                            <div class="col-lg-4">
+                                <h3>Template 2</h3>
+
+                                <div class="container-fluid">
+                                    <div class="grid-container2" id="allgrid2">
+
+                                        <div class="type2-section1">Section 1</div>
                                         <div class="grid-container1-top2">
-                                            <div class="type2-section2">2</div>
-                                            <div class="type2-section3">3</div>
+                                            <div class="type2-section2">Section 2</div>
+                                            <div class="type2-section3">Section 3</div>
                                         </div>
 
-                                    <div class="grid-container1-bottom1">
-                                        <div class="type2-section4">4</div>
-                                        <div class="type2-section5">5</div>
+                                        <div class="grid-container1-bottom1">
+                                            <div class="type2-section4">Section 4</div>
+                                            <div class="type2-section5">Section 5</div>
+                                        </div>
                                     </div>
-                                </div>
 
                                     <div class="form-control" align="right">
                                         <button onclick="changebutton2()" class="btn btn-primary" id="template2button" type="button">Choose Template 2</button>
                                     </div>
 
+                                </div>
+
+
+
                             </div>
-
-                               
-
-                        </div>
 
                             <div class="col-lg-4">
                                 <h3>Template 3</h3>
 
                                 <div class="container-fluid">
                                     <div class="grid-container2">
-                                    <div class="grid-container1" id="allgrid">
-                                        <div grid-container1-top1>
-                                            <div class="type3-section1">1</div>
-                                            <div class="grid-container1-top2">
-                                                <div class="type3-section3">3</div>
-                                                <div class="type3-section4">4</div>
+                                        <div class="grid-container1" id="allgrid">
+                                            <div grid-container1-top1>
+                                                <div class="type3-section1">Section 1</div>
+                                                <div class="grid-container1-top2">
+                                                    <div class="type3-section3">Section 3</div>
+                                                    <div class="type3-section4">Section 4</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="type1-section2">2</div>
-                                     
-                                            
+                                            <div class="type1-section2">Section 2</div>
 
-                                    </div>
-                                        <div class="type1-section5">5</div>
+
+
+                                        </div>
+                                        <div class="type1-section5">Section 5</div>
                                     </div>
 
                                     <div class="form-control" align="right">
@@ -241,258 +256,290 @@
                                     </div>
                                 </div>
 
-                              
+
 
                             </div>
-                   </div>
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
-         </div>
 
-         </div>
-     
 
-             
 
-            
-         
-          
+            <div class="col-lg-12">
+                <div class="container-fluid">
+                    <div class="card-box-style">
+                        <div class="others-title">
+                            <h3>Add Template to your video </h3>
+                        </div>
+                        <div id="form-container">
 
-       
-  
-    <div class="col-lg-12">
-        <div class="container-fluid">
-            <div class="card-box-style">
-                <div class="others-title">
-                    <h3>Add Template to your video </h3>
-                    </div>
-        <div id="form-container">
-            
-            <form id="content-form">
+                            <form id="content-form" asp-action="AddTemplate" asp-controller="Template">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                @*@{
+                                    if (CampaignId == null)
+                                    {
+                                        <div class="col-lg-6">
+                                            <span>Campaign Id</span><span class="text-danger"> *</span>
 
-                                <div class="col-lg-6">
-                                    <span>Template Type</span><span class="text-danger"> *</span>
+                                            <input type="number" class="form-control" />
+                                        </div>
+                                    }
+                                }*@
+                                <div class="col-lg-6" hidden>
+                                    <span>Template Detail Id</span><span class="text-danger"> *</span>
 
-                                    <input type="text" id="type" class="form-control" disabled/>
+                                    <input type="text" asp-for="TemplateDetailsId" class="form-control" />
+                                </div>
+
+                                <div class="col-lg-6" hidden>
+                                    <span>user Id</span><span class="text-danger"> *</span>
+
+                                    <input type="text" asp-for="UserId" class="form-control" value="@UserId"/>
+                                    <span asp-validation-for="UserId" class="text-danger"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span>Template Type</span><span class="text-danger"> *</span>
+
+                                        <input type="text" asp-for="TemplateType" id="type" class="form-control" />
+                                        <span asp-validation-for="TemplateType" class="text-danger"></span>
                                     </div>
 
-                <div class="row">
-                                <div class="col-lg-6">
-                <span>Template Title</span><span class="text-danger"> *</span>
-              
-                <input type="text" class="form-control" placeholder="Template Title"/>
-                                </div>
-                                <div class="col-lg-6">
-                 <span>Template Thumbnil</span><span class="text-danger"> *</span>
-                 <div class="form-control">
-                 <input type="file" accept="image/*" class="form Control" />
-                                </div>
-                                </div>
+                                    <div class="col-lg-6">
+                                        <span>Template Title</span><span class="text-danger"> *</span>
+
+                                        <input type="text" class="form-control" asp-for="TemplateTitle" placeholder="Template Title" />
+                                        <span asp-validation-for="TemplateTitle" class="text-danger"></span>
+                                    </div>
+
                                 </div>
 
-                 <div class="row">
-                                <div class="block-content  col-lg-6">
-                    <label>Section 1:</label>
-                    <select id="section-1" class="content-type form-select form-control">
-                        <option value="none">Select Content Type</option>
-                        <option value="text">Text (Title/Content)</option>
-                        <option value="image">Image</option>
-                        <option value="video">Video</option>
-                    </select>
-                    <div class="content-options"></div>
-                </div>
+                                <div class="row">
+                                    <div class="block-content  col-lg-6">
+                                        <label>Section 1:</label>
+                                        <select id="section-1" asp-for="Section1" class="content-type form-select form-control">
+                                            <option value="null">Select Content</option>
+                                            @foreach (var ads in advertisements)
+                                            {
+                                                <option value="@ads.AdvertisementId">@ads.AdvertisementTitle</option>
+                                            }
+                                        </select>
+                                        <div class="content-options"></div>
+                                    </div>
 
                                     <div class="block-content col-lg-6">
-                    <label>Section 2:</label>
-                      <select id="section-2" class="content-type form-select form-control">
-                        <option value="none">Select Content Type</option>
-                        <option value="text">Text (Title/Content)</option>
-                        <option value="image">Image</option>
-                        <option value="video">Video</option>
-                    </select>
-                    <div class="content-options"></div>
-                </div>
+                                        <label>Section 2:</label>
+                                        <select id="section-2" asp-for="Section2" class="content-type form-select form-control">
+                                            <option value="none">Select Content</option>
+                                            @foreach (var ads in advertisements)
+                                            {
+                                                <option value="@ads.AdvertisementId">@ads.AdvertisementTitle</option>
+                                            }
+                                        </select>
+                                        <div class="content-options"></div>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                <div class="block-content col-lg-6">
-                    <label>Section 3:</label>
-                        <select id="section-3" class="content-type form-select form-control">
-                        <option value="none">Select Content Type</option>
-                        <option value="text">Text (Title/Content)</option>
-                        <option value="image">Image</option>
-                        <option value="video">Video</option>
-                    </select>
-                    <div class="content-options"></div>
-                </div>
+                                    <div class="block-content col-lg-6">
+                                        <label>Section 3:</label>
+                                        <select id="section-3" asp-for="Section3" class="content-type form-select form-control">
+                                            <option value="null">Select Content</option>
+                                            @foreach (var ads in advertisements)
+                                            {
+                                                <option value="@ads.AdvertisementId">@ads.AdvertisementTitle</option>
+                                            }
+                                        </select>
+                                        <div class="content-options"></div>
+                                    </div>
 
-                                <div class="block-content col-lg-6">
-                <label>Section 4:</label>
-                   
-                   <select id="section-4" class="content-type form-select form-control">
-                    <option value="none">Select Content Type</option>
-                    <option value="text">Text (Title/Content)</option>
-                    <option value="image">Image</option>
-                    <option value="video">Video</option>
-                </select>
-                <div class="content-options"></div>
-              </div>
+                                    <div class="block-content col-lg-6">
+                                        <label>Section 4:</label>
+
+                                        <select id="section-4" asp-for="Section4" class="content-type form-select form-control">
+                                            <option value="null">Select Content</option>
+                                            @foreach (var ads in advertisements)
+                                            {
+                                                <option value="@ads.AdvertisementId">@ads.AdvertisementTitle</option>
+                                            }
+
+                                        </select>
+                                        <div class="content-options"></div>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                <div class="block-content col-lg-6">
-                                    <label>Section 5:</label>
+                                    <div class="block-content col-lg-6">
+                                        <label>Section 5:</label>
 
-                                    <select id="section-5" class="content-type form-select form-control">
-                                        <option value="none">Select Content Type</option>
-                                        <option value="text">Text (Title/Content)</option>
-                                        <option value="image">Image</option>
-                                        <option value="video">Video</option>
-                                    </select>
-                                    <div class="content-options"></div>
-                                </div>
+                                        <select id="section-5" asp-for="Section5" class="content-type form-select form-control">
+                                            <option value="null">Select Content</option>
+                                            @foreach (var ads in advertisements)
+                                            {
+                                                <option value="@ads.AdvertisementId">@ads.AdvertisementTitle</option>
+                                            }
 
-                                <div class="block-content col-lg-6">
-                                    <label>Section 6:</label>
+                                        </select>
+                                        <div class="content-options"></div>
+                                    </div>
 
-                                    <select id="section-6" class="content-type form-select form-control">
-                                        <option value="none">Select Content Type</option>
-                                        <option value="text">Text (Title/Content)</option>
-                                        <option value="image">Image</option>
-                                        <option value="video">Video</option>
-                                    </select>
-                                    <div class="content-options"></div>
-                                </div>
+                                    <div class="block-content col-lg-6">
+                                        <label>Section 6:</label>
+
+                                        <select id="section-6" asp-for="Section6" class="content-type form-select form-control">
+                                            <option value="null">Select Content</option>
+                                            @foreach (var ads in advertisements)
+                                            {
+                                                <option value="@ads.AdvertisementId">@ads.AdvertisementTitle</option>
+                                            }
+
+                                        </select>
+                                        <div class="content-options"></div>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                <div class="block-content col-lg-6">
-                                    <label>Section 7:</label>
+                                    <div class="block-content col-lg-6">
+                                        <label>Section 7:</label>
 
-                                    <select id="section-7" class="content-type form-select form-control">
-                                        <option value="none">Select Content Type</option>
-                                        <option value="text">Text (Title/Content)</option>
-                                        <option value="image">Image</option>
-                                        <option value="video">Video</option>
-                                    </select>
-                                    <div class="content-options"></div>
-                                </div>
+                                        <select id="section-7" asp-for="Section7" class="content-type form-select form-control">
+                                            <option value="null">Select Content</option>
+                                            @foreach (var ads in advertisements)
+                                            {
+                                                <option value="@ads.AdvertisementId">@ads.AdvertisementTitle</option>
+                                            }
 
-                                <div class="block-content col-lg-6">
-                                    <label>Section 8:</label>
+                                        </select>
+                                        <div class="content-options"></div>
+                                    </div>
 
-                                    <select id="section-8" class="content-type form-select form-control">
-                                        <option value="none">Select Content Type</option>
-                                        <option value="text">Text (Title/Content)</option>
-                                        <option value="image">Image</option>
-                                        <option value="video">Video</option>
-                                    </select>
-                                    <div class="content-options"></div>
-                                </div>
-                                </div>
-            <div>
-                <div></div>
+                                    <div class="block-content col-lg-6">
+                                        <label>Section 8:</label>
 
-                                <button type="button" id="done-btn" class="btn btn-primary">Done</button>
+                                        <select id="section-8" asp-for="Section8" class="content-type form-select form-control">
+                                            <option value="null">Select Content</option>
+                                            @foreach (var ads in advertisements)
+                                            {
+                                                <option value="@ads.AdvertisementId">@ads.AdvertisementTitle</option>
+                                            }
+
+                                        </select>
+                                        <div class="content-options"></div>
+                                    </div>
                                 </div>
-            </form>
-        </div>
+                                <div>
+                                    <button type="submit" id="done-btn" class="btn btn-primary">Done</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                </div>
+            </div>
         </div>
-        </div>
-        </div>
-        </div>
-        
-
-        <script>
-        
-            document.addEventListener("DOMContentLoaded", function () {
-                const formContainer = document.getElementById("form-container");
-                const contentForm = document.getElementById("content-form");
-                const doneBtn = document.getElementById("done-btn");
-                const buttonDiv = document.createElement("div")
-                        buttonDiv.align = "right";
-                const applybtn = document.createElement("button")
-                   applybtn.className = "btn btn-primary";
-                   applybtn.innerHTML = "Apply";
-                   applybtn.type = "button";
-
-               const Title = document.createElement("input");
-                   Title.type = "textarea";
-                   Title.className = "form-control";
-                   Title.placeholder = "Title";
+    </div>
 
 
-           
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 
-                function handleContentTypeSelect() {
+   @* <script>
 
-                    const contentOptionsContainer = this.nextElementSibling; 
+        document.addEventListener("DOMContentLoaded", function () {
+            const formContainer = document.getElementById("form-container");
+            const contentForm = document.getElementById("content-form");
+            const doneBtn = document.getElementById("done-btn");
+            const buttonDiv = document.createElement("div")
+            buttonDiv.align = "right";
+            const applybtn = document.createElement("button")
+            applybtn.className = "btn btn-primary";
+            applybtn.innerHTML = "Apply";
+            applybtn.type = "button";
 
-                    contentOptionsContainer.innerHTML = ""; 
+            const Title = document.createElement("input");
+            Title.type = "textarea";
+            Title.className = "form-control";
+            Title.placeholder = "Title";
 
-                    if (this.value !== "none") {
-                        const contentOptions = document.createElement("div");
-                        contentOptions.className = "content-options";
 
-                        if (this.value === "text") {
+
+
+            function handleContentTypeSelect() {
+
+                const contentOptionsContainer = this.nextElementSibling;
+
+                contentOptionsContainer.innerHTML = "";
+
+                if (this.value !== "none") {
+                    const contentOptions = document.createElement("div");
+                    contentOptions.className = "content-options";
+
+                    if (this.value === "text") {
                         const textForm = document.createElement("form");
-                        
+
                         const textInput = document.createElement("input");
                         textInput.type = "textarea";
                         textInput.className = "form-control";
-                        textInput.placeholder="Description/Text Content";
+                        textInput.placeholder = "Description/Text Content";
 
                         textForm.appendChild(Title);
                         textForm.appendChild(textInput);
                         textForm.appendChild(buttonDiv);
                         buttonDiv.appendChild(applybtn);
                         contentOptions.appendChild(textForm);
-                          
-                        } else if (this.value === "image") {
-                        
+
+                    } else if (this.value === "image") {
+
                         const imageForm = document.createElement("form");
-                         const fileInput = document.createElement("input");
-                         fileInput.type = "file";
-                         fileInput.accept = "image/*";
-                         fileInput.className = "form-control";
+                        const fileInput = document.createElement("input");
+                        fileInput.type = "file";
+                        fileInput.accept = "image/*";
+                        fileInput.className = "form-control";
                         imageForm.appendChild(Title);
-                         imageForm.appendChild(fileInput);
+                        imageForm.appendChild(fileInput);
                         imageForm.appendChild(buttonDiv);
                         buttonDiv.appendChild(applybtn);
                         contentOptions.appendChild(imageForm);
 
 
-                        } else if (this.value === "video") {
+                    } else if (this.value === "video") {
                         const videoForm = document.createElement("form");
-                        
-                         const fileInput = document.createElement("input");
-                         fileInput.type = "file";
-                         fileInput.accept = "video/*";
-                         fileInput.className = "form-control";
+
+                        const fileInput = document.createElement("input");
+                        fileInput.type = "file";
+                        fileInput.accept = "video/*";
+                        fileInput.className = "form-control";
                         videoForm.appendChild(Title);
-                         videoForm.appendChild(fileInput);
+                        videoForm.appendChild(fileInput);
                         videoForm.appendChild(buttonDiv);
                         buttonDiv.appendChild(applybtn);
                         contentOptions.appendChild(videoForm);
-                        }
-
-                        contentOptionsContainer.appendChild(contentOptions);
                     }
+
+                    contentOptionsContainer.appendChild(contentOptions);
                 }
+            }
 
-                const contentTypeSelects = contentForm.getElementsByClassName("content-type");
-                Array.from(contentTypeSelects).forEach(select => {
-                 select.addEventListener("change", handleContentTypeSelect);
-                });
-
-                
-                doneBtn.addEventListener("click", () => {
-                    
-                    alert("Template editing complete!");
-                });
-
-            
+            const contentTypeSelects = contentForm.getElementsByClassName("content-type");
+            Array.from(contentTypeSelects).forEach(select => {
+                select.addEventListener("change", handleContentTypeSelect);
             });
-        </script>
+
+
+            doneBtn.addEventListener("click", () => {
+
+                alert("Template editing complete!");
+            });
+
+
+        });
+    </script>*@
+
+
 
 </body>
 

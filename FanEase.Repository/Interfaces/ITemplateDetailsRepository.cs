@@ -9,5 +9,6 @@ namespace FanEase.Repository.Interfaces
         Task<bool> EditTemplateDetails(TemplateDetail templateDetail);
         Task<List<TemplateDetail>> GetAllTempletDetails();
         Task<TemplateDetail> GetTemplateDetailsById(int id);
+        Task<int> LatestAddedTemplateDetails(string userId);
     }
 }

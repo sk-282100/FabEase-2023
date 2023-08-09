@@ -27,7 +27,6 @@ namespace FanEase.UI.Models.Advertisements
         public string Description { get; set; }
 
 
-        [Required(ErrorMessage = "Enter Advertisement Image")]
         public string? Image { get; set; }
 
         public IFormFile? UploadAdvertisement { get; set; }

@@ -19,6 +19,5 @@ namespace FanEase.Entity.Models
 
         public bool VideoStatus { get; set; }
         
-        public string UserId { get; set; }
     }
 }

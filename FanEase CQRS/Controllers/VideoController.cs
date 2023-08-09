@@ -123,5 +123,14 @@ namespace FanEase_CQRS.Controllers
             return Ok(status);
 
         }
+
+        [HttpPost]
+        [Route("AssignTemplate")]
+        public async Task<IActionResult> AssignTemplate(AssignTemplateVM assignTemplate)
+        {
+            ResponseModel<bool> status = await _meadiator.Send(new AssignTemplateCommand(assignTemplate.VideoId, assignTemplate.TemplateId));
+            return Ok(status);
+
+        }
     }
 }

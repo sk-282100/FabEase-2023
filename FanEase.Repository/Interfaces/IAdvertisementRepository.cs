@@ -13,5 +13,6 @@ namespace FanEase.Repository.Interfaces
         Task<List<Advertisement>> GetAdvertisementsByUser(string userId);
         Task<List<Advertisement>> GetAllAdvertisements();
         Task<List<AdvertisementListVM>> AdvertisementListScreenByUserId(string userId);
+        Task<List<AdvertisemenetForTemp>> GetAdvertisementsByCampaign(int campaignId);
     }
 }

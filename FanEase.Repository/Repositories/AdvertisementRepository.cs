@@ -116,6 +116,17 @@ namespace FanEase.Repository.Repositories
 
         }
 
+        public async Task<List<AdvertisemenetForTemp>> GetAdvertisementsByCampaign(int campaignId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                List<AdvertisemenetForTemp> advertisements = connection.Query<AdvertisemenetForTemp>("GetAdvertisementsByCampaignProcedure", new { @campaignId = campaignId }, commandType: CommandType.StoredProcedure).ToList();
+
+                return advertisements;
+            }
+        }
+
         public async Task<List<Advertisement>> GetAdvertisementsByUser(string userId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

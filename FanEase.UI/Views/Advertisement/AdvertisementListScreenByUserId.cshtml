@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "AdvertisementListScreenByUserId";
     Layout = "AdminLayout";
-  //  string UserId = "AT10";
+    //  string UserId = "AT10";
     string UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
     string role = HttpContextAccessor.HttpContext.Session.GetString("role");
 }
@@ -134,20 +134,21 @@
                             <th>
                                 Quick Actions
                             </th>
-            
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr align="center">
-            <td>
-                @Html.DisplayFor(modelItem => item.AdvertisementTitle)
-            </td>
-            <td class="hidden">
-                @Html.DisplayFor(modelItem => item.AdvertisementId)
-            </td>
-            <td>
-               @* @Html.DisplayFor(modelItem => item.Image)*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AdvertisementTitle)
+                                </td>
+                                <td class="hidden">
+                                    @Html.DisplayFor(modelItem => item.AdvertisementId)
+                                </td>
+                                <td>
+                                    @* @Html.DisplayFor(modelItem => item.Image)*@
                                     @{
                                         string path = null;
                                         if (item.Image != null)
@@ -155,32 +156,32 @@
 
                                         if (path.Contains(".mp4"))
                                         {
-                                            <video width="80" height="80" src="@path" alt="not set" controls/>
+                                            <video width="80" height="80" src="@path" alt="not set" controls />
                                         }
                                         else
                                         {
                                             <img width="80" height="80" src="@path" alt="not set" />
                                         }
                                     }
-                                  
-                                    
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContentType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdClicks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Views)
-            </td>
-            <td>
+
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ContentType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AdClicks)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Views)
+                                </td>
+                                <td>
                                     @if (item.IsPublished)
                                     {
                                         <p style="color :green;">Draft</p>
@@ -189,8 +190,8 @@
                                     {
                                         <p style="color :skyblue;">Golive</p>
                                     }
-            </td>
-            <td>
+                                </td>
+                                <td>
                                     @if (item.IsActive)
                                     {
                                         <p style="color :green;">Active</p>

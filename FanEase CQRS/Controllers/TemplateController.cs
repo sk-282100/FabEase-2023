@@ -2,6 +2,7 @@
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Commands.ForTemplate;
 using FanEase.Middleware.Data.Queries.ForTemplate;
+using FanEase.Middleware.Data.Queries.ForTemplateDetails;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace FanEase_CQRS.Controllers
             ResponseModel<bool> templateDelete = await _mediator.Send(new DeleteTemplateCommand() { TemplateId = id });
             if (templateDelete.data)
             {
-                return Ok();
+                return Ok(templateDelete);
             }
 
             return NotFound();
@@ -81,6 +82,14 @@ namespace FanEase_CQRS.Controllers
             if (templatesById != null)
                 return Ok(templatesById);
             return NotFound(templatesById);
+        }
+
+        [HttpGet]
+        [Route("LatestAddedTemplate/{userId}")]
+        public async Task<IActionResult> LatestAddedTemplate(string userId)
+        {
+            ResponseModel<int> CampaignId = await _mediator.Send(new LatestAddedTemplateQuery(userId));
+            return Ok(CampaignId);
         }
     }
 }

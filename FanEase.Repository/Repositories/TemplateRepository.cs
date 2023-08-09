@@ -25,7 +25,7 @@ namespace FanEase.Repository.Repositories
             {
                 connection.Open();
 
-                var result = connection.Execute("AddTemplateProcedure", templates, commandType: CommandType.StoredProcedure);
+                var result = connection.Execute("AddTemplateProcedure", new{ @TemplateDetailsId = templates.TemplateDetailsId, @PublishStatus=templates.PublishStatus, @VideoStatus=templates.VideoStatus }, commandType: CommandType.StoredProcedure);
 
                 if (result > 0)
                     return true;
@@ -110,6 +110,21 @@ namespace FanEase.Repository.Repositories
                 templates = connection.Query<TemplateListDTO>("GetAllTemplatesByUserProcedure", new { @UserId= userId }, commandType: CommandType.StoredProcedure).ToList();
             }
             return templates;
+        }
+
+        public async Task<int> LatestAddedTemplate(string userId)
+        {
+            int templateId;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                templateId = connection.ExecuteScalar<int>("LatestAddedTemplateSP", new { @UserId = userId }, commandType: CommandType.StoredProcedure);
+
+            }
+
+            return templateId;
         }
     }
 }
