@@ -11,16 +11,16 @@ namespace FanEase.Entity.Models
     {
         public int? AdvertisementId { get; set; }
 
-        [Required(ErrorMessage ="Enter Advertisement Title")]
-        [MaxLength(20 ,ErrorMessage ="Title sholuld be only of 50 letters")]
+        [Required(ErrorMessage = "Enter Advertisement Title")]
+        [MaxLength(20, ErrorMessage = "Title sholuld be only of 50 letters")]
         public string AdvertisementTitle { get; set; }
 
-        [Required(ErrorMessage ="date & Time required")]
+        [Required(ErrorMessage = "date & Time required")]
         public DateTime StartDate { get; set; }
-        
-        
-       [Required(ErrorMessage = "date & Time required")]
-      
+
+
+        [Required(ErrorMessage = "date & Time required")]
+
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Select Advertisement type")]
@@ -34,14 +34,14 @@ namespace FanEase.Entity.Models
 
         public string? Image { get; set; }
 
-        
-        
+
+
         [Required(ErrorMessage = "Select Advertisement placement")]
         public string AvertisementPlacement { get; set; }
 
-        
-        
-       
+
+
+
         public string? Url { get; set; }
 
 

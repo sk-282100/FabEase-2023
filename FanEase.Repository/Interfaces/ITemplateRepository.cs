@@ -10,5 +10,6 @@ namespace FanEase.Repository.Interfaces
         Task<bool> DeleteTemplates(int id);
         Task<bool> UpdateTemplates(Templates templates);
         Task<List<TemplateListDTO>> GetAllTemplatesByUser(string userId);
+        Task<int> LatestAddedTemplate(string userId);
     }
 }

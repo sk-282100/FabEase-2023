@@ -2,6 +2,7 @@
 using ExceptionHandling;
 using FanEase.Entity.Models;
 using FanEase.Middleware.Data.Commands.ForTemplateDetails;
+using FanEase.Middleware.Data.Queries.ForCampaign;
 using FanEase.Middleware.Data.Queries.ForTemplateDetails;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -66,6 +67,15 @@ namespace FanEase_CQRS.Controllers
                 return Ok();
             }
             return NotFound();
+        }
+
+
+        [HttpGet]
+        [Route("LatestAddedTemplateDetails/{userId}")]
+        public async Task<IActionResult> LatestAddedTemplateDetails(string userId)
+        {
+            ResponseModel<int> CampaignId = await _mediator.Send(new LatestAddedTemplateDetailsQuery(userId));
+            return Ok(CampaignId);
         }
     }
 }

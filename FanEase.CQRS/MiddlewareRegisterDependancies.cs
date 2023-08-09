@@ -168,6 +168,11 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<AssignCampaignCommand, ResponseModel<bool>>, AssignCampaignCommandHandler>();
             services.AddScoped<IRequestHandler<LatestAddedCampaignQuery, ResponseModel<int>>, LatestAddedCampaignQueryHandler>();
             services.AddScoped<IRequestHandler<AssignAdvertisementCommand, ResponseModel<bool>>, AssignAdvertisementCommandHandler>();
+            services.AddScoped <IRequestHandler<GetAdvertisementsByCampaignQuery, ResponseModel<List<AdvertisemenetForTemp>>>, GetAdvertisementsByCampaignQueryHandler>();
+            services.AddScoped<IRequestHandler<AssignTemplateCommand, ResponseModel<bool>>, AssignTemplateCommandHandler>();
+            services.AddScoped<IRequestHandler<LatestAddedTemplateDetailsQuery, ResponseModel<int>>, LatestAddedTemplateDetailsQueryHandler>();
+            services.AddScoped<IRequestHandler<LatestAddedTemplateQuery, ResponseModel<int>>, LatestAddedTemplateQueryHandler>();
+
             return services;
         }
     }

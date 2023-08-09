@@ -57,7 +57,11 @@ namespace FanEase.Repository.Repositories
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var parameters = new { ThumbnilImage = templateDetail.ThumbnilImage, TemplateTitle=templateDetail.TemplateTitle, TemplateType=templateDetail.TemplateType, TemplateDetailsId = templateDetail.TemplateDetailsId };
+                var parameters = new {TemplateTitle=templateDetail.TemplateTitle, TemplateType=templateDetail.TemplateType, Section1=templateDetail.Section1,
+                Section2=templateDetail.Section2,Section3=templateDetail.Section3,Section4=templateDetail.Section4,Section5=templateDetail.Section5,
+                Section6=templateDetail.Section6,Section7=templateDetail.Section7,Section8=templateDetail.Section8,
+                    TemplateDetailsId = templateDetail.TemplateDetailsId
+                };
                 var result = await connection.ExecuteAsync("EditTemplateDetails", parameters, commandType: CommandType.StoredProcedure);
                 if (result > 0)
                     return true;
@@ -90,6 +94,21 @@ namespace FanEase.Repository.Repositories
 
                 return template;
             }
+        }
+
+        public async Task<int> LatestAddedTemplateDetails(string userId)
+        {
+            int templateDetailsId;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                templateDetailsId = connection.ExecuteScalar<int>("LatestAddedTemplateDetailsSP", new { @UserId = userId }, commandType: CommandType.StoredProcedure);
+
+            }
+
+            return templateDetailsId;
         }
     }
 }

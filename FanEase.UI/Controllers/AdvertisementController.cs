@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using FanEase.Entity.Models;
 using FanEase.UI.Models;
+using FanEase.UI.Models.Campaign;
 using FanEase.UI.Models.Advertisements;
 using FanEase.UI.Models.Creator;
 using FanEase.UI.Models.Videos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace FanEase.UI.Controllers
 {
@@ -27,7 +31,7 @@ namespace FanEase.UI.Controllers
         }
 
         [HttpPost]
-       
+
         public async Task<ActionResult> AddAdvertisement(AddAdvertisementVm advertisement)
         {
             if (advertisement.UploadAdvertisement != null)
@@ -39,13 +43,13 @@ namespace FanEase.UI.Controllers
                 }
             }
 
-            Advertisement add =  _mapper.Map<Advertisement>(advertisement);
+            Advertisement add = _mapper.Map<Advertisement>(advertisement);
 
             using (var httpclient = new HttpClient())
             {
-                
+
                 var content = new StringContent(JsonConvert.SerializeObject(add), Encoding.UTF8, "application/json");
-                
+
                 using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Advertisement/AddAdvertisement", content))
                 {
 
@@ -53,13 +57,87 @@ namespace FanEase.UI.Controllers
                     string data = response.Content.ReadAsStringAsync().Result;
                     var status = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
 
-                    if(status.data)
+                    if (status.data && HttpContext.Session.GetString("videoId") == null)
                         return RedirectToAction("AdvertisementListScreenByUserId", "Advertisement");
 
+                    else if (status.data && HttpContext.Session.GetString("videoId") != null)
+                    {
+                        return RedirectToAction("AddCampaign", "Campaign");
+                    }
                     return View(advertisement);
 
+
+
                 }
-               
+
+            }
+        }
+
+
+        //[HttpPost]
+        //public async Task<ActionResult> AddAdvertisementProceed(CampaignWithAdsDTO campaignWithAdsDTO) 
+        //{
+
+        //    if (campaignWithAdsDTO.Advertisement.AdvertisementTitle == null)
+        //        campaignWithAdsDTO.Advertisement = null;
+        //    string userId = HttpContext.Session.GetString("UserId");
+        //    using (var httpclient = new HttpClient())
+        //    {
+        //        if (campaignWithAdsDTO.CampaignId == 0 && campaignWithAdsDTO.Advertisement != null)
+        //        {
+
+        //            if (campaignWithAdsDTO.Advertisement.UploadAdvertisement != null)
+        //            {
+        //                campaignWithAdsDTO.Advertisement.Image = await SaveAdvertisement(campaignWithAdsDTO.Advertisement.UploadAdvertisement);
+        //                if (campaignWithAdsDTO.Advertisement.Image == null)
+        //                {
+        //                    return RedirectToAction("AddCampaign", "Campaign", campaignWithAdsDTO);
+        //                }
+        //            }
+
+        //            Advertisement add = _mapper.Map<Advertisement>(campaignWithAdsDTO.Advertisement);
+
+
+
+        //            var content = new StringContent(JsonConvert.SerializeObject(add), Encoding.UTF8, "application/json");
+
+        //            using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Advertisement/AddAdvertisement", content))
+        //            {
+        //                string data = response.Content.ReadAsStringAsync().Result;
+        //                var status = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+        //                ViewBag.ErrorMessage = "Successfully added to your list";
+
+        //                return RedirectToAction("AddCampaign", "Campaign", campaignWithAdsDTO);
+
+        //            }
+        //        }
+        //    }
+
+        //    return RedirectToAction("AddCampaign", "Campaign", campaignWithAdsDTO);
+        //}
+
+        //Edit advertisement GET method
+
+        [HttpGet]
+        [Route("EditAdvertisement/{AdvertisementId}")]
+
+        public async Task<IActionResult> EditAdvertisement(int AdvertisementId)
+        {
+
+            Advertisement advertisement;
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementById/{AdvertisementId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    advertisement = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
+
+                }
+
+                return View(advertisement);
+
+
+
             }
         }
 
@@ -85,64 +163,9 @@ namespace FanEase.UI.Controllers
                 return View(advertisement);
 
             }
-
-        }
-        //Edit Advertisement POST method
-
-
-        //Edit advertisement GET method
-
-        [HttpGet]
-        [Route("EditAdvertisement/{AdvertisementId}")]
-
-        public async Task<IActionResult> EditAdvertisement(int AdvertisementId)
-        {
-
-            Advertisement advertisement;
-            using (var httpclient = new HttpClient())
-            {
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementById/{AdvertisementId}"))
-                {
-                    string data = await response.Content.ReadAsStringAsync();
-                    advertisement = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
-
-                }
-
-                return View(advertisement);
-
-            }
         }
 
 
-        //Edit advertisement GET method
-
-        [HttpGet]
-        [Route("EditAdvertisement/{AdvertisementId}")]
-
-        public async Task<IActionResult> EditAdvertisement(int AdvertisementId)
-        {
-
-            Advertisement advertisement;
-            using (var httpclient = new HttpClient())
-            {
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementById/{AdvertisementId}"))
-                {
-                    string data = await response.Content.ReadAsStringAsync();
-                    advertisement = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
-
-                }
-        //Edit Advertisement POST method
-
-                return View(advertisement);
-
-            }
-
-        }
-        //Edit Advertisement POST method
-
-        [HttpPost]
-        public async Task<ActionResult> AddAdvertisementProceed(Advertisement advertisement)
-        {
 
         [HttpPost]
         [Route("EditAdvertisementPost")]
@@ -150,7 +173,7 @@ namespace FanEase.UI.Controllers
         {
             if (advertisement.UploadAdvertisement != null)
             {
-                string advtPath= await SaveAdvertisement(advertisement.UploadAdvertisement);
+                string advtPath = await SaveAdvertisement(advertisement.UploadAdvertisement);
                 if (advtPath != null)
                 {
                     advertisement.Image = advtPath;
@@ -172,17 +195,35 @@ namespace FanEase.UI.Controllers
 
                     //return RedirectToAction("AdvertisementListScreenByUserId");
 
+
                     if (HttpContext.Session.GetString("role") == "Admin")
                     {
-                    return RedirectToAction("AdvertisementList");
+                        return RedirectToAction("AdvertisementList");
                     }
                     else
                     {
-                       return RedirectToAction("AdvertisementListScreenByUserId", new { userId = advertisement.UserId });
+                        return RedirectToAction("AdvertisementListScreenByUserId", new { userId = advertisement.UserId });
                     }
                 }
 
             }
+        }
+
+        private async Task<string> SaveAdvertisement(IFormFile advt)
+        {
+            var uploadPath = Path.Combine("wwwroot", "UploadAdvertisement");
+            var advertisementName = Path.GetRandomFileName();
+            var advertisementExtension = Path.GetExtension(advt.FileName);
+            if (advertisementExtension == ".mp4" || advertisementExtension == ".jpg" || advertisementExtension == ".jpeg" || advertisementExtension == ".png")
+            {
+                var advtPath = Path.Combine(uploadPath, advertisementName + advertisementExtension);
+                using (var fileStream = new FileStream(advtPath, FileMode.Create))
+                {
+                    await advt.CopyToAsync(fileStream);
+                }
+                return (Path.Combine("UploadAdvertisement", advertisementName + advertisementExtension));
+            }
+            return null;
         }
 
 
@@ -191,7 +232,7 @@ namespace FanEase.UI.Controllers
 
         public async Task<IActionResult> AdvertisementList()
         {
-             
+
             ResponseModel<List<AdvertisementListVM>> responseModel = new ResponseModel<List<AdvertisementListVM>>();
 
             using (var httpclient = new HttpClient())
@@ -211,13 +252,13 @@ namespace FanEase.UI.Controllers
         }
 
 
-       
+
         //Corrected code above
         [HttpGet]
         [Route("AdvertisementListScreenByUserId")]
         public async Task<JsonResult> AdvertisementListScreenByUserId()
         {
-           string UserId = HttpContext.Session.GetString("UserId");
+            string UserId = HttpContext.Session.GetString("UserId");
 
             List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
 
@@ -244,21 +285,21 @@ namespace FanEase.UI.Controllers
             {
                 using (var response = await httpclient.DeleteAsync($"https://localhost:7208/api/Advertisement/DeleteAdvertisement/{advertisementId}"))
                 {
-                
-                    var UserId=HttpContext.Session.GetString("UserId");
+
+                    var UserId = HttpContext.Session.GetString("UserId");
                     string data = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
 
                     if (HttpContext.Session.GetString("role") == "Admin")
                     {
-                       return RedirectToAction("AdvertisementList");
+                        return RedirectToAction("AdvertisementList");
                     }
                     else
                     {
-                       return RedirectToAction("AdvertisementListScreenByUserId", new { userId =UserId });
+                        return RedirectToAction("AdvertisementListScreenByUserId", new { userId = UserId });
                     }
 
-                   
+
                 }
             }
         }
@@ -271,25 +312,7 @@ namespace FanEase.UI.Controllers
             return View();
         }
 
-        //For Uploading Advertisement Video/Image
-        private async Task<string> SaveAdvertisement(IFormFile advt)
-        {
-            var uploadPath = Path.Combine("wwwroot", "UploadAdvertisement");
-            var advertisementName = Path.GetRandomFileName();
-            var advertisementExtension = Path.GetExtension(advt.FileName);
-            if (advertisementExtension == ".mp4"|| advertisementExtension == ".jpg"|| advertisementExtension == ".jpeg"|| advertisementExtension == ".png")
-            {
-                var advtPath = Path.Combine(uploadPath, advertisementName + advertisementExtension);
 
-                using (var fileStream = new FileStream(advtPath, FileMode.Create))
-                {
-                    await advt.CopyToAsync(fileStream);
-                }
-
-                return (Path.Combine("UploadAdvertisement", advertisementName + advertisementExtension));
-            }
-            return null;
-        }
 
     }
 }

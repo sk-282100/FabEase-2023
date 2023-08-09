@@ -11,6 +11,5 @@ namespace FanEase.UI.Models.Campaign
 
         public int CampaignId { get; set; }
 
-        public AddAdvertisementVm Advertisement { get; set; }
     }
 }

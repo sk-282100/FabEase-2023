@@ -192,6 +192,19 @@ namespace FanEase.Repository.Repositories
                 return false;
             }
         }
+
+        public async Task<bool> AssignTemplate(int? videoId, int? templateId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var result = connection.Execute("AssignTemplateSP", new { @VideoId = videoId, @TemplateId = templateId }, commandType: CommandType.StoredProcedure);
+
+                if (result > 0)
+                    return true;
+                return false;
+            }
+        }
     }
 
 }

@@ -20,8 +20,9 @@ namespace FanEase.UI.Controllers
         {
             _mapper = mapper;
         }
+
         [HttpGet]
-        public async Task<ActionResult> AddCampaign()
+        public async Task<ActionResult> AddCampaign(CampaignWithAdsDTO? campaignWithAdsDTO)
         {
             string userId = HttpContext.Session.GetString("UserId");
             List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
@@ -43,13 +44,15 @@ namespace FanEase.UI.Controllers
             
             ViewBag.Advertisements = advertisements;
             ViewBag.CampaignList = Campaign;
-            CampaignWithAdsDTO campaignWithAdsDTO = new CampaignWithAdsDTO();
+            if(campaignWithAdsDTO==null) 
+                campaignWithAdsDTO = new CampaignWithAdsDTO();
             campaignWithAdsDTO.Advertisements = new List<SelectAdvertisement>(advertisements.Count);
-            campaignWithAdsDTO.Advertisement=new AddAdvertisementVm();
+            //campaignWithAdsDTO.Advertisement=new AddAdvertisementVm();
             return View(campaignWithAdsDTO);
         }
+
         [HttpPost]
-        public async Task<ActionResult> AddCampaign(CampaignWithAdsDTO campaignWithAdsDTO)
+        public async Task<ActionResult> AddCampaignPost(CampaignWithAdsDTO campaignWithAdsDTO)
         {
             using (var httpclient = new HttpClient())
             {
@@ -62,11 +65,62 @@ namespace FanEase.UI.Controllers
             }
         }
 
+        private async Task<string> SaveAdvertisement(IFormFile advt)
+        {
+            var uploadPath = Path.Combine("wwwroot", "UploadAdvertisement");
+            var advertisementName = Path.GetRandomFileName();
+            var advertisementExtension = Path.GetExtension(advt.FileName);
+            if (advertisementExtension == ".mp4" || advertisementExtension == ".jpg" || advertisementExtension == ".jpeg" || advertisementExtension == ".png")
+            {
+                var advtPath = Path.Combine(uploadPath, advertisementName + advertisementExtension);
+
+                using (var fileStream = new FileStream(advtPath, FileMode.Create))
+                {
+                    await advt.CopyToAsync(fileStream);
+                }
+
+                return (Path.Combine("UploadAdvertisement", advertisementName + advertisementExtension));
+            }
+            return null;
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddCampaignProceed(CampaignWithAdsDTO campaignWithAdsDTO)
         {
+            string userId = HttpContext.Session.GetString("UserId");
             using (var httpclient = new HttpClient())
             {
+                //if(campaignWithAdsDTO.CampaignId == 0 && campaignWithAdsDTO.Advertisement != null)
+                //{
+
+                //    if (campaignWithAdsDTO.Advertisement.UploadAdvertisement != null)
+                //    {
+                //        campaignWithAdsDTO.Advertisement.Image = await SaveAdvertisement(campaignWithAdsDTO.Advertisement.UploadAdvertisement);
+                //        if (campaignWithAdsDTO.Advertisement.Image == null)
+                //        {
+                //            return RedirectToAction("AddCampaign", "Campaign", campaignWithAdsDTO);
+                //        }
+                //    }
+
+                //    Advertisement add = _mapper.Map<Advertisement>(campaignWithAdsDTO.Advertisement);
+
+                    
+
+                //        var content = new StringContent(JsonConvert.SerializeObject(add), Encoding.UTF8, "application/json");
+
+                //        using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Advertisement/AddAdvertisement", content))
+                //        {
+
+
+                //            string data = response.Content.ReadAsStringAsync().Result;
+                //            var status = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
+
+
+                //        return RedirectToAction("AddCampaign", "Campaign", campaignWithAdsDTO);
+
+                //    }
+
+                //}
                 if (campaignWithAdsDTO.CampaignId == 0)
                 {
                     var content = new StringContent(JsonConvert.SerializeObject(campaignWithAdsDTO.Campaign), Encoding.UTF8, "application/json");
@@ -75,7 +129,7 @@ namespace FanEase.UI.Controllers
                         string data = response.Content.ReadAsStringAsync().Result;
                     }
                 }
-                string userId= HttpContext.Session.GetString("UserId");
+                
                 int CampaignId = campaignWithAdsDTO.CampaignId;
                 if (campaignWithAdsDTO.CampaignId == 0)
                 {
@@ -99,7 +153,7 @@ namespace FanEase.UI.Controllers
                     {
                         if (ads.IsSelectd == true)
                         {
-                            var content2 = new StringContent(JsonConvert.SerializeObject(new AssignAdvertisementVM { CampaignId = CampaignId, AdvertisementId = ads.AdvertisementId }));
+                            var content2 = new StringContent(JsonConvert.SerializeObject(new AssignAdvertisementVM { CampaignId = CampaignId, AdvertisementId = ads.AdvertisementId }),Encoding.UTF8, "application/json");
 
                             using (var response = await httpclient.PostAsync($"https://localhost:7208/api/Campaign/AssignAdvertisement", content2))
                             {

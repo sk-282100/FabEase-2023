@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace FanEase.Entity.Models
 {
-    public class AssignAdvertisementVM
+    public class AssignTemplateVM
     {
-        public int? CampaignId { get; set; }
-        public int? AdvertisementId { get; set; }
+        public int? VideoId { get; set; }
+
+        public int? TemplateId { get; set; }
     }
 }
