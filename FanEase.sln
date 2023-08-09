@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FanEase.ExceptionHandling",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FanEase.HelperClasses", "FanEase.HelperClasses\FanEase.HelperClasses.csproj", "{0D7F04FB-1260-4A2E-81BC-15DAFF2058F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FanEase.UI", "FanEase.UI\FanEase.UI.csproj", "{B15239E9-5426-4338-B0CD-000AFA27D6A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FanEase.UI", "FanEase.UI\FanEase.UI.csproj", "{B15239E9-5426-4338-B0CD-000AFA27D6A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

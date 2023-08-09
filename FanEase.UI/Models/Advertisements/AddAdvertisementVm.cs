@@ -36,7 +36,7 @@ namespace FanEase.UI.Models.Advertisements
 
 
 
-        [Required(ErrorMessage = "Enter URL")]
+        
         public string? Url { get; set; }
 
 

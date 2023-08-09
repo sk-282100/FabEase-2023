@@ -142,8 +142,30 @@ namespace FanEase.UI.Controllers
         }
 
 
+        //Edit advertisement GET method
 
-        //Edit Advertisement POST method
+        [HttpGet]
+        [Route("EditAdvertisement/{AdvertisementId}")]
+
+        public async Task<IActionResult> EditAdvertisement(int AdvertisementId)
+        {
+
+            Advertisement advertisement;
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementById/{AdvertisementId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    advertisement = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
+
+                }
+
+                return View(advertisement);
+
+            }
+        }
+
+
 
         [HttpPost]
         [Route("EditAdvertisementPost")]
@@ -289,6 +311,7 @@ namespace FanEase.UI.Controllers
         {
             return View();
         }
+
 
 
     }
