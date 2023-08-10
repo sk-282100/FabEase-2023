@@ -34,9 +34,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--Progress Wizard-->
+    @if(VideoId!=null){
     <div class="align-right">
         @Html.Partial("_WizardPartialView2")
     </div>
+    }
 
     <!-- Link Of CSS -->
     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
