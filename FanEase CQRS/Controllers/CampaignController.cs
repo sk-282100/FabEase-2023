@@ -32,11 +32,26 @@ namespace FanEase_CQRS.Controllers
             }
             return NotFound(campaigns);
         }
+
+        [HttpGet]
+        [Route("GetByDetailsId")]
+        public async Task<IActionResult> GetByDetailsId(int campaignId)
+        {
+            ResponseModel<Campaigns> campaignResponse = await _mediator.Send(new GetCampaignByDetailsIdQuery(campaignId));
+
+            if (campaignResponse.data != null)
+            {
+                return Ok(campaignResponse);
+            }
+
+            return NotFound(campaignResponse);
+        }
+
         [HttpGet]
         [Route("GetById")]
         public async Task<IActionResult> GetById(int campaignId)
         {
-            ResponseModel<Campaigns> campaignResponse = await _mediator.Send(new GetAllCampaignIdQuery(campaignId));
+            ResponseModel<MainCampaign> campaignResponse = await _mediator.Send(new GetAllCampaignIdQuery(campaignId));
 
             if (campaignResponse.data != null )
             {

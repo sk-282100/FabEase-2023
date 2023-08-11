@@ -17,7 +17,7 @@ namespace FanEase.UI.Models.Campaign
         [Required(ErrorMessage = "date & Time required")]
         public DateTime endDate { get; set; }
 
-        public int engagement { get; set; }
+        //public int engagement { get; set; }
         public string userId { get; set; }
 
         //[NotMapped]

@@ -1,7 +1,7 @@
 ﻿@model FanEase.UI.Models.Campaign.Dto.MainCampaignUI
 @inject IHttpContextAccessor HttpContextAccessor;
 @{
-    ViewData["Title"] = "CampaignEdit";
+    ViewData["Title"] = "CampaignDetails";
     Layout = "AdminLayout";
 }
 
@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="others-title">
             <div class="edit-profile-content card-box-style col-lg-12">
-                <h1>Campaign Edit</h1>
+                <h1>Campaign Details</h1>
                 <div class="row">
                     <div class="col-md-6">
                         <dl class="row">
@@ -25,13 +25,6 @@
                             <dt class="col-sm-4">End Date:</dt>
                             <dd class="col-sm-8">@Model.campad.endDate</dd>
                         </dl>
-                        <div class="form-group actionButton">
-                        @*    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditCampaignDetails","Campaign",new{CampaignId=Model.campad.CampaignId})'">
-                               Edit Campaign
-                            </button>*@
-                            <a asp-controller="Campaign" class="btn btn-primary" asp-action="EditCampaignsDetails" asp-route-CampaignId="@Model.campad.CampaignId">Edit Campaign</a>
-
-                        </div>
                     </div>
                 </div>
             </div>
@@ -46,7 +39,6 @@
                             <tr>
                                 <th>Advertisement ID</th>
                                 <th>Advertisement Title</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,9 +47,6 @@
                                 <tr>
                                     <td>@advertisement.advertisementId</td>
                                     <td>@advertisement.advertisementTitle</td>
-                                    <td>
-                                        
-                                    </td>
                                 </tr>
                             }
                         </tbody>

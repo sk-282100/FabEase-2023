@@ -1,0 +1,62 @@
+﻿@model FanEase.UI.Models.Campaign.EditCampaign
+
+@{
+    ViewData["Title"] = "EditCampaignsDetails";
+    Layout = "AdminLayout";
+}
+
+<
+<body class="body-bg-f8faff">
+    <div class="container-fluid">
+        <div class="others-title">
+            <div class="edit-profile-content card-box-style col-lg-12">
+                <h1>Edit Campaign</h1><form asp-action="EditCampaignsDetails">
+                    <div class="row">
+                        <div class="col-md-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="campaignId" class="control-label"></label>
+                <input asp-for="campaignId" class="form-control" />
+                <span asp-validation-for="campaignId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                                <span>Campaign Name</span>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                                <span>Start Date</span>
+                        <input asp-for="startDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                <span asp-validation-for="startDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                                <span>End Date</span>
+                        <input asp-for="endDate" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                <span asp-validation-for="endDate" class="text-danger"></span>
+            </div>
+            <div class="row hidden">
+                <label asp-for="userId" class="control-label"></label>
+                <input asp-for="userId" class="form-control" />
+                <span asp-validation-for="userId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</div>
+
+</body>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

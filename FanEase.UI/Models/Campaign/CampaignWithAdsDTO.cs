@@ -8,5 +8,7 @@ namespace FanEase.UI.Models.Campaign
         public Campaignvm Campaign { get; set; }
 
         public List<SelectAdvertisement> Advertisements { get; set; }
+
+        public int CampaignId { get; set; }
     }
 }

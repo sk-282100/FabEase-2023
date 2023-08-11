@@ -73,13 +73,13 @@
                             </form>*@
 
                             <ul class="create-upload d-flex">
-                                <li>
-                                    <a href="@Url.Action("AddCampaign", "Campaign")" class="btn btn-outline-primary mx-3">
+
+                                <a href="@Url.Action("AddCampaign", "Campaign")" class="btn btn-primary">
                                         Create
                                         
                                     </a>
 
-                                </li>
+                                
 
                             </ul>
                         </div>
@@ -126,26 +126,28 @@
                                     }
                                 </td>
 
-                                <td>
-                                    @if (item.isActive)
-                                    {
-                                        <p style="color :green;">Active</p>
-                                    }
-                                    else
-                                    {
-                                        <p style="color :orangered;">Inactive</p>
-                                    }
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.views)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.adClicks)
-                                </td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                    <td>
+                                        @if (item.isActive)
+                                        {
+                                            <p style="color :green;">Active</p>
+                                        }
+                                        else
+                                        {
+                                            <p style="color :orangered;">Inactive</p>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.views)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.adClicks)
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
 
-
+                                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("CampaignDetails","Campaign",new{CampaignId=item.campaignId})'">
+                                            <img src="../assets/images/icon/eye.svg" alt="mask">
+                                        </button>
                                         <button type="button" class="btn btn-danger" onclick="confirmRemove('@item.campaignId')">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />

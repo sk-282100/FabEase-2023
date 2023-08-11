@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace FanEase.Entity.Models
+namespace FanEase.UI.Models.Campaign.Dto
 {
-    public class campadvDetails
+    public class campadvDetailsUI
     {
         public string userId { get; set; }
         [Required(ErrorMessage = "Enter Campaign Name")]
@@ -22,16 +17,16 @@ namespace FanEase.Entity.Models
         public int CampaignId { get; set; }
         //  public IEnumerable<Advertisement> Advertisements { get; set; }
     }
-    public class CampaignAdv
+    public class CampaignAdvUI
     {
         public int advertisementId { get; set; }
         public string advertisementTitle { get; set; }
     }
 
-    public class MainCampaign
+    public class MainCampaignUI
     {
-        public campadvDetails campad { get; set; }
-        public List<CampaignAdv> CampaiAdvclass { get; set; }
-        
+        public campadvDetailsUI campad { get; set; }
+        public List<CampaignAdvUI> CampaiAdvclass { get; set; }
+
     }
 }

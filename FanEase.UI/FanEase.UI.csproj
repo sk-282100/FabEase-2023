@@ -8,13 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FanEase CQRS\FanEase.API.csproj" />
+ 
     <ProjectReference Include="..\FanEase.Entity\FanEase.Entity.csproj" />
     <ProjectReference Include="..\FanEase.ExceptionHandling\FanEase.ExceptionHandling.csproj" />
   </ItemGroup>

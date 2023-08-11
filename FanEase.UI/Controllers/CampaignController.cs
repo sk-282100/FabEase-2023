@@ -19,6 +19,25 @@ namespace FanEase.UI.Controllers
         {
             _mapper = mapper;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> CampaignDetails(string CampaignId)
+        {
+
+            MainCampaignUI campaign;
+
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/GetById?campaignId={CampaignId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    campaign = JsonConvert.DeserializeObject<ResponseModel<MainCampaignUI>>(data).data;
+
+                }
+
+            }
+            return View(campaign);
+        }
         [HttpGet]
         public async Task<ActionResult> AddCampaign()
         {
@@ -125,19 +144,51 @@ namespace FanEase.UI.Controllers
         public async Task<IActionResult> EditCampaigns(int CampaignId)
         {
 
-            EditCampaign editCampaign;
+            MainCampaignUI campaign;
+
             using (var httpclient = new HttpClient())
             {
                 using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/GetById?campaignId={CampaignId}"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
-                    editCampaign = JsonConvert.DeserializeObject<ResponseModel<EditCampaign>>(data).data;
+                    campaign = JsonConvert.DeserializeObject<ResponseModel<MainCampaignUI>>(data).data;
 
                 }
 
-                return View(editCampaign);
+            }
+            return View(campaign);
+
+        }
+        /// <summary>
+        /// EditCampaignsDetails  for only campaign
+        /// </summary>
+        /// <param name="CampaignId"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        public async Task<IActionResult> EditCampaignsDetails(int CampaignId)
+        {
+
+            MainCampaignUI campaign;
+            EditCampaign editCampaign=new EditCampaign();       
+
+            using (var httpclient = new HttpClient())
+            {
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Campaign/GetById?campaignId={CampaignId}"))
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    campaign = JsonConvert.DeserializeObject<ResponseModel<MainCampaignUI>>(data).data;
+                    editCampaign.campaignId = campaign.campad.CampaignId;
+                    editCampaign.name = campaign.campad.name;
+                    editCampaign.startDate = campaign.campad.startDate;
+                    editCampaign.endDate = campaign.campad.endDate;
+                    editCampaign.userId = campaign.campad.userId;
+
+
+                }
 
             }
+            return View(editCampaign);
 
         }
 
@@ -145,7 +196,7 @@ namespace FanEase.UI.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> EditCampaignPost(EditCampaign editCampaign)
+        public async Task<IActionResult> EditCampaignsDetails(EditCampaign editCampaign)
         {
 
 
@@ -157,7 +208,7 @@ namespace FanEase.UI.Controllers
                     string data = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<ResponseModel<bool>>(data);
 
-                    return RedirectToAction("CampaignListScreenByUserId");
+                    return RedirectToAction("CampaignListScreenByUserId", new { userId = editCampaign.userId });
 
                 }
 

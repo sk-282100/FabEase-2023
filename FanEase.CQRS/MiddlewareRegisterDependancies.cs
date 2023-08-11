@@ -85,8 +85,9 @@ namespace FanEase.Middleware
             services.AddScoped<IRequestHandler<CampaignDeleteCommand, ResponseModel<bool>>, CampaignDeleteCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateCampaignCommand, ResponseModel<bool>>, UpdateCampaignCommandHandler>();
             services.AddScoped<IRequestHandler<GetAllCampaignsQuery, ResponseModel<List<Campaigns>>>, GetAllCampaignsQueryHandler>();
-            services.AddScoped<IRequestHandler<GetAllCampaignIdQuery, ResponseModel<Campaigns>>, GetAllCampaignIdQueryHandler>();
+            services.AddScoped<IRequestHandler<GetAllCampaignIdQuery, ResponseModel<MainCampaign>>, GetAllCampaignIdQueryHandler>();
             services.AddScoped<IRequestHandler<GetAllCampaignListScreenByUserIdQuery, ResponseModel<List<CampaignListScreenVm>>>, GetAllCampaignListScreenByUserIdQueryHandler>();
+            services.AddScoped<IRequestHandler<GetCampaignByDetailsIdQuery, ResponseModel<Campaigns>>, GetCampaignByDetailsIdQueryHandler>();
             //services.AddScoped<IRequestHandler<GetAllCampaignAdvIdQuery,ResponseModel<List<EditCampaignVm>>>,GetAllCampaignAdvIdQueryHandler();
             //services.AddScoped<IRequestHandler<GetAllCampaignAdvIdQuery, ResponseModel<EditCampaignVm>>, GetAllCampaignAdvIdQueryHandler>();
 

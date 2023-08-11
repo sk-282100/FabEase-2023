@@ -15,6 +15,7 @@ namespace FanEase.UI.Models
 
         [Required(ErrorMessage = "date & Time required")]
         public DateTime endDate { get; set; }
+       public int CampaignId { get; set; }
 
     }
 }

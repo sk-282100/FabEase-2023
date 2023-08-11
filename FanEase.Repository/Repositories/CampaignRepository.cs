@@ -31,12 +31,50 @@ namespace FanEase.Repository.Repositories
             return campaigns.ToList();
         }
 
-        public async Task<Campaigns> GetCampaignById(int campaignId)
+        public async Task<Campaigns> GetCampaignDetailsById(int campaignId)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@CampaignId", campaignId);
-            Campaigns campaign = await GetByIdAsync<Campaigns>("GetCampaignById", parameters, CommandType.StoredProcedure);
+            Campaigns campaign = await GetByIdAsync<Campaigns>("GetCampaignByDetailsId", parameters, CommandType.StoredProcedure);
             return campaign;
+        }
+        public async Task<MainCampaign> GetCampaignById(int campaignId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@CampaignId", campaignId);
+
+                var MainCampaign = new MainCampaign();
+
+                using (var multi = await connection.QueryMultipleAsync("GetCampaignById", parameters, commandType: CommandType.StoredProcedure))
+                {
+                    if (!multi.IsConsumed)
+                    {
+                        MainCampaign.campad = (await multi.ReadSingleAsync<campadvDetails>());
+                        MainCampaign.CampaiAdvclass = (await multi.ReadAsync<CampaignAdv>()).ToList();
+
+
+
+                    }
+                }
+
+                return MainCampaign;
+            }
+
+            //MainClass1 mainClass1 = new MainClass1();
+
+            //// Assuming QueryMultipleAsync opens the connection and keeps it open
+            //using (var multi = await QueryMultipleAsync<MainClass1>("GetCampaignById", parameters, commandType: CommandType.StoredProcedure))
+            //{
+            //    if (!multi.IsConsumed)
+            //    {
+            //        mainClass1.campad = (await multi.ReadSingleAsync<campadvDetails>());
+            //        mainClass1.myClasses = (await multi.ReadAsync<MyClass1>()).ToList();
+            //    }
+            //}
+
+            //return mainClass1;
         }
 
 
@@ -68,6 +106,7 @@ namespace FanEase.Repository.Repositories
             int rowsAffected = await ExecuteAsync("UpdateCampaign", parameters, CommandType.StoredProcedure);
             return rowsAffected;
         }
+
 
         public async Task<int> DeleteCampaign(int campaignId)
         {
@@ -104,6 +143,8 @@ namespace FanEase.Repository.Repositories
 
             return campaignId;
         }
+
+        
         //public async Task<EditCampaignVm> EditCampaignAd(int campaignId)
         //{
         //    //DynamicParameters parameters = new DynamicParameters();

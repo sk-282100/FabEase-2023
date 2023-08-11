@@ -80,23 +80,24 @@ namespace FanEase.UI.Controllers
 
 
         [HttpGet]
-        [Route("AdvertisementListScreenByUserId")]
-        public async Task<JsonResult> AdvertisementListScreenByUserId()
+        [Route("EditAdvertisement/{AdvertisementId}")]
+
+        public async Task<IActionResult> EditAdvertisement(int AdvertisementId)
         {
-           string UserId = HttpContext.Session.GetString("UserId");
 
-            List<AdvertisementListVM> advertisements = new List<AdvertisementListVM>();
-
-            using (var httpClient = new HttpClient())
+            Advertisement advertisement;
+            using (var httpclient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementsByUser/{UserId}"))
+                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementById/{AdvertisementId}"))
                 {
                     string data = await response.Content.ReadAsStringAsync();
-                    advertisements = JsonConvert.DeserializeObject<List<AdvertisementListVM>>(data);
-                }
-            }
+                    advertisement = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
 
-            return new JsonResult(advertisements);
+                }
+
+                return View(advertisement);
+
+            }
         }
 
         //Delete Advertisement Method 
@@ -122,27 +123,27 @@ namespace FanEase.UI.Controllers
 
         //Edit advertisement GET method
 
-        [HttpGet]
-        [Route("EditAdvertisement/{AdvertisementId}")]
+        //[HttpGet]
+        //[Route("EditAdvertisement/{AdvertisementId}")]
 
-        public async Task<IActionResult> EditAdvertisement(int AdvertisementId)
-        {
+        //public async Task<IActionResult> EditAdvertisement(int AdvertisementId)
+        //{
 
-            Advertisement advertisement;
-            using (var httpclient = new HttpClient())
-            {
-                using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementById/{AdvertisementId}"))
-                {
-                    string data = await response.Content.ReadAsStringAsync();
-                    advertisement = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
+        //    Advertisement advertisement;
+        //    using (var httpclient = new HttpClient())
+        //    {
+        //        using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Advertisement/GetAdvertisementById/{AdvertisementId}"))
+        //        {
+        //            string data = await response.Content.ReadAsStringAsync();
+        //            advertisement = JsonConvert.DeserializeObject<ResponseModel<Advertisement>>(data).data;
 
-                }
+        //        }
 
-                return View(advertisement);
+        //        return View(advertisement);
 
-            }
+        //    }
 
-        }
+        //}
         //Edit Advertisement POST method
 
 

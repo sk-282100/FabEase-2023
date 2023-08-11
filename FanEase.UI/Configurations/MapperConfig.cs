@@ -2,6 +2,8 @@
 using AutoMapper;
 using FanEase.Entity.Models;
 using FanEase.UI.Models.Advertisements;
+using FanEase.UI.Models.Campaign;
+using FanEase.UI.Models.Campaign.Dto;
 using FanEase.UI.Models.City;
 using FanEase.UI.Models.Creator;
 using FanEase.UI.Models.State;
@@ -22,6 +24,7 @@ namespace FanEase.UI.Configurations
             CreateMap<StateVm, State>().ReverseMap();
             CreateMap<CityVm, City>().ReverseMap();
             CreateMap<AdvertisementListVM, SelectAdvertisement>().ReverseMap();
+            CreateMap<MainCampaignUI, EditCampaign>().ReverseMap();
         }
     }
 }

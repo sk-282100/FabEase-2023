@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Queries.ForCampaign
 {
-    public class GetAllCampaignIdQuery : IRequest<ResponseModel<MainCampaign>>
+    public class GetCampaignByDetailsIdQuery : IRequest<ResponseModel<Campaigns>>
     {
-        public GetAllCampaignIdQuery(int campaignId)
+        public GetCampaignByDetailsIdQuery(int campaignId)
         {
             this.campaignId = campaignId;
         }

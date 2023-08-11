@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FanEase.Middleware.Data.Handler.ForCampaign
 {
-    public class GetAllCampaignIdQueryHandler : IRequestHandler<GetAllCampaignIdQuery, ResponseModel<Campaigns>>
+    public class GetAllCampaignIdQueryHandler : IRequestHandler<GetAllCampaignIdQuery, ResponseModel<MainCampaign>>
     {
 
         private readonly ICampaignRepository _campaignRepository;
@@ -19,14 +19,14 @@ namespace FanEase.Middleware.Data.Handler.ForCampaign
         {
             _campaignRepository = campaignRepository;
         }
-        public async Task<ResponseModel<Campaigns>> Handle(GetAllCampaignIdQuery request, CancellationToken cancellationToken)
+        public async Task<ResponseModel<MainCampaign>> Handle(GetAllCampaignIdQuery request, CancellationToken cancellationToken)
         {
 
-            Campaigns campaign = await _campaignRepository.GetCampaignById(request.campaignId);
+            MainCampaign campaign = await _campaignRepository.GetCampaignById(request.campaignId);
 
 
            
-            return new ResponseModel<Campaigns> { data = campaign, message = "Campaign Received" };
+            return new ResponseModel<MainCampaign> { data = campaign, message = "Campaign Received" };
 
         }
     }

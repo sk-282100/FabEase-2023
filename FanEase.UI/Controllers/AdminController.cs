@@ -46,6 +46,29 @@ namespace FanEase.UI.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> CreatorDashboard()
+        {
+            if (HttpContext.Session.GetString("role") == "Creator")
+            {
+
+                ResponseModel<CreatorDashboardVM> responseModel = new ResponseModel<CreatorDashboardVM>();
+
+                using (var httpclient = new HttpClient())
+                {
+                    using (var response = await httpclient.GetAsync($"https://localhost:7208/api/Dashboard/Get"))
+                    {
+                        string data = await response.Content.ReadAsStringAsync();
+                        responseModel = JsonConvert.DeserializeObject<ResponseModel<CreatorDashboardVM>>(data);
+                    }
+
+                }
+
+                return View(responseModel.data);
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
         public IActionResult AddCreatorForm()
         {
             if (HttpContext.Session.GetString("role") == "Admin")
